@@ -2,13 +2,14 @@
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
 <LineChart fx:id="chart" xmlns="http://javafx.com/fxml/11"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController"
 
            prefHeight="350.0" prefWidth="600.0" >
     <xAxis>
-        <NumberAxis side="BOTTOM" fx:id="xAxis"/>
+        <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
     </xAxis>
     <yAxis>
         <NumberAxis side="LEFT" fx:id="yAxis"/>

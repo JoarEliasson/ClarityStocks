@@ -1,5 +1,6 @@
 package SE.ClarityStocksGUI.controller;
 
+import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController;
 import SE.ClarityStocksGUI.view.*;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -58,6 +59,7 @@ public class GUIHomeController {
     }
     @FXML
     public void goToStockView(){
+        GUIStockLinegraphController.getInstance().loadStockData();
         application.goToStockView();
     }
     @FXML

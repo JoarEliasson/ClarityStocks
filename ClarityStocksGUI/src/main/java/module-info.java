@@ -8,6 +8,7 @@ module SE.ClarityStocksGUI {
     requires javafx.base;
     requires VirtualizedFX;
     requires MaterialFX;
+    requires ClarityStocksAPI;
 
     opens SE.ClarityStocksGUI.view to javafx.fxml;
 
@@ -18,4 +19,5 @@ module SE.ClarityStocksGUI {
     opens SE.ClarityStocksGUI to javafx.fxml;
     exports SE.ClarityStocksGUI.controller.graphControllers;
     opens SE.ClarityStocksGUI.controller.graphControllers to javafx.fxml;
+
 }

@@ -1,5 +1,7 @@
 package SE.ClarityStocksGUI;
 
+import alphaVantage.AlphaVantageClient;
+
 /*
 
 
@@ -20,9 +22,5 @@ public class Test {
     public static void setTestData(String testData){
         Test.testData = testData;
     }
-
-
-
-
 
 }

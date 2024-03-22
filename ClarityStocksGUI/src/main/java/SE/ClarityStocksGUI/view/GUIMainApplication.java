@@ -3,6 +3,8 @@ package SE.ClarityStocksGUI.view;
 import SE.ClarityStocksGUI.controller.*;
 import SE.ClarityStocksGUI.Test;
 
+import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController;
+import alphaVantage.AlphaVantageClient;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
@@ -21,9 +23,12 @@ public class GUIMainApplication extends Application {
     private Stage stage;
     private GUIHomeController homeController;
     private GUIStockViewController stockViewController;
+    private AlphaVantageClient alphaVantageClient;
 
     @Override
     public void start(Stage stage) throws IOException {
+        alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
+        //System.out.println(alphaVantageClient.getFilteredSeries());
         this.stage = stage;
         String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
         //Setting up the Home view
@@ -32,8 +37,6 @@ public class GUIMainApplication extends Application {
         homeView.getStylesheets().add(css);
         homeController = homeLoader.getController();
         homeController.setApplication(this);
-
-
 
         //Setting up the Stock view
         FXMLLoader stockViewLoader = new FXMLLoader(GUIMainApplication.class.getResource("Stock-view.fxml"));
@@ -96,4 +99,9 @@ public class GUIMainApplication extends Application {
             }
         }
     }
+
+    public AlphaVantageClient getAlphaVantageClient(){
+        return alphaVantageClient;
+    }
+
 }

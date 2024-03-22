@@ -62,7 +62,7 @@
                     </VBox>
                     <VBox alignment="CENTER">
                         <Label fx:id="nameLabel" styleClass="stockName"/>
-                        <fx:include source="graphs/Stock-linegraph.fxml"/>
+                        <fx:include source="Stock-linegraph.fxml"/>
                     </VBox>
                 </StackPane>
                 <StackPane>
