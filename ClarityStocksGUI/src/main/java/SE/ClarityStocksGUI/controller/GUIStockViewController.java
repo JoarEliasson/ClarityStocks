@@ -1,15 +1,20 @@
 package SE.ClarityStocksGUI.controller;
 
-import SE.ClarityStocksGUI.view.*;
-
+import SE.ClarityStocksGUI.view.GUIMainApplication;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GUIStockViewController {
     private GUIMainApplication application;
@@ -18,7 +23,7 @@ public class GUIStockViewController {
     @FXML
     private VBox mainVBox;
     @FXML
-    private Label testLabel;
+    private Label nameLabel;
     @FXML
     private Rectangle menuBar;
     @FXML
@@ -27,6 +32,12 @@ public class GUIStockViewController {
     private MFXButton stockButton;
     @FXML
     private MFXButton homeButton;
+    @FXML
+    private Label currentPriceLabel;
+    @FXML
+    private Rectangle graphBackground;
+    @FXML
+    private Rectangle statBackground;
 
 
 
@@ -39,7 +50,11 @@ public class GUIStockViewController {
         menuBar.widthProperty().bind(mainVBox.widthProperty());
         menuBarLine.widthProperty().bind(mainVBox.widthProperty());
 
-        testLabel.setText("WORK IN PROGRESS!!!\n This is the stock view.");
+        nameLabel.setText("NAME");
+        currentPriceLabel.setText("CURRENT PRICE");
+
+        statBackground.setEffect(getDropShadow());
+        graphBackground.setEffect(getDropShadow());
     }
     public void setApplication(GUIMainApplication application){
         this.application = application;
@@ -48,6 +63,19 @@ public class GUIStockViewController {
     public void goToHomeView(){
         application.goToHomeView();
     }
+
+    private DropShadow getDropShadow(){
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(20);
+        dropShadow.setOffsetX(0);
+        dropShadow.setOffsetY(0);
+        dropShadow.setSpread(0.001);
+        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        dropShadow.setColor(Color.LIGHTGRAY);
+        return dropShadow;
+    }
+
+
 
 
 }

@@ -16,4 +16,6 @@ module SE.ClarityStocksGUI {
     opens SE.ClarityStocksGUI.controller to javafx.fxml;
     exports SE.ClarityStocksGUI;
     opens SE.ClarityStocksGUI to javafx.fxml;
+    exports SE.ClarityStocksGUI.controller.graphControllers;
+    opens SE.ClarityStocksGUI.controller.graphControllers to javafx.fxml;
 }
