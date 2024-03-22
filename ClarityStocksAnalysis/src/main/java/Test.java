@@ -1,6 +1,10 @@
 import alphaVantage.AlphaVantageClient;
 import alphaVantage.CompanyOverview;
+import alphaVantage.DataPoint;
+import alphaVantage.Interval;
 import controller.PERatioEvaluator;
+
+import java.util.List;
 
 public class Test {
 
@@ -10,9 +14,12 @@ public class Test {
 
         AlphaVantageClient client = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
         CompanyOverview companyOverview = null;
+        List<DataPoint> timeSeries = null;
 
         try {
             companyOverview = client.getCompanyOverview(symbol);
+            timeSeries = client.getFilteredSeries();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -23,6 +30,10 @@ public class Test {
 
         System.out.println("The Price Earnings Ratio for " + name + " (" + symbol + ") is: " + priceEarningsRatio);
         System.out.println(PERatioEvaluator.evaluatePriceEarningsRatio(symbol, name, priceEarningsRatio));
+
+        for (DataPoint dataPoint : timeSeries) {
+            System.out.println(dataPoint.getDate() + " - " + dataPoint.getClose());
+        }
 
     }
 }

@@ -5,6 +5,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AlphaVantageClient {
 
@@ -24,7 +26,6 @@ public class AlphaVantageClient {
                 .timeout(Duration.ofMinutes(1))
                 .GET()
                 .build();
-
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
@@ -36,4 +37,31 @@ public class AlphaVantageClient {
             throw new RuntimeException("Error fetching company overview", e);
         }
     }
+
+    public List<DataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        String urlString = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=" + apiKey;
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(urlString))
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return parser.parseTimeSeries(response.body());
+    }
+
+    public List<DataPoint> getFilteredSeries() {
+        List<DataPoint> timeSeries = new ArrayList<>();
+        List<DataPoint> unfilteredTimeSeries = new ArrayList<>();
+        try {
+            unfilteredTimeSeries = getTimeSeries("AAPL", Interval.DAILY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (DataPoint dataPoint : unfilteredTimeSeries) {
+            if (dataPoint.getDate().charAt(6) == '3' && dataPoint.getDate().charAt(3) == '4') {
+                timeSeries.add(dataPoint);
+            }
+        }
+        return timeSeries;
+    }
+
 }

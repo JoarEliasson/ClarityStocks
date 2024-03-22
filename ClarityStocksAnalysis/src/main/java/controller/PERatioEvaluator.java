@@ -35,12 +35,12 @@ public class PERatioEvaluator {
 
     private static int getScore(double peRatio) {
         int score = 0;
-        if (peRatio < 0) score = -1;
-        if (peRatio < 10) score = 5;
-        if (peRatio < 15) score = 4;
-        if (peRatio < 20) score = 3;
-        if (peRatio < 25) score = 2;
         if (peRatio < 30) score = 1;
+        if (peRatio < 25) score = 2;
+        if (peRatio < 20) score = 3;
+        if (peRatio < 15) score = 4;
+        if (peRatio < 10) score = 5;
+        if (peRatio < 0) score = -1;
         return score;
     }
 }
