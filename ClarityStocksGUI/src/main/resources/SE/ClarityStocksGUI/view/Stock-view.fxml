@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.text.Font?>
+<VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController"
+      prefHeight="400.0" prefWidth="600.0">
+
+    <BorderPane fx:id="layout">
+        <top>
+            <StackPane>
+                <VBox>
+                    <Rectangle fx:id="menuBar" fill="#d9d9d9" height="30.0" width="6.0" />
+                    <Rectangle fx:id="menuBarLine" fill="#929292" height="0.5" width="6.0" />
+                </VBox>
+                <HBox>
+
+                    <!--Home button Home button Home button Home button Home button Home button -->
+                    <MFXButton fx:id="homeButton" styleClass="menuButton" textAlignment="CENTER" onAction="#goToHomeView">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                        <opaqueInsets>
+                            <Insets right="20.0"/>
+                        </opaqueInsets></MFXButton>
+
+                    <!-- Stock button Stock button Stock button Stock button Stock button Stock button -->
+                    <MFXButton fx:id="stockButton" styleClass="menuButton" textAlignment="CENTER">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                        <opaqueInsets>
+                            <Insets right="20.0"/>
+                        </opaqueInsets></MFXButton>
+
+                </HBox>
+            </StackPane>
+
+        </top>
+
+        <center>
+            <VBox alignment="CENTER" spacing="20">
+                <Label fx:id="testLabel" />
+            </VBox>
+        </center>
+    </BorderPane>
+
+</VBox>
