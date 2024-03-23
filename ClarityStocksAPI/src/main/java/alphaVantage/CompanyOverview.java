@@ -1,5 +1,9 @@
 package alphaVantage;
 
+/**
+ * Class for representing details of stock company retrieved from Alpa Vantage API.
+ * */
+
 public class CompanyOverview {
 
     private String symbol;
@@ -17,6 +21,7 @@ public class CompanyOverview {
     private double profitMargin;
     private double operatingMarginTTM;
 
+    //Default constructor
     public CompanyOverview() {
     }
 
