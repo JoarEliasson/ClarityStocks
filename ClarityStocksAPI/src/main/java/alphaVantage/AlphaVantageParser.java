@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+/**
+ * Class for parsing JSON responses from Alpha Vantage API (company overview and series data).
+ * */
 
 public class AlphaVantageParser {
 
+    //Method for parsing JSON response containing company overview data. Sets values in CompanyOverview object. Returns overview object.
     public CompanyOverview parseCompanyOverview(String responseBody) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(responseBody);
@@ -34,6 +38,7 @@ public class AlphaVantageParser {
         return overview;
     }
 
+    //Method for parsing JSON response containing time data. Iterates over each entry, extracts data and creates a DataPoint object for each entry. Returns list of DataPoint objects.
     public List<DataPoint> parseTimeSeries(String responseBody) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         List<DataPoint> dataPoints = new ArrayList<>();
