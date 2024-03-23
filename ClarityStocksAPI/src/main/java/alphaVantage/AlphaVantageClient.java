@@ -77,6 +77,8 @@ public class AlphaVantageClient {
         return timeSeries;
     }
 
+    //Method for filtering retrieved data depending on year.
+
     public List<DataPoint> getFilteredSeries(int year) {
         List<DataPoint> timeSeries = new ArrayList<>();
         List<DataPoint> unfilteredTimeSeries = new ArrayList<>();
