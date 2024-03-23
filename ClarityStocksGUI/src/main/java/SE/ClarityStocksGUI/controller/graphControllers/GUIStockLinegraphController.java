@@ -4,13 +4,11 @@ import SE.ClarityStocksGUI.controller.LoadData;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import alphaVantage.AlphaVantageClient;
 import alphaVantage.DataPoint;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
 
 import java.util.List;
 
@@ -23,10 +21,10 @@ public class GUIStockLinegraphController {
     private NumberAxis yAxis;
     private GUIMainApplication application;
     private AlphaVantageClient alphaVantageClient;
-    private static GUIStockLinegraphController stockLinegraphController;
+    private static GUIStockLinegraphController stockLineGraphController;
 
     public void initialize(){
-        stockLinegraphController = this;
+        stockLineGraphController = this;
         LoadData load = new LoadData();
         alphaVantageClient = load.getAlphaVantageClient();
         chart.setCreateSymbols(false);
@@ -38,7 +36,7 @@ public class GUIStockLinegraphController {
 
     public void loadStockData(){
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        List<DataPoint> list = alphaVantageClient.getFilteredSeries();
+        List<DataPoint> list = alphaVantageClient.getFilteredSeries(-1,2024);
         for(DataPoint data : list){
             XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
             series.getData().add(point);
@@ -56,7 +54,7 @@ public class GUIStockLinegraphController {
     }
 
     public static GUIStockLinegraphController getInstance(){
-        return stockLinegraphController;
+        return stockLineGraphController;
     }
 
 }

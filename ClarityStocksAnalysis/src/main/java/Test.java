@@ -18,7 +18,7 @@ public class Test {
 
         try {
             companyOverview = client.getCompanyOverview(symbol);
-            timeSeries = client.getFilteredSeries();
+            timeSeries = client.getTimeSeries(symbol, Interval.DAILY);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,7 +12,6 @@
   <modules>
     <module>ClarityStocksAPI</module>
     <module>ClarityStocksGUI</module>
-    <module>ClarityStocksAPI</module>
     <module>ClarityStocksAnalysis</module>
     <module>ClarityStocksData</module>
   </modules>
