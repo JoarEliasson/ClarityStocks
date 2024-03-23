@@ -14,11 +14,13 @@ public class AlphaVantageClient {
     private final HttpClient httpClient;
     private final AlphaVantageParser parser = new AlphaVantageParser();
 
+    //Constructor. Creates instanse of httpClient
     public AlphaVantageClient(String apiKey) {
         this.apiKey = apiKey;
         this.httpClient = HttpClient.newHttpClient();
     }
 
+    //Method for retrieving company data. Creates a url for fetching data. Sends http GET request, retrieves and parses the response.
     public CompanyOverview getCompanyOverview(String symbol) throws Exception {
         String url = String.format("https://www.alphavantage.co/query?function=OVERVIEW&symbol=%s&apikey=%s", symbol, apiKey);
         HttpRequest request = HttpRequest.newBuilder()
@@ -38,6 +40,8 @@ public class AlphaVantageClient {
         }
     }
 
+    //Method for getting time data. Constructs an url for fetching data. Sends http GET request. Parses response.
+    //need for new http client? Why not use httpclient instead?
     public List<DataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
 
@@ -49,6 +53,7 @@ public class AlphaVantageClient {
         return parser.parseTimeSeries(response.body());
     }
 
+    //Method for filtering retrieved data depending on month and year.
     public List<DataPoint> getFilteredSeries(int month, int year) {
 
         if (month == -1) {
