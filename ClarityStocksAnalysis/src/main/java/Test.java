@@ -31,9 +31,12 @@ public class Test {
         System.out.println("The Price Earnings Ratio for " + name + " (" + symbol + ") is: " + priceEarningsRatio);
         System.out.println(PERatioEvaluator.evaluatePriceEarningsRatio(symbol, name, priceEarningsRatio));
 
-        for (DataPoint dataPoint : timeSeries) {
-            System.out.println(dataPoint.getDate() + " - " + dataPoint.getClose());
+        if (timeSeries != null && !timeSeries.isEmpty()) {
+            for (DataPoint dataPoint : timeSeries) {
+                System.out.println(dataPoint.getDate() + " - " + dataPoint.getClose());
+            }
         }
+
 
     }
 }
