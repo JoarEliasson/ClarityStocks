@@ -14,3 +14,16 @@
 .backgroundPanelStockView{
  -fx-fill: white;
 }
+
+.onHover{
+ -fx-background-color: ORANGE;
+}
+
+.chart-line-symbol {
+ -fx-background-color: transparent;
+}
+
+
+.chart-series-line {
+ -fx-stroke: #339ACC;
+}

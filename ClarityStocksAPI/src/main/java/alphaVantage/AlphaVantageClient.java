@@ -1,5 +1,8 @@
 package alphaVantage;
 
+import controller.PERatioEvaluator;
+import model.PERatioEvaluation;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -17,6 +20,27 @@ public class AlphaVantageClient {
     public AlphaVantageClient(String apiKey) {
         this.apiKey = apiKey;
         this.httpClient = HttpClient.newHttpClient();
+    }
+
+    public Stock getStock(String symbol) {
+        CompanyOverview companyOverview = null;
+        List<DataPoint> timeSeries = null;
+        try {
+            companyOverview = getCompanyOverview(symbol);
+            timeSeries = getTimeSeries(symbol, Interval.DAILY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert companyOverview != null;
+        assert timeSeries != null;
+        for (DataPoint dataPoint : timeSeries) {
+            System.out.println(dataPoint);
+        }
+        PERatioEvaluator peRatioEvaluator = new PERatioEvaluator();
+        PERatioEvaluation peRatioEvaluation = peRatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(), companyOverview.getPeRatio());
+
+        PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(), companyOverview.getPeRatio());
+        return new Stock(companyOverview, timeSeries, peRatioEvaluation.toString());
     }
 
     public CompanyOverview getCompanyOverview(String symbol) throws Exception {

@@ -28,7 +28,7 @@ public class GUIStockViewController {
     @FXML
     private MFXButton homeButton;
     @FXML
-    private Label currentPriceLabel;
+    private Label peEvaluationText;
     @FXML
     private Rectangle graphBackground;
     @FXML

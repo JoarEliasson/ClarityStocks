@@ -60,7 +60,7 @@
 
         <dependency>
             <groupId>SE.ClarityStocks</groupId>
-            <artifactId>ClarityStocksAnalysis</artifactId>
+            <artifactId>ClarityStocksAPI</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

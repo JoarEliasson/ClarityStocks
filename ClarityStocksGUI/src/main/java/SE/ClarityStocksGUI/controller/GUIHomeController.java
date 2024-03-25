@@ -1,6 +1,5 @@
 package SE.ClarityStocksGUI.controller;
 
-import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;

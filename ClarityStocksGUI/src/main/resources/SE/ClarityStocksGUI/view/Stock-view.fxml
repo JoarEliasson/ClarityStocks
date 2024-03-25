@@ -69,8 +69,8 @@
                     <VBox alignment="CENTER">
                         <Rectangle fill="#d9d9d9" height="400" width="200" fx:id="statBackground" styleClass="backgroundPanelStockView"/>
                     </VBox>
-                    <VBox alignment="CENTER">
-                        <Label fx:id="currentPriceLabel"/>
+                    <VBox alignment="CENTER"  >
+                        <Label fx:id="peEvaluationText" maxHeight="350" maxWidth="150"/>
                     </VBox>
                 </StackPane>
 
