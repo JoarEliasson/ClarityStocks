@@ -1,19 +1,13 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController;
-import SE.ClarityStocksGUI.view.*;
-
+import SE.ClarityStocksGUI.view.GUIMainApplication;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.skins.MFXButtonSkin;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-
-import java.awt.*;
 
 public class GUIHomeController {
     private GUIMainApplication application;

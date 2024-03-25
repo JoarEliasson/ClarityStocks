@@ -40,7 +40,7 @@ public class PERatioEvaluator {
         if (peRatio < 20) score = 3;
         if (peRatio < 15) score = 4;
         if (peRatio < 10) score = 5;
-        if (peRatio < 0) score = -1;
+        if (peRatio <= 0) score = -1;
         return score;
     }
 }

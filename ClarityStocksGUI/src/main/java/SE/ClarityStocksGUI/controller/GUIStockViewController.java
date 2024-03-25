@@ -1,23 +1,15 @@
 package SE.ClarityStocksGUI.controller;
 
-import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
-import alphaVantage.DataPoint;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import java.util.List;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class GUIStockViewController {
     private GUIMainApplication application;

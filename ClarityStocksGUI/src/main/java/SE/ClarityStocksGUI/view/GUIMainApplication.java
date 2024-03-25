@@ -1,9 +1,8 @@
 package SE.ClarityStocksGUI.view;
 
-import SE.ClarityStocksGUI.controller.*;
 import SE.ClarityStocksGUI.Test;
-
-import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController;
+import SE.ClarityStocksGUI.controller.GUIHomeController;
+import SE.ClarityStocksGUI.controller.GUIStockViewController;
 import alphaVantage.AlphaVantageClient;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
@@ -12,7 +11,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 
 import java.io.IOException;
 import java.util.Scanner;
