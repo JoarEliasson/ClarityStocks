@@ -89,9 +89,9 @@ public class AlphaVantageClient {
         }
         for (DataPoint dataPoint : unfilteredTimeSeries) {
             int dataPointYear = Integer.parseInt(dataPoint.getDate().substring(0, 4));
-            if (dataPointYear == year) {
+
                 timeSeries.add(dataPoint);
-            }
+
         }
         return timeSeries;
     }
