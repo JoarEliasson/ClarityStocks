@@ -7,6 +7,8 @@ import alphaVantage.DataPoint;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -20,15 +22,16 @@ import java.util.*;
 
 public class GUIStockLinegraphController {
     @FXML
-    private LineChart<Number, Number> chart;
+    private LineChart<String, Number> chart;
     @FXML
-    private NumberAxis xAxis;
+    private CategoryAxis xAxis;
     @FXML
     private NumberAxis yAxis;
     private GUIMainApplication application;
     private AlphaVantageClient alphaVantageClient;
     private static GUIStockLinegraphController stockLinegraphController;
     private List<DataPoint> list;
+    private XYChart.Series<String, Number> series;
 
     public void initialize(){
         stockLinegraphController = this;
@@ -45,23 +48,13 @@ public class GUIStockLinegraphController {
         if(!(chart.getData().isEmpty())){
             chart.getData().clear();
         }
-        xAxis.setForceZeroInRange(false);
-
-
-
+        xAxis.setAnimated(false);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
 
                 list = alphaVantageClient.getFilteredSeries();
                 populateChart();
-
-                    /* TODO ADD TOOLTIP
-                    Tooltip tooltip = new Tooltip("Closing price: " + data.getClose());
-                    Tooltip.install(point.getNode(), tooltip);
-
-                     */
-
             }
         });
 
@@ -73,22 +66,18 @@ public class GUIStockLinegraphController {
     }
 
     public void populateChart(){
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+       series = new XYChart.Series<>();
+        for (DataPoint data : list){
 
-
-        for (DataPoint data : list) {
-            String[] date = data.getDate().split("-");
-            StringBuilder dateString = new StringBuilder();
-            for(String s : date){
-                dateString.append(s);
-            }
-
-
-            System.out.println(dateString);
-
-
-            XYChart.Data<Number, Number> point = new XYChart.Data<>(Integer.parseInt(dateString.toString()), data.getClose());
+            XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
             series.getData().add(point);
+
+            /* TODO ADD TOOLTIP
+
+                    Tooltip tooltip = new Tooltip("Closing price: " + data.getClose());
+                    Tooltip.install(point.getNode(), tooltip);
+
+            */
         }
 
         chart.getData().add(series);

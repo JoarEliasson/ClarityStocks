@@ -40,21 +40,14 @@ public class AlphaVantageClient {
 
     public List<DataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
-
-        String urlString = "https://www.alphavantage.co/query?function=" + interval.getUrlParameter() + "&symbol=" + symbol + "&apikey=" + apiKey;
+        String urlString = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=" + apiKey;
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(urlString))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return parser.parseTimeSeries(response.body());
     }
-
-    public List<DataPoint> getFilteredSeries(int month, int year) {
-
-        if (month == -1) {
-            return getFilteredSeries(year);
-        }
-
+    public List<DataPoint> getFilteredSeries() {
         List<DataPoint> timeSeries = new ArrayList<>();
         List<DataPoint> unfilteredTimeSeries = new ArrayList<>();
         try {
@@ -63,29 +56,11 @@ public class AlphaVantageClient {
             e.printStackTrace();
         }
         for (DataPoint dataPoint : unfilteredTimeSeries) {
-            int dataPointYear = Integer.parseInt(dataPoint.getDate().substring(0, 4));
-            int dataPointMonth = Integer.parseInt(dataPoint.getDate().substring(5, 7));
-            if (dataPointYear == year && dataPointMonth == month) {
+            if (dataPoint.getDate().charAt(6) == '3' && dataPoint.getDate().charAt(3) == '4') {
                 timeSeries.add(dataPoint);
             }
         }
         return timeSeries;
     }
 
-    public List<DataPoint> getFilteredSeries(int year) {
-        List<DataPoint> timeSeries = new ArrayList<>();
-        List<DataPoint> unfilteredTimeSeries = new ArrayList<>();
-        try {
-            unfilteredTimeSeries = getTimeSeries("AAPL", Interval.DAILY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (DataPoint dataPoint : unfilteredTimeSeries) {
-            int dataPointYear = Integer.parseInt(dataPoint.getDate().substring(0, 4));
-            if (dataPointYear == year) {
-                timeSeries.add(dataPoint);
-            }
-        }
-        return timeSeries;
-    }
 }
