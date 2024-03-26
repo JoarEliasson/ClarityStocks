@@ -8,7 +8,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AlphaVantageClient {
@@ -71,20 +70,33 @@ public class AlphaVantageClient {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return parser.parseTimeSeries(response.body());
     }
-    public List<DataPoint> getFilteredSeries() {
-        List<DataPoint> timeSeries = new ArrayList<>();
-        List<DataPoint> unfilteredTimeSeries = new ArrayList<>();
+
+    public List<AlphaVantageStockInfo> searchEndpoint(String query) {
+        String url = String.format("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=%s&apikey=%s", query, apiKey);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofMinutes(1))
+                .GET()
+                .build();
         try {
-            unfilteredTimeSeries = getTimeSeries("AAPL", Interval.DAILY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (DataPoint dataPoint : unfilteredTimeSeries) {
-            if (dataPoint.getDate().charAt(6) == '3' && dataPoint.getDate().charAt(3) == '4') {
-                timeSeries.add(dataPoint);
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                return parser.parseSearchResults(response.body());
+            } else {
+                throw new RuntimeException("Failed to fetch data: HTTP status code " + response.statusCode());
             }
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching search results", e);
         }
-        return timeSeries;
+    }
+
+    public static void main(String[] args) {
+        AlphaVantageClient client = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
+        List<AlphaVantageStockInfo> searchResults = client.searchEndpoint("");
+        for (AlphaVantageStockInfo alphaVantageStockInfo : searchResults) {
+            System.out.println(alphaVantageStockInfo);
+        }
+
     }
 
 }
