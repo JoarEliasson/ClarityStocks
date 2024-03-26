@@ -91,7 +91,7 @@ public class GUIMainApplication extends Application {
     private class TestThread extends Thread{
         @Override
         public void run() {
-            while (true){
+            while (!Thread.interrupted()){
                 Scanner scanner = new Scanner(System.in);
                 Test.setTestData(scanner.nextLine());
             }
