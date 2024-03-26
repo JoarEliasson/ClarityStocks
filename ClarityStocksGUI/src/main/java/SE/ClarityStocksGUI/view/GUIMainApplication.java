@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.NasdaqStockholmCompanyData;
 
 import java.io.IOException;
 
@@ -32,6 +33,7 @@ public class GUIMainApplication extends Application {
         homeView.getStylesheets().add(css);
         homeController = homeLoader.getController();
         homeController.setApplication(this);
+        //homeController.setCompanyData(companyData);
 
         //Setting up the Stock view
         FXMLLoader stockViewLoader = new FXMLLoader(GUIMainApplication.class.getResource("Stock-view.fxml"));
@@ -39,6 +41,7 @@ public class GUIMainApplication extends Application {
         stockView.getStylesheets().add(css);
         stockViewController = stockViewLoader.getController();
         stockViewController.setApplication(this);
+        //stockViewController.setCompanyData(companyData);
 
         //MaterialFX default code to get stylesheets working
         UserAgentBuilder.builder()

@@ -1,5 +1,5 @@
 module ClarityStocksAnalysis {
 
-    exports controller;
-    exports model;
+    exports analysis.controller;
+    exports analysis.model;
 }

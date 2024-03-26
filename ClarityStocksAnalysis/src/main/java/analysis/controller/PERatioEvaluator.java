@@ -1,6 +1,6 @@
-package controller;
+package analysis.controller;
 
-import model.PERatioEvaluation;
+import analysis.model.PERatioEvaluation;
 
 public class PERatioEvaluator {
 

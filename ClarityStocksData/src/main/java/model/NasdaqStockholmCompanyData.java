@@ -11,11 +11,11 @@ public class NasdaqStockholmCompanyData {
     private List<ListedCompanyData> companies = new ArrayList<>();
 
     public NasdaqStockholmCompanyData(){
+        readCompaniesFromCSV();
     }
 
-    private void readCompaniesFromCSV(String fileName){
-        File file = new File(fileName);
-
+    private void readCompaniesFromCSV(){
+        File file = new File("ClarityStocksData/src/main/resources/nasdaq-stockholm-companies.csv");
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String line = reader.readLine();
@@ -52,4 +52,5 @@ public class NasdaqStockholmCompanyData {
 
         return matchedCompanies;
     }
+
 }

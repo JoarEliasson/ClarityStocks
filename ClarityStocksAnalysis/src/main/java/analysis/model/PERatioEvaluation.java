@@ -1,4 +1,4 @@
-package model;
+package analysis.model;
 
 public class PERatioEvaluation {
 

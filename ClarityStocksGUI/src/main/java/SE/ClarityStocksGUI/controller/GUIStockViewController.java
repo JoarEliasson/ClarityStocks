@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.NasdaqStockholmCompanyData;
 
 public class GUIStockViewController {
     private GUIMainApplication application;
@@ -71,4 +72,7 @@ public class GUIStockViewController {
     }
 
 
+    public void setCompanyData(NasdaqStockholmCompanyData companyData) {
+        this.companyData = companyData;
+    }
 }

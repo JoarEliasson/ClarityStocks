@@ -1,7 +1,7 @@
 package alphaVantage;
 
-import controller.PERatioEvaluator;
-import model.PERatioEvaluation;
+import analysis.controller.PERatioEvaluator;
+import analysis.model.PERatioEvaluation;
 
 import java.net.URI;
 import java.net.http.HttpClient;
