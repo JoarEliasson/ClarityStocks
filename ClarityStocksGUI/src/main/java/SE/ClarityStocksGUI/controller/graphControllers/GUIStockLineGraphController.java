@@ -22,6 +22,7 @@ public class GUIStockLineGraphController {
     private XYChart.Series<String, Number> series;
 
     public void initialize(){
+        System.out.println("StockLineGraphController initialized");
         String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
         stockLineGraphController = this;
         //chart.setCreateSymbols(false);
