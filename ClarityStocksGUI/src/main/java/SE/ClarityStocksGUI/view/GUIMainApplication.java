@@ -9,8 +9,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.NasdaqStockholmCompanyData;
-
 import java.io.IOException;
 
 public class GUIMainApplication extends Application {
@@ -22,8 +20,6 @@ public class GUIMainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        NasdaqStockholmCompanyData companyData = new NasdaqStockholmCompanyData();
-
         this.stage = stage;
         String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
         //Setting up the Home view

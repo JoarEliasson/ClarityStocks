@@ -13,7 +13,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import model.NasdaqStockholmCompanyData;
+import javafx.util.StringConverter;
+import model.StockInfo;
+import model.StockInfoList;
 import org.controlsfx.control.SearchableComboBox;
 
 public class GUIHomeController {
@@ -31,7 +33,7 @@ public class GUIHomeController {
     @FXML
     private MFXButton homeButton;
     @FXML
-    private SearchableComboBox<String> searchField;
+    private SearchableComboBox<StockInfo> searchField;
 
     //For testing purposes, will be removed later
     @FXML
@@ -42,8 +44,6 @@ public class GUIHomeController {
     private Label testData;
     @FXML
     private MFXButton updateTestData;
-
-    private NasdaqStockholmCompanyData companyData;
 
     public void initialize(){
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
@@ -72,10 +72,7 @@ public class GUIHomeController {
     public void setApplication(GUIMainApplication application){
         this.application = application;
     }
-    public void setCompanyData(NasdaqStockholmCompanyData companyData) {
-        this.companyData = companyData;
-        //setupSearchBar();
-    }
+
     /*
     private void setupSearchBar() {
         // Assuming searchField is your TextField for search
@@ -102,12 +99,21 @@ public class GUIHomeController {
     }
 
     private void setupComboBox(){
+        StockInfoList sil = new StockInfoList();
         searchField.setEditable(true);
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.add("Hello");
-        list.add("Test");
-        searchField.setItems(list);
+        searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
 
+        searchField.setConverter(new StringConverter<StockInfo>() {
+            @Override
+            public String toString(StockInfo stockInfo) {
+                return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
+            }
+
+            @Override
+            public StockInfo fromString(String s) {
+                return null;
+            }
+        });
 
     }
 }

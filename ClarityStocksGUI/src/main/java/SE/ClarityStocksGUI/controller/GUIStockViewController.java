@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.NasdaqStockholmCompanyData;
 
 public class GUIStockViewController {
     private GUIMainApplication application;
@@ -39,7 +38,6 @@ public class GUIStockViewController {
     @FXML
     private Rectangle statBackground;
     private Stock stock;
-    private NasdaqStockholmCompanyData companyData;
 
 
     public void initialize(){
@@ -94,7 +92,4 @@ public class GUIStockViewController {
         stockButton.setStyle("-fx-background-color: #339ACC");
     }
 
-    public void setCompanyData(NasdaqStockholmCompanyData companyData) {
-        this.companyData = companyData;
-    }
 }
