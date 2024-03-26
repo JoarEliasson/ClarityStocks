@@ -10,7 +10,8 @@
 <?import javafx.geometry.Insets?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.text.Font?>
-<VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/fxml/11"
+<?import org.controlsfx.control.SearchableComboBox?>
+<VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/fxml/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController"
       prefHeight="400.0" prefWidth="600.0">
@@ -47,6 +48,15 @@
                         <opaqueInsets>
                             <Insets right="20.0"/>
                         </opaqueInsets></MFXButton>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <SearchableComboBox fx:id="searchField" promptText="Search..." prefWidth="200" styleClass="searchField" onAction="#loadStock">
+                        <opaqueInsets>
+                            <Insets />
+                        </opaqueInsets>
+                        <HBox.margin>
+                            <Insets bottom="3.0" top="3.0"  right="5"/>
+                        </HBox.margin>
+                    </SearchableComboBox>
 
                 </HBox>
             </StackPane>

@@ -6,6 +6,7 @@ import alphaVantage.AlphaVantageClient;
 import alphaVantage.Stock;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
@@ -14,6 +15,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.StringConverter;
+import model.StockInfo;
+import model.StockInfoList;
+import org.controlsfx.control.SearchableComboBox;
 
 public class GUIStockViewController {
     private GUIMainApplication application;
@@ -37,13 +42,17 @@ public class GUIStockViewController {
     private Rectangle graphBackground;
     @FXML
     private Rectangle statBackground;
+    private StockInfo currentStock;
+    @FXML
+    private SearchableComboBox<StockInfo> searchField;
+
     private Stock stock;
 
 
     public void initialize(){
 
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
-
+        setupComboBox();
         homeButton.setText("Home");
         stockButton.setText("Stock");
 
@@ -90,6 +99,38 @@ public class GUIStockViewController {
     public void changeButtonColor(){
         homeButton.setStyle("-fx-background-color: #d9d9d9;");
         stockButton.setStyle("-fx-background-color: #339ACC");
+    }
+
+    private void setupComboBox(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                StockInfoList sil = new StockInfoList();
+                searchField.setEditable(true);
+                searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
+                searchField.setConverter(new StringConverter<StockInfo>() {
+                    @Override
+                    public String toString(StockInfo stockInfo) {
+                        return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
+                    }
+
+                    @Override
+                    public StockInfo fromString(String s) {
+                        return null;
+                    }
+                });
+            }
+        });
+
+    }
+
+    public void loadStock(){
+        if(searchField.getValue() != null && currentStock != searchField.getValue()){
+            System.out.println(((StockInfo) searchField.getValue()).getName());
+            currentStock = searchField.getValue();
+            System.out.println(currentStock.getSymbol());
+            application.goToStockView(currentStock.getSymbol());
+        }
     }
 
 }

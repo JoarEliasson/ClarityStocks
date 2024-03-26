@@ -3,7 +3,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.CategoryAxis?>
-<LineChart fx:id="chart" stylesheets="@../styles.css" xmlns="http://javafx.com/fxml/11"
+<LineChart fx:id="chart" stylesheets="@../styles.css" xmlns="http://javafx.com/fxml/21"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController"
 

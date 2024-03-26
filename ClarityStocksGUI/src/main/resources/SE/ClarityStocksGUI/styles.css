@@ -43,3 +43,11 @@
 .searchField > .arrow-button > .arrow {
  -fx-padding: 0;
 }
+
+
+.custom-text-field:left-node-visible .left-pane {
+ -fx-padding: 0 0 0 -2000;
+}
+
+
+

@@ -2,6 +2,7 @@ package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +21,7 @@ import javafx.util.StringConverter;
 import model.StockInfo;
 import model.StockInfoList;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.textfield.CustomTextField;
 
 public class GUIHomeController {
     private GUIMainApplication application;
@@ -94,30 +97,40 @@ public class GUIHomeController {
      */
 
     public void changeButtonColor(){
-        //homeButton.setStyle("-fx-background-color: #339ACC;");
-        //stockButton.setStyle("-fx-background-color: #d9d9d9");
+        homeButton.setStyle("-fx-background-color: #339ACC;");
+        stockButton.setStyle("-fx-background-color: #d9d9d9");
     }
     @FXML
     public void goToStockView(){
-        //application.goToStockView();
+        application.goToStockView();
     }
 
+    public void resetSearchBar(){
+        searchField.hide();
+        searchField.setValue(null);
+        searchField.setPromptText("Search...");
+    }
     private void setupComboBox(){
-        StockInfoList sil = new StockInfoList();
-        searchField.setEditable(true);
-        searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
-
-        searchField.setConverter(new StringConverter<StockInfo>() {
+        Platform.runLater(new Runnable() {
             @Override
-            public String toString(StockInfo stockInfo) {
-                return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
-            }
+            public void run() {
+                StockInfoList sil = new StockInfoList();
+                searchField.setEditable(true);
+                searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
+                searchField.setConverter(new StringConverter<StockInfo>() {
+                    @Override
+                    public String toString(StockInfo stockInfo) {
+                        return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
+                    }
 
-            @Override
-            public StockInfo fromString(String s) {
-                return null;
+                    @Override
+                    public StockInfo fromString(String s) {
+                        return null;
+                    }
+                });
             }
         });
+
     }
 
     public void loadStock(){

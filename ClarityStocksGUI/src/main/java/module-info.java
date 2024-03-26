@@ -10,6 +10,7 @@ module SE.ClarityStocksGUI {
     requires MaterialFX;
     requires ClarityStocksAPI;
     requires ClarityStocksData;
+    requires java.logging;
 
     opens SE.ClarityStocksGUI.view to javafx.fxml;
 

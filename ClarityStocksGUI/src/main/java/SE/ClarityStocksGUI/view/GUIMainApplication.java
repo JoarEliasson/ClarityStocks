@@ -11,6 +11,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+import java.lang.reflect.Array;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class GUIMainApplication extends Application {
     private Scene homeView;
     private Scene stockView;
@@ -65,18 +69,45 @@ public class GUIMainApplication extends Application {
         stage.setScene(stockView);
     }
 
-    public void goToHomeView(){
-        //homeController.changeButtonColor();
+    public void goToStockView(){
+        stockViewController.changeButtonColor();
+        stockViewController.loadStockView("TSLA");
         double height = stage.getHeight();
         double width = stage.getWidth();
 
         stage.setHeight(height);
         stage.setWidth(width);
-        stage.setScene(homeView);
+        stage.setScene(stockView);
+    }
+
+    public void goToHomeView(){
+        homeController.changeButtonColor();
+        double height = stage.getHeight();
+        double width = stage.getWidth();
+
+        stage.setHeight(height);
+        stage.setWidth(width);
+        try {
+            stage.setScene(homeView);
+            homeController.resetSearchBar();
+
+        }catch (ClassCastException e){
+
+        }
 
     }
 
     public static void main(String[] args) {
-        launch();
+        /*
+            All logging is disabled because of a bug in an external library that gives tons of error messages when
+            nothing is wrong.
+
+            Remove the two lines under to enable logging again.
+
+         */
+
+        Logger logger = Logger.getLogger(""); // COMMENT OUT THIS LINE
+        logger.setLevel(Level.OFF);     //COMMENT OUT THIS LINE
+        launch(args);
     }
 }
