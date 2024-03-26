@@ -55,7 +55,7 @@
                 <Label fx:id="welcomeText" />
                 <Label fx:id="testDataInfo"/>
                 <Label fx:id="testData"/>
-                <MFXButton fx:id="updateTestData" onAction="#updateTestData"/>
+                <MFXButton fx:id="updateTestData"/>
             </VBox>
         </center>
 

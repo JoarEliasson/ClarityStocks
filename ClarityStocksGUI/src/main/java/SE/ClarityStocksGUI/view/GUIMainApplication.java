@@ -19,12 +19,11 @@ public class GUIMainApplication extends Application {
     private Stage stage;
     private GUIHomeController homeController;
     private GUIStockViewController stockViewController;
-    private AlphaVantageClient alphaVantageClient;
 
     @Override
     public void start(Stage stage) throws IOException {
-        alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
-        //System.out.println(alphaVantageClient.getFilteredSeries());
+        NasdaqStockholmCompanyData companyData = new NasdaqStockholmCompanyData();
+
         this.stage = stage;
         String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
         //Setting up the Home view
@@ -57,16 +56,6 @@ public class GUIMainApplication extends Application {
         stage.setScene(homeView);
         stage.show();
 
-        //new TestThread().start();  //<---- ONLY FOR TESTING - Testing for updating testData, just write in the console what you want the text to be
-    }
-
-    public static void main(String[] args) {
-        launch();
-    }
-
-    //TEST
-    public String getTestData(){
-        return Test.getTestData();
     }
 
     public void goToStockView(){
@@ -88,18 +77,7 @@ public class GUIMainApplication extends Application {
 
     }
 
-    private class TestThread extends Thread{
-        @Override
-        public void run() {
-            while (true){
-                Scanner scanner = new Scanner(System.in);
-                Test.setTestData(scanner.nextLine());
-            }
-        }
+    public static void main(String[] args) {
+        launch();
     }
-
-    public AlphaVantageClient getAlphaVantageClient(){
-        return alphaVantageClient;
-    }
-
 }

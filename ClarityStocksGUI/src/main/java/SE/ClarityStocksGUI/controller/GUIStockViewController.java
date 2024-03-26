@@ -1,7 +1,11 @@
 package SE.ClarityStocksGUI.controller;
 
+import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
+import alphaVantage.AlphaVantageClient;
+import alphaVantage.Stock;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
@@ -34,10 +38,23 @@ public class GUIStockViewController {
     private Rectangle graphBackground;
     @FXML
     private Rectangle statBackground;
-
+    private Stock stock;
+    private NasdaqStockholmCompanyData companyData;
 
 
     public void initialize(){
+        AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                stock = alphaVantageClient.getStock("AAPL");
+                GUIStockLineGraphController.getInstance().loadStockData(stock);
+                nameLabel.setText(stock.getCompanyOverview().getName());
+
+                peEvaluationText.setText(stock.getPERatioEvaluation());
+
+            }
+        });
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
 
         homeButton.setText("Home");
@@ -45,9 +62,6 @@ public class GUIStockViewController {
 
         menuBar.widthProperty().bind(mainVBox.widthProperty());
         menuBarLine.widthProperty().bind(mainVBox.widthProperty());
-
-        nameLabel.setText("NAME");
-        currentPriceLabel.setText("CURRENT PRICE");
 
         statBackground.setEffect(getDropShadow());
         graphBackground.setEffect(getDropShadow());

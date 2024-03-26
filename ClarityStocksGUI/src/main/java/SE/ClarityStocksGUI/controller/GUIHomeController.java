@@ -83,11 +83,6 @@ public class GUIHomeController {
      */
     @FXML
     public void goToStockView(){
-        GUIStockLinegraphController.getInstance().loadStockData();
         application.goToStockView();
-    }
-    @FXML
-    public void updateTestData(){
-        testData.setText(application.getTestData());
     }
 }

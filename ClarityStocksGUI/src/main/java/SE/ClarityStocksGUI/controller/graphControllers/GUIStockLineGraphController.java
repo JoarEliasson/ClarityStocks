@@ -36,7 +36,33 @@ public class GUIStockLineGraphController {
         return stockLineGraphController;
     }
 
-    public static GUIStockLinegraphController getInstance(){
-        return stockLinegraphController;
+    public void loadStockData(Stock stock){
+        this.stock = stock;
+        if(!(chart.getData().isEmpty())){
+            chart.getData().clear();
+        }
+
+        series = new XYChart.Series<>();
+
+        for (DataPoint data : stock.getTimeSeries().reversed()){
+
+            XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
+            series.getData().add(point);
+
+        }
+        chart.getData().add(series);
+
+        for (XYChart.Data<String, Number> data : series.getData()) {
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText("Price: " + data.getYValue());
+            tooltip.setShowDelay(new Duration(0.0));
+            tooltip.setHideDelay(new Duration(0.0));
+
+            Tooltip.install(data.getNode(), tooltip
+            );
+            System.out.println(tooltip.getText());
+            data.getNode().setOnMouseEntered(event -> data.getNode().getStyleClass().add("onHover"));
+            data.getNode().setOnMouseExited(event -> data.getNode().getStyleClass().remove("onHover"));
+        }
     }
 }
