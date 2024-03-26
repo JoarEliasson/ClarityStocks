@@ -5,9 +5,8 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import yahooFinance.Logger;
+import yahooFinance.LoggerFactory;
 import yahooFinance.HistQuotesRequest;
 import yahooFinance.HistoricalQuote;
 import yahooFinance.Interval;
@@ -222,11 +221,6 @@ public class Stock {
      *
      * @return      a list of historical quotes from this stock
      * @throws java.io.IOException when there's a connection problem
-     * @see         #getHistory(yahoofinance.histquotes.Interval)
-     * @see         #getHistory(java.util.Calendar)
-     * @see         #getHistory(java.util.Calendar, java.util.Calendar)
-     * @see         #getHistory(java.util.Calendar, yahoofinance.histquotes.Interval)
-     * @see         #getHistory(java.util.Calendar, java.util.Calendar, yahoofinance.histquotes.Interval)
      */
     public List<HistoricalQuote> getHistory() throws IOException {
         if(this.history != null) {
@@ -237,11 +231,9 @@ public class Stock {
 
     /**
      * Requests the historical quotes for this stock with the following characteristics.
-     * <ul>
-     * <li> from: 1 year ago (default)
-     * <li> to: today (default)
-     * <li> interval: specified value
-     * </ul>
+     * from: 1 year ago (default)
+     * to: today (default)
+     * interval: specified value
      *
      * @param interval      the interval of the historical data
      * @return              a list of historical quotes from this stock
@@ -254,11 +246,10 @@ public class Stock {
 
     /**
      * Requests the historical quotes for this stock with the following characteristics.
-     * <ul>
-     * <li> from: specified value
-     * <li> to: today (default)
-     * <li> interval: MONTHLY (default)
-     * </ul>
+     *  from: specified value
+     *  to: today (default)
+     * interval: MONTHLY (default)
+     *
      *
      * @param from          start date of the historical data
      * @return              a list of historical quotes from this stock
@@ -439,10 +430,9 @@ public class Stock {
 
     /**
      * Requests the historical splits for this stock with the following characteristics.
-     * <ul>
-     * <li> from: specified value
-     * <li> to: today (default)
-     * </ul>
+     * from: specified value
+     *  to: today (default)
+     *
      *
      * @param from          start date of the historical data
      * @return              a list of historical splits from this stock
@@ -455,10 +445,9 @@ public class Stock {
 
     /**
      * Requests the historical splits for this stock with the following characteristics.
-     * <ul>
-     * <li> from: specified value
-     * <li> to: specified value
-     * </ul>
+     *  from: specified value
+     * to: specified value
+     *
      *
      * @param from          start date of the historical data
      * @param to            end date of the historical data
@@ -536,7 +525,7 @@ public class Stock {
             try {
                 System.out.println(f.getName() + ": " + f.get(this));
             } catch (IllegalArgumentException | IllegalAccessException ex) {
-                log.error(null, ex);
+                log.error(null, String.valueOf(ex));
             }
         }
         System.out.println("--------------------------------");
