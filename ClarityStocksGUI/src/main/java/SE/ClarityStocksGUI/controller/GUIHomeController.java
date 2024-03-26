@@ -2,13 +2,19 @@ package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import model.NasdaqStockholmCompanyData;
+import org.controlsfx.control.SearchableComboBox;
 
 public class GUIHomeController {
     private GUIMainApplication application;
@@ -25,7 +31,7 @@ public class GUIHomeController {
     @FXML
     private MFXButton homeButton;
     @FXML
-    private TextField searchField;
+    private SearchableComboBox<String> searchField;
 
     //For testing purposes, will be removed later
     @FXML
@@ -43,9 +49,13 @@ public class GUIHomeController {
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
         homeButton.setText("Home");
         stockButton.setText("Stock");
+        setupComboBox();
+
+        changeButtonColor();
         //homeButton.getStyleClass().setAll("mfx-button");
         menuBar.widthProperty().bind(mainVBox.widthProperty());
         menuBarLine.widthProperty().bind(mainVBox.widthProperty());
+
 
         welcomeText.setText("WORK IN PROGRESS!!!\nThis is the home view.");
         testDataInfo.setText("To set testdata, make a method that calls the setTestData() method in the Test class.");
@@ -81,8 +91,23 @@ public class GUIHomeController {
     }
 
      */
+
+    public void changeButtonColor(){
+        homeButton.setStyle("-fx-background-color: #339ACC;");
+        stockButton.setStyle("-fx-background-color: #d9d9d9");
+    }
     @FXML
     public void goToStockView(){
         application.goToStockView();
+    }
+
+    private void setupComboBox(){
+        searchField.setEditable(true);
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.add("Hello");
+        list.add("Test");
+        searchField.setItems(list);
+
+
     }
 }

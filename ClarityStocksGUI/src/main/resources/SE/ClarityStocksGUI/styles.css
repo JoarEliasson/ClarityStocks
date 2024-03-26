@@ -27,3 +27,19 @@
 .chart-series-line {
  -fx-stroke: #339ACC;
 }
+
+.searchField {
+ -fx-focus-color: #339ACC;
+}
+
+.searchField, .arrow, .arrow-button{
+ -fx-background-color: white;
+}
+
+.searchField > .arrow-button {
+ -fx-padding: 0;
+}
+
+.searchField > .arrow-button > .arrow {
+ -fx-padding: 0;
+}

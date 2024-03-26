@@ -28,7 +28,9 @@ public class GUIStockLineGraphController {
         //chart.setCreateSymbols(false);
         chart.setLegendVisible(false);
         chart.getStylesheets().add(css);
+        chart.setAnimated(false);
         xAxis.setAnimated(false);
+        yAxis.setAnimated(false);
         yAxis.setForceZeroInRange(false);
     }
 

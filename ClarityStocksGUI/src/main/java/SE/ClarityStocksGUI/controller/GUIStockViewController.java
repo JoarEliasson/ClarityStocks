@@ -43,18 +43,7 @@ public class GUIStockViewController {
 
 
     public void initialize(){
-        AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                stock = alphaVantageClient.getStock("AAPL");
-                GUIStockLineGraphController.getInstance().loadStockData(stock);
-                nameLabel.setText(stock.getCompanyOverview().getName());
 
-                peEvaluationText.setText(stock.getPERatioEvaluation());
-
-            }
-        });
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
 
         homeButton.setText("Home");
@@ -85,6 +74,25 @@ public class GUIStockViewController {
         return dropShadow;
     }
 
+    public void loadStockView(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
+                stock = alphaVantageClient.getStock("TSLA");
+                GUIStockLineGraphController.getInstance().loadStockData(stock);
+                nameLabel.setText(stock.getCompanyOverview().getName());
+
+                peEvaluationText.setText(stock.getPERatioEvaluation());
+
+            }
+        });
+    }
+
+    public void changeButtonColor(){
+        homeButton.setStyle("-fx-background-color: #d9d9d9;");
+        stockButton.setStyle("-fx-background-color: #339ACC");
+    }
 
     public void setCompanyData(NasdaqStockholmCompanyData companyData) {
         this.companyData = companyData;
