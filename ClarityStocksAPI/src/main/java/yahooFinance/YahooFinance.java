@@ -325,13 +325,12 @@ public class YahooFinance {
      * Sends a request for a single FX rate.
      * Some common symbols can easily be found in the ENUM {@link yahooFinance.FxSymbols}
      * Some examples of accepted symbols:
-     * <ul>
-     * <li> EURUSD=X
-     * <li> USDEUR=X
-     * <li> USDGBP=X
-     * <li> AUDGBP=X
-     * <li> CADUSD=X
-     * </ul>
+     * EURUSD=X
+     * USDEUR=X
+     * USDGBP=X
+     * AUDGBP=X
+     * CADUSD=X
+     *
      *
      * @param symbol    symbol for the FX rate you want to request
      * @return          a quote for the requested FX rate
