@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class HistQuotesRequest {
+    public static final Interval DEFAULT_INTERVAL = null;
     String symbol;
     Calendar to;
     Calendar from;

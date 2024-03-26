@@ -69,8 +69,8 @@ public class YahooFinance {
 
     /**
      * Sends a basic quotes request to Yahoo Finance. This will return a {@link Stock} object
-     * with its {@link yahoofinance.quotes.stock.StockQuote}, {@link yahoofinance.quotes.stock.StockStats}
-     * and {@link yahoofinance.quotes.stock.StockDividend} member fields
+     * with its {@link yahooFinance.StockQuote}, {@link yahooFinance.StockStats}
+     * and {@link yahooFinance.StockDividend} member fields
      * filled in with the available data.
      * Returns null if the data can't be retrieved from Yahoo Finance.
      *
@@ -85,7 +85,7 @@ public class YahooFinance {
     /**
      * Same as the <code>get(String)</code> method, but with the option to include
      * historical stock quote data. Including historical data will cause the {@link Stock}
-     * object's member field {@link yahoofinance.histquotes.HistoricalQuote} to be filled in
+     * object's member field {@link yahooFinance.HistoricalQuote} to be filled in
      * with the default past year term at monthly intervals.
      * Returns null if the data can't be retrieved from Yahoo Finance.
      *
@@ -183,8 +183,8 @@ public class YahooFinance {
     /**
      * Sends a basic quotes request to Yahoo Finance. This will return a {@link Map} object
      * that links the symbols to their respective {@link Stock} objects.
-     * The Stock objects have their {@link yahoofinance.quotes.stock.StockQuote}, {@link yahoofinance.quotes.stock.StockStats}
-     * and {@link yahoofinance.quotes.stock.StockDividend} member fields
+     * The Stock objects have their {@link yahooFinance.StockQuote}, {@link yahooFinance.StockStats}
+     * and {@link yahooFinance.StockDividend} member fields
      * filled in with the available data.
      * <p>
      * All the information is retrieved in a single request to Yahoo Finance.
@@ -202,7 +202,7 @@ public class YahooFinance {
     /**
      * Same as the <code>get(String[])</code> method, but with the option to include
      * historical stock quote data. Including historical data will cause the {@link Stock}
-     * objects their member field {@link yahoofinance.histquotes.HistoricalQuote} to be filled in
+     * objects their member field {@link yahooFinance.HistoricalQuote} to be filled in
      * with the default past year term at monthly intervals.
      * <p>
      * The latest quotes will be retrieved in a single request to Yahoo Finance.
@@ -323,7 +323,7 @@ public class YahooFinance {
 
     /**
      * Sends a request for a single FX rate.
-     * Some common symbols can easily be found in the ENUM {@link yahoofinance.quotes.fx.FxSymbols}
+     * Some common symbols can easily be found in the ENUM {@link yahooFinance.FxSymbols}
      * Some examples of accepted symbols:
      * <ul>
      * <li> EURUSD=X
