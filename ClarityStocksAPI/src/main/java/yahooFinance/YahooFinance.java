@@ -24,7 +24,7 @@ import yahooFinance.StockQuotesQuery1V7Request;
  * Yahoo Finance for multiple stocks at once.
  * For the historical data however, a separate request has to be sent to Yahoo Finance
  * for each of the requested stocks. The provided methods will retrieve
- * all of the required information in the least amount of
+ * all the required information in the least amount of
  * requests possible towards Yahoo Finance.
  * <p>
  * You can change the default timeout of 10s for requests to Yahoo Finance by
