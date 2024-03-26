@@ -72,12 +72,12 @@ public class GUIStockViewController {
         return dropShadow;
     }
 
-    public void loadStockView(){
+    public void loadStockView(String stockSymbol){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
-                stock = alphaVantageClient.getStock("TSLA");
+                stock = alphaVantageClient.getStock(stockSymbol);
                 GUIStockLineGraphController.getInstance().loadStockData(stock);
                 nameLabel.setText(stock.getCompanyOverview().getName());
 

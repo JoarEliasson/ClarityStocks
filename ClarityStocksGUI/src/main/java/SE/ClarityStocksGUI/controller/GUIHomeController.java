@@ -2,6 +2,8 @@ package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -44,6 +46,8 @@ public class GUIHomeController {
     private Label testData;
     @FXML
     private MFXButton updateTestData;
+
+    private StockInfo currentStock;
 
     public void initialize(){
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
@@ -90,12 +94,12 @@ public class GUIHomeController {
      */
 
     public void changeButtonColor(){
-        homeButton.setStyle("-fx-background-color: #339ACC;");
-        stockButton.setStyle("-fx-background-color: #d9d9d9");
+        //homeButton.setStyle("-fx-background-color: #339ACC;");
+        //stockButton.setStyle("-fx-background-color: #d9d9d9");
     }
     @FXML
     public void goToStockView(){
-        application.goToStockView();
+        //application.goToStockView();
     }
 
     private void setupComboBox(){
@@ -114,6 +118,14 @@ public class GUIHomeController {
                 return null;
             }
         });
+    }
 
+    public void loadStock(){
+        if(searchField.getValue() != null && currentStock != searchField.getValue()){
+            System.out.println(((StockInfo) searchField.getValue()).getName());
+            currentStock = searchField.getValue();
+            System.out.println(currentStock.getSymbol());
+            application.goToStockView(currentStock.getSymbol());
+        }
     }
 }

@@ -52,7 +52,7 @@
                             </opaqueInsets>
                         </MFXButton>
                         <Pane HBox.hgrow="ALWAYS"/>
-                        <SearchableComboBox fx:id="searchField" promptText="Search..." prefWidth="200" styleClass="searchField">
+                        <SearchableComboBox fx:id="searchField" promptText="Search..." prefWidth="200" styleClass="searchField" onAction="#loadStock">
                           <opaqueInsets>
                              <Insets />
                           </opaqueInsets>

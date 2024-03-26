@@ -54,9 +54,9 @@ public class GUIMainApplication extends Application {
 
     }
 
-    public void goToStockView(){
-        stockViewController.loadStockView();
+    public void goToStockView(String stockSymbol){
         stockViewController.changeButtonColor();
+        stockViewController.loadStockView(stockSymbol);
         double height = stage.getHeight();
         double width = stage.getWidth();
 
@@ -66,7 +66,7 @@ public class GUIMainApplication extends Application {
     }
 
     public void goToHomeView(){
-        homeController.changeButtonColor();
+        //homeController.changeButtonColor();
         double height = stage.getHeight();
         double width = stage.getWidth();
 

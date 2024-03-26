@@ -15,7 +15,7 @@ public class StockInfoList {
 
     public StockInfoList() {
         readUSAStockInfoFromCSV();
-        readStockholmStockInfoFromCSV();
+        //readStockholmStockInfoFromCSV();
     }
 
     private void readUSAStockInfoFromCSV() {
