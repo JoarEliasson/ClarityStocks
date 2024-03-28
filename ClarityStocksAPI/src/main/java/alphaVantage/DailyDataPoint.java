@@ -4,7 +4,7 @@ package alphaVantage;
 /**
  * Class that represents the different datapoints for the values of the company stock.
  * */
-public class DataPoint {
+public class DailyDataPoint {
 
     private String date;
     private double open;
@@ -15,7 +15,7 @@ public class DataPoint {
 
     //Constructor for datapoint
 
-    public DataPoint(String date, double open, double high, double low, double close, long volume) {
+    public DailyDataPoint(String date, double open, double high, double low, double close, long volume) {
         this.date = date;
         this.open = open;
         this.high = high;

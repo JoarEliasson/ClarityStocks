@@ -40,9 +40,28 @@ public class AlphaVantageClient {
         }
     }
 
+    public FullStockOverview getFullStockOverview(String symbol) throws Exception {
+        String url = String.format("https://www.alphavantage.co/query?function=OVERVIEW&symbol=%s&apikey=%s", symbol, apiKey);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofMinutes(1))
+                .GET()
+                .build();
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                return parser.parseFullStockOverview(response.body());
+            } else {
+                throw new RuntimeException("Failed to fetch data: HTTP status code " + response.statusCode());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching company overview", e);
+        }
+    }
+
     //Method for getting time data. Constructs an url for fetching data. Sends http GET request. Parses response.
     //need for new http client? Why not use httpclient instead?
-    public List<DataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
+    public List<DailyDataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
 
         String urlString = "https://www.alphavantage.co/query?function=" + interval.getUrlParameter() + "&symbol=" + symbol + "&apikey=" + apiKey;
@@ -54,24 +73,24 @@ public class AlphaVantageClient {
     }
 
     //Method for filtering retrieved data depending on month and year.
-    public List<DataPoint> getFilteredSeries(int month, int year) {
+    public List<DailyDataPoint> getFilteredSeries(int month, int year) {
 
         if (month == -1) {
             return getFilteredSeries(year);
         }
 
-        List<DataPoint> timeSeries = new ArrayList<>();
-        List<DataPoint> unfilteredTimeSeries = new ArrayList<>();
+        List<DailyDataPoint> timeSeries = new ArrayList<>();
+        List<DailyDataPoint> unfilteredTimeSeries = new ArrayList<>();
         try {
             unfilteredTimeSeries = getTimeSeries("AAPL", Interval.DAILY);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (DataPoint dataPoint : unfilteredTimeSeries) {
-            int dataPointYear = Integer.parseInt(dataPoint.getDate().substring(0, 4));
-            int dataPointMonth = Integer.parseInt(dataPoint.getDate().substring(5, 7));
+        for (DailyDataPoint dailyDataPoint : unfilteredTimeSeries) {
+            int dataPointYear = Integer.parseInt(dailyDataPoint.getDate().substring(0, 4));
+            int dataPointMonth = Integer.parseInt(dailyDataPoint.getDate().substring(5, 7));
             if (dataPointYear == year && dataPointMonth == month) {
-                timeSeries.add(dataPoint);
+                timeSeries.add(dailyDataPoint);
             }
         }
         return timeSeries;
@@ -79,18 +98,18 @@ public class AlphaVantageClient {
 
     //Method for filtering retrieved data depending on year.
 
-    public List<DataPoint> getFilteredSeries(int year) {
-        List<DataPoint> timeSeries = new ArrayList<>();
-        List<DataPoint> unfilteredTimeSeries = new ArrayList<>();
+    public List<DailyDataPoint> getFilteredSeries(int year) {
+        List<DailyDataPoint> timeSeries = new ArrayList<>();
+        List<DailyDataPoint> unfilteredTimeSeries = new ArrayList<>();
         try {
             unfilteredTimeSeries = getTimeSeries("AAPL", Interval.DAILY);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (DataPoint dataPoint : unfilteredTimeSeries) {
-            int dataPointYear = Integer.parseInt(dataPoint.getDate().substring(0, 4));
+        for (DailyDataPoint dailyDataPoint : unfilteredTimeSeries) {
+            int dataPointYear = Integer.parseInt(dailyDataPoint.getDate().substring(0, 4));
 
-                timeSeries.add(dataPoint);
+                timeSeries.add(dailyDataPoint);
 
         }
         return timeSeries;

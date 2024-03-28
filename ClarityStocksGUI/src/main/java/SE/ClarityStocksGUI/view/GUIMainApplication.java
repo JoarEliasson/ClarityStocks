@@ -86,6 +86,7 @@ public class GUIMainApplication extends Application {
         stage.setWidth(width);
         stage.setScene(homeView);
 
+
     }
 
     private class TestThread extends Thread{
