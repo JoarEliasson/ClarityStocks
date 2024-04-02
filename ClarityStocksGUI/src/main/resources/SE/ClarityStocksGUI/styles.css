@@ -13,6 +13,8 @@
 
 .backgroundPanelStockView{
  -fx-fill: white;
+ -fx-arc-width: 15;
+ -fx-arc-height: 15;
 }
 
 .onHover{

@@ -9,12 +9,15 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import model.StockInfo;
 import model.StockInfoList;
@@ -45,7 +48,8 @@ public class GUIStockViewController {
     private StockInfo currentStock;
     @FXML
     private SearchableComboBox<StockInfo> searchField;
-
+    @FXML
+    private VBox stockStatsBox;
     private Stock stock;
 
 

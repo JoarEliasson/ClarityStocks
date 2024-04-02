@@ -11,6 +11,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import javafx.scene.text.Text?>
 <VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/fxml/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController"
@@ -78,12 +79,12 @@
                 <StackPane>
                     <VBox alignment="CENTER">
                         <StackPane>
-                        <Rectangle fill="#d9d9d9" height="400" width="200" fx:id="statBackground" styleClass="backgroundPanelStockView"/>
+                        <Rectangle fill="#d9d9d9" height="400" width="300" fx:id="statBackground" styleClass="backgroundPanelStockView"/>
 
                         </StackPane>
                     </VBox>
-                    <VBox alignment="CENTER"  >
-                        <Label fx:id="peEvaluationText" maxHeight="350" maxWidth="150"/>
+                    <VBox alignment="CENTER"  fx:id="stockStatsBox" maxHeight="350" maxWidth="250">
+                        <Label fx:id="peEvaluationText" wrapText="true"/>
                     </VBox>
                 </StackPane>
 
