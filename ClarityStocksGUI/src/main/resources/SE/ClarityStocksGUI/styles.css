@@ -1,16 +1,16 @@
 .menuButton {
- -fx-background-color: #d9d9d9;
+  -fx-background-color: #d9d9d9;
 }
 
-.label{
+.label {
 
 }
 
-.stockName{
- -fx-font-size: 20;
- -fx-font-weight: bold;
+.stockName {
+  -fx-font-size: 20;
+  -fx-font-weight: bold;
 }
 
-.backgroundPanelStockView{
- -fx-fill: white;
+.backgroundPanelStockView {
+  -fx-fill: white;
 }

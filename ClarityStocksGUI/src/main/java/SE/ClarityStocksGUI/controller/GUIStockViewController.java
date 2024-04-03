@@ -12,63 +12,64 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class GUIStockViewController {
-    private GUIMainApplication application;
-    @FXML
-    private BorderPane layout;
-    @FXML
-    private VBox mainVBox;
-    @FXML
-    private Label nameLabel;
-    @FXML
-    private Rectangle menuBar;
-    @FXML
-    private Rectangle menuBarLine;
-    @FXML
-    private MFXButton stockButton;
-    @FXML
-    private MFXButton homeButton;
-    @FXML
-    private Label currentPriceLabel;
-    @FXML
-    private Rectangle graphBackground;
-    @FXML
-    private Rectangle statBackground;
+
+  private GUIMainApplication application;
+  @FXML
+  private BorderPane layout;
+  @FXML
+  private VBox mainVBox;
+  @FXML
+  private Label nameLabel;
+  @FXML
+  private Rectangle menuBar;
+  @FXML
+  private Rectangle menuBarLine;
+  @FXML
+  private MFXButton stockButton;
+  @FXML
+  private MFXButton homeButton;
+  @FXML
+  private Label currentPriceLabel;
+  @FXML
+  private Rectangle graphBackground;
+  @FXML
+  private Rectangle statBackground;
 
 
+  public void initialize() {
+    VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
 
-    public void initialize(){
-        VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
+    homeButton.setText("Home");
+    stockButton.setText("Stock");
 
-        homeButton.setText("Home");
-        stockButton.setText("Stock");
+    menuBar.widthProperty().bind(mainVBox.widthProperty());
+    menuBarLine.widthProperty().bind(mainVBox.widthProperty());
 
-        menuBar.widthProperty().bind(mainVBox.widthProperty());
-        menuBarLine.widthProperty().bind(mainVBox.widthProperty());
+    nameLabel.setText("NAME");
+    currentPriceLabel.setText("CURRENT PRICE");
 
-        nameLabel.setText("NAME");
-        currentPriceLabel.setText("CURRENT PRICE");
+    statBackground.setEffect(getDropShadow());
+    graphBackground.setEffect(getDropShadow());
+  }
 
-        statBackground.setEffect(getDropShadow());
-        graphBackground.setEffect(getDropShadow());
-    }
-    public void setApplication(GUIMainApplication application){
-        this.application = application;
-    }
+  public void setApplication(GUIMainApplication application) {
+    this.application = application;
+  }
 
-    public void goToHomeView(){
-        application.goToHomeView();
-    }
+  public void goToHomeView() {
+    application.goToHomeView();
+  }
 
-    private DropShadow getDropShadow(){
-        DropShadow dropShadow = new DropShadow();
-        dropShadow.setRadius(20);
-        dropShadow.setOffsetX(0);
-        dropShadow.setOffsetY(0);
-        dropShadow.setSpread(0.001);
-        dropShadow.setBlurType(BlurType.GAUSSIAN);
-        dropShadow.setColor(Color.LIGHTGRAY);
-        return dropShadow;
-    }
+  private DropShadow getDropShadow() {
+    DropShadow dropShadow = new DropShadow();
+    dropShadow.setRadius(20);
+    dropShadow.setOffsetX(0);
+    dropShadow.setOffsetY(0);
+    dropShadow.setSpread(0.001);
+    dropShadow.setBlurType(BlurType.GAUSSIAN);
+    dropShadow.setColor(Color.LIGHTGRAY);
+    return dropShadow;
+  }
 
 
 }
