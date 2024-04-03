@@ -127,9 +127,13 @@ public class GUIStockViewController {
                 StockInfoList sil = new StockInfoList();
                 searchField.setEditable(true);
                 searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
+                searchField.setPromptText("Search...");
                 searchField.setConverter(new StringConverter<StockInfo>() {
                     @Override
                     public String toString(StockInfo stockInfo) {
+                        if(stockInfo == null){
+                            return "";
+                        }
                         return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
                     }
 

@@ -56,7 +56,6 @@ public class GUIMainApplication extends Application {
                 .build()
                 .setGlobal();
 
-        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 
         stage.setTitle("ClarityStocks");
         stage.setScene(homeView);

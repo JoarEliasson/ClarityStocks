@@ -109,6 +109,7 @@ public class GUIHomeController {
     public void resetSearchBar(){
         searchField.hide();
         searchField.setValue(null);
+        searchField.setPromptText("Search...");
     }
     private void setupComboBox(){
         Platform.runLater(new Runnable() {
@@ -117,9 +118,13 @@ public class GUIHomeController {
                 StockInfoList sil = new StockInfoList();
                 searchField.setEditable(true);
                 searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
+                searchField.setPromptText("Search...");
                 searchField.setConverter(new StringConverter<StockInfo>() {
                     @Override
                     public String toString(StockInfo stockInfo) {
+                        if(stockInfo == null){
+                            return "";
+                        }
                         return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
                     }
 

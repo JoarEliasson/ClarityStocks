@@ -37,6 +37,13 @@
  -fx-pref-height: 40px;  /* Set preferred height */
  -fx-min-height: 10px;   /* Set minimum height */
  -fx-max-height: 25px;
+ -fx-background-color: transparent;
+ -fx-font-size: 12;
+ -color-cell-border: transparent;
+}
+
+.searchField .custom-text-field {
+ -fx-padding: 0;
 }
 
 .searchField, .arrow, .arrow-button{
@@ -45,7 +52,6 @@
 
 .searchField > .arrow-button {
  -fx-padding: 0;
- -fx-background-color: transparent;
 }
 
 .searchField > .arrow-button > .arrow {
@@ -56,6 +62,11 @@
 
 .custom-text-field:left-node-visible .left-pane {
  -fx-padding: 0 0 0 -2000;
+}
+
+.custom-text-field:right-node-visible .right-pane{
+ -fx-padding: 0;
+ -fx-background-color: transparent;
 }
 
 
