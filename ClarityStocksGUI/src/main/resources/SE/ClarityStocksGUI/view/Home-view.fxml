@@ -15,6 +15,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ComboBox?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import javafx.scene.control.ProgressBar?>
 <VBox fx:id="mainVBox" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
 
 
@@ -52,7 +53,7 @@
                             </opaqueInsets>
                         </MFXButton>
                         <Pane HBox.hgrow="ALWAYS"/>
-                            <SearchableComboBox fx:id="searchField" promptText="Search..." prefWidth="200" styleClass="searchField" onAction="#loadStock">
+                            <SearchableComboBox fx:id="searchField" prefWidth="200" styleClass="searchField" onAction="#loadStock">
                                 <opaqueInsets>
                                     <Insets />
                                 </opaqueInsets>
@@ -60,11 +61,6 @@
                                     <Insets bottom="3.0" top="3.0"  right="5"/>
                                 </HBox.margin>
                             </SearchableComboBox>
-
-
-
-
-
                     </HBox>
 
             </StackPane>

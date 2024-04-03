@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -22,6 +23,7 @@ import javafx.util.StringConverter;
 import model.StockInfo;
 import model.StockInfoList;
 import org.controlsfx.control.SearchableComboBox;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class GUIStockViewController {
     private GUIMainApplication application;
@@ -52,13 +54,19 @@ public class GUIStockViewController {
     private VBox stockStatsBox;
     private Stock stock;
 
+    @FXML
+    private ProgressBar progress;
+
 
     public void initialize(){
 
+        progress.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
         setupComboBox();
         homeButton.setText("Home");
         stockButton.setText("Stock");
+
+
 
         menuBar.widthProperty().bind(mainVBox.widthProperty());
         menuBarLine.widthProperty().bind(mainVBox.widthProperty());
@@ -86,18 +94,25 @@ public class GUIStockViewController {
     }
 
     public void loadStockView(String stockSymbol){
-        Platform.runLater(new Runnable() {
+        progress.setVisible(true);
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
                 stock = alphaVantageClient.getStock(stockSymbol);
-                GUIStockLineGraphController.getInstance().loadStockData(stock);
-                nameLabel.setText(stock.getCompanyOverview().getName());
 
-                peEvaluationText.setText(stock.getPERatioEvaluation());
-
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        GUIStockLineGraphController.getInstance().loadStockData(stock);
+                        nameLabel.setText(stock.getCompanyOverview().getName());
+                        peEvaluationText.setText(stock.getPERatioEvaluation());
+                        progress.setVisible(false);
+                    }
+                });
             }
-        });
+        }).start();
+
     }
 
     public void changeButtonColor(){

@@ -2,6 +2,7 @@ package SE.ClarityStocksGUI.controller.graphControllers;
 
 import alphaVantage.DataPoint;
 import alphaVantage.Stock;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;

@@ -2,13 +2,17 @@ package SE.ClarityStocksGUI.view;
 
 import SE.ClarityStocksGUI.controller.GUIHomeController;
 import SE.ClarityStocksGUI.controller.GUIStockViewController;
+import atlantafx.base.theme.PrimerLight;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
+
 import java.io.IOException;
 
 import java.lang.reflect.Array;
@@ -38,6 +42,7 @@ public class GUIMainApplication extends Application {
         FXMLLoader stockViewLoader = new FXMLLoader(GUIMainApplication.class.getResource("Stock-view.fxml"));
         stockView = new Scene(stockViewLoader.load(), 1280, 720);
         stockView.getStylesheets().add(css);
+
         stockViewController = stockViewLoader.getController();
         stockViewController.setApplication(this);
         //stockViewController.setCompanyData(companyData);
@@ -51,6 +56,7 @@ public class GUIMainApplication extends Application {
                 .build()
                 .setGlobal();
 
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 
         stage.setTitle("ClarityStocks");
         stage.setScene(homeView);
@@ -60,9 +66,11 @@ public class GUIMainApplication extends Application {
 
     public void goToStockView(String stockSymbol){
         stockViewController.changeButtonColor();
-        stockViewController.loadStockView(stockSymbol);
         double height = stage.getHeight();
         double width = stage.getWidth();
+        stockViewController.loadStockView(stockSymbol);
+
+
 
         stage.setHeight(height);
         stage.setWidth(width);
@@ -71,13 +79,14 @@ public class GUIMainApplication extends Application {
 
     public void goToStockView(){
         stockViewController.changeButtonColor();
-        stockViewController.loadStockView("TSLA");
         double height = stage.getHeight();
         double width = stage.getWidth();
+        stockViewController.loadStockView("TSLA");
 
         stage.setHeight(height);
         stage.setWidth(width);
         stage.setScene(stockView);
+
     }
 
     public void goToHomeView(){

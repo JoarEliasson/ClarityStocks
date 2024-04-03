@@ -12,6 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.*?>
 <VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/fxml/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController"
@@ -50,7 +51,7 @@
                             <Insets right="20.0"/>
                         </opaqueInsets></MFXButton>
                     <Pane HBox.hgrow="ALWAYS"/>
-                    <SearchableComboBox fx:id="searchField" promptText="Search..." prefWidth="200" styleClass="searchField" onAction="#loadStock">
+                    <SearchableComboBox fx:id="searchField" prefWidth="200" styleClass="searchField" onAction="#loadStock">
                         <opaqueInsets>
                             <Insets />
                         </opaqueInsets>
@@ -73,7 +74,10 @@
                     </VBox>
                     <VBox alignment="CENTER">
                         <Label fx:id="nameLabel" styleClass="stockName"/>
-                        <fx:include source="Stock-linegraph.fxml"/>
+                        <StackPane>
+                            <fx:include source="Stock-linegraph.fxml"/>
+                            <ProgressBar fx:id="progress" styleClass="progress-bar-primary"/>
+                        </StackPane>
                     </VBox>
                 </StackPane>
                 <StackPane>

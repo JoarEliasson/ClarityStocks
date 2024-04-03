@@ -1,5 +1,7 @@
 .menuButton {
  -fx-background-color: #d9d9d9;
+ -fx-padding: 5 7 5 7;
+ -fx-background-radius: 0;
 }
 
 .label{
@@ -32,6 +34,9 @@
 
 .searchField {
  -fx-focus-color: #339ACC;
+ -fx-pref-height: 40px;  /* Set preferred height */
+ -fx-min-height: 10px;   /* Set minimum height */
+ -fx-max-height: 25px;
 }
 
 .searchField, .arrow, .arrow-button{
@@ -40,12 +45,14 @@
 
 .searchField > .arrow-button {
  -fx-padding: 0;
+ -fx-background-color: transparent;
 }
 
 .searchField > .arrow-button > .arrow {
  -fx-padding: 0;
-}
+ -fx-background-color: transparent;
 
+}
 
 .custom-text-field:left-node-visible .left-pane {
  -fx-padding: 0 0 0 -2000;

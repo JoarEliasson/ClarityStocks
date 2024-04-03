@@ -9,10 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -22,6 +19,7 @@ import model.StockInfo;
 import model.StockInfoList;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.textfield.CustomTextField;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class GUIHomeController {
     private GUIMainApplication application;
@@ -50,12 +48,15 @@ public class GUIHomeController {
     @FXML
     private MFXButton updateTestData;
 
+
     private StockInfo currentStock;
 
     public void initialize(){
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
         homeButton.setText("Home");
         stockButton.setText("Stock");
+
+
         setupComboBox();
 
         changeButtonColor();
@@ -108,7 +109,6 @@ public class GUIHomeController {
     public void resetSearchBar(){
         searchField.hide();
         searchField.setValue(null);
-        searchField.setPromptText("Search...");
     }
     private void setupComboBox(){
         Platform.runLater(new Runnable() {
