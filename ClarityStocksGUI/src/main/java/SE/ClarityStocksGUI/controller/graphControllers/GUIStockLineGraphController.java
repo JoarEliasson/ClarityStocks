@@ -58,8 +58,8 @@ public class GUIStockLineGraphController {
             rawSeries.getData().add(point);
         }
 
-        List<DataPoint> shortTermMovingAverage = calculateMovingAverage(stock.getTimeSeries(), 50);
-        List<DataPoint> longTermMovingAverage = calculateMovingAverage(stock.getTimeSeries(), 200);
+        List<DataPoint> shortTermMovingAverage = stock.getMovingAverage(50);
+        List<DataPoint> longTermMovingAverage = stock.getMovingAverage(200);
         shortTermSeries = new XYChart.Series<>();
         shortTermSeries.setName("Short-Term MA");
         longTermSeries = new XYChart.Series<>();
@@ -72,6 +72,7 @@ public class GUIStockLineGraphController {
         for (DataPoint data : longTermMovingAverage.reversed()) {
             longTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
         }
+
         chart.getData().addAll(rawSeries, shortTermSeries, longTermSeries);
         styleChart();
     }

@@ -34,6 +34,17 @@ public class Stock {
     public List<DataPoint> getMovingAverage(int days) {
         List<DataPoint> movingAverage = new ArrayList<>();
         for (int i = 0; i < timeSeries.size(); i++) {
+            int end = Math.min(i + days, timeSeries.size());
+            double sum = 0;
+            for (int j = i; j < end; j++) {
+                sum += timeSeries.get(j).getClose();
+            }
+            double average = sum / (end - i);
+            movingAverage.add(new DataPoint(timeSeries.get(i).getDate(), average));
+        }
+
+            /*
+        for (int i = 0; i < timeSeries.size(); i++) {
             if (i < days) {
                 movingAverage.add(new DataPoint(timeSeries.get(i).getDate(), timeSeries.get(i).getClose()));
             } else {
@@ -45,18 +56,11 @@ public class Stock {
                 movingAverage.add(new DataPoint(timeSeries.get(i).getDate(), average));
             }
         }
+
+             */
         return movingAverage;
-        /*
-        for (int i = 0; i < dataPoints.size(); i++) {
-        int end = Math.min(i + period, dataPoints.size());
-        double sum = 0;
-        for (int j = i; j < end; j++) {
-            sum += dataPoints.get(j).getClose();
-        }
-        double average = sum / (end - i);
-        movingAverage.add(new DataPoint(dataPoints.get(i).getDate(), average));
-    }
-         */
+
+
     }
 
     public String getPERatioEvaluation() {
