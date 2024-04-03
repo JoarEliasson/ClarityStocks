@@ -2,12 +2,12 @@ package alphaVantage;
 
 import analysis.controller.PERatioEvaluator;
 import analysis.model.PERatioEvaluation;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlphaVantageClient {
@@ -39,9 +39,25 @@ public class AlphaVantageClient {
         PERatioEvaluation peRatioEvaluation = peRatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(), companyOverview.getPeRatio());
 
         PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(), companyOverview.getPeRatio());
-        return new Stock(companyOverview, timeSeries, peRatioEvaluation.toString());
+        List<DataPoint> filteredDataPoints = filterByYear(timeSeries, new int[]{2022,2023,2024});
+        return new Stock(companyOverview, filteredDataPoints, peRatioEvaluation.toString());
     }
 
+    private List<DataPoint> filterByYear(List<DataPoint> dataPoints, int[] years) {
+        List<DataPoint> filteredDataPoints = new ArrayList<>();
+        for (DataPoint dataPoint : dataPoints) {
+            String dateString = dataPoint.getDate();
+            String[] dateParts = dateString.split("-");
+            int dataYear = Integer.parseInt(dateParts[0]);
+            for (int year : years) {
+                if (dataYear == year) {
+                    System.out.println(dataPoint);
+                    filteredDataPoints.add(dataPoint);
+                }
+            }
+        }
+        return filteredDataPoints;
+    }
     public CompanyOverview getCompanyOverview(String symbol) throws Exception {
         String url = String.format("https://www.alphavantage.co/query?function=OVERVIEW&symbol=%s&apikey=%s", symbol, apiKey);
         HttpRequest request = HttpRequest.newBuilder()
@@ -63,7 +79,7 @@ public class AlphaVantageClient {
 
     public List<DataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
-        String urlString = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=" + apiKey;
+        String urlString = "https://www.alphavantage.co/query?function=" + interval.getUrlParameter() + "&symbol=" + symbol + "&outputsize=full&apikey=" + apiKey;
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(urlString))
                 .build();

@@ -16,16 +16,31 @@
  -fx-arc-width: 15;
  -fx-arc-height: 15;
 }
-
+/*
 .onHover{
  -fx-background-color: ORANGE;
 }
+
 
 .chart-line-symbol {
  -fx-background-color: transparent;
 }
 
+ */
+.chart-line-symbol {
 
+ -fx-opacity: 0;
+}
+
+.onHover {
+ -fx-scale-x: 1.5;
+ -fx-scale-y: 1.5;
+ -fx-fill: red; /* Example hover effect */
+}
+
+.default-color0.chart-series-line { -fx-stroke: blue; }
+.default-color1.chart-series-line { -fx-stroke: gold; }
+.default-color2.chart-series-line { -fx-stroke: darkgrey; }
 .chart-series-line {
  -fx-stroke: #339ACC;
 }
