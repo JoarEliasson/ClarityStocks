@@ -46,6 +46,8 @@ public class GUIStockViewController {
     @FXML
     private Rectangle graphBackground;
     @FXML
+    private Rectangle descBackground;
+    @FXML
     private Rectangle statBackground;
     private StockInfo currentStock;
     @FXML
@@ -71,6 +73,7 @@ public class GUIStockViewController {
         menuBar.widthProperty().bind(mainVBox.widthProperty());
         menuBarLine.widthProperty().bind(mainVBox.widthProperty());
 
+        descBackground.setEffect(getDropShadow());
         statBackground.setEffect(getDropShadow());
         graphBackground.setEffect(getDropShadow());
     }

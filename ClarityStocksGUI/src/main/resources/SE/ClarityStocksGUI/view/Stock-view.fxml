@@ -12,7 +12,6 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import javafx.scene.text.Text?>
-<?import com.jfoenix.controls.*?>
 <VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/fxml/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController"
@@ -73,25 +72,30 @@
                         <Rectangle fill="#d9d9d9" height="400" width="650" fx:id="graphBackground" styleClass="backgroundPanelStockView"/>
                     </VBox>
                     <VBox alignment="CENTER">
-                        <Label fx:id="nameLabel" styleClass="stockName"/>
                         <StackPane>
                             <fx:include source="Stock-linegraph.fxml"/>
                             <ProgressBar fx:id="progress" styleClass="progress-bar-primary"/>
                         </StackPane>
                     </VBox>
                 </StackPane>
-                <StackPane>
-                    <VBox alignment="CENTER">
-                        <StackPane>
-                        <Rectangle fill="#d9d9d9" height="400" width="300" fx:id="statBackground" styleClass="backgroundPanelStockView"/>
+                <VBox alignment="CENTER" spacing="15">
+                    <StackPane>
+                        <Rectangle fill="#d9d9d9" height="150" width="300" fx:id="descBackground" styleClass="backgroundPanelStockView"/>
+                        <VBox>
+                            <Label fx:id="nameLabel" styleClass="stockName" text="test"/>
 
-                        </StackPane>
-                    </VBox>
-                    <VBox alignment="CENTER"  fx:id="stockStatsBox" maxHeight="350" maxWidth="250">
-                        <Label fx:id="peEvaluationText" wrapText="true"/>
-                    </VBox>
-                </StackPane>
+                        </VBox>
+                    </StackPane>
 
+                    <StackPane>
+
+                        <Rectangle fill="#d9d9d9" height="235" width="300" fx:id="statBackground" styleClass="backgroundPanelStockView"/>
+                        <VBox alignment="CENTER"  fx:id="stockStatsBox" maxHeight="350" maxWidth="250">
+                            <Label styleClass="statLabel" fx:id="peEvaluationText" wrapText="true"/>
+                        </VBox>
+                    </StackPane>
+
+                </VBox>
             </HBox>
         </center>
     </BorderPane>
