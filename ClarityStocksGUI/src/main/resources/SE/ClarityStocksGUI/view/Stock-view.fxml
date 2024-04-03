@@ -58,14 +58,12 @@
                             <Insets bottom="3.0" top="3.0"  right="5"/>
                         </HBox.margin>
                     </SearchableComboBox>
-
                 </HBox>
             </StackPane>
 
         </top>
-
+        <ScrollPane>
         <center>
-
             <HBox alignment="CENTER" spacing="50">
                 <StackPane>
                     <VBox alignment="CENTER">
@@ -90,6 +88,7 @@
 
             </HBox>
         </center>
+        </ScrollPane>
     </BorderPane>
 
 </VBox>
