@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 
 public class FinanceDataFetcher {
 
-
     public static String fetchFinancialData() {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder("python", "ClarityStocksAPI/src/main/python/test.py");

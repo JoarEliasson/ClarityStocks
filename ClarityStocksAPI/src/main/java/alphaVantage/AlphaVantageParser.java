@@ -18,24 +18,26 @@ public class AlphaVantageParser {
     public CompanyOverview parseCompanyOverview(String responseBody) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = null;
-        CompanyOverview overview = new CompanyOverview();
+        CompanyOverview overview = null;
         try {
             root = mapper.readTree(responseBody);
 
-            overview.setSymbol(root.path("Symbol").asText());
-            overview.setName(root.path("Name").asText());
-            overview.setDescription(root.path("Description").asText());
-            overview.setSector(root.path("Sector").asText());
-            overview.setIndustry(root.path("Industry").asText());
-            overview.setMarketCapitalization(root.path("MarketCapitalization").asDouble());
-            overview.setPeRatio(root.path("PERatio").asDouble());
-            overview.setEarningsPerShare(root.path("EPS").asDouble());
-            overview.setBookValue(root.path("BookValue").asDouble());
-            overview.setDividendPerShare(root.path("DividendPerShare").asDouble());
-            overview.setDividendYield(root.path("DividendYield").asDouble());
-            overview.setRevenuePerShareTTM(root.path("RevenuePerShareTTM").asDouble());
-            overview.setProfitMargin(root.path("ProfitMargin").asDouble());
-            overview.setOperatingMarginTTM(root.path("OperatingMarginTTM").asDouble());
+            String symbol = root.path("Symbol").asText();
+            String name = root.path("Name").asText();
+            String description = root.path("Description").asText();
+            String sector = root.path("Sector").asText();
+            String industry = root.path("Industry").asText();
+            double marketCapitalization = root.path("MarketCapitalization").asDouble();
+            double peRatio = root.path("PERatio").asDouble();
+            double earningsPerShare = root.path("EPS").asDouble();
+            double bookValue = root.path("BookValue").asDouble();
+            double dividendPerShare = root.path("DividendPerShare").asDouble();
+            double dividendYield = root.path("DividendYield").asDouble();
+            double revenuePerShareTTM = root.path("RevenuePerShareTTM").asDouble();
+            double profitMargin = root.path("ProfitMargin").asDouble();
+            double operatingMarginTTM = root.path("OperatingMarginTTM").asDouble();
+
+            overview = new CompanyOverview(symbol, name, description, sector, industry, marketCapitalization, peRatio, earningsPerShare, bookValue, dividendPerShare, dividendYield, revenuePerShareTTM, profitMargin, operatingMarginTTM);
 
         } catch (IOException e) {
             e.printStackTrace();
