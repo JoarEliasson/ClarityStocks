@@ -45,13 +45,15 @@ public class AlphaVantageClient {
     public List<DataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
 
-        String urlString = "https://www.alphavantage.co/query?function=" + interval.getUrlParameter() + "&symbol=" + symbol + "&apikey=" + apiKey;
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(urlString))
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return parser.parseTimeSeries(response.body());
-    }
+    String urlString =
+        "https://www.alphavantage.co/query?function=" + interval.getUrlParameter() + "&symbol="
+            + symbol + "&apikey=" + apiKey;
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(urlString))
+        .build();
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    return parser.parseTimeSeries(response.body());
+  }
 
     //Method for filtering retrieved data depending on month and year.
     public List<DataPoint> getFilteredSeries(int month, int year) {

@@ -4,7 +4,8 @@ import model.PERatioEvaluation;
 
 public class PERatioEvaluator {
 
-    public static PERatioEvaluation evaluatePriceEarningsRatio(String symbol, String name, double priceEarningsRatio) {
+  public static PERatioEvaluation evaluatePriceEarningsRatio(String symbol, String name,
+      double priceEarningsRatio) {
 
         String description = "";
         int score = getScore(priceEarningsRatio);
@@ -33,14 +34,26 @@ public class PERatioEvaluator {
         return new PERatioEvaluation(symbol, name, score, description);
     }
 
-    private static int getScore(double peRatio) {
-        int score = 0;
-        if (peRatio < 30) score = 1;
-        if (peRatio < 25) score = 2;
-        if (peRatio < 20) score = 3;
-        if (peRatio < 15) score = 4;
-        if (peRatio < 10) score = 5;
-        if (peRatio <= 0) score = -1;
-        return score;
+  private static int getScore(double peRatio) {
+    int score = 0;
+    if (peRatio < 30) {
+      score = 1;
     }
+    if (peRatio < 25) {
+      score = 2;
+    }
+    if (peRatio < 20) {
+      score = 3;
+    }
+    if (peRatio < 15) {
+      score = 4;
+    }
+    if (peRatio < 10) {
+      score = 5;
+    }
+    if (peRatio <= 0) {
+      score = -1;
+    }
+    return score;
+  }
 }

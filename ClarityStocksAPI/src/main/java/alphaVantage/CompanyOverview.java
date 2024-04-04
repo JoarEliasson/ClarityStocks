@@ -6,134 +6,94 @@ package alphaVantage;
 
 public class CompanyOverview {
 
-    private String symbol;
-    private String name;
-    private String description;
-    private String sector;
-    private String industry;
-    private double marketCapitalization;
-    private double peRatio;
-    private double earningsPerShare;
-    private double bookValue;
-    private double dividendPerShare;
-    private double dividendYield;
-    private double revenuePerShareTTM;
-    private double profitMargin;
-    private double operatingMarginTTM;
+  private String symbol;
+  private String name;
+  private String description;
+  private String sector;
+  private String industry;
+  private double marketCapitalization;
+  private double peRatio;
+  private double earningsPerShare;
+  private double bookValue;
+  private double dividendPerShare;
+  private double dividendYield;
+  private double revenuePerShareTTM;
+  private double profitMargin;
+  private double operatingMarginTTM;
 
-    //Default constructor
-    public CompanyOverview() {
-    }
+  public CompanyOverview(String symbol, String name, String description, String sector,
+      String industry, double marketCapitalization, double peRatio, double earningsPerShare,
+      double bookValue, double dividendPerShare, double dividendYield, double revenuePerShareTTM,
+      double profitMargin, double operatingMarginTTM) {
+    this.symbol = symbol;
+    this.name = name;
+    this.description = description;
+    this.sector = sector;
+    this.industry = industry;
+    this.marketCapitalization = marketCapitalization;
+    this.peRatio = peRatio;
+    this.earningsPerShare = earningsPerShare;
+    this.bookValue = bookValue;
+    this.dividendPerShare = dividendPerShare;
+    this.dividendYield = dividendYield;
+    this.revenuePerShareTTM = revenuePerShareTTM;
+    this.profitMargin = profitMargin;
+    this.operatingMarginTTM = operatingMarginTTM;
+  }
 
-    public String getSymbol() {
-        return symbol;
-    }
+  public String getSymbol() {
+    return symbol;
+  }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getSector() {
+    return sector;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getIndustry() {
+    return industry;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public double getMarketCapitalization() {
+    return marketCapitalization;
+  }
 
-    public String getSector() {
-        return sector;
-    }
+  public double getPeRatio() {
+    return peRatio;
+  }
 
-    public void setSector(String sector) {
-        this.sector = sector;
-    }
+  public double getEarningsPerShare() {
+    return earningsPerShare;
+  }
 
-    public String getIndustry() {
-        return industry;
-    }
+  public double getBookValue() {
+    return bookValue;
+  }
 
-    public void setIndustry(String industry) {
-        this.industry = industry;
-    }
+  public double getDividendPerShare() {
+    return dividendPerShare;
+  }
 
-    public double getMarketCapitalization() {
-        return marketCapitalization;
-    }
+  public double getDividendYield() {
+    return dividendYield;
+  }
 
-    public void setMarketCapitalization(double marketCapitalization) {
-        this.marketCapitalization = marketCapitalization;
-    }
+  public double getRevenuePerShareTTM() {
+    return revenuePerShareTTM;
+  }
 
-    public double getPeRatio() {
-        return peRatio;
-    }
+  public double getProfitMargin() {
+    return profitMargin;
+  }
 
-    public void setPeRatio(double peRatio) {
-        this.peRatio = peRatio;
-    }
-
-    public double getEarningsPerShare() {
-        return earningsPerShare;
-    }
-
-    public void setEarningsPerShare(double earningsPerShare) {
-        this.earningsPerShare = earningsPerShare;
-    }
-
-    public double getBookValue() {
-        return bookValue;
-    }
-
-    public void setBookValue(double bookValue) {
-        this.bookValue = bookValue;
-    }
-
-    public double getDividendPerShare() {
-        return dividendPerShare;
-    }
-
-    public void setDividendPerShare(double dividendPerShare) {
-        this.dividendPerShare = dividendPerShare;
-    }
-
-    public double getDividendYield() {
-        return dividendYield;
-    }
-
-    public void setDividendYield(double dividendYield) {
-        this.dividendYield = dividendYield;
-    }
-
-    public double getRevenuePerShareTTM() {
-        return revenuePerShareTTM;
-    }
-
-    public void setRevenuePerShareTTM(double revenuePerShareTTM) {
-        this.revenuePerShareTTM = revenuePerShareTTM;
-    }
-
-    public double getProfitMargin() {
-        return profitMargin;
-    }
-
-    public void setProfitMargin(double profitMargin) {
-        this.profitMargin = profitMargin;
-    }
-
-    public double getOperatingMarginTTM() {
-        return operatingMarginTTM;
-    }
-
-    public void setOperatingMarginTTM(double operatingMarginTTM) {
-        this.operatingMarginTTM = operatingMarginTTM;
-    }
+  public double getOperatingMarginTTM() {
+    return operatingMarginTTM;
+  }
 }

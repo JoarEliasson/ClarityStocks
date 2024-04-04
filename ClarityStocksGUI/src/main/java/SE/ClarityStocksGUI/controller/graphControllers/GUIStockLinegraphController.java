@@ -34,12 +34,12 @@ public class GUIStockLinegraphController {
         this.application = application;
     }
 
-    public void loadStockData(){
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        List<DataPoint> list = alphaVantageClient.getFilteredSeries(-1,2024);
-        for(DataPoint data : list){
-            XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
-            series.getData().add(point);
+  public void loadStockData() {
+    XYChart.Series<String, Number> series = new XYChart.Series<>();
+    List<DailyDataPoint> list = alphaVantageClient.getFilteredSeries(-1, 2024);
+    for (DailyDataPoint data : list) {
+      XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
+      series.getData().add(point);
 
 
             /* TODO ADD TOOLTIP
