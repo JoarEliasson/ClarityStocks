@@ -3,7 +3,8 @@ package SE.ClarityStocksGUI.controller.graphControllers;
 import SE.ClarityStocksGUI.controller.LoadData;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import alphaVantage.AlphaVantageClient;
-import alphaVantage.DataPoint;
+import alphaVantage.DailyDataPoint;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -13,26 +14,32 @@ import javafx.scene.chart.XYChart;
 import java.util.List;
 
 public class GUIStockLinegraphController {
-    @FXML
-    private LineChart<String, Number> chart;
-    @FXML
-    private CategoryAxis xAxis;
-    @FXML
-    private NumberAxis yAxis;
-    private GUIMainApplication application;
-    private AlphaVantageClient alphaVantageClient;
-    private static GUIStockLinegraphController stockLineGraphController;
 
-    public void initialize(){
-        stockLineGraphController = this;
-        LoadData load = new LoadData();
-        alphaVantageClient = load.getAlphaVantageClient();
-        chart.setCreateSymbols(false);
-        chart.setLegendVisible(false);
-    }
-    public void setApplication(GUIMainApplication application){
-        this.application = application;
-    }
+  private static GUIStockLinegraphController stockLineGraphController;
+  @FXML
+  private LineChart<String, Number> chart;
+  @FXML
+  private CategoryAxis xAxis;
+  @FXML
+  private NumberAxis yAxis;
+  private GUIMainApplication application;
+  private AlphaVantageClient alphaVantageClient;
+
+  public static GUIStockLinegraphController getInstance() {
+    return stockLineGraphController;
+  }
+
+  public void initialize() {
+    stockLineGraphController = this;
+    LoadData load = new LoadData();
+    alphaVantageClient = load.getAlphaVantageClient();
+    chart.setCreateSymbols(false);
+    chart.setLegendVisible(false);
+  }
+
+  public void setApplication(GUIMainApplication application) {
+    this.application = application;
+  }
 
   public void loadStockData() {
     XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -51,10 +58,6 @@ public class GUIStockLinegraphController {
 
         chart.getData().add(series);
 
-    }
-
-    public static GUIStockLinegraphController getInstance(){
-        return stockLineGraphController;
     }
 
 }

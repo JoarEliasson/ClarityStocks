@@ -2,7 +2,7 @@ package alphaVantage;
 
 /**
  * Class for representing details of stock company retrieved from Alpa Vantage API.
- * */
+ */
 
 public class CompanyOverview {
 

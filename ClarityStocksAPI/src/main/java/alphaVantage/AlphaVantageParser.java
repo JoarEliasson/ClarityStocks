@@ -2,15 +2,15 @@ package alphaVantage;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * Class for parsing JSON responses from Alpha Vantage API (company overview and series data).
- * */
+ */
 
 public class AlphaVantageParser {
 

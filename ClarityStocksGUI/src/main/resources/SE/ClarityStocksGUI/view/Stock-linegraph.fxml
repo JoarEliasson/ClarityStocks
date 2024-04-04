@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.CategoryAxis?>
-<LineChart fx:id="chart" xmlns="http://javafx.com/fxml/11"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController"
+<LineChart xmlns:fx="http://javafx.com/fxml/1" prefHeight="350.0"
+  prefWidth="600.0"
+  xmlns="http://javafx.com/fxml/11"
 
-           prefHeight="350.0" prefWidth="600.0" >
-    <xAxis>
-        <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
-    </xAxis>
-    <yAxis>
-        <NumberAxis side="LEFT" fx:id="yAxis"/>
-    </yAxis>
+  fx:controller="SE.ClarityStocksGUI.controller.graphControllers.GUIStockLinegraphController" fx:id="chart">
+  <xAxis>
+    <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
+  </xAxis>
+  <yAxis>
+    <NumberAxis side="LEFT" fx:id="yAxis"/>
+  </yAxis>
 
 </LineChart>
