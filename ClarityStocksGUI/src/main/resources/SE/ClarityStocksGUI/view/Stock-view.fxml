@@ -9,6 +9,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="400.0"
@@ -16,9 +18,26 @@
   xmlns="http://javafx.com/fxml/21"
   fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController" fx:id="mainVBox">
 
-  <BorderPane fx:id="layout">
-    <center>
+    <BorderPane fx:id="layout">
+        <top>
+            <StackPane>
+                <VBox>
+                    <Rectangle fx:id="menuBar" fill="#d9d9d9" height="30.0" width="6.0" />
+                    <Rectangle fx:id="menuBarLine" fill="#929292" height="0.5" width="6.0" />
+                </VBox>
+                <HBox>
 
+                    <!--Home button Home button Home button Home button Home button Home button -->
+                    <MFXButton fx:id="homeButton" styleClass="menuButton" textAlignment="CENTER" onAction="#goToHomeView">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                        <opaqueInsets>
+                            <Insets right="20.0"/>
+                        </opaqueInsets></MFXButton>
 
                     <!-- Stock button Stock button Stock button Stock button Stock button Stock button -->
                     <MFXButton fx:id="stockButton" styleClass="menuButton" textAlignment="CENTER">
@@ -32,7 +51,7 @@
                             <Insets right="20.0"/>
                         </opaqueInsets></MFXButton>
                     <Pane HBox.hgrow="ALWAYS"/>
-                    <SearchableComboBox fx:id="searchField" promptText="Search..." prefWidth="200" styleClass="searchField" onAction="#loadStock">
+                    <SearchableComboBox fx:id="searchField" prefWidth="200" styleClass="searchField" onAction="#loadStock">
                         <opaqueInsets>
                             <Insets />
                         </opaqueInsets>
@@ -40,112 +59,46 @@
                             <Insets bottom="3.0" top="3.0"  right="5"/>
                         </HBox.margin>
                     </SearchableComboBox>
+
                 </HBox>
-
-      <HBox alignment="CENTER" spacing="50">
-        <StackPane>
-          <VBox alignment="CENTER">
-            <Rectangle fill="#d9d9d9" height="400" styleClass="backgroundPanelStockView" width="650"
-              fx:id="graphBackground"/>
-          </VBox>
-          <VBox alignment="CENTER">
-            <Label styleClass="stockName" fx:id="nameLabel"/>
-            <fx:include source="Stock-linegraph.fxml"/>
-          </VBox>
-        </StackPane>
-        <StackPane>
-          <VBox alignment="CENTER">
-            <StackPane>
-              <Rectangle fill="#d9d9d9" height="400" styleClass="backgroundPanelStockView" width="300"
-                fx:id="statBackground"/>
-
-
             </StackPane>
-          </VBox>
-          <VBox alignment="CENTER" maxHeight="350" maxWidth="250" fx:id="stockStatsBox">
-            <Label wrapText="true" fx:id="peEvaluationText"/>
-          </VBox>
-        </StackPane>
-
-      </HBox>
-    </center>
-
 
         </top>
-        <ScrollPane>
+
         <center>
+
             <HBox alignment="CENTER" spacing="50">
                 <StackPane>
                     <VBox alignment="CENTER">
                         <Rectangle fill="#d9d9d9" height="400" width="650" fx:id="graphBackground" styleClass="backgroundPanelStockView"/>
                     </VBox>
                     <VBox alignment="CENTER">
-                        <Label fx:id="nameLabel" styleClass="stockName"/>
-                        <fx:include source="Stock-linegraph.fxml"/>
+                        <StackPane>
+                            <fx:include source="Stock-linegraph.fxml"/>
+                            <ProgressBar fx:id="progress" styleClass="progress-bar-primary"/>
+                        </StackPane>
                     </VBox>
                 </StackPane>
-                <StackPane>
-                    <VBox alignment="CENTER">
-                        <StackPane>
-                        <Rectangle fill="#d9d9d9" height="400" width="300" fx:id="statBackground" styleClass="backgroundPanelStockView"/>
+                <VBox alignment="CENTER" spacing="15">
+                    <StackPane>
+                        <Rectangle fill="#d9d9d9" height="150" width="300" fx:id="descBackground" styleClass="backgroundPanelStockView"/>
+                        <VBox>
+                            <Label fx:id="nameLabel" styleClass="stockName" text="test"/>
 
-    <top>
-      <StackPane>
-        <HBox>
+                        </VBox>
+                    </StackPane>
 
-          <!--Home button Home button Home button Home button Home button Home button -->
-          <MFXButton onAction="#goToHomeView" styleClass="menuButton" textAlignment="CENTER"
-            fx:id="homeButton">
-            <VBox.margin>
-              <Insets/>
-            </VBox.margin>
-            <font>
-              <Font size="14.0"/>
-            </font>
-            <opaqueInsets>
-              <Insets right="20.0"/>
-            </opaqueInsets>
-          </MFXButton>
+                    <StackPane>
 
-          <!-- Stock button Stock button Stock button Stock button Stock button Stock button -->
-          <MFXButton styleClass="menuButton" textAlignment="CENTER" fx:id="stockButton">
-            <VBox.margin>
-              <Insets/>
-            </VBox.margin>
-            <font>
-              <Font size="14.0"/>
-            </font>
-            <opaqueInsets>
-              <Insets right="20.0"/>
-            </opaqueInsets>
-          </MFXButton>
-          <Pane HBox.hgrow="ALWAYS"/>
-          <SearchableComboBox onAction="#loadStock" prefWidth="200" promptText="Search..."
-            styleClass="searchField" fx:id="searchField">
-            <HBox.margin>
-              <Insets bottom="3.0" right="5" top="3.0"/>
-            </HBox.margin>
-            <opaqueInsets>
-              <Insets/>
-            </opaqueInsets>
-          </SearchableComboBox>
+                        <Rectangle fill="#d9d9d9" height="235" width="300" fx:id="statBackground" styleClass="backgroundPanelStockView"/>
+                        <VBox alignment="CENTER"  fx:id="stockStatsBox" maxHeight="350" maxWidth="250">
+                            <Label styleClass="statLabel" fx:id="peEvaluationText" wrapText="true"/>
+                        </VBox>
+                    </StackPane>
 
-
-        </HBox>
-        <VBox>
-          <Rectangle fill="#d9d9d9" height="30.0" width="6.0" fx:id="menuBar"/>
-          <Rectangle fill="#929292" height="0.5" width="6.0" fx:id="menuBarLine"/>
-        </VBox>
-      </StackPane>
-
-
+                </VBox>
             </HBox>
         </center>
-        </ScrollPane>
     </BorderPane>
-
-    </top>
-  </BorderPane>
-
 
 </VBox>
