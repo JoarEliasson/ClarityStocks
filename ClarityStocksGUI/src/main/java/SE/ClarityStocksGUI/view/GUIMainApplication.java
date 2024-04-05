@@ -7,12 +7,13 @@ import alphaVantage.AlphaVantageClient;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
-import java.io.IOException;
-import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class GUIMainApplication extends Application {
 
@@ -40,13 +41,13 @@ public class GUIMainApplication extends Application {
     homeController = homeLoader.getController();
     homeController.setApplication(this);
 
-    //Setting up the Stock view
-    FXMLLoader stockViewLoader = new FXMLLoader(
-        GUIMainApplication.class.getResource("Stock-view.fxml"));
-    stockView = new Scene(stockViewLoader.load(), 1280, 720);
-    stockView.getStylesheets().add(css);
-    stockViewController = stockViewLoader.getController();
-    stockViewController.setApplication(this);
+        //Setting up the Stock view
+        FXMLLoader stockViewLoader = new FXMLLoader(GUIMainApplication.class.getResource("Stock-view.fxml"));
+        stockView = new Scene(stockViewLoader.load(), 1280, 720);
+        stockView.getStylesheets().add(css);
+        stockViewController = stockViewLoader.getController();
+        stockViewController.setApplication(this);
+        //stockViewController.setCompanyData(companyData);
 
     //MaterialFX default code to get stylesheets working
     UserAgentBuilder.builder()
@@ -61,30 +62,42 @@ public class GUIMainApplication extends Application {
     stage.setScene(homeView);
     stage.show();
 
-    //new TestThread().start();  //<---- ONLY FOR TESTING - Testing for updating testData, just write in the console what you want the text to be
-  }
+    }
 
-  //TEST
-  public String getTestData() {
-    return Test.getTestData();
-  }
+    public void goToStockView(String stockSymbol){
+        stockViewController.changeButtonColor();
+        stockViewController.loadStockView(stockSymbol);
+        double height = stage.getHeight();
+        double width = stage.getWidth();
 
-  public void goToStockView() {
-    double height = stage.getHeight();
-    double width = stage.getWidth();
+        stage.setHeight(height);
+        stage.setWidth(width);
+        stage.setScene(stockView);
+    }
+
+    public void goToStockView(){
+        stockViewController.changeButtonColor();
+        stockViewController.loadStockView("TSLA");
+        double height = stage.getHeight();
+        double width = stage.getWidth();
 
     stage.setHeight(height);
     stage.setWidth(width);
     stage.setScene(stockView);
   }
 
-  public void goToHomeView() {
-    double height = stage.getHeight();
-    double width = stage.getWidth();
+    public void goToHomeView(){
+        homeController.changeButtonColor();
+        double height = stage.getHeight();
+        double width = stage.getWidth();
 
-    stage.setHeight(height);
-    stage.setWidth(width);
-    stage.setScene(homeView);
+        stage.setHeight(height);
+        stage.setWidth(width);
+        try {
+            stage.setScene(homeView);
+            homeController.resetSearchBar();
+
+        }catch (ClassCastException e){
 
 
   }

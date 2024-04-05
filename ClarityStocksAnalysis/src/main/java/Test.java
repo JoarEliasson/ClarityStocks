@@ -1,24 +1,42 @@
-import java.io.File;
+import alphaVantage.AlphaVantageClient;
+import alphaVantage.CompanyOverview;
+import alphaVantage.DataPoint;
+import alphaVantage.Interval;
+import controller.PERatioEvaluator;
+
+import java.util.List;
 
 public class Test {
 
-  public static void main(String[] args) {
-    String symbol = "AAPL";
+    public static void main(String[] args) {
+        String symbol = "AAPL";
+        String name = "Apple Inc.";
 
-    File file = new File("ClarityStocksAnalysis/src/main/resources/listofstocks.dat");
-        /*
         AlphaVantageClient client = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
         CompanyOverview companyOverview = null;
-        List<DailyDataPoint> timeSeries = null;
+        List<DataPoint> timeSeries = null;
 
         try {
-            FullStockOverview fullStockOverview = client.getFullStockOverview(symbol);
-            System.out.println(fullStockOverview.toString());
+            companyOverview = client.getCompanyOverview(symbol);
+            timeSeries = client.getTimeSeries(symbol, Interval.DAILY);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-         */
-  }
+        assert companyOverview != null;
+        double priceEarningsRatio = companyOverview.getPeRatio();
+        String companyName = companyOverview.getIndustry() + " - " + companyOverview.getSector();
+
+        System.out.println("The Price Earnings Ratio for " + name + " (" + symbol + ") is: " + priceEarningsRatio);
+        System.out.println(PERatioEvaluator.evaluatePriceEarningsRatio(symbol, name, priceEarningsRatio));
+
+        if (timeSeries != null && !timeSeries.isEmpty()) {
+            for (DataPoint dataPoint : timeSeries) {
+                System.out.println(dataPoint.getDate() + " - " + dataPoint.getClose());
+            }
+        }
+
+
+    }
 }
