@@ -46,10 +46,10 @@ public class AlphaVantageClient {
       System.out.println(dailyDataPoint);
     }
     PERatioEvaluation peRatioEvaluation = PERatioEvaluator.evaluatePriceEarningsRatio(symbol,
-        companyOverview.getName(), companyOverview.getPeRatio());
+        companyOverview.name(), companyOverview.peRatio());
 
-    PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(),
-        companyOverview.getPeRatio());
+    PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.name(),
+        companyOverview.peRatio());
     List<DailyDataPoint> filteredDailyDataPoints = filterByYear(timeSeries,
         new int[]{2022, 2023, 2024});
     return new AlphaVantageStock(companyOverview, filteredDailyDataPoints,

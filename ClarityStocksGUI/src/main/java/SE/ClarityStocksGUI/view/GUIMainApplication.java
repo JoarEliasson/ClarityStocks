@@ -28,6 +28,7 @@ public class GUIMainApplication extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     this.stage = stage;
+    //TODO
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
     //Setting up the Home view
     FXMLLoader homeLoader = new FXMLLoader(GUIMainApplication.class.getResource("Home-view.fxml"));

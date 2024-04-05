@@ -90,35 +90,32 @@ public class GUIHomeController {
   }
 
   private void setupComboBox() {
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        StockInfoList sil = new StockInfoList();
-        searchField.setEditable(true);
-        searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
-        searchField.setPromptText("Search...");
-        searchField.setConverter(new StringConverter<StockInfo>() {
-          @Override
-          public String toString(StockInfo stockInfo) {
-            if (stockInfo == null) {
-              return "";
-            }
-            return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
+    Platform.runLater(() -> {
+      StockInfoList sil = new StockInfoList();
+      searchField.setEditable(true);
+      searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
+      searchField.setPromptText("Search...");
+      searchField.setConverter(new StringConverter<StockInfo>() {
+        @Override
+        public String toString(StockInfo stockInfo) {
+          if (stockInfo == null) {
+            return "";
           }
+          return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
+        }
 
-          @Override
-          public StockInfo fromString(String s) {
-            return null;
-          }
-        });
-      }
+        @Override
+        public StockInfo fromString(String s) {
+          return null;
+        }
+      });
     });
 
   }
 
   public void loadStock() {
     if (searchField.getValue() != null && currentStock != searchField.getValue()) {
-      System.out.println(((StockInfo) searchField.getValue()).getName());
+      System.out.println(searchField.getValue().getName());
       currentStock = searchField.getValue();
       System.out.println(currentStock.getSymbol());
       application.goToStockView(currentStock.getSymbol());

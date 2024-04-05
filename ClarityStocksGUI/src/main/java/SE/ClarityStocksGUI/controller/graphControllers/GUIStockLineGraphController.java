@@ -27,6 +27,7 @@ public class GUIStockLineGraphController {
 
   public void initialize() {
     System.out.println("StockLineGraphController initialized");
+    //TODO
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
     stockLineGraphController = this;
     //chart.setCreateSymbols(false);

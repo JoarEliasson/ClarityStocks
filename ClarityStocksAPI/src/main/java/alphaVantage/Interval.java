@@ -2,7 +2,7 @@ package alphaVantage;
 
 /**
  * Enum for representing different time intervals for retrieving time series data from the Alpha
- * Vantage API. Intervals with their corresonding url paremeters used in API request.
+ * Vantage API. Intervals with their corresponding url parameters used in API request.
  */
 public enum Interval {
 

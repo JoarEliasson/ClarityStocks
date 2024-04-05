@@ -78,7 +78,7 @@
           </VBox>
           <VBox alignment="CENTER">
             <StackPane>
-              <fx:include source="Stock-linegraph.fxml"/>
+              <fx:include source="Stock-lineGraph.fxml"/>
               <ProgressBar fx:id="progress" styleClass="progress-bar-primary"/>
             </StackPane>
           </VBox>

@@ -45,7 +45,7 @@ public class NasdaqStockholmCompanyData {
     String queryLowerCase = query.toLowerCase();
 
     for (ListedCompanyData company : companies) {
-      if (company.getNAME().toLowerCase().contains(queryLowerCase)) {
+      if (company.NAME().toLowerCase().contains(queryLowerCase)) {
         matchedCompanies.add(company);
       }
     }
