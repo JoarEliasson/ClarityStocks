@@ -57,9 +57,7 @@ public class GUIStockViewController {
   @FXML
   private ProgressBar progress;
 
-
   public void initialize() {
-    progress = new ProgressBar();
     progress.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
     VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
     setupComboBox();
