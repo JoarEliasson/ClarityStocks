@@ -73,22 +73,6 @@ public class GUIHomeController {
     this.application = application;
   }
 
-    /*
-    private void setupSearchBar() {
-        // Assuming searchField is your TextField for search
-        TextFields.bindAutoCompletion(searchField, t -> {
-            return companyData.searchCompaniesByName(t.getUserText()).stream()
-                    .map(ListedCompanyData::getNAME)
-                    .collect(Collectors.toList());
-        });
-    }
-    private void performSearch(String query) {
-        List<ListedCompanyData> searchResults = companyData.searchCompaniesByName(query);
-        // Do something with the search results
-    }
-
-     */
-
   public void changeButtonColor() {
     homeButton.setStyle("-fx-background-color: #339ACC;");
     stockButton.setStyle("-fx-background-color: #d9d9d9");

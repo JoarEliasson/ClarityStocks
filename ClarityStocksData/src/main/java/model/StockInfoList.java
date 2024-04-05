@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StockInfoList {
 
-  private List<StockInfo> stockInfoList = new ArrayList<>();
+  private final List<StockInfo> stockInfoList = new ArrayList<>();
 
   public StockInfoList() {
     readUSAStockInfoFromCSV();

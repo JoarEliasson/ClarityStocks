@@ -2,10 +2,10 @@ package analysis.model;
 
 public class PERatioEvaluation {
 
-  private String symbol;
-  private String name;
-  private int rating;
-  private String description;
+  private final String symbol;
+  private final String name;
+  private final int rating;
+  private final String description;
 
   public PERatioEvaluation(String symbol, String name, int rating, String description) {
     this.symbol = symbol;

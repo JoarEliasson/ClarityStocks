@@ -2,9 +2,9 @@ package model;
 
 public class StockInfo {
 
-  private String symbol;
-  private String name;
-  private String Exchange;
+  private final String symbol;
+  private final String name;
+  private final String Exchange;
 
   public StockInfo(String symbol, String name, String Exchange) {
     this.symbol = symbol;

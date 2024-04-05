@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NasdaqStockholmCompanyData {
 
-  private List<ListedCompanyData> companies = new ArrayList<>();
+  private final List<ListedCompanyData> companies = new ArrayList<>();
 
   public NasdaqStockholmCompanyData() {
   }
