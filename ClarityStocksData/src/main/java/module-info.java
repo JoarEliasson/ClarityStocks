@@ -1,3 +1,3 @@
 module ClarityStocksData {
-    exports model;
+  exports model;
 }

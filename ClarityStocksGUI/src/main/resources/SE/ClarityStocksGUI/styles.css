@@ -1,21 +1,22 @@
 .menuButton {
- -fx-background-color: #d9d9d9;
+  -fx-background-color: #d9d9d9;
 }
 
-.label{
+.label {
 
 }
 
-.stockName{
- -fx-font-size: 20;
- -fx-font-weight: bold;
+.stockName {
+  -fx-font-size: 20;
+  -fx-font-weight: bold;
 }
 
-.backgroundPanelStockView{
- -fx-fill: white;
- -fx-arc-width: 15;
- -fx-arc-height: 15;
+.backgroundPanelStockView {
+  -fx-fill: white;
+  -fx-arc-width: 15;
+  -fx-arc-height: 15;
 }
+
 /*
 .onHover{
  -fx-background-color: ORANGE;
@@ -29,41 +30,50 @@
  */
 .chart-line-symbol {
 
- -fx-opacity: 0;
+  -fx-opacity: 0;
 }
 
 .onHover {
- -fx-scale-x: 1.5;
- -fx-scale-y: 1.5;
- -fx-fill: red; /* Example hover effect */
+  -fx-scale-x: 1.5;
+  -fx-scale-y: 1.5;
+  -fx-fill: red; /* Example hover effect */
 }
 
-.default-color0.chart-series-line { -fx-stroke: blue; }
-.default-color1.chart-series-line { -fx-stroke: gold; }
-.default-color2.chart-series-line { -fx-stroke: darkgrey; }
+.default-color0.chart-series-line {
+  -fx-stroke: blue;
+}
+
+.default-color1.chart-series-line {
+  -fx-stroke: gold;
+}
+
+.default-color2.chart-series-line {
+  -fx-stroke: darkgrey;
+}
+
 .chart-series-line {
- -fx-stroke: #339ACC;
+  -fx-stroke: #339ACC;
 }
 
 .searchField {
- -fx-focus-color: #339ACC;
+  -fx-focus-color: #339ACC;
 }
 
-.searchField, .arrow, .arrow-button{
- -fx-background-color: white;
+.searchField, .arrow, .arrow-button {
+  -fx-background-color: white;
 }
 
 .searchField > .arrow-button {
- -fx-padding: 0;
+  -fx-padding: 0;
 }
 
 .searchField > .arrow-button > .arrow {
- -fx-padding: 0;
+  -fx-padding: 0;
 }
 
 
 .custom-text-field:left-node-visible .left-pane {
- -fx-padding: 0 0 0 -2000;
+  -fx-padding: 0 0 0 -2000;
 }
 
 
