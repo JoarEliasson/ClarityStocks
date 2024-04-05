@@ -128,47 +128,48 @@ public class AlphaVantageParser {
           double close = entry.getValue().get("4. close").asDouble();
           long volume = entry.getValue().get("5. volume").asLong();
 
-                    DataPoint dataPoint = new DataPoint(date, open, high, low, close, volume);
-                    dataPoints.add(dataPoint);
-                }
-            } else {
-                System.out.println("No daily time series data found.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+          DailyDataPoint dailyDataPoint = new DailyDataPoint(date, open, high, low, close, volume);
+          dailyDataPoints.add(dailyDataPoint);
         }
-        return dataPoints;
+      } else {
+        System.out.println("No daily time series data found.");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    return dailyDataPoints;
+  }
 
 
-    public List<AlphaVantageStockInfo> parseSearchResults(String body) {
-        List<AlphaVantageStockInfo> searchResults = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            JsonNode root = mapper.readTree(body);
-            JsonNode bestMatches = root.path("bestMatches");
-            if (!bestMatches.isMissingNode()) {
-                Iterator<JsonNode> elements = bestMatches.elements();
-                while (elements.hasNext()) {
-                    JsonNode match = elements.next();
-                    String symbol = match.path("1. symbol").asText();
-                    String name = match.path("2. name").asText();
-                    String type = match.path("3. type").asText();
-                    String region = match.path("4. region").asText();
-                    String marketOpen = match.path("5. marketOpen").asText();
-                    String marketClose = match.path("6. marketClose").asText();
-                    String timezone = match.path("7. timezone").asText();
-                    String currency = match.path("8. currency").asText();
-                    double matchScore = match.path("9. matchScore").asDouble();
-                    AlphaVantageStockInfo alphaVantageStockInfo = new AlphaVantageStockInfo(symbol, name, type, region, marketOpen, marketClose, timezone, currency, matchScore);
-                    searchResults.add(alphaVantageStockInfo);
-                }
-            } else {
-                System.out.println("No search results found.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+  public List<AlphaVantageStockInfo> parseSearchResults(String body) {
+    List<AlphaVantageStockInfo> searchResults = new ArrayList<>();
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      JsonNode root = mapper.readTree(body);
+      JsonNode bestMatches = root.path("bestMatches");
+      if (!bestMatches.isMissingNode()) {
+        Iterator<JsonNode> elements = bestMatches.elements();
+        while (elements.hasNext()) {
+          JsonNode match = elements.next();
+          String symbol = match.path("1. symbol").asText();
+          String name = match.path("2. name").asText();
+          String type = match.path("3. type").asText();
+          String region = match.path("4. region").asText();
+          String marketOpen = match.path("5. marketOpen").asText();
+          String marketClose = match.path("6. marketClose").asText();
+          String timezone = match.path("7. timezone").asText();
+          String currency = match.path("8. currency").asText();
+          double matchScore = match.path("9. matchScore").asDouble();
+          AlphaVantageStockInfo alphaVantageStockInfo = new AlphaVantageStockInfo(symbol, name,
+              type, region, marketOpen, marketClose, timezone, currency, matchScore);
+          searchResults.add(alphaVantageStockInfo);
         }
-        return searchResults;
+      } else {
+        System.out.println("No search results found.");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    return searchResults;
+  }
 }

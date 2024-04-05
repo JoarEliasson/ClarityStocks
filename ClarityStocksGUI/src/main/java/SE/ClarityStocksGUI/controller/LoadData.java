@@ -4,13 +4,9 @@ import alphaVantage.AlphaVantageClient;
 
 public class LoadData {
 
-  private AlphaVantageClient alphaVantageClient;
+  private static AlphaVantageClient alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
 
-  public LoadData() {
-    this.alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
-  }
-
-  public AlphaVantageClient getAlphaVantageClient() {
+  public static AlphaVantageClient getAlphaVantageClient() {
     return alphaVantageClient;
   }
 }
