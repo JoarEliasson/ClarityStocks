@@ -1,4 +1,4 @@
-# 🔥 Clarity Stocks 🔥 💅✨
+# 🔥 Clarity Stocks 🔥 ✨
 
 Welcome to Clarity Stocks! 🏴‍☠️
 

@@ -1,17 +1,14 @@
 module SE.ClarityStocksGUI {
 
-    requires org.controlsfx.controls;
-    requires org.kordamp.bootstrapfx.core;
-    requires javafx.graphics;
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.base;
-    requires VirtualizedFX;
-    requires MaterialFX;
-    requires ClarityStocksAPI;
-    requires ClarityStocksData;
-    requires java.logging;
-    requires atlantafx.base;
+  requires org.controlsfx.controls;
+  requires org.kordamp.bootstrapfx.core;
+  requires javafx.graphics;
+  requires javafx.controls;
+  requires javafx.fxml;
+  requires javafx.base;
+  requires MaterialFX;
+  requires ClarityStocksAPI;
+  requires ClarityStocksData;
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
 

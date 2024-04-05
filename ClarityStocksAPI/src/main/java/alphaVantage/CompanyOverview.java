@@ -6,20 +6,20 @@ package alphaVantage;
 
 public class CompanyOverview {
 
-  private String symbol;
-  private String name;
-  private String description;
-  private String sector;
-  private String industry;
-  private double marketCapitalization;
-  private double peRatio;
-  private double earningsPerShare;
-  private double bookValue;
-  private double dividendPerShare;
-  private double dividendYield;
-  private double revenuePerShareTTM;
-  private double profitMargin;
-  private double operatingMarginTTM;
+  private final String symbol;
+  private final String name;
+  private final String description;
+  private final String sector;
+  private final String industry;
+  private final double marketCapitalization;
+  private final double peRatio;
+  private final double earningsPerShare;
+  private final double bookValue;
+  private final double dividendPerShare;
+  private final double dividendYield;
+  private final double revenuePerShareTTM;
+  private final double profitMargin;
+  private final double operatingMarginTTM;
 
   public CompanyOverview(String symbol, String name, String description, String sector,
       String industry, double marketCapitalization, double peRatio, double earningsPerShare,

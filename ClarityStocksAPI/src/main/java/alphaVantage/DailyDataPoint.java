@@ -2,11 +2,11 @@ package alphaVantage;
 
 public class DailyDataPoint {
 
-  private String date;
+  private final String date;
+  private final double close;
   private double open;
   private double high;
   private double low;
-  private double close;
   private double average;
   private long volume;
 

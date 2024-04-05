@@ -16,7 +16,7 @@ public class AlphaVantageClient {
   private final HttpClient httpClient;
   private final AlphaVantageParser parser = new AlphaVantageParser();
 
-  //Constructor. Creates instanse of httpClient
+  //Constructor. Creates instance of httpClient
   public AlphaVantageClient(String apiKey) {
     this.apiKey = apiKey;
     this.httpClient = HttpClient.newHttpClient();
@@ -45,8 +45,7 @@ public class AlphaVantageClient {
     for (DailyDataPoint dailyDataPoint : timeSeries) {
       System.out.println(dailyDataPoint);
     }
-    PERatioEvaluator peRatioEvaluator = new PERatioEvaluator();
-    PERatioEvaluation peRatioEvaluation = peRatioEvaluator.evaluatePriceEarningsRatio(symbol,
+    PERatioEvaluation peRatioEvaluation = PERatioEvaluator.evaluatePriceEarningsRatio(symbol,
         companyOverview.getName(), companyOverview.getPeRatio());
 
     PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(),
@@ -73,7 +72,7 @@ public class AlphaVantageClient {
     return filteredDailyDataPoints;
   }
 
-  public CompanyOverview getCompanyOverview(String symbol) throws Exception {
+  public CompanyOverview getCompanyOverview(String symbol) {
     String url = String.format(
         "https://www.alphavantage.co/query?function=OVERVIEW&symbol=%s&apikey=%s", symbol, apiKey);
     HttpRequest request = HttpRequest.newBuilder()
@@ -95,7 +94,7 @@ public class AlphaVantageClient {
     }
   }
 
-  public FullStockOverview getFullStockOverview(String symbol) throws Exception {
+  public FullStockOverview getFullStockOverview(String symbol) {
     String url = String.format(
         "https://www.alphavantage.co/query?function=OVERVIEW&symbol=%s&apikey=%s", symbol, apiKey);
     HttpRequest request = HttpRequest.newBuilder()
@@ -118,14 +117,14 @@ public class AlphaVantageClient {
   }
 
   public List<DailyDataPoint> getTimeSeries(String symbol, Interval interval) throws Exception {
-    HttpClient client = HttpClient.newHttpClient();
+
     String urlString =
         "https://www.alphavantage.co/query?function=" + interval.getUrlParameter() + "&symbol="
             + symbol + "&outputsize=full&apikey=" + apiKey;
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(urlString))
         .build();
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     return parser.parseTimeSeries(response.body());
   }
 

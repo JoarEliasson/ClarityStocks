@@ -1,10 +1,10 @@
 .menuButton {
- -fx-background-color: #d9d9d9;
- -fx-padding: 5 7 5 7;
- -fx-background-radius: 0;
+  -fx-background-color: #d9d9d9;
+  -fx-padding: 5 7 5 7;
+  -fx-background-radius: 0;
 }
 
-.statLabel{
+.statLabel {
 
 }
 
@@ -19,12 +19,12 @@
   -fx-arc-height: 15;
 }
 
-.onHover{
- -fx-background-color: ORANGE;
+.onHover {
+  -fx-background-color: ORANGE;
 }
 
 .chart-line-symbol {
- -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 
@@ -51,17 +51,17 @@
 }
 
 .searchField {
- -fx-focus-color: #339ACC;
- -fx-pref-height: 40px;  /* Set preferred height */
- -fx-min-height: 10px;   /* Set minimum height */
- -fx-max-height: 25px;
- -fx-background-color: transparent;
- -fx-font-size: 12;
- -color-cell-border: transparent;
+  -fx-focus-color: #339ACC;
+  -fx-pref-height: 40px; /* Set preferred height */
+  -fx-min-height: 10px; /* Set minimum height */
+  -fx-max-height: 25px;
+  -fx-background-color: transparent;
+  -fx-font-size: 12;
+  -color-cell-border: transparent;
 }
 
 .searchField .custom-text-field {
- -fx-padding: 0;
+  -fx-padding: 0;
 }
 
 .searchField, .arrow, .arrow-button {
@@ -73,8 +73,8 @@
 }
 
 .searchField > .arrow-button > .arrow {
- -fx-padding: 0;
- -fx-background-color: transparent;
+  -fx-padding: 0;
+  -fx-background-color: transparent;
 
 }
 
@@ -82,9 +82,9 @@
   -fx-padding: 0 0 0 -2000;
 }
 
-.custom-text-field:right-node-visible .right-pane{
- -fx-padding: 0;
- -fx-background-color: transparent;
+.custom-text-field:right-node-visible .right-pane {
+  -fx-padding: 0;
+  -fx-background-color: transparent;
 }
 
 

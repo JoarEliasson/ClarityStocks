@@ -15,9 +15,9 @@ import java.util.Map;
 public class AlphaVantageParser {
 
   //Method for parsing JSON response containing company overview data. Sets values in CompanyOverview object. Returns overview object.
-  public CompanyOverview parseCompanyOverview(String responseBody) throws Exception {
+  public CompanyOverview parseCompanyOverview(String responseBody) {
     ObjectMapper mapper = new ObjectMapper();
-    JsonNode root = null;
+    JsonNode root;
     CompanyOverview overview = null;
     try {
       root = mapper.readTree(responseBody);
@@ -49,7 +49,7 @@ public class AlphaVantageParser {
 
   public FullStockOverview parseFullStockOverview(String body) {
     ObjectMapper mapper = new ObjectMapper();
-    JsonNode root = null;
+    JsonNode root;
     FullStockOverview fullStockOverview = new FullStockOverview();
     try {
       root = mapper.readTree(body);
@@ -110,7 +110,7 @@ public class AlphaVantageParser {
   }
 
   //Method for parsing JSON response containing time data. Iterates over each entry, extracts data and creates a DataPoint object for each entry. Returns list of DataPoint objects.
-  public List<DailyDataPoint> parseTimeSeries(String responseBody) throws Exception {
+  public List<DailyDataPoint> parseTimeSeries(String responseBody) {
     ObjectMapper mapper = new ObjectMapper();
     List<DailyDataPoint> dailyDataPoints = new ArrayList<>();
 

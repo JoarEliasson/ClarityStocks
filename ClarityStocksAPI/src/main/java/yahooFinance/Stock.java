@@ -10,8 +10,6 @@ import java.util.List;
  */
 public class Stock {
 
-  private static final Logger log = LoggerFactory.getLogger(Stock.class);
-
   private final String symbol;
   private String name;
   private String currency;
@@ -40,9 +38,8 @@ public class Stock {
         this.setQuote(stock.getQuote());
         this.setStats(stock.getStats());
         this.setDividend(stock.getDividend());
-        log.info("Updated Stock with symbol: {}", this.symbol);
       } else {
-        log.error("Failed to update Stock with symbol: {}", this.symbol);
+        System.out.println("Stock not found: " + this.symbol);
       }
     } else {
       StockQuotesRequest request = new StockQuotesRequest(this.symbol);
@@ -51,9 +48,8 @@ public class Stock {
         this.setQuote(data.getQuote());
         this.setStats(data.getStats());
         this.setDividend(data.getDividend());
-        log.info("Updated Stock with symbol: {}", this.symbol);
       } else {
-        log.error("Failed to update Stock with symbol: {}", this.symbol);
+        System.out.println("Stock not found: " + this.symbol);
       }
     }
   }
@@ -500,7 +496,7 @@ public class Stock {
       try {
         System.out.println(f.getName() + ": " + f.get(this));
       } catch (IllegalArgumentException | IllegalAccessException ex) {
-        log.error(null, String.valueOf(ex));
+        System.out.println(f.getName() + ": " + "N/A");
       }
     }
     System.out.println("--------------------------------");

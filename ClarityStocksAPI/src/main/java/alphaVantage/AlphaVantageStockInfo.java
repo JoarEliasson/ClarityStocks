@@ -2,15 +2,15 @@ package alphaVantage;
 
 public class AlphaVantageStockInfo {
 
-  private String symbol;
-  private String name;
-  private String type;
-  private String region;
-  private String marketOpen;
-  private String marketClose;
-  private String timezone;
-  private String currency;
-  private double matchScore;
+  private final String symbol;
+  private final String name;
+  private final String type;
+  private final String region;
+  private final String marketOpen;
+  private final String marketClose;
+  private final String timezone;
+  private final String currency;
+  private final double matchScore;
 
   public AlphaVantageStockInfo(String symbol, String name, String type, String region,
       String marketOpen, String marketClose, String timezone, String currency, double matchScore) {

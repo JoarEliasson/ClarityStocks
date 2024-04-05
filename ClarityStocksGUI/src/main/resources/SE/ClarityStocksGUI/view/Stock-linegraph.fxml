@@ -7,7 +7,8 @@
   stylesheets="@../styles.css"
   xmlns="http://javafx.com/fxml/21"
 
-  fx:controller="SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController" fx:id="chart">
+  fx:controller="SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController"
+  fx:id="chart">
   <xAxis>
     <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
   </xAxis>

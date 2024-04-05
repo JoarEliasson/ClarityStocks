@@ -5,9 +5,9 @@ import java.util.List;
 
 public class AlphaVantageStock {
 
-  private CompanyOverview companyOverview;
-  private List<DailyDataPoint> timeSeries;
-  private String PERatioEvaluation;
+  private final CompanyOverview companyOverview;
+  private final List<DailyDataPoint> timeSeries;
+  private final String PERatioEvaluation;
 
   public AlphaVantageStock(CompanyOverview companyOverview, List<DailyDataPoint> timeSeries,
       String PERatioEvaluation) {
@@ -44,21 +44,6 @@ public class AlphaVantageStock {
       movingAverage.add(new DailyDataPoint(timeSeries.get(i).getDate(), average));
     }
 
-            /*
-        for (int i = 0; i < timeSeries.size(); i++) {
-            if (i < days) {
-                movingAverage.add(new DataPoint(timeSeries.get(i).getDate(), timeSeries.get(i).getClose()));
-            } else {
-                double sum = 0;
-                for (int j = i - days; j < i; j++) {
-                    sum += timeSeries.get(j).getClose();
-                }
-                double average = sum / days;
-                movingAverage.add(new DataPoint(timeSeries.get(i).getDate(), average));
-            }
-        }
-
-             */
     return movingAverage;
 
 
