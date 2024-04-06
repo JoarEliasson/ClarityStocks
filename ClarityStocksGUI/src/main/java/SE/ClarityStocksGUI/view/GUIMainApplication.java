@@ -6,11 +6,17 @@ import alphaVantage.AlphaVantageClient;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
+
+import java.awt.*;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class GUIMainApplication extends Application {
 
@@ -27,6 +33,7 @@ public class GUIMainApplication extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
+
     this.stage = stage;
     //TODO
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
@@ -57,8 +64,12 @@ public class GUIMainApplication extends Application {
         .build()
         .setGlobal();
 
-    stage.setTitle("ClarityStocks");
+
+    stage.setTitle("Clarity Stocks");
     stage.setScene(homeView);
+    Image img = new Image("claritystocksicon.png");
+    stage.getIcons().add(img);
+
     stage.show();
 
   }
