@@ -67,7 +67,7 @@
     </top>
     <!-- Center Center Center Center Center Center Center Center Center Center -->
     <center>
-      <VBox alignment="CENTER" spacing="20">
+      <VBox alignment="CENTER" spacing="20"  styleClass="bodyLayout">
         <Label fx:id="welcomeText"/>
         <Label fx:id="testDataInfo"/>
         <Label fx:id="testData"/>
