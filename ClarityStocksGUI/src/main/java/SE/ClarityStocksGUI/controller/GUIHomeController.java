@@ -70,8 +70,8 @@ public class GUIHomeController {
 
     // create a image
 
-    /*
-    Image image = new Image("claritystocksbackground.jpg");
+
+    Image image = new Image("lighttheme.jpg");
 
     // create a background image
     BackgroundImage backgroundimage = new BackgroundImage(image,
@@ -85,7 +85,7 @@ public class GUIHomeController {
 
     // set background
     mainVBox.setBackground(background);
-*/
+
 
 
     setupComboBox();
