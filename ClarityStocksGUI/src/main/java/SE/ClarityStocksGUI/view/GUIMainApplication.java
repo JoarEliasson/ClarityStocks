@@ -67,6 +67,8 @@ public class GUIMainApplication extends Application {
 
     stage.setTitle("Clarity Stocks");
     stage.setScene(homeView);
+    homeView.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
     Image img = new Image("claritystocksicon.png");
     stage.getIcons().add(img);
 

@@ -40,7 +40,7 @@
 
           <!-- Stock button Stock button Stock button Stock button Stock button Stock button -->
           <MFXButton fx:id="stockButton" onAction="#goToStockView" styleClass="menuButton"
-            textAlignment="CENTER">
+            textAlignment="CENTER" >
             <font>
               <Font size="14.0"/>
             </font>
@@ -68,10 +68,10 @@
     <!-- Center Center Center Center Center Center Center Center Center Center -->
     <center>
       <VBox alignment="CENTER" spacing="20"  styleClass="bodyLayout">
-        <Label fx:id="welcomeText"/>
-        <Label fx:id="testDataInfo"/>
-        <Label fx:id="testData"/>
-        <MFXButton fx:id="updateTestData"/>
+        <Label fx:id="welcomeText" styleClass="lblStyle"/>
+        <Label fx:id="testDataInfo" styleClass="lblStyle"/>
+        <Label fx:id="testData" styleClass="lblStyle"/>
+        <MFXButton fx:id="updateTestData" styleClass="lblStyle"/>
       </VBox>
     </center>
 
