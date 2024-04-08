@@ -12,8 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
@@ -63,6 +63,24 @@ public class GUIStockViewController {
     setupComboBox();
     homeButton.setText("Home");
     stockButton.setText("Stock");
+
+
+    // create a image
+    Image image = new Image("claritystocksbackground.jpg");
+
+    // create a background image
+    BackgroundImage backgroundimage = new BackgroundImage(image,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+
+    // create Background
+    Background background = new Background(backgroundimage);
+
+    // set background
+    mainVBox.setBackground(background);
+
 
     menuBar.widthProperty().bind(mainVBox.widthProperty());
     menuBarLine.widthProperty().bind(mainVBox.widthProperty());
