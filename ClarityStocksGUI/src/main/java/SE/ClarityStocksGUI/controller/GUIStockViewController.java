@@ -64,7 +64,7 @@ public class GUIStockViewController {
     homeButton.setText("Home");
     stockButton.setText("Stock");
 
-
+/*
     // create a image
     Image image = new Image("claritystocksbackground.jpg");
 
@@ -80,7 +80,7 @@ public class GUIStockViewController {
 
     // set background
     mainVBox.setBackground(background);
-
+*/
 
     menuBar.widthProperty().bind(mainVBox.widthProperty());
     menuBarLine.widthProperty().bind(mainVBox.widthProperty());

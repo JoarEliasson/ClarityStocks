@@ -69,6 +69,8 @@ public class GUIHomeController {
    // FileInputStream input = new FileInputStream("claritystocksbackground.jpg");
 
     // create a image
+
+    /*
     Image image = new Image("claritystocksbackground.jpg");
 
     // create a background image
@@ -83,7 +85,7 @@ public class GUIHomeController {
 
     // set background
     mainVBox.setBackground(background);
-
+*/
 
 
     setupComboBox();
@@ -99,10 +101,12 @@ public class GUIHomeController {
     testData.setText("This is the test data.");
     updateTestData.setText("Update test data");
 
-    welcomeText.setStyle("-fx-text-fill: #bcdaeb; -fx-font-size: 16px;");
-    testDataInfo.setStyle("-fx-text-fill: #bcdaeb; -fx-font-size: 16px;");
-    testData.setStyle("-fx-text-fill: #bcdaeb; -fx-font-size: 16px;");
-    updateTestData.setStyle("-fx-text-fill: #2c3a42; -fx-font-size: 16px;");
+
+    //color for blue theme #bcdaeb ,  #2c3a42
+    welcomeText.setStyle("-fx-text-fill: black; -fx-font-size: 16px;");
+    testDataInfo.setStyle("-fx-text-fill: black; -fx-font-size: 16px;");
+    testData.setStyle("-fx-text-fill: black; -fx-font-size: 16px;");
+    updateTestData.setStyle("-fx-text-fill: black; -fx-font-size: 16px;");
 
         /*
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
