@@ -26,15 +26,7 @@ public class GUIHomeController {
     @FXML
     private BorderPane layout;
     @FXML
-    private Rectangle menuBar;
-    @FXML
-    private Rectangle menuBarLine;
-    @FXML
     private VBox mainVBox;
-    @FXML
-    private MFXButton stockButton;
-    @FXML
-    private MFXButton homeButton;
     @FXML
     private SearchableComboBox<StockInfo> searchField;
 
@@ -53,18 +45,8 @@ public class GUIHomeController {
 
     public void initialize(){
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
-        homeButton.setText("Home");
-        stockButton.setText("Stock");
 
-
-        setupComboBox();
-
-        changeButtonColor();
         //homeButton.getStyleClass().setAll("mfx-button");
-        menuBar.widthProperty().bind(mainVBox.widthProperty());
-        menuBarLine.widthProperty().bind(mainVBox.widthProperty());
-
-
         welcomeText.setText("WORK IN PROGRESS!!!\nThis is the home view.");
         testDataInfo.setText("To set testdata, make a method that calls the setTestData() method in the Test class.");
         testData.setText("This is the test data.");
@@ -97,10 +79,7 @@ public class GUIHomeController {
 
      */
 
-    public void changeButtonColor(){
-        homeButton.setStyle("-fx-background-color: #339ACC;");
-        stockButton.setStyle("-fx-background-color: #d9d9d9");
-    }
+
     @FXML
     public void goToStockView(){
         application.goToStockView();

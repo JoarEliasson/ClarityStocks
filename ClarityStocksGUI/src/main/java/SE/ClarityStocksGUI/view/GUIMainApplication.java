@@ -77,7 +77,6 @@ public class GUIMainApplication extends Application {
     }
 
     public void goToStockView(){
-        stockViewController.changeButtonColor();
         double height = stage.getHeight();
         double width = stage.getWidth();
         stockViewController.loadStockView("TSLA");
@@ -89,7 +88,6 @@ public class GUIMainApplication extends Application {
     }
 
     public void goToHomeView(){
-        homeController.changeButtonColor();
         double height = stage.getHeight();
         double width = stage.getWidth();
 
