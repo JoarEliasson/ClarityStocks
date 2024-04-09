@@ -31,7 +31,7 @@ public class PERatioEvaluator {
     if (score == 0) {
       description = "Price Earnings ratio is greater than 30, which is HIGH.\nThis is a NEGATIVE sign, indicating that there is a substantial risk that the company is overvalued.";
     }
-    return new PERatioEvaluation(symbol, name, score, description);
+    return new PERatioEvaluation(symbol, priceEarningsRatio);
   }
 
   private static int getScore(double peRatio) {

@@ -150,5 +150,4 @@ public class AlphaVantageClient {
       throw new RuntimeException("Error fetching search results", e);
     }
   }
-
 }
