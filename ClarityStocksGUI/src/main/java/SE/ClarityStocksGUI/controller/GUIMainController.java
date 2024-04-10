@@ -7,56 +7,57 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class GUIMainController {
-    private GUIMainApplication application;
-    @FXML
-    private VBox stockView;
-    @FXML
-    private VBox homeView;
-    @FXML
-    private BorderPane mainBorderPane;
-    @FXML
-    private MenuBarController menuBarController;
-    @FXML
-    private GUIStockViewController stockViewController;
-    @FXML
-    private GUIHomeController homeViewController;
 
-    public void initialize(){
-        homeViewController.setController(this);
-        stockViewController.setController(this);
-        menuBarController.setController(this);
+  private GUIMainApplication application;
+  @FXML
+  private VBox stockView;
+  @FXML
+  private VBox homeView;
+  @FXML
+  private BorderPane mainBorderPane;
+  @FXML
+  private MenuBarController menuBarController;
+  @FXML
+  private GUIStockViewController stockViewController;
+  @FXML
+  private GUIHomeController homeViewController;
 
-        menuBarController.setWidthAndHeightProperty();
+  public void initialize() {
+    homeViewController.setController(this);
+    stockViewController.setController(this);
+    menuBarController.setController(this);
 
-        homeView.setVisible(true);
-        stockView.setVisible(false);
-    }
+    menuBarController.setWidthAndHeightProperty();
 
-    public void setApplication(GUIMainApplication application){
-        this.application = application;
-    }
+    homeView.setVisible(true);
+    stockView.setVisible(false);
+  }
 
-    public void goToStockView(){
-        stockView.setVisible(true);
-        homeView.setVisible(false);
-    }
+  public void setApplication(GUIMainApplication application) {
+    this.application = application;
+  }
 
-    public void goToStockView(String stockSymbol){
-        stockView.setVisible(true);
-        homeView.setVisible(false);
-        stockViewController.loadStockView(stockSymbol);
-    }
+  public void goToStockView() {
+    stockView.setVisible(true);
+    homeView.setVisible(false);
+  }
 
-    public void goToHomeView(){
-        stockView.setVisible(false);
-        homeView.setVisible(true);
-    }
+  public void goToStockView(String stockSymbol) {
+    stockView.setVisible(true);
+    homeView.setVisible(false);
+    stockViewController.loadStockView(stockSymbol);
+  }
 
-    public ReadOnlyDoubleProperty getWidthProperty(){
-        return mainBorderPane.widthProperty();
-    }
+  public void goToHomeView() {
+    stockView.setVisible(false);
+    homeView.setVisible(true);
+  }
 
-    public ReadOnlyDoubleProperty getHeightProperty(){
-        return mainBorderPane.heightProperty();
-    }
+  public ReadOnlyDoubleProperty getWidthProperty() {
+    return mainBorderPane.widthProperty();
+  }
+
+  public ReadOnlyDoubleProperty getHeightProperty() {
+    return mainBorderPane.heightProperty();
+  }
 }

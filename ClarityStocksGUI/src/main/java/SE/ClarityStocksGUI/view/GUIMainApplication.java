@@ -21,56 +21,58 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GUIMainApplication extends Application {
-    private Scene homeView;
-    private Scene stockView;
-    private Scene mainView;
-    private Stage stage;
-    private GUIMainController mainController;
-    private static GUIMainApplication guiMainApplication;
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        this.stage = stage;
-        guiMainApplication = this;
-        String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
-        //Setting up the Home view
+  private Scene homeView;
+  private Scene stockView;
+  private Scene mainView;
+  private Stage stage;
+  private GUIMainController mainController;
+  private static GUIMainApplication guiMainApplication;
 
-        FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
-        mainView = new Scene(mainLoader.load(), 1280, 720);
-        mainView.getStylesheets().add(css);
-        mainController = mainLoader.getController();
-        mainController.setApplication(this);
-        //stockViewController.setCompanyData(companyData);
+  @Override
+  public void start(Stage stage) throws IOException {
+    this.stage = stage;
+    guiMainApplication = this;
+    String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
+    //Setting up the Home view
 
-        //MaterialFX default code to get stylesheets working
-        UserAgentBuilder.builder()
-                .themes(JavaFXThemes.MODENA)
-                .themes(MaterialFXStylesheets.forAssemble(true))
-                .setDeploy(true)
-                .setResolveAssets(true)
-                .build()
-                .setGlobal();
+    FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
+    mainView = new Scene(mainLoader.load(), 1280, 720);
+    mainView.getStylesheets().add(css);
+    mainController = mainLoader.getController();
+    mainController.setApplication(this);
+    //stockViewController.setCompanyData(companyData);
 
-        stage.setTitle("Clarity Stocks");
-        stage.setScene(mainView);
-        stage.show();
+    //MaterialFX default code to get stylesheets working
+    UserAgentBuilder.builder()
+        .themes(JavaFXThemes.MODENA)
+        .themes(MaterialFXStylesheets.forAssemble(true))
+        .setDeploy(true)
+        .setResolveAssets(true)
+        .build()
+        .setGlobal();
 
-    }
+    stage.setTitle("Clarity Stocks");
+    stage.setScene(mainView);
+    stage.show();
 
-    public double getHeight(){
-        return stage.getHeight();
-    }
-    public double getWidth(){
-        return stage.getWidth();
-    }
+  }
 
-    public void setHeight(double height){
-        stage.setHeight(height);
-    }
+  public double getHeight() {
+    return stage.getHeight();
+  }
 
-    public void setWidth(double width){
-        stage.setWidth(width);
-    }
+  public double getWidth() {
+    return stage.getWidth();
+  }
+
+  public void setHeight(double height) {
+    stage.setHeight(height);
+  }
+
+  public void setWidth(double width) {
+    stage.setWidth(width);
+  }
     /*
 
     public void sceneSwitch(){
@@ -108,11 +110,11 @@ public class GUIMainApplication extends Application {
 
      */
 
-    public static GUIMainApplication getInstance(){
-        return guiMainApplication;
-    }
+  public static GUIMainApplication getInstance() {
+    return guiMainApplication;
+  }
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
         /*
             All logging is disabled because of a bug in an external library that gives tons of error messages when
             nothing is wrong.
@@ -121,9 +123,9 @@ public class GUIMainApplication extends Application {
 
          */
 
-        Logger logger = Logger.getLogger(""); // COMMENT OUT THIS LINE
-        logger.setLevel(Level.OFF);     //COMMENT OUT THIS LINE
-        launch(args);
-    }
+    Logger logger = Logger.getLogger(""); // COMMENT OUT THIS LINE
+    logger.setLevel(Level.OFF);     //COMMENT OUT THIS LINE
+    launch(args);
+  }
 
 }

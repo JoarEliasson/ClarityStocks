@@ -22,25 +22,26 @@ import org.controlsfx.control.textfield.CustomTextField;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class GUIHomeController {
-    private GUIMainController controller;
-    @FXML
-    private BorderPane layout;
-    @FXML
-    private VBox mainVBox;
-    //For testing purposes, will be removed later
-    @FXML
-    private Label welcomeText;
+
+  private GUIMainController controller;
+  @FXML
+  private BorderPane layout;
+  @FXML
+  private VBox mainVBox;
+  //For testing purposes, will be removed later
+  @FXML
+  private Label welcomeText;
 
 
-    public void initialize() {
-        VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
+  public void initialize() {
+    VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
 
-        welcomeText.setText("Clarity Stocks");
+    welcomeText.setText("Clarity Stocks");
 
-    }
+  }
 
-    public void setController(GUIMainController controller) {
-        this.controller = controller;
-    }
+  public void setController(GUIMainController controller) {
+    this.controller = controller;
+  }
 
 }
