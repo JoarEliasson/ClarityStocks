@@ -22,107 +22,25 @@ import org.controlsfx.control.textfield.CustomTextField;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class GUIHomeController {
-    private GUIMainApplication application;
+    private GUIMainController controller;
     @FXML
     private BorderPane layout;
     @FXML
     private VBox mainVBox;
-    @FXML
-    private SearchableComboBox<StockInfo> searchField;
-
     //For testing purposes, will be removed later
     @FXML
     private Label welcomeText;
-    @FXML
-    private Label testDataInfo;
-    @FXML
-    private Label testData;
-    @FXML
-    private MFXButton updateTestData;
 
 
-    private StockInfo currentStock;
+    public void initialize() {
+        VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
 
-    public void initialize(){
-        VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
-
-        //homeButton.getStyleClass().setAll("mfx-button");
-        welcomeText.setText("WORK IN PROGRESS!!!\nThis is the home view.");
-        testDataInfo.setText("To set testdata, make a method that calls the setTestData() method in the Test class.");
-        testData.setText("This is the test data.");
-        updateTestData.setText("Update test data");
-        /*
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            performSearch(newValue); // Method to perform search
-        });
-
-         */
-    }
-
-    public void setApplication(GUIMainApplication application){
-        this.application = application;
-    }
-
-    /*
-    private void setupSearchBar() {
-        // Assuming searchField is your TextField for search
-        TextFields.bindAutoCompletion(searchField, t -> {
-            return companyData.searchCompaniesByName(t.getUserText()).stream()
-                    .map(ListedCompanyData::getNAME)
-                    .collect(Collectors.toList());
-        });
-    }
-    private void performSearch(String query) {
-        List<ListedCompanyData> searchResults = companyData.searchCompaniesByName(query);
-        // Do something with the search results
-    }
-
-     */
-
-
-    @FXML
-    public void goToStockView(){
-        application.goToStockView();
-    }
-
-    public void resetSearchBar(){
-        searchField.hide();
-        searchField.setValue(null);
-        searchField.setPromptText("Search...");
-    }
-    private void setupComboBox(){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                StockInfoList sil = new StockInfoList();
-                searchField.setEditable(true);
-                searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
-                searchField.setPromptText("Search...");
-                searchField.setConverter(new StringConverter<StockInfo>() {
-                    @Override
-                    public String toString(StockInfo stockInfo) {
-                        if(stockInfo == null){
-                            return "";
-                        }
-                        return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
-                    }
-
-                    @Override
-                    public StockInfo fromString(String s) {
-                        return null;
-                    }
-                });
-            }
-        });
+        welcomeText.setText("Clarity Stocks");
 
     }
 
-    public void loadStock(){
-        if(searchField.getValue() != null && currentStock != searchField.getValue()){
-            System.out.println(((StockInfo) searchField.getValue()).getName());
-            currentStock = searchField.getValue();
-            System.out.println(currentStock.getSymbol());
-            application.goToStockView(currentStock.getSymbol());
-        }
+    public void setController(GUIMainController controller) {
+        this.controller = controller;
     }
+
 }

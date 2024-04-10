@@ -1,6 +1,7 @@
 package SE.ClarityStocksGUI.view;
 
 import SE.ClarityStocksGUI.controller.GUIHomeController;
+import SE.ClarityStocksGUI.controller.GUIMainController;
 import SE.ClarityStocksGUI.controller.GUIStockViewController;
 import atlantafx.base.theme.PrimerLight;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
@@ -22,29 +23,23 @@ import java.util.logging.Logger;
 public class GUIMainApplication extends Application {
     private Scene homeView;
     private Scene stockView;
+    private Scene mainView;
     private Stage stage;
-    private GUIHomeController homeController;
-    private GUIStockViewController stockViewController;
+    private GUIMainController mainController;
+    private static GUIMainApplication guiMainApplication;
 
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
+        guiMainApplication = this;
         String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
         //Setting up the Home view
-        FXMLLoader homeLoader = new FXMLLoader(GUIMainApplication.class.getResource("Home-view.fxml"));
-        homeView = new Scene(homeLoader.load(), 1280, 720);
-        homeView.getStylesheets().add(css);
-        homeController = homeLoader.getController();
-        homeController.setApplication(this);
-        //homeController.setCompanyData(companyData);
 
-        //Setting up the Stock view
-        FXMLLoader stockViewLoader = new FXMLLoader(GUIMainApplication.class.getResource("Stock-view.fxml"));
-        stockView = new Scene(stockViewLoader.load(), 1280, 720);
-        stockView.getStylesheets().add(css);
-
-        stockViewController = stockViewLoader.getController();
-        stockViewController.setApplication(this);
+        FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
+        mainView = new Scene(mainLoader.load(), 1280, 720);
+        mainView.getStylesheets().add(css);
+        mainController = mainLoader.getController();
+        mainController.setApplication(this);
         //stockViewController.setCompanyData(companyData);
 
         //MaterialFX default code to get stylesheets working
@@ -56,24 +51,33 @@ public class GUIMainApplication extends Application {
                 .build()
                 .setGlobal();
 
-
-        stage.setTitle("ClarityStocks");
-        stage.setScene(homeView);
+        stage.setTitle("Clarity Stocks");
+        stage.setScene(mainView);
         stage.show();
 
     }
 
-    public void goToStockView(String stockSymbol){
-        stockViewController.changeButtonColor();
+    public double getHeight(){
+        return stage.getHeight();
+    }
+    public double getWidth(){
+        return stage.getWidth();
+    }
+
+    public void setHeight(double height){
+        stage.setHeight(height);
+    }
+
+    public void setWidth(double width){
+        stage.setWidth(width);
+    }
+    /*
+
+    public void sceneSwitch(){
         double height = stage.getHeight();
         double width = stage.getWidth();
-        stockViewController.loadStockView(stockSymbol);
-
-
-
         stage.setHeight(height);
         stage.setWidth(width);
-        stage.setScene(stockView);
     }
 
     public void goToStockView(){
@@ -95,12 +99,17 @@ public class GUIMainApplication extends Application {
         stage.setWidth(width);
         try {
             stage.setScene(homeView);
-            homeController.resetSearchBar();
 
         }catch (ClassCastException e){
 
         }
 
+    }
+
+     */
+
+    public static GUIMainApplication getInstance(){
+        return guiMainApplication;
     }
 
     public static void main(String[] args) {
@@ -116,4 +125,5 @@ public class GUIMainApplication extends Application {
         logger.setLevel(Level.OFF);     //COMMENT OUT THIS LINE
         launch(args);
     }
+
 }

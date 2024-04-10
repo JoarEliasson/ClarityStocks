@@ -15,12 +15,12 @@
            fx:controller="SE.ClarityStocksGUI.controller.MenuBarController"
            fx:id="mainStackPane">
     <VBox>
-        <Rectangle fx:id="menuBar" fill="#d9d9d9" height="30.0" width="6.0" />
-        <Rectangle fx:id="menuBarLine" fill="#929292" height="0.5" width="6.0" />
+        <Rectangle fx:id="menuBar" height="30.0" width="6.0" styleClass="menuBar"/>
+        <Rectangle fx:id="menuBarLine" fill="#c3c3c3" height="0.5" width="6.0" />
     </VBox>
-    <HBox>
+    <HBox spacing="5">
         <!--Home button Home button Home button Home button Home button Home button -->
-        <MFXButton fx:id="homeButton" styleClass="menuButton" textAlignment="CENTER">
+        <MFXButton fx:id="homeButton" styleClass="menuButton" textAlignment="CENTER" onAction="#goToHomeView">
             <font>
                 <Font size="14.0" />
             </font>

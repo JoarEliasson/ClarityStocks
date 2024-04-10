@@ -1,8 +1,10 @@
 package SE.ClarityStocksGUI.controller;
 
+import SE.ClarityStocksGUI.view.GUIMainApplication;
 import alphaVantage.Stock;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
@@ -13,6 +15,7 @@ import model.StockInfoList;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MenuBarController {
+    private GUIMainController controller;
     @FXML
     private Rectangle menuBar;
     @FXML
@@ -25,28 +28,65 @@ public class MenuBarController {
     private StackPane mainStackPane;
     @FXML
     private SearchableComboBox<StockInfo> searchField;
+    private StockInfo currentStock;
+    private static Views currentView;
 
     public void initialize(){
+        homeButton.setStyle("-fx-background-color: #c6daff");
+        stockButton.setStyle("-fx-background-color: #ffffff");
+        currentView = Views.HOME;
         setupComboBox();
         homeButton.setText("Home");
         stockButton.setText("Stock");
-        menuBar.widthProperty().bind(mainStackPane.widthProperty());
-        menuBarLine.widthProperty().bind(mainStackPane.widthProperty());
-    }
 
-    public void changeButtonColor(){
-        homeButton.setStyle("-fx-background-color: #339ACC;");
-        stockButton.setStyle("-fx-background-color: #d9d9d9");
     }
 
     @FXML
     public void goToStockView(){
+        if(currentView != Views.STOCK){
+            System.out.println("STOCKVIEW");
+            System.out.println(currentView);
+            homeButton.setStyle("-fx-background-color: #ffffff");
+            stockButton.setStyle("-fx-background-color: #c6daff");
+            controller.goToStockView();
+            currentView = Views.STOCK;
+        }
+    }
 
+    @FXML
+    public void goToHomeView(){
+        if(currentView != Views.HOME){
+            System.out.println("HOMEVIEW");
+            homeButton.setStyle("-fx-background-color: #c6daff");
+            stockButton.setStyle("-fx-background-color: #ffffff");
+            controller.goToHomeView();
+            currentView = Views.HOME;
+            resetSearchBar();
+        }
     }
 
     @FXML
     public void loadStock(){
+        if(searchField.getValue() != null && currentStock != searchField.getValue()){
+            System.out.println(((StockInfo) searchField.getValue()).getName());
+            currentStock = searchField.getValue();
+            System.out.println(currentStock.getSymbol());
+            currentView = Views.STOCK;
+            homeButton.setStyle("-fx-background-color: #ffffff");
+            stockButton.setStyle("-fx-background-color: #c6daff");
+            controller.goToStockView(currentStock.getSymbol());
+        }
+    }
 
+    public void setWidthAndHeightProperty(){
+        menuBar.widthProperty().bind(controller.getWidthProperty());
+        menuBarLine.widthProperty().bind(controller.getWidthProperty());
+    }
+
+    public void resetSearchBar(){
+        searchField.hide();
+        searchField.setValue(null);
+        searchField.setPromptText("Search...");
     }
 
     private void setupComboBox(){
@@ -75,4 +115,15 @@ public class MenuBarController {
         });
 
     }
+
+    public void setController(GUIMainController controller){
+        this.controller = controller;
+    }
+
+    private enum Views{
+        STOCK,
+        HOME
+
+    }
+
 }

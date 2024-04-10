@@ -26,21 +26,13 @@ import org.controlsfx.control.SearchableComboBox;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class GUIStockViewController {
-    private GUIMainApplication application;
+    private GUIMainController controller;
     @FXML
     private BorderPane layout;
     @FXML
     private VBox mainVBox;
     @FXML
     private Label nameLabel;
-    @FXML
-    private Rectangle menuBar;
-    @FXML
-    private Rectangle menuBarLine;
-    @FXML
-    private MFXButton stockButton;
-    @FXML
-    private MFXButton homeButton;
     @FXML
     private Label peEvaluationText;
     @FXML
@@ -50,8 +42,6 @@ public class GUIStockViewController {
     @FXML
     private Rectangle statBackground;
     private StockInfo currentStock;
-    @FXML
-    private SearchableComboBox<StockInfo> searchField;
     @FXML
     private VBox stockStatsBox;
     private Stock stock;
@@ -64,25 +54,13 @@ public class GUIStockViewController {
 
         progress.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         VBox.setVgrow(layout,javafx.scene.layout.Priority.ALWAYS);
-        setupComboBox();
-        homeButton.setText("Home");
-        stockButton.setText("Stock");
-
-
-
-        menuBar.widthProperty().bind(mainVBox.widthProperty());
-        menuBarLine.widthProperty().bind(mainVBox.widthProperty());
 
         descBackground.setEffect(getDropShadow());
         statBackground.setEffect(getDropShadow());
         graphBackground.setEffect(getDropShadow());
     }
-    public void setApplication(GUIMainApplication application){
-        this.application = application;
-    }
-
-    public void goToHomeView(){
-        application.goToHomeView();
+    public void setController(GUIMainController controller){
+        this.controller = controller;
     }
 
     private DropShadow getDropShadow(){
@@ -117,46 +95,4 @@ public class GUIStockViewController {
         }).start();
 
     }
-
-    public void changeButtonColor(){
-        homeButton.setStyle("-fx-background-color: #d9d9d9;");
-        stockButton.setStyle("-fx-background-color: #339ACC");
-    }
-
-    private void setupComboBox(){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                StockInfoList sil = new StockInfoList();
-                searchField.setEditable(true);
-                searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
-                searchField.setPromptText("Search...");
-                searchField.setConverter(new StringConverter<StockInfo>() {
-                    @Override
-                    public String toString(StockInfo stockInfo) {
-                        if(stockInfo == null){
-                            return "";
-                        }
-                        return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
-                    }
-
-                    @Override
-                    public StockInfo fromString(String s) {
-                        return null;
-                    }
-                });
-            }
-        });
-
-    }
-
-    public void loadStock(){
-        if(searchField.getValue() != null && currentStock != searchField.getValue()){
-            System.out.println(((StockInfo) searchField.getValue()).getName());
-            currentStock = searchField.getValue();
-            System.out.println(currentStock.getSymbol());
-            application.goToStockView(currentStock.getSymbol());
-        }
-    }
-
 }

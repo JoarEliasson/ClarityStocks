@@ -20,17 +20,10 @@
 
 
     <BorderPane fx:id="layout">
-        <!-- Menu Bar Menu Bar Menu Bar Menu Bar Menu Bar Menu Bar Menu Bar Menu Bar Menu Bar Menu Bar -->
-        <top>
-           <fx:include source="Menu-bar.fxml"/>
-        </top>
         <!-- Center Center Center Center Center Center Center Center Center Center -->
         <center>
             <VBox alignment="CENTER" spacing="20">
-                <Label fx:id="welcomeText" />
-                <Label fx:id="testDataInfo" />
-                <Label fx:id="testData" />
-                <MFXButton fx:id="updateTestData" />
+                <Label fx:id="welcomeText" styleClass="welcomeText"/>
             </VBox>
         </center>
 
