@@ -2,6 +2,7 @@ package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController;
 import alphaVantage.AlphaVantageClient;
+import alphaVantage.AlphaVantageStock;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -35,7 +36,7 @@ public class GUIStockViewController {
   private StockInfo currentStock;
   @FXML
   private VBox stockStatsBox;
-  private Stock stock;
+  private AlphaVantageStock stock;
 
   @FXML
   private ProgressBar progress;
@@ -78,7 +79,7 @@ public class GUIStockViewController {
           @Override
           public void run() {
             GUIStockLineGraphController.getInstance().loadStockData(stock);
-            nameLabel.setText(stock.getCompanyOverview().getName());
+            nameLabel.setText(stock.getCompanyOverview().name());
             peEvaluationText.setText(stock.getPERatioEvaluation());
             progress.setVisible(false);
           }

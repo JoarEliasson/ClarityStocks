@@ -1,5 +1,7 @@
 package SE.ClarityStocksGUI.controller.graphControllers;
 
+import alphaVantage.AlphaVantageStock;
+import alphaVantage.DailyDataPoint;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -17,7 +19,7 @@ public class GUIStockLineGraphController {
   @FXML
   private NumberAxis yAxis;
   private static GUIStockLineGraphController stockLineGraphController;
-  private Stock stock;
+  private AlphaVantageStock stock;
   private XYChart.Series<String, Number> series;
 
   public void initialize() {
@@ -37,7 +39,7 @@ public class GUIStockLineGraphController {
     return stockLineGraphController;
   }
 
-  public void loadStockData(Stock stock) {
+  public void loadStockData(AlphaVantageStock stock) {
     this.stock = stock;
     if (!(chart.getData().isEmpty())) {
       chart.getData().clear();
@@ -45,7 +47,7 @@ public class GUIStockLineGraphController {
 
     series = new XYChart.Series<>();
 
-    for (DataPoint data : stock.getTimeSeries().reversed()) {
+    for (DailyDataPoint data : stock.getTimeSeries().reversed()) {
 
       XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
       series.getData().add(point);
