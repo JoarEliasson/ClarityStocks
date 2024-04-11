@@ -39,7 +39,13 @@
 .stockName {
   -fx-font-size: 20;
   -fx-font-weight: bold;
-  -fx-padding: 10;
+  -fx-padding: 10 10 2 10;
+}
+
+.sectorLabel{
+  -fx-font-size: 14px;
+  -fx-text-fill: #969696;
+  -fx-padding: 0 10 3 10;
 }
 
 .backgroundPanelStockView {
@@ -97,6 +103,8 @@
   -fx-padding: 0;
   -fx-background-color: transparent;
 }
+
+
 
 .ratingsTile{
   -fx-spacing: 15px;

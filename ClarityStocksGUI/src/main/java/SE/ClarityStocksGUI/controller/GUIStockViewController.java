@@ -1,6 +1,7 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController;
+import SE.ClarityStocksGUI.controller.stockViewTiles.InfoTile;
 import SE.ClarityStocksGUI.controller.stockViewTiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
 import alphaVantage.AlphaVantageClient;
@@ -27,8 +28,6 @@ public class GUIStockViewController {
   @FXML
   private VBox mainVBox;
   @FXML
-  private Label nameLabel;
-  @FXML
   private GUIStockLineGraphController graphController;
   @FXML
   private Rectangle graphBackground;
@@ -39,6 +38,8 @@ public class GUIStockViewController {
   private StockInfo currentStock;
   @FXML
   private RatingsTile ratingsTileController;
+  @FXML
+  private InfoTile infoTileController;
   @FXML
   private VBox stockStatsBox;
   @FXML
@@ -85,7 +86,8 @@ public class GUIStockViewController {
           @Override
           public void run() {
             graphController.loadStockData(stock);
-            nameLabel.setText(stock.getCompanyOverview().name());
+            infoTileController.setCompanyName(stock.getCompanyOverview().name() + " " + stock.getCompanyOverview().symbol());
+            infoTileController.setSector(stock.getCompanyOverview().sector() + " - " + stock.getCompanyOverview().industry());
             ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation());
             progress.setVisible(false);
           }
