@@ -1,12 +1,15 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController;
+import SE.ClarityStocksGUI.controller.stockViewTiles.RatingsTile;
+import SE.ClarityStocksGUI.model.Effects;
 import alphaVantage.AlphaVantageClient;
 import alphaVantage.AlphaVantageStock;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
@@ -26,7 +29,7 @@ public class GUIStockViewController {
   @FXML
   private Label nameLabel;
   @FXML
-  private Label peEvaluationText;
+  private GUIStockLineGraphController graphController;
   @FXML
   private Rectangle graphBackground;
   @FXML
@@ -35,7 +38,11 @@ public class GUIStockViewController {
   private Rectangle statBackground;
   private StockInfo currentStock;
   @FXML
+  private RatingsTile ratingsTileController;
+  @FXML
   private VBox stockStatsBox;
+  @FXML
+  private ScrollPane scrollPane;
   private AlphaVantageStock stock;
 
   @FXML
@@ -43,28 +50,27 @@ public class GUIStockViewController {
 
 
   public void initialize() {
-
     progress.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
     VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
 
-    descBackground.setEffect(getDropShadow());
-    statBackground.setEffect(getDropShadow());
-    graphBackground.setEffect(getDropShadow());
+    descBackground.setEffect(Effects.getDropShadow());
+    statBackground.setEffect(Effects.getDropShadow());
+    graphBackground.setEffect(Effects.getDropShadow());
   }
 
   public void setController(GUIMainController controller) {
     this.controller = controller;
   }
 
-  private DropShadow getDropShadow() {
-    DropShadow dropShadow = new DropShadow();
-    dropShadow.setRadius(20);
-    dropShadow.setOffsetX(0);
-    dropShadow.setOffsetY(0);
-    dropShadow.setSpread(0.001);
-    dropShadow.setBlurType(BlurType.GAUSSIAN);
-    dropShadow.setColor(Color.LIGHTGRAY);
-    return dropShadow;
+
+  public void setupScrollbar(){
+    scrollPane.minWidthProperty().bind(controller.getWidthProperty());
+    scrollPane.minHeightProperty().bind(controller.getHeightProperty());
+    scrollPane.setFitToHeight(true);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    scrollPane.setEffect(null);
   }
 
   public void loadStockView(String stockSymbol) {
@@ -78,9 +84,9 @@ public class GUIStockViewController {
         Platform.runLater(new Runnable() {
           @Override
           public void run() {
-            GUIStockLineGraphController.getInstance().loadStockData(stock);
+            graphController.loadStockData(stock);
             nameLabel.setText(stock.getCompanyOverview().name());
-            peEvaluationText.setText(stock.getPERatioEvaluation());
+            ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation());
             progress.setVisible(false);
           }
         });

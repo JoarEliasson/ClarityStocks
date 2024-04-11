@@ -28,6 +28,7 @@ public class GUIMainController {
     menuBarController.setController(this);
 
     menuBarController.setWidthAndHeightProperty();
+    stockViewController.setupScrollbar();
 
     homeView.setVisible(true);
     stockView.setVisible(false);

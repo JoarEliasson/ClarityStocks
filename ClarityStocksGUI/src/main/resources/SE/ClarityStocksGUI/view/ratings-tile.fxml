@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="SE.ClarityStocksGUI.controller.stockViewTiles.RatingsTile"
+      alignment="CENTER" maxHeight="350" maxWidth="250">
+
+    <HBox styleClass="ratingsTile">
+        <ImageView fx:id="peRatingImg" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="peEvaluation" wrapText="true"/>
+    </HBox>
+</VBox>
