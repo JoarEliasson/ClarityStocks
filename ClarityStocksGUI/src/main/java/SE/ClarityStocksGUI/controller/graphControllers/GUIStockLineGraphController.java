@@ -22,6 +22,8 @@ public class GUIStockLineGraphController {
   private static GUIStockLineGraphController stockLineGraphController;
   private AlphaVantageStock stock;
   private XYChart.Series<String, Number> series;
+  private XYChart.Series<String, Number> shortTermSeries;
+  private XYChart.Series<String, Number> longTermSeries;
 
   public void initialize() {
     System.out.println("StockLineGraphController initialized");
@@ -53,10 +55,11 @@ public class GUIStockLineGraphController {
 
     List<DailyDataPoint> shortTermMovingAverage = stock.getMovingAverage(50);
     List<DailyDataPoint> longTermMovingAverage = stock.getMovingAverage(200);
-    XYChart.Series<String, Number> shortTermSeries = new XYChart.Series<>();
+    shortTermSeries = new XYChart.Series<>();
     shortTermSeries.setName("Short-Term MA");
-    XYChart.Series<String, Number> longTermSeries = new XYChart.Series<>();
+    longTermSeries = new XYChart.Series<>();
     longTermSeries.setName("Long-Term MA");
+
 
     for (DailyDataPoint data : shortTermMovingAverage.reversed()) {
       shortTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
