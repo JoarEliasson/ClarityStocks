@@ -1,22 +1,24 @@
 package alphaVantage;
 
+import analysis.model.PERatioEvaluation;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlphaVantageStock {
 
-  private final CompanyOverview companyOverview;
+  private final FullStockOverview companyOverview;
   private final List<DailyDataPoint> timeSeries;
-  private final String PERatioEvaluation;
+  private final analysis.model.PERatioEvaluation PERatioEvaluation;
 
-  public AlphaVantageStock(CompanyOverview companyOverview, List<DailyDataPoint> timeSeries,
-      String PERatioEvaluation) {
+  public AlphaVantageStock(FullStockOverview companyOverview, List<DailyDataPoint> timeSeries,
+      PERatioEvaluation PERatioEvaluation) {
     this.companyOverview = companyOverview;
     this.timeSeries = timeSeries;
     this.PERatioEvaluation = PERatioEvaluation;
   }
 
-  public CompanyOverview getCompanyOverview() {
+  public FullStockOverview getCompanyOverview() {
     return companyOverview;
   }
 
@@ -49,7 +51,7 @@ public class AlphaVantageStock {
 
   }
 
-  public String getPERatioEvaluation() {
+  public PERatioEvaluation getPERatioEvaluation() {
     return PERatioEvaluation;
   }
 }

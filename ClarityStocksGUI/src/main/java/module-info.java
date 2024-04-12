@@ -12,6 +12,7 @@ module SE.ClarityStocksGUI {
   requires ClarityStocksData;
   requires java.logging;
   requires atlantafx.base;
+  requires ClarityStocksAnalysis;
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
 

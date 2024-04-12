@@ -32,10 +32,10 @@ public class AlphaVantageClient {
   }
 
   public AlphaVantageStock getStock(String symbol) {
-    CompanyOverview companyOverview = null;
+    FullStockOverview companyOverview = null;
     List<DailyDataPoint> timeSeries = null;
     try {
-      companyOverview = getCompanyOverview(symbol);
+      companyOverview = getFullStockOverview(symbol);
       timeSeries = getTimeSeries(symbol, Interval.DAILY);
     } catch (Exception e) {
       e.printStackTrace();
@@ -46,14 +46,14 @@ public class AlphaVantageClient {
       System.out.println(dailyDataPoint);
     }
     PERatioEvaluation peRatioEvaluation = PERatioEvaluator.evaluatePriceEarningsRatio(symbol,
-        companyOverview.name(), companyOverview.peRatio());
+        companyOverview.getName(), companyOverview.getPERatio());
 
-    PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.name(),
-        companyOverview.peRatio());
+    PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(),
+        companyOverview.getPERatio());
     List<DailyDataPoint> filteredDailyDataPoints = filterByYear(timeSeries,
         new int[]{2022, 2023, 2024});
     return new AlphaVantageStock(companyOverview, filteredDailyDataPoints,
-        peRatioEvaluation.toString());
+        peRatioEvaluation);
   }
 
   private List<DailyDataPoint> filterByYear(List<DailyDataPoint> dailyDataPoints, int[] years) {

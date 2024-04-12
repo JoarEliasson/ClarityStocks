@@ -32,8 +32,8 @@ public class RatingsTile {
         ratingImages.add(new Image(getClass().getResource("/SE/ClarityStocksGUI/view/5rating.png").toExternalForm()));
     }
 
-    public void setPeEvaluationText(String text){
-        peRatingImg.setImage(ratingImages.get(4));
-        peEvaluation.setText(text);
+    public void setPeEvaluationText(int rating){
+        peRatingImg.setImage(ratingImages.get(rating));
+        peEvaluation.setText("P/E Rating " + rating);
     }
 }

@@ -8,9 +8,11 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="SE.ClarityStocksGUI.controller.stockViewTiles.InfoTile">
-    <Label fx:id="nameLabel" styleClass="stockName" text="test"/>
-    <Label fx:id="sectorLabel" styleClass="sectorLabel" text="test"/>
+            fx:controller="SE.ClarityStocksGUI.controller.stockViewTiles.InfoTile"
+            maxWidth="1050">
+    <Label fx:id="nameLabel" styleClass="stockName" text="test" wrapText="true"/>
+    <Label fx:id="sectorLabel" styleClass="sectorLabel" text="test" wrapText="true"/>
+    <Label fx:id="descriptionLabel" styleClass="descriptionLabel" text="test" wrapText="true"/>
 
 </VBox>
 

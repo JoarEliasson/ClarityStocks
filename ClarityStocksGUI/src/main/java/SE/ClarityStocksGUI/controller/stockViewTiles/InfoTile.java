@@ -8,18 +8,23 @@ public class InfoTile {
     private Label nameLabel;
     @FXML
     private Label sectorLabel;
+    @FXML
+    private Label descriptionLabel;
 
     public void initialize(){
+        nameLabel.setText("Teva Pharmaceutical Industries Limited"); //TODO Remove when API is working
+        sectorLabel.setText("Technology - Consumer Electronics"); //TODO Remove when API is working
 
     }
 
     public void setCompanyName(String text){
         nameLabel.setText(text);
-        nameLabel.setText("Apple Inc. (AAPL)"); //TODO Remove when API is working
     }
 
     public void setSector(String text){
         sectorLabel.setText(text);
-        sectorLabel.setText("Technology - Consumer Electronics"); //TODO Remove when API is working
+    }
+    public void setDescription(String text){
+        descriptionLabel.setText(text);
     }
 }

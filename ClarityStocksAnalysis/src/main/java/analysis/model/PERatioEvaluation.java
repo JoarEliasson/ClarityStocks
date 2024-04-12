@@ -41,4 +41,16 @@ public class PERatioEvaluation {
   public String toString() {
     return String.format("(%s)%nRating: %d/5%n%s", symbol, rating, description);
   }
+
+  public String getSymbol() {
+    return symbol;
+  }
+
+  public int getRating() {
+    return rating;
+  }
+
+  public String getDescription() {
+    return description;
+  }
 }

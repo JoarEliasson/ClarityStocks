@@ -86,14 +86,19 @@ public class GUIStockViewController {
           @Override
           public void run() {
             graphController.loadStockData(stock);
-            infoTileController.setCompanyName(stock.getCompanyOverview().name() + " " + stock.getCompanyOverview().symbol());
-            infoTileController.setSector(stock.getCompanyOverview().sector() + " - " + stock.getCompanyOverview().industry());
-            ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation());
+            setInfoTile();
+            ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation().getRating());
             progress.setVisible(false);
           }
         });
       }
     }).start();
 
+  }
+
+  private void setInfoTile(){
+    infoTileController.setCompanyName(stock.getCompanyOverview().getName() + " " + stock.getCompanyOverview().getSymbol());
+    infoTileController.setSector(stock.getCompanyOverview().getSector() + " - " + stock.getCompanyOverview().getIndustry());
+    infoTileController.setDescription(stock.getCompanyOverview().getDescription());
   }
 }

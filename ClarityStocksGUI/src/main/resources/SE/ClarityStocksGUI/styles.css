@@ -37,15 +37,15 @@
 }
 
 .stockName {
-  -fx-font-size: 20;
+  -fx-font-size: 18;
   -fx-font-weight: bold;
-  -fx-padding: 10 10 2 10;
+  -fx-padding: 10 0 0 0;
 }
 
 .sectorLabel{
-  -fx-font-size: 14px;
+  -fx-font-size: 12px;
   -fx-text-fill: #969696;
-  -fx-padding: 0 10 3 10;
+  -fx-padding: 0 10 3 0;
 }
 
 .backgroundPanelStockView {
