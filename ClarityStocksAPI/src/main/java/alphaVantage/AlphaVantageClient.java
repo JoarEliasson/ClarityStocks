@@ -1,6 +1,5 @@
 package alphaVantage;
 
-import analysis.controller.PERatioEvaluator;
 import analysis.model.PERatioEvaluation;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -45,15 +44,11 @@ public class AlphaVantageClient {
     for (DailyDataPoint dailyDataPoint : timeSeries) {
       System.out.println(dailyDataPoint);
     }
-    PERatioEvaluation peRatioEvaluation = PERatioEvaluator.evaluatePriceEarningsRatio(symbol,
-        companyOverview.getName(), companyOverview.getPERatio());
 
-    PERatioEvaluator.evaluatePriceEarningsRatio(symbol, companyOverview.getName(),
-        companyOverview.getPERatio());
     List<DailyDataPoint> filteredDailyDataPoints = filterByYear(timeSeries,
         new int[]{2022, 2023, 2024});
     return new AlphaVantageStock(companyOverview, filteredDailyDataPoints,
-        peRatioEvaluation);
+        (new PERatioEvaluation(symbol, companyOverview.getPERatio())));
   }
 
   private List<DailyDataPoint> filterByYear(List<DailyDataPoint> dailyDataPoints, int[] years) {
@@ -150,4 +145,28 @@ public class AlphaVantageClient {
       throw new RuntimeException("Error fetching search results", e);
     }
   }
+
+  public List<String> getIncomeStatement(String symbol) {
+    String url = String.format(
+        "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=%s&apikey=%s", symbol,
+        apiKey);
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(url))
+        .timeout(Duration.ofMinutes(1))
+        .GET()
+        .build();
+    try {
+      HttpResponse<String> response = httpClient.send(request,
+          HttpResponse.BodyHandlers.ofString());
+      if (response.statusCode() == 200) {
+        return parser.parseIncomeStatement(response.body());
+      } else {
+        throw new RuntimeException(
+            "Failed to fetch data: HTTP status code " + response.statusCode());
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error fetching company overview", e);
+    }
+  }
+
 }

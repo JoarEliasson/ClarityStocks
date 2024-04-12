@@ -2,7 +2,6 @@ package alphaVantage;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -172,5 +171,27 @@ public class AlphaVantageParser {
       e.printStackTrace();
     }
     return searchResults;
+  }
+
+  public List<String> parseIncomeStatement(String body) {
+    List<String> incomeStatement = new ArrayList<>();
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      JsonNode root = mapper.readTree(body);
+      JsonNode annualReports = root.path("annualReports");
+      if (!annualReports.isMissingNode()) {
+        Iterator<JsonNode> elements = annualReports.elements();
+        while (elements.hasNext()) {
+          JsonNode report = elements.next();
+          String netIncome = report.path("netIncome").asText();
+          incomeStatement.add(netIncome);
+        }
+      } else {
+        System.out.println("No income statement data found.");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return incomeStatement;
   }
 }

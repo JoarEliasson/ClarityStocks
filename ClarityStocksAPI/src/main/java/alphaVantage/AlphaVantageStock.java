@@ -1,7 +1,6 @@
 package alphaVantage;
 
 import analysis.model.PERatioEvaluation;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,7 @@ public class AlphaVantageStock {
 
   private final FullStockOverview companyOverview;
   private final List<DailyDataPoint> timeSeries;
-  private final analysis.model.PERatioEvaluation PERatioEvaluation;
+  private final PERatioEvaluation PERatioEvaluation;
 
   public AlphaVantageStock(FullStockOverview companyOverview, List<DailyDataPoint> timeSeries,
       PERatioEvaluation PERatioEvaluation) {

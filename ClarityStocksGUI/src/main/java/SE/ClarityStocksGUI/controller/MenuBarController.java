@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
-import model.StockInfo;
-import model.StockInfoList;
+import model.AlphaVantageListing;
+import model.SearchList;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MenuBarController {
@@ -25,8 +25,8 @@ public class MenuBarController {
   @FXML
   private StackPane mainStackPane;
   @FXML
-  private SearchableComboBox<StockInfo> searchField;
-  private StockInfo currentStock;
+  private SearchableComboBox<AlphaVantageListing> searchField;
+  private AlphaVantageListing currentStock;
   private static Views currentView;
 
   public void initialize() {
@@ -66,7 +66,7 @@ public class MenuBarController {
   @FXML
   public void loadStock() {
     if (searchField.getValue() != null && currentStock != searchField.getValue()) {
-      System.out.println(((StockInfo) searchField.getValue()).getName());
+      System.out.println(((AlphaVantageListing) searchField.getValue()).getName());
       currentStock = searchField.getValue();
       System.out.println(currentStock.getSymbol());
       currentView = Views.STOCK;
@@ -91,13 +91,13 @@ public class MenuBarController {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        StockInfoList sil = new StockInfoList();
+        SearchList searchList = new SearchList();
         searchField.setEditable(true);
-        searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
+        searchField.setItems(FXCollections.observableList(searchList.getSearchList()));
         searchField.setPromptText("Search...");
-        searchField.setConverter(new StringConverter<StockInfo>() {
+        searchField.setConverter(new StringConverter<AlphaVantageListing>() {
           @Override
-          public String toString(StockInfo stockInfo) {
+          public String toString(AlphaVantageListing stockInfo) {
             if (stockInfo == null) {
               return "";
             }
@@ -105,7 +105,7 @@ public class MenuBarController {
           }
 
           @Override
-          public StockInfo fromString(String s) {
+          public AlphaVantageListing fromString(String s) {
             return null;
           }
         });

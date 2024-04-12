@@ -2,6 +2,7 @@ package SE.ClarityStocksGUI.controller.graphControllers;
 
 import alphaVantage.AlphaVantageStock;
 import alphaVantage.DailyDataPoint;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -40,32 +41,46 @@ public class GUIStockLineGraphController {
   }
 
   public void loadStockData(AlphaVantageStock stock) {
-    this.stock = stock;
-    if (!(chart.getData().isEmpty())) {
-      chart.getData().clear();
-    }
+    chart.getData().clear();
 
-    series = new XYChart.Series<>();
+    XYChart.Series<String, Number> rawSeries = new XYChart.Series<>();
+    rawSeries.setName("Stock Prices");
 
     for (DailyDataPoint data : stock.getTimeSeries().reversed()) {
-
       XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
-      series.getData().add(point);
-
+      rawSeries.getData().add(point);
     }
-    chart.getData().add(series);
 
-    for (XYChart.Data<String, Number> data : series.getData()) {
-      Tooltip tooltip = new Tooltip();
-      tooltip.setText("Price: " + data.getYValue());
-      tooltip.setShowDelay(new Duration(0.0));
-      tooltip.setHideDelay(new Duration(0.0));
+    List<DailyDataPoint> shortTermMovingAverage = stock.getMovingAverage(50);
+    List<DailyDataPoint> longTermMovingAverage = stock.getMovingAverage(200);
+    XYChart.Series<String, Number> shortTermSeries = new XYChart.Series<>();
+    shortTermSeries.setName("Short-Term MA");
+    XYChart.Series<String, Number> longTermSeries = new XYChart.Series<>();
+    longTermSeries.setName("Long-Term MA");
 
-      Tooltip.install(data.getNode(), tooltip
-      );
-      System.out.println(tooltip.getText());
-      data.getNode().setOnMouseEntered(event -> data.getNode().getStyleClass().add("onHover"));
-      data.getNode().setOnMouseExited(event -> data.getNode().getStyleClass().remove("onHover"));
+    for (DailyDataPoint data : shortTermMovingAverage.reversed()) {
+      shortTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
+    }
+
+    for (DailyDataPoint data : longTermMovingAverage.reversed()) {
+      longTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
+    }
+
+    chart.getData().addAll(rawSeries, shortTermSeries, longTermSeries);
+    styleChart();
+  }
+
+  private void styleChart() {
+    for (XYChart.Series<String, Number> s : chart.getData()) {
+      for (XYChart.Data<String, Number> data : s.getData()) {
+        Tooltip tooltip = new Tooltip("Date: " + data.getXValue() + "\nValue: " + data.getYValue());
+        tooltip.setShowDelay(Duration.seconds(0));
+        tooltip.setHideDelay(Duration.seconds(0));
+        Tooltip.install(data.getNode(), tooltip);
+
+        data.getNode().setOnMouseEntered(event -> data.getNode().getStyleClass().add("onHover"));
+        data.getNode().setOnMouseExited(event -> data.getNode().getStyleClass().remove("onHover"));
+      }
     }
   }
 }

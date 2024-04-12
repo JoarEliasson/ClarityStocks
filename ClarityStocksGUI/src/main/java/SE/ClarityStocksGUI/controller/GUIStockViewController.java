@@ -8,16 +8,12 @@ import alphaVantage.AlphaVantageClient;
 import alphaVantage.AlphaVantageStock;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.StockInfo;
+import model.AlphaVantageListing;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class GUIStockViewController {
@@ -35,7 +31,7 @@ public class GUIStockViewController {
   private Rectangle descBackground;
   @FXML
   private Rectangle statBackground;
-  private StockInfo currentStock;
+  private AlphaVantageListing currentStock;
   @FXML
   private RatingsTile ratingsTileController;
   @FXML
@@ -64,7 +60,7 @@ public class GUIStockViewController {
   }
 
 
-  public void setupScrollbar(){
+  public void setupScrollbar() {
     scrollPane.minWidthProperty().bind(controller.getWidthProperty());
     scrollPane.minHeightProperty().bind(controller.getHeightProperty());
     scrollPane.setFitToHeight(true);
@@ -96,9 +92,11 @@ public class GUIStockViewController {
 
   }
 
-  private void setInfoTile(){
-    infoTileController.setCompanyName(stock.getCompanyOverview().getName() + " " + stock.getCompanyOverview().getSymbol());
-    infoTileController.setSector(stock.getCompanyOverview().getSector() + " - " + stock.getCompanyOverview().getIndustry());
+  private void setInfoTile() {
+    infoTileController.setCompanyName(
+        stock.getCompanyOverview().getName() + " " + stock.getCompanyOverview().getSymbol());
+    infoTileController.setSector(
+        stock.getCompanyOverview().getSector() + " - " + stock.getCompanyOverview().getIndustry());
     infoTileController.setDescription(stock.getCompanyOverview().getDescription());
   }
 }
