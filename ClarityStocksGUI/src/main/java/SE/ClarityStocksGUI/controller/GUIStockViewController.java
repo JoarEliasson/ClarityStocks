@@ -17,8 +17,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
-import model.StockInfo;
-import model.StockInfoList;
+import model.AlphaVantageListing;
+import model.SearchList;
 import org.controlsfx.control.SearchableComboBox;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
@@ -47,9 +47,9 @@ public class GUIStockViewController {
   private Rectangle descBackground;
   @FXML
   private Rectangle statBackground;
-  private StockInfo currentStock;
+  private AlphaVantageListing currentStock;
   @FXML
-  private SearchableComboBox<StockInfo> searchField;
+  private SearchableComboBox<AlphaVantageListing> searchField;
   @FXML
   private VBox stockStatsBox;
   private AlphaVantageStock stock;
@@ -117,8 +117,8 @@ public class GUIStockViewController {
 
       Platform.runLater(() -> {
         GUIStockLineGraphController.getInstance().loadStockData(stock);
-        nameLabel.setText(stock.getCompanyOverview().name());
-        peEvaluationText.setText(stock.getPERatioEvaluation());
+        nameLabel.setText(stock.getCompanyOverview().getName());
+        peEvaluationText.setText(stock.getPERatioEvaluation().getDescription());
         progress.setVisible(false);
       });
     }).start();
@@ -131,25 +131,28 @@ public class GUIStockViewController {
   }
 
   private void setupComboBox() {
-    Platform.runLater(() -> {
-      StockInfoList sil = new StockInfoList();
-      searchField.setEditable(true);
-      searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
-      searchField.setPromptText("Search...");
-      searchField.setConverter(new StringConverter<StockInfo>() {
-        @Override
-        public String toString(StockInfo stockInfo) {
-          if (stockInfo == null) {
-            return "";
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        SearchList searchList = new SearchList();
+        searchField.setEditable(true);
+        searchField.setItems(FXCollections.observableList(searchList.getSearchList()));
+        searchField.setPromptText("Search...");
+        searchField.setConverter(new StringConverter<AlphaVantageListing>() {
+          @Override
+          public String toString(AlphaVantageListing listing) {
+            if (listing == null) {
+              return "";
+            }
+            return listing.getName() + " (" + listing.getSymbol() + ")";
           }
-          return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
-        }
 
-        @Override
-        public StockInfo fromString(String s) {
-          return null;
-        }
-      });
+          @Override
+          public AlphaVantageListing fromString(String s) {
+            return null;
+          }
+        });
+      }
     });
   }
 

@@ -741,45 +741,14 @@ public class FullStockOverview {
 
   @Override
   public String toString() {
-    return String.format("Full Stock Overview for %s (%s): %n" +
-            "Market Capitalization: $%,d %n" +
-            "Price to Earnings Ratio: %.2f %n" +
-            "Dividend Yield: %.2f %n" +
-            "Earnings Per Share: %.2f %n" +
-            "Revenue Per Share (TTM): %.2f %n" +
-            "Profit Margin: %.2f %n" +
-            "Operating Margin (TTM): %.2f %n" +
-            "Return on Assets (TTM): %.2f %n" +
-            "Return on Equity (TTM): %.2f %n" +
-            "Revenue (TTM): $%,d %n" +
-            "Gross Profit (TTM): $%,d %n" +
-            "Diluted Earnings Per Share (TTM): %.2f %n" +
-            "Quarterly Earnings Growth (YOY): %.2f %n" +
-            "Quarterly Revenue Growth (YOY): %.2f %n" +
-            "Analyst Target Price: %.2f %n" +
-            "Trailing Price to Earnings Ratio: %.2f %n" +
-            "Forward Price to Earnings Ratio: %.2f %n" +
-            "Price to Sales Ratio (TTM): %.2f %n" +
-            "Price to Book Ratio: %.2f %n" +
-            "Enterprise Value to Revenue Ratio: %.2f %n" +
-            "Enterprise Value to EBITDA Ratio: %.2f %n" +
-            "Beta: %.2f %n" +
-            "52-Week High: %.2f %n" +
-            "52-Week Low: %.2f %n" +
-            "50-Day Moving Average: %.2f %n" +
-            "200-Day Moving Average: %.2f %n" +
-            "Shares Outstanding: %,d %n" +
-            "Dividend Date: %s %n" +
-            "Ex-Dividend Date: %s %n",
-
-        name, symbol, marketCapitalization, PERatio, dividendYield, EPS, revenuePerShareTTM,
-        profitMargin,
+    return String.format("FullStockOverview{symbol='%s%n', assetType='%s%n', name='%s%n', description='%s%n', CIK='%s%n', exchange='%s%n', currency='%s%n', country='%s%n', sector='%s%n', industry='%s%n', address='%s%n', fiscalYearEnd='%s%n', latestQuarter='%s%n', marketCapitalization=%d%n, EBITDA=%f%n, PERatio=%f%n, PEGRatio=%f%n, bookValue=%f%n, dividendPerShare=%f%n, dividendYield=%f%n, EPS=%f%n, revenuePerShareTTM=%f%n, profitMargin=%f%n, operatingMarginTTM=%f%n, returnOnAssetsTTM=%f%n, returnOnEquityTTM=%f%n, revenueTTM=%d%n, grossProfitTTM=%d%n, dilutedEPSTTM=%f%n, quarterlyEarningsGrowthYOY=%f%n, quarterlyRevenueGrowthYOY=%f%n, analystTargetPrice=%f%n, trailingPE=%f%n, forwardPE=%f%n, priceToSalesRatioTTM=%f%n, priceToBookRatio=%f%n, EVToRevenue=%f%n, EVToEBITDA=%f%n, beta=%f%n, week52High=%f%n, week52Low=%f%n, day50MovingAverage=%f%n, day200MovingAverage=%f%n, sharesOutstanding=%d%n, dividendDate='%s%n', exDividendDate='%s%n'}",
+        symbol, assetType, name, description, CIK, exchange, currency, country, sector, industry,
+        address, fiscalYearEnd, latestQuarter, marketCapitalization, EBITDA, PERatio, PEGRatio,
+        bookValue, dividendPerShare, dividendYield, EPS, revenuePerShareTTM, profitMargin,
         operatingMarginTTM, returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM,
-        dilutedEPSTTM,
-        quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice, trailingPE,
-        forwardPE,
-        priceToSalesRatioTTM, priceToBookRatio, EVToRevenue, EVToEBITDA, beta, week52High,
-        week52Low,
-        day50MovingAverage, day200MovingAverage, sharesOutstanding, dividendDate, exDividendDate);
+        dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice,
+        trailingPE, forwardPE, priceToSalesRatioTTM, priceToBookRatio, EVToRevenue, EVToEBITDA,
+        beta, week52High, week52Low, day50MovingAverage, day200MovingAverage, sharesOutstanding,
+        dividendDate, exDividendDate);
   }
 }

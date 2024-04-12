@@ -5,29 +5,15 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
-import model.StockInfo;
-import model.StockInfoList;
+import model.AlphaVantageListing;
+import model.SearchList;
 import org.controlsfx.control.SearchableComboBox;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.canvas.*;
-import javafx.scene.layout.*;
 import javafx.scene.image.*;
 import java.io.*;
-import javafx.geometry.*;
-import javafx.scene.Group;
-import javafx.scene.paint.*;
 
 public class GUIHomeController {
 
@@ -45,7 +31,7 @@ public class GUIHomeController {
   @FXML
   private MFXButton homeButton;
   @FXML
-  private SearchableComboBox<StockInfo> searchField;
+  private SearchableComboBox<AlphaVantageListing> searchField;
 
   //For testing purposes, will be removed later
   @FXML
@@ -57,7 +43,7 @@ public class GUIHomeController {
   @FXML
   private MFXButton updateTestData;
 
-  private StockInfo currentStock;
+  private AlphaVantageListing currentStock;
 
   public void initialize() throws FileNotFoundException {
     VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
@@ -137,27 +123,29 @@ public class GUIHomeController {
   }
 
   private void setupComboBox() {
-    Platform.runLater(() -> {
-      StockInfoList sil = new StockInfoList();
-      searchField.setEditable(true);
-      searchField.setItems(FXCollections.observableList(sil.getStockInfoList()));
-      searchField.setPromptText("Search...");
-      searchField.setConverter(new StringConverter<StockInfo>() {
-        @Override
-        public String toString(StockInfo stockInfo) {
-          if (stockInfo == null) {
-            return "";
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        SearchList searchList = new SearchList();
+        searchField.setEditable(true);
+        searchField.setItems(FXCollections.observableList(searchList.getSearchList()));
+        searchField.setPromptText("Search...");
+        searchField.setConverter(new StringConverter<AlphaVantageListing>() {
+          @Override
+          public String toString(AlphaVantageListing listing) {
+            if (listing == null) {
+              return "";
+            }
+            return listing.getName() + " (" + listing.getSymbol() + ")";
           }
-          return stockInfo.getName() + " (" + stockInfo.getSymbol() + ")";
-        }
 
-        @Override
-        public StockInfo fromString(String s) {
-          return null;
-        }
-      });
+          @Override
+          public AlphaVantageListing fromString(String s) {
+            return null;
+          }
+        });
+      }
     });
-
   }
 
   public void loadStock() {

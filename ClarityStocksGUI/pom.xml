@@ -69,6 +69,12 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <artifactId>ClarityStocksAnalysis</artifactId>
+      <groupId>SE.ClarityStocks</groupId>
+      <scope>compile</scope>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <artifactId>atlantafx-base</artifactId>
       <groupId>io.github.mkpaz</groupId>
       <version>2.0.1</version>
