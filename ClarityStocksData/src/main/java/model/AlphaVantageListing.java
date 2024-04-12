@@ -20,8 +20,9 @@ public class AlphaVantageListing {
   }
 
   public String getName() {
-    if (name.length() > 50)
+    if (name.length() > 50) {
       return name.substring(0, 50) + "...";
+    }
     return name;
   }
 

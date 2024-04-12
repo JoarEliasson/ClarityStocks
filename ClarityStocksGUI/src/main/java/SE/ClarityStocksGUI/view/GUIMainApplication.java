@@ -1,58 +1,50 @@
 package SE.ClarityStocksGUI.view;
 
 import SE.ClarityStocksGUI.controller.GUIHomeController;
+import SE.ClarityStocksGUI.controller.GUIMainController;
 import SE.ClarityStocksGUI.controller.GUIStockViewController;
-import alphaVantage.AlphaVantageClient;
+import atlantafx.base.theme.PrimerLight;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
-
-import java.awt.*;
-import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import java.io.File;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
+
+import java.io.IOException;
+
+import java.lang.reflect.Array;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GUIMainApplication extends Application {
 
   private Scene homeView;
   private Scene stockView;
+  private Scene mainView;
   private Stage stage;
-  private GUIHomeController homeController;
-  private GUIStockViewController stockViewController;
-  private AlphaVantageClient alphaVantageClient;
-
-  public static void main(String[] args) {
-    launch();
-  }
+  private GUIMainController mainController;
+  private static GUIMainApplication guiMainApplication;
 
   @Override
   public void start(Stage stage) throws IOException {
-
     this.stage = stage;
-    //TODO
+    stage.getIcons().add(new Image(
+        getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png")
+            .toExternalForm()));
+    guiMainApplication = this;
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
     //Setting up the Home view
-    FXMLLoader homeLoader = new FXMLLoader(GUIMainApplication.class.getResource("Home-view.fxml"));
-    homeView = new Scene(homeLoader.load(), 1280, 720);
-    homeView.getStylesheets().add(css);
-    homeController = homeLoader.getController();
-    homeController.setApplication(this);
-    //homeController.setCompanyData(companyData);
 
-    //Setting up the Stock view
-    FXMLLoader stockViewLoader = new FXMLLoader(
-        GUIMainApplication.class.getResource("Stock-view.fxml"));
-    stockView = new Scene(stockViewLoader.load(), 1280, 720);
-    stockView.getStylesheets().add(css);
-
-    stockViewController = stockViewLoader.getController();
-    stockViewController.setApplication(this);
+    FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
+    mainView = new Scene(mainLoader.load(), 1280, 720);
+    mainView.getStylesheets().add(css);
+    mainController = mainLoader.getController();
+    mainController.setApplication(this);
     //stockViewController.setCompanyData(companyData);
 
     //MaterialFX default code to get stylesheets working
@@ -64,54 +56,81 @@ public class GUIMainApplication extends Application {
         .build()
         .setGlobal();
 
-
     stage.setTitle("Clarity Stocks");
-    stage.setScene(homeView);
-    homeView.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
-    Image img = new Image("claritystocksicon.png");
-    stage.getIcons().add(img);
-
+    stage.setScene(mainView);
     stage.show();
 
   }
 
-  public void goToStockView(String stockSymbol) {
-    stockViewController.changeButtonColor();
-    stockViewController.loadStockView(stockSymbol);
-    double height = stage.getHeight();
-    double width = stage.getWidth();
-
-    stage.setHeight(height);
-    stage.setWidth(width);
-    stage.setScene(stockView);
+  public double getHeight() {
+    return stage.getHeight();
   }
 
-  public void goToStockView() {
-    stockViewController.changeButtonColor();
-    stockViewController.loadStockView("TSLA");
-    double height = stage.getHeight();
-    double width = stage.getWidth();
-
-    stage.setHeight(height);
-    stage.setWidth(width);
-    stage.setScene(stockView);
+  public double getWidth() {
+    return stage.getWidth();
   }
 
-  public void goToHomeView() {
-    homeController.changeButtonColor();
-    double height = stage.getHeight();
-    double width = stage.getWidth();
-
+  public void setHeight(double height) {
     stage.setHeight(height);
-    stage.setWidth(width);
-    try {
-      stage.setScene(homeView);
-      homeController.resetSearchBar();
+  }
 
-    } catch (ClassCastException e) {
-      throw new RuntimeException(e);
+  public void setWidth(double width) {
+    stage.setWidth(width);
+  }
+    /*
+
+    public void sceneSwitch(){
+        double height = stage.getHeight();
+        double width = stage.getWidth();
+        stage.setHeight(height);
+        stage.setWidth(width);
     }
 
+    public void goToStockView(){
+        double height = stage.getHeight();
+        double width = stage.getWidth();
+        stockViewController.loadStockView("TSLA");
+
+        stage.setHeight(height);
+        stage.setWidth(width);
+        stage.setScene(stockView);
+
+    }
+
+    public void goToHomeView(){
+        double height = stage.getHeight();
+        double width = stage.getWidth();
+
+        stage.setHeight(height);
+        stage.setWidth(width);
+        try {
+            stage.setScene(homeView);
+
+        }catch (ClassCastException e){
+
+        }
+
+    }
+
+     */
+
+  public static GUIMainApplication getInstance() {
+    return guiMainApplication;
   }
+
+  public static void main(String[] args) {
+        /*
+            All logging is disabled because of a bug in an external library that gives tons of error messages when
+            nothing is wrong.
+
+            Remove the two lines under to enable logging again.
+
+         */
+
+    Logger logger = Logger.getLogger(""); // COMMENT OUT THIS LINE
+    logger.setLevel(Level.OFF);     //COMMENT OUT THIS LINE
+    System.setProperty("prism.lcdtext", "false");
+    launch(args);
+  }
+
 }

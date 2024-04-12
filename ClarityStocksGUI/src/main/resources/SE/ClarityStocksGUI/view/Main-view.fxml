@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+  xmlns:fx="http://javafx.com/fxml"
+  fx:controller="SE.ClarityStocksGUI.controller.GUIMainController" fx:id="mainBorderPane">
+  <top>
+    <fx:include source="Menu-bar.fxml" fx:id="menuBar"/>
+  </top>
+  <center>
+    <StackPane>
+      <fx:include source="Home-view.fxml" fx:id="homeView"/>
+      <fx:include source="Stock-view.fxml" fx:id="stockView"/>
+    </StackPane>
+  </center>
+
+</BorderPane>
