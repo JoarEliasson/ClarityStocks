@@ -6,14 +6,20 @@ module SE.ClarityStocksGUI {
   requires javafx.controls;
   requires javafx.fxml;
   requires javafx.base;
+  requires VirtualizedFX;
   requires MaterialFX;
   requires ClarityStocksAPI;
   requires ClarityStocksData;
+  requires java.logging;
+  requires atlantafx.base;
+  requires ClarityStocksAnalysis;
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
 
   exports SE.ClarityStocksGUI.view;
   exports SE.ClarityStocksGUI.controller;
+  exports SE.ClarityStocksGUI.controller.stockViewTiles;
+  opens SE.ClarityStocksGUI.controller.stockViewTiles;
   opens SE.ClarityStocksGUI.controller to javafx.fxml;
   exports SE.ClarityStocksGUI;
   opens SE.ClarityStocksGUI to javafx.fxml;

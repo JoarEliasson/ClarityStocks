@@ -13,21 +13,20 @@ import javafx.util.Duration;
 
 public class GUIStockLineGraphController {
 
-  private static GUIStockLineGraphController stockLineGraphController;
   @FXML
   private LineChart<String, Number> chart;
   @FXML
   private CategoryAxis xAxis;
   @FXML
   private NumberAxis yAxis;
-
-  public static GUIStockLineGraphController getInstance() {
-    return stockLineGraphController;
-  }
+  private static GUIStockLineGraphController stockLineGraphController;
+  private AlphaVantageStock stock;
+  private XYChart.Series<String, Number> series;
+  private XYChart.Series<String, Number> shortTermSeries;
+  private XYChart.Series<String, Number> longTermSeries;
 
   public void initialize() {
     System.out.println("StockLineGraphController initialized");
-    //TODO
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
     stockLineGraphController = this;
     //chart.setCreateSymbols(false);
@@ -37,8 +36,10 @@ public class GUIStockLineGraphController {
     xAxis.setAnimated(false);
     yAxis.setAnimated(false);
     yAxis.setForceZeroInRange(false);
+  }
 
-
+  public static GUIStockLineGraphController getInstance() {
+    return stockLineGraphController;
   }
 
   public void loadStockData(AlphaVantageStock stock) {
@@ -54,10 +55,11 @@ public class GUIStockLineGraphController {
 
     List<DailyDataPoint> shortTermMovingAverage = stock.getMovingAverage(50);
     List<DailyDataPoint> longTermMovingAverage = stock.getMovingAverage(200);
-    XYChart.Series<String, Number> shortTermSeries = new XYChart.Series<>();
+    shortTermSeries = new XYChart.Series<>();
     shortTermSeries.setName("Short-Term MA");
-    XYChart.Series<String, Number> longTermSeries = new XYChart.Series<>();
+    longTermSeries = new XYChart.Series<>();
     longTermSeries.setName("Long-Term MA");
+
 
     for (DailyDataPoint data : shortTermMovingAverage.reversed()) {
       shortTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));

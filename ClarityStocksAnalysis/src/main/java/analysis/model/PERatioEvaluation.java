@@ -36,7 +36,17 @@ public class PERatioEvaluation {
     }
   }
 
+  public String getSymbol() {
+    return symbol;
+  }
 
+  public int getRating() {
+    return rating;
+  }
+
+  public String getDescription() {
+    return description;
+  }
 
   @Override
   public String toString() {

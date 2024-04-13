@@ -1,46 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+.root{
+  -fx-font-family: "Montserrat Regular", sans-serif;
+}
 
 .menuButton {
   -fx-background-color: #d9d9d9;
-  -fx-padding: 5 7 5 7;
-  -fx-background-radius: 0;
-  -fx-font-family: "Montserrat", sans-serif;
+  -fx-padding: 5 10 5 10;
 
 }
 
-.lblStyle {
-  -fx-font-family: "Montserrat", sans-serif;
+.scroll-pane:focused{
+  -fx-focus-color: transparent;
+  -fx-border-color: transparent;
+  -fx-background-color: transparent;
+  -fx-border-radius: 0;
+}
 
+.scroll-pane{
+  -fx-background-color: transparent;
 }
 
 .statLabel {
 
 }
-/*
-.bodyLayout {
-   -fx-background-image: url("claritystocksbackground.jpg");
-   -fx-background-repeat: stretch;
-   -fx-background-size: 900 506;
-   -fx-background-position: center center;
-   -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
-}
-*/
-.stockName {
-  -fx-font-size: 20;
+
+.welcomeText {
+  -fx-font-size: 100;
   -fx-font-weight: bold;
   -fx-font-family: "Montserrat", sans-serif;
 
+}
+
+.menuBar {
+  -fx-fill: #e0e0e0;
+}
+
+.stockName {
+  -fx-font-size: 18;
+  -fx-font-weight: bold;
+  -fx-padding: 10 0 0 0;
+}
+
+.sectorLabel{
+  -fx-font-size: 12px;
+  -fx-text-fill: #969696;
+  -fx-padding: 0 10 3 0;
 }
 
 .backgroundPanelStockView {
   -fx-fill: white;
   -fx-arc-width: 15;
   -fx-arc-height: 15;
-}
-
-.onHover {
-  -fx-background-color: ORANGE;
 }
 
 .chart-line-symbol {
@@ -51,11 +62,12 @@
 .onHover {
   -fx-scale-x: 1.5;
   -fx-scale-y: 1.5;
-  -fx-fill: red; /* Example hover effect */
+  -fx-fill: red;
 }
 
 .default-color0.chart-series-line {
-  -fx-stroke: blue;
+  -fx-stroke: #339ACC;
+  -fx-stroke-width: 1.5px;
 }
 
 .default-color1.chart-series-line {
@@ -68,11 +80,10 @@
 
 .chart-series-line {
   -fx-stroke: #339ACC;
+  -fx-stroke-width: 2px;
 }
 
 .searchField {
-  -fx-font-family: "Montserrat", sans-serif;
-
   -fx-focus-color: #339ACC;
   -fx-pref-height: 40px; /* Set preferred height */
   -fx-min-height: 10px; /* Set minimum height */
@@ -109,5 +120,7 @@
   -fx-background-color: transparent;
 }
 
-
+.ratingsTile{
+  -fx-spacing: 15px;
+}
 
