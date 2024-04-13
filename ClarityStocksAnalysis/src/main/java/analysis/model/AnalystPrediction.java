@@ -67,4 +67,28 @@ String aRSS;
         }
     }
 
+    private String getaRSBDescription(int analystRatingStrongBuy) {
+        if(analystRatingStrongBuy > 5) {
+            return aRSB = "There is a strong indication that it is a good idea to buy the stock according to the analyst.";
+        } else if(analystRatingStrongBuy < 5) {
+            return aRSB = "There is a strong indication that it is a bad idea to buy the stock according to the analyst.";
+        } else if(analystRatingStrongBuy == 5) {
+            return aRSB = "There is a strong indication that it is an okay idea to buy the stock according to the analyst.";
+        } else {
+            return aRSB = "Something went wrong with the analyst rating strong buy";
+        }
+    }
+
+    private String getaRHDescription(int analystRatingHold) {
+        if(analystRatingHold > 5) {
+            return aRH = "There is an indication that it is a good idea to hold the stock according to the analyst.";
+        } else if(analystRatingHold < 5) {
+            return aRH = "There is an indication that it is a bad idea to hold the stock according to the analyst.";
+        } else if(analystRatingHold == 5) {
+            return aRH = "There is an indication that it is an okay idea to hold the stock according to the analyst.";
+        } else {
+            return aRH = "Something went wrong with the analyst rating hold";
+        }
+    }
+
 }
