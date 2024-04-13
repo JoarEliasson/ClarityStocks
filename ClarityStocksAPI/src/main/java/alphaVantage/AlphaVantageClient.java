@@ -1,7 +1,6 @@
 package alphaVantage;
 
-import analysis.controller.BusinessPerformanceEvaluator;
-import analysis.controller.PERatioEvaluator;
+import analysis.model.BusinessPerformanceEvaluator;
 import analysis.model.PERatioEvaluation;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,7 +9,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import analysis.controller.BusinessPerformanceEvaluator;
 
 public class AlphaVantageClient {
 
