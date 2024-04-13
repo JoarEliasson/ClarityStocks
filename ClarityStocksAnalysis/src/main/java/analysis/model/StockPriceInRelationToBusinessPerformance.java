@@ -5,14 +5,14 @@ package analysis.model;
  * Evaluation depends on topic.
  * @author Olivia Svensson
  * */
-public class stockPriceInRelationToBusinessPerformance
+public class StockPriceInRelationToBusinessPerformance
 {
     String symbol;
     double peRatio;
     String sector;
     String description = "";
 
-    public stockPriceInRelationToBusinessPerformance(String symbol, double peRatio, String sector) {
+    public StockPriceInRelationToBusinessPerformance(String symbol, double peRatio, String sector) {
         this.symbol = symbol;
         this.peRatio = peRatio;
         this.sector = sector;
