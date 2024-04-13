@@ -32,6 +32,15 @@ public class BusinessPerformanceEvaluation {
         }
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public double getMargin() {
+        return this.ebidtamargin;
+    }
+
+
     public String getDescription() {
         return this.description;
     }
