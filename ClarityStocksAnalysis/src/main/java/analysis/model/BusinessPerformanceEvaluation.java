@@ -14,7 +14,6 @@ public class BusinessPerformanceEvaluation {
         this.symbol = symbol;
         ebidtamargin =  calcEBIDTAMargin(ebidta, totalRevenue);
         description =  evaluateEBIDTAMargin(ebidtamargin);
-
     }
 
     private double calcEBIDTAMargin(double ebidta, double totalRevenue) {
@@ -31,5 +30,9 @@ public class BusinessPerformanceEvaluation {
         } else {
             return  "There is an indication that " + symbol + " has a great performance";
         }
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
