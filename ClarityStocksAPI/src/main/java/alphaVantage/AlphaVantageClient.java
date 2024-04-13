@@ -1,5 +1,7 @@
 package alphaVantage;
 
+import analysis.controller.BusinessPerformanceEvaluator;
+import analysis.controller.PERatioEvaluator;
 import analysis.model.PERatioEvaluation;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -8,6 +10,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import analysis.controller.BusinessPerformanceEvaluator;
 
 public class AlphaVantageClient {
 
@@ -28,6 +31,19 @@ public class AlphaVantageClient {
       System.out.println(alphaVantageStockInfo);
     }
 
+  }
+  /** Method for evaluating the business performance of a company.Returns business performance
+   * @author Olivia Svensson
+   * */
+
+  private BusinessPerformanceEvaluator getBusinessPerformanceEvaluation(String symbol) {
+    FullStockOverview  fullStockOverview = new FullStockOverview();
+    String name = fullStockOverview.getName();
+    double ebidta = fullStockOverview.getEBITDA();
+    double totalRevenue = fullStockOverview.getRevenueTTM();
+
+    BusinessPerformanceEvaluator businessPerformanceEvaluator = new BusinessPerformanceEvaluator(name, ebidta, totalRevenue);
+      return businessPerformanceEvaluator;
   }
 
   public AlphaVantageStock getStock(String symbol) {
