@@ -1,9 +1,6 @@
 package alphaVantage;
 
-import analysis.model.BusinessPerformanceEvaluator;
-import analysis.model.DividendEvaluationTiming;
-import analysis.model.PERatioEvaluation;
-import analysis.model.StockPriceInRelationToBusinessPerformance;
+import analysis.model.*;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -63,7 +60,7 @@ public class AlphaVantageClient {
     return dividendEvaluationTiming;
   }
 
-  /**Method for evaluating stock price in relation to business performance. Returns stock price in relation to business performance object
+  /** Method for evaluating stock price in relation to business performance. Returns stock price in relation to business performance object
    * @author Olivia Svensson
    * */
   private StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance() {
@@ -73,6 +70,19 @@ public class AlphaVantageClient {
     String sector = fullStockOverview.getSector();
     StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance = new StockPriceInRelationToBusinessPerformance(symbol, peRatio, sector);
     return stockPriceInRelationToBusinessPerformance;
+  }
+
+/** Method for analysing the stock price according to the golden cross method.
+ * @author Olivia Svensson
+ * */
+  private GoldenCross goldenCross() {
+    FullStockOverview fullStockOverview = new FullStockOverview();
+    String symbol = fullStockOverview.getSymbol();
+    double ma50 = fullStockOverview.getDay50MovingAverage();
+    double ma200 = fullStockOverview.getDay200MovingAverage();
+    GoldenCross goldenCross = new GoldenCross(symbol, ma50, ma200);
+    String description = goldenCross.getDesciption();
+    return goldenCross;
   }
 
   public AlphaVantageStock getStock(String symbol) {
