@@ -1,6 +1,7 @@
 package alphaVantage;
 
 import analysis.model.BusinessPerformanceEvaluator;
+import analysis.model.DividendEvaluationTiming;
 import analysis.model.PERatioEvaluation;
 import analysis.model.StockPriceInRelationToBusinessPerformance;
 
@@ -32,11 +33,11 @@ public class AlphaVantageClient {
     }
 
   }
-  /** Method for evaluating the business performance of a company.Returns business performance
+  /** Method for evaluating the business performance of a company.Returns business performance object
    * @author Olivia Svensson
    * */
 
-  private BusinessPerformanceEvaluator getBusinessPerformanceEvaluation(String symbol) {
+  private BusinessPerformanceEvaluator getBusinessPerformanceEvaluation() {
     FullStockOverview  fullStockOverview = new FullStockOverview();
     String name = fullStockOverview.getName();
     double ebidta = fullStockOverview.getEBITDA();
@@ -46,6 +47,25 @@ public class AlphaVantageClient {
       return businessPerformanceEvaluator;
   }
 
+  /** Method for getting dividend evaluation depending on fiscal year, also gets dividend yield depending on fiscal year. Returns dividend evaluation timing object
+   * @author Olivia Svensson
+   * */
+  private DividendEvaluationTiming dividendEvaluationTiming(int year) {
+      FullStockOverview fullStockOverview = new FullStockOverview();
+
+    String symbol = fullStockOverview.getSymbol();
+    int fiscalYear = year;
+    double dividendPerShare = fullStockOverview.getDividendPerShare();
+    double dividendYield = fullStockOverview.getDividendYield();
+    long fiscalYearEnd = Long.parseLong(fullStockOverview.getFiscalYearEnd());
+
+    DividendEvaluationTiming dividendEvaluationTiming = new DividendEvaluationTiming(symbol, fiscalYear, dividendYield, dividendYield, fiscalYearEnd);
+    return dividendEvaluationTiming;
+  }
+
+  /**Method for evaluating stock price in relation to business performance. Returns stock price in relation to business performance object
+   * @author Olivia Svensson
+   * */
   private StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance() {
     FullStockOverview fullStockOverview = new FullStockOverview();
     String symbol = fullStockOverview.getName();

@@ -7,12 +7,12 @@ public class DividendEvaluationTiming {
     String symbol;
     int fiscalYear;
     double dividendPerShare;
-    long dividendYield;
+    double dividendYield;
     long fiscalYearEnd;
     double dividend;
     double closingPrice;
     String description = "";
-    public DividendEvaluationTiming(String symbol, int fiscalYear, double dividendPerShare, long dividendYield, long fiscalYearEnd) {
+    public DividendEvaluationTiming(String symbol, int fiscalYear, double dividendPerShare, double dividendYield, long fiscalYearEnd) {
         this.symbol = symbol;
         this.fiscalYear = fiscalYear;
         this.dividendPerShare = dividendPerShare;
@@ -20,11 +20,12 @@ public class DividendEvaluationTiming {
         this.fiscalYearEnd = fiscalYearEnd;
     }
 
+    //not sure if necessary
     private double calculateDividendForFiscalYear() {
-
         return dividend;
     }
 
+    //calculates dividend yield. Can get from the fullstockoverview though, so maybe not necessarry?
     private double calculateDividendYield() {
         return (dividendPerShare/closingPrice) * 100;
     }
