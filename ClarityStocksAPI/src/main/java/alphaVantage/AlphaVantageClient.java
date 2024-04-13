@@ -84,6 +84,30 @@ public class AlphaVantageClient {
     String description = goldenCross.getDesciption();
     return goldenCross;
   }
+/** Method for analyst prediction of stock.
+ * Can't currently find the analyst ratings which are presented here  https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo.
+ * Method will be updated in the future.
+ * There are two descriptions, one more elaborate and one which is more straight forward.
+ * @author Olivia Svensson
+ * */
+  private AnalystPrediction analystPrediction() {
+    FullStockOverview fullStockOverview = new FullStockOverview();
+    String symbol = fullStockOverview.getSymbol();
+    String description = "";
+    String elaborateDescription = "";
+    double analystTargetPrice = fullStockOverview.getAnalystTargetPrice();
+    double currentPrice = 100; //can't find the current price.
+    int analystRatingStrongBuy =  5;//can't find
+    int analystRatingBuy = 5;  //can't find
+    int analystRatingHold = 5;  //can't find
+    int analystRatingSell = 5;  //can't find
+    int analystRatingStrongSell = 5;  //can't find
+    AnalystPrediction analystPrediction = new AnalystPrediction(symbol, currentPrice, analystTargetPrice, analystRatingStrongBuy, analystRatingBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
+    description = analystPrediction.getDescription(symbol, currentPrice, analystTargetPrice, analystRatingStrongBuy,analystRatingBuy,analystRatingHold, analystRatingSell, analystRatingStrongSell);
+    elaborateDescription = analystPrediction.getElaborateDescription(analystTargetPrice, currentPrice, analystRatingBuy, analystRatingStrongBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
+
+    return analystPrediction;
+  }
 
   public AlphaVantageStock getStock(String symbol) {
     FullStockOverview companyOverview = null;

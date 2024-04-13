@@ -35,7 +35,7 @@ public class AnalystPrediction {
     this.analystTargetPrice = analystTargetPrice;
     }
 
-    private String getDescription(String symbol, double currentPrice, double analystTargetPrice, int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold, int analystRatingSell, int analystRatingStrongSell) {
+    public String getDescription(String symbol, double currentPrice, double analystTargetPrice, int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold, int analystRatingSell, int analystRatingStrongSell) {
         return description = "Analyst target price for " + symbol + ": " + analystTargetPrice + ". Current price is " + currentPrice + "." +
                 "\nAnalyst rating buy: " + analystRatingBuy +  "." +
                 "\nAnalyst rating strong buy: " + analystRatingStrongBuy +  "." +
