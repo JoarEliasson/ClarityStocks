@@ -1,4 +1,4 @@
-package analysis.controller;
+package analysis.model;
 import analysis.model.BusinessPerformanceEvaluation;
 
 public class BusinessPerformanceEvaluator {
