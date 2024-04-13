@@ -20,12 +20,17 @@ public class GoldenCross {
         percentageDifference = calculatePercentageDifference(ma50, ma200);
         desciption = evaluatePercentageDifference(percentageDifference);
     }
-
+    /** Method for calculating the percentage difference between ma50 and ma200. Returns a double.
+     * @author Olivia Svensson
+     * */
     private double calculatePercentageDifference(double ma50, double ma200) {
         percentageDifference = (1 - (ma50 / ma200)) * 100;
         return percentageDifference;
     }
 
+    /** Method for evaluating the percentage difference. Returns a string reflecting on the considerations to be made when trading the stock.
+     * @author Olivia Svensson
+     * */
     private String evaluatePercentageDifference(double percentageDifference) {
         if(percentageDifference > 0) {
            return desciption = "Stock traded " + percentageDifference + "% higher than usual. \nConsider being a bit cautious if the high trading price has no reflection in business indicators.";
