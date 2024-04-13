@@ -8,19 +8,20 @@ package analysis.model;
 public class AnalystPrediction {
     String symbol;
     String description;
-double analystTargetPrice;
-double currentPrice;
-int analystRatingStrongBuy;
-int analystRatingBuy;
-int analystRatingHold;
-int analystRatingSell;
-int analystRatingStrongSell;
-String aPrice;
-String aRB;
-String aRSB;
-String aRH;
-String aRS;
-String aRSS;
+    String elaborateDescription;
+    double analystTargetPrice;
+    double currentPrice;
+    int analystRatingStrongBuy;
+    int analystRatingBuy;
+    int analystRatingHold;
+    int analystRatingSell;
+    int analystRatingStrongSell;
+    String aPrice;
+    String aRB;
+    String aRSB;
+    String aRH;
+    String aRS;
+    String aRSS;
 
 
     public AnalystPrediction(String symbol, double currentPrice, double analystTargetPrice, int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold, int analystRatingSell, int analystRatingStrongSell) {
@@ -63,7 +64,7 @@ String aRSS;
         } else if(analystRatingBuy == 5) {
             return aRB = "There is an indication that it is an okay idea to buy the stock according to the analyst.";
         } else {
-            return aRB = "Something went wrong with the analyst rating buy";
+            return aRB = "Something went wrong with the analyst buy rating.";
         }
     }
 
@@ -75,7 +76,7 @@ String aRSS;
         } else if(analystRatingStrongBuy == 5) {
             return aRSB = "There is a strong indication that it is an okay idea to buy the stock according to the analyst.";
         } else {
-            return aRSB = "Something went wrong with the analyst rating strong buy";
+            return aRSB = "Something went wrong with the analyst strong buy rating.";
         }
     }
 
@@ -87,8 +88,43 @@ String aRSS;
         } else if(analystRatingHold == 5) {
             return aRH = "There is an indication that it is an okay idea to hold the stock according to the analyst.";
         } else {
-            return aRH = "Something went wrong with the analyst rating hold";
+            return aRH = "Something went wrong with the analyst hold rating.";
         }
     }
 
+    private String getaRSDescription(int analystRatingSell) {
+        if(analystRatingSell > 5) {
+            return aRS = "There is an indication that it is a good idea to sell the stock according to the analyst.";
+        } else if(analystRatingSell < 5) {
+            return aRS = "There is an indication that it is a bad idea to sell the stock according to the analyst.";
+        } else if(analystRatingSell == 5) {
+            return aRS = "There is an indication that it is an okay idea to sell the stock according to the analyst.";
+        } else {
+            return aRS = "Something went wrong with the analyst sell rating.";
+        }
+    }
+
+    private String getaRSSDescription(int analystRatingStrongSell) {
+        if(analystRatingStrongSell > 5) {
+            return aRSS = "There is a strong indication that it is a good idea to sell the stock according to the analyst.";
+        } else if(analystRatingStrongSell < 5) {
+            return aRSS = "There is a strong indication that it is a bad idea to sell the stock according to the analyst.";
+        } else if(analystRatingStrongSell == 5) {
+            return aRSS = "There is a strong indication that it is an okay idea to sell the stock according to the analyst.";
+        } else {
+            return aRSS = "Something went wrong with the analyst strong sell rating.";
+        }
+    }
+
+
+    public String getElaborateDescription(double analystTargetPrice, double currentPrice, int analystRatingBuy, int analystRatingStrongBuy, int analystRatingHold, int analystRatingSell, int analystRatingStrongSell) {
+         aPrice = getaPriceDescription(analystTargetPrice, currentPrice);
+         aRB = getARBDescription(analystRatingBuy);
+         aRSB = getaRSBDescription(analystRatingStrongBuy);
+         aRH = getaRHDescription(analystRatingHold);
+         aRS = getaRSDescription(analystRatingSell);
+         aRSS = getaRSSDescription(analystRatingStrongSell);
+
+        return elaborateDescription = aPrice + "\n" + aRB + "\n" + aRSB + "\n" + aRH + "\n" + aRS + "\n" + aRSS;
+    }
 }
