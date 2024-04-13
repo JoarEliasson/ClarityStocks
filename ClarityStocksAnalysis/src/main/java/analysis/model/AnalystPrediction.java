@@ -15,7 +15,7 @@ int analystRatingBuy;
 int analystRatingHold;
 int analystRatingSell;
 int analystRatingStrongSell;
-String dPrice;
+String aPrice;
 String aRB;
 String aRSB;
 String aRH;
@@ -43,18 +43,28 @@ String aRSS;
                 "\nAnalyst rating strong sell: " + analystRatingStrongSell + ".";
     }
 
-    private String getAnalystVsCurrentPrice(double analystTargetPrice, double currentPrice) {
+    private String getaPriceDescription(double analystTargetPrice, double currentPrice) {
         if(analystTargetPrice > currentPrice) {
-            return "There is an indication that the stock is undervalued.";
+            return aPrice =  "There is an indication that the stock is undervalued.";
         } else if (analystTargetPrice < currentPrice) {
-            return "There is an indication that the stock is overvalued.";
+            return aPrice= "There is an indication that the stock is overvalued.";
         } else if(analystTargetPrice == currentPrice) {
-            return "There is an indication that the stock is at a fair price.";
+            return aPrice = "There is an indication that the stock is at a fair price.";
         } else {
-            return "Something went wrong with the evaluation of the analyst target price compared to the current price.";
+            return aPrice = "Something went wrong with the evaluation of the analyst target price compared to the current price.";
         }
     }
 
-    private String get
+    private String getARBDescription(int analystRatingBuy) {
+        if(analystRatingBuy > 5) {
+            return aRB = "There is an indication that it is a good idea to buy the stock according to the analyst.";
+        } else if(analystRatingBuy < 5) {
+            return aRB = "There is an indication that it is a bad idea to buy the stock according to the analyst.";
+        } else if(analystRatingBuy == 5) {
+            return aRB = "There is an indication that it is an okay idea to buy the stock according to the analyst.";
+        } else {
+            return aRB = "Something went wrong with the analyst rating buy";
+        }
+    }
 
 }
