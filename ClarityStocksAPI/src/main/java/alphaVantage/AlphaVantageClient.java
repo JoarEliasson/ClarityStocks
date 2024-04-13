@@ -2,6 +2,8 @@ package alphaVantage;
 
 import analysis.model.BusinessPerformanceEvaluator;
 import analysis.model.PERatioEvaluation;
+import analysis.model.StockPriceInRelationToBusinessPerformance;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -42,6 +44,15 @@ public class AlphaVantageClient {
 
     BusinessPerformanceEvaluator businessPerformanceEvaluator = new BusinessPerformanceEvaluator(name, ebidta, totalRevenue);
       return businessPerformanceEvaluator;
+  }
+
+  private StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance() {
+    FullStockOverview fullStockOverview = new FullStockOverview();
+    String symbol = fullStockOverview.getName();
+    double peRatio = fullStockOverview.getPERatio();
+    String sector = fullStockOverview.getSector();
+    StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance = new StockPriceInRelationToBusinessPerformance(symbol, peRatio, sector);
+    return stockPriceInRelationToBusinessPerformance;
   }
 
   public AlphaVantageStock getStock(String symbol) {
