@@ -1,6 +1,9 @@
 package analysis.model;
 import analysis.model.BusinessPerformanceEvaluation;
 
+/** Possibly not necessary anymore, but class for business performance evaluation
+ * @author Olivia Svensson
+ * */
 public class BusinessPerformanceEvaluator {
 
     public BusinessPerformanceEvaluator (String symbol, double ebidta, double totalRevenue)
