@@ -30,6 +30,22 @@ public class AlphaVantageClient {
     }
 
   }
+
+
+  /** Method for displaying the stocks 52-week high and low. Returns an object of HighAndLow class
+   * @author Olivia Svensson
+   * */
+
+  private HighAndLow highAndLow() {
+    FullStockOverview fullStockOverview = new FullStockOverview();
+    String symbol = fullStockOverview.getSymbol();
+    double high = fullStockOverview.getWeek52High();
+    double low = fullStockOverview.getWeek52Low();
+    HighAndLow highAndLow = new HighAndLow(symbol, high, low);
+    String description = highAndLow.getDescription();
+    return highAndLow;
+  }
+
   /** Method for evaluating the business performance of a company.Returns business performance object
    * @author Olivia Svensson
    * */
