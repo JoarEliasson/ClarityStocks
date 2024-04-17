@@ -21,6 +21,10 @@ public class RatingsTile {
   private Label businessPerformance;
   @FXML
   private ImageView businessPerformanceImg;
+  @FXML
+  private Label goldenCrossRating;
+  @FXML
+  private ImageView goldenCrossImage;
   private ArrayList<Image> ratingImages;
 
   public void initialize() {
@@ -55,6 +59,10 @@ public class RatingsTile {
   public void setBusinessPerformance(int rating, String description){
     businessPerformanceImg.setImage(ratingImages.get(rating));
     businessPerformance.setText("Business performance: " + description);
+  }
+  public void setGoldenCross(int rating, String description){
+    goldenCrossImage.setImage(ratingImages.get(rating));
+    goldenCrossRating.setText("Golden Cross Rating: " + description);
   }
 
   private void setImageSize(){

@@ -22,4 +22,8 @@
         <ImageView fx:id="businessPerformanceImg" styleClass="ratingsImage"/>
         <Label styleClass="statLabel" fx:id="businessPerformance" wrapText="true"/>
     </HBox>
+    <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
+        <ImageView fx:id="goldenCrossImage" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="goldenCrossRating" wrapText="true"/>
+    </HBox>
 </VBox>
