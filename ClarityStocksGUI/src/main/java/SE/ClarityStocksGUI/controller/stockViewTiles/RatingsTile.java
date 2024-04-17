@@ -71,6 +71,9 @@ public class RatingsTile {
 
     businessPerformanceImg.setFitHeight(50);
     businessPerformanceImg.setFitWidth(50);
+
+    goldenCrossImage.setFitHeight(50);
+    goldenCrossImage.setFitWidth(50);
   }
 
   public void setCurrentPrice(double price){
