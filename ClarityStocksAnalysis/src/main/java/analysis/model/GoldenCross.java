@@ -11,14 +11,14 @@ public class GoldenCross {
     double ma50;
     double ma200;
     double percentageDifference;
-    String desciption;
+    String description;
 
     public GoldenCross(String symbol, double ma50, double ma200) {
         this.symbol = symbol;
         this.ma50 = ma50;
         this.ma200 = ma200;
         percentageDifference = calculatePercentageDifference(ma50, ma200);
-        desciption = evaluatePercentageDifference(percentageDifference);
+        description = evaluatePercentageDifference(percentageDifference);
     }
     /** Method for calculating the percentage difference between ma50 and ma200. Returns a double.
      * @author Olivia Svensson
@@ -33,17 +33,16 @@ public class GoldenCross {
      * */
     private String evaluatePercentageDifference(double percentageDifference) {
         if(percentageDifference > 0) {
-           return desciption = "Stock traded " + percentageDifference + "% higher than usual. \nConsider being a bit cautious if the high trading price has no reflection in business indicators.";
+           return description = String.format("Stock traded %.2f higher than usual. \nConsider being a bit cautious if the high trading price has no reflection in business indicators.", percentageDifference);
         } else if (percentageDifference < 0) {
-            return desciption = String.format("Stock traded %.2f  lower than usual. %nConsider buying if business indicators are favorable.", Math.abs(percentageDifference))
-                ;
+            return description = String.format("Stock traded %.2f  lower than usual. %nConsider buying if business indicators are favorable.", Math.abs(percentageDifference));
         } else {
-            return desciption = "Something went wrong with the evaluation of the percentage difference";
+            return description = "Something went wrong with the evaluation of the percentage difference";
         }
     }
 
-    public String getDesciption() {
-        return this.desciption;
+    public String getDescription() {
+        return this.description;
     }
 
 }

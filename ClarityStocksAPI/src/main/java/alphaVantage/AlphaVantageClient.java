@@ -101,7 +101,7 @@ public class AlphaVantageClient {
     double ma50 = fullStockOverview.getDay50MovingAverage();
     double ma200 = fullStockOverview.getDay200MovingAverage();
     GoldenCross goldenCross = new GoldenCross(symbol, ma50, ma200);
-    String description = goldenCross.getDesciption();
+    String description = goldenCross.getDescription();
     return goldenCross;
   }
 /** Method for analyst prediction of stock.
