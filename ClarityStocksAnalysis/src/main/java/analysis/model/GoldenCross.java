@@ -35,7 +35,8 @@ public class GoldenCross {
         if(percentageDifference > 0) {
            return desciption = "Stock traded " + percentageDifference + "% higher than usual. \nConsider being a bit cautious if the high trading price has no reflection in business indicators.";
         } else if (percentageDifference < 0) {
-            return desciption = "Stock traded " + Math.abs(percentageDifference) + "% lower than usual. \nConsider buying if business indicators are favorable.";
+            return desciption = String.format("Stock traded %.2f  lower than usual. %nConsider buying if business indicators are favorable.", Math.abs(percentageDifference))
+                ;
         } else {
             return desciption = "Something went wrong with the evaluation of the percentage difference";
         }

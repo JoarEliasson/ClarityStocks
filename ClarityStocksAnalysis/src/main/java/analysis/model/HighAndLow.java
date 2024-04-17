@@ -22,5 +22,4 @@ public class HighAndLow {
                 + "The " + week + "-week low for " + symbol + " is " + low;
   }
 
-
 }
