@@ -107,7 +107,7 @@ public class GUIStockViewController {
   private void setRatingsTile(){
     ratingsTileController.setCurrentPrice(stock.getTimeSeries().get(0).getClose());
     ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation().getRating(), stock.getCompanyOverview().getPERatio(), stock.getPERatioEvaluation().getDescription());
-    ratingsTileController.setBusinessPerformance(1, 2.5); //TODO THIS IS WORK IN PROGRESS
+    ratingsTileController.setBusinessPerformance(1, stock.getBusinessPerformanceEvaluation().getDescription()); //TODO THIS IS WORK IN PROGRESS
   }
 
   @FXML

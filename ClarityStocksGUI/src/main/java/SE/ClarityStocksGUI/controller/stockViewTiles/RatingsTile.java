@@ -52,9 +52,9 @@ public class RatingsTile {
   }
 
   //TODO THIS IS WORK IN PROGRESS
-  public void setBusinessPerformance(int rating, double value){
+  public void setBusinessPerformance(int rating, String description){
     businessPerformanceImg.setImage(ratingImages.get(rating));
-    businessPerformance.setText("Business performance: " + value);
+    businessPerformance.setText("Business performance: " + description);
   }
 
   private void setImageSize(){
