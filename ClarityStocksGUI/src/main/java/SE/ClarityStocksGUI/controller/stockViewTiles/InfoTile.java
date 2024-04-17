@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class InfoTile {
-
   @FXML
   private Label nameLabel;
   @FXML
@@ -13,8 +12,7 @@ public class InfoTile {
   private Label descriptionLabel;
 
   public void initialize() {
-    nameLabel.setText("Teva Pharmaceutical Industries Limited"); //TODO Remove when API is working
-    sectorLabel.setText("Technology - Consumer Electronics"); //TODO Remove when API is working
+    System.out.println("Info tile initialized");
 
   }
 

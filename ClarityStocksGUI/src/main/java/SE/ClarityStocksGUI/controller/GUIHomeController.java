@@ -21,7 +21,7 @@ public class GUIHomeController {
     VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
 
     welcomeText.setText("Clarity Stocks");
-
+    System.out.println("Home controller initalized");
   }
 
   public void setController(GUIMainController controller) {

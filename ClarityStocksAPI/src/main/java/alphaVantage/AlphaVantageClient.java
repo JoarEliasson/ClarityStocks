@@ -136,9 +136,6 @@ public class AlphaVantageClient {
     }
     assert companyOverview != null;
     assert timeSeries != null;
-    for (DailyDataPoint dailyDataPoint : timeSeries) {
-      System.out.println(dailyDataPoint);
-    }
 
     List<DailyDataPoint> filteredDailyDataPoints = filterByYear(timeSeries,
         new int[]{2022, 2023, 2024});
@@ -154,7 +151,6 @@ public class AlphaVantageClient {
       int dataYear = Integer.parseInt(dateParts[0]);
       for (int year : years) {
         if (dataYear == year) {
-          System.out.println(dailyDataPoint);
           filteredDailyDataPoints.add(dailyDataPoint);
         }
       }

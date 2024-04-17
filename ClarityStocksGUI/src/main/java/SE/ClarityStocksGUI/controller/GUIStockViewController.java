@@ -31,6 +31,8 @@ public class GUIStockViewController {
   private Rectangle descBackground;
   @FXML
   private Rectangle statBackground;
+  @FXML
+  private Rectangle dialTileBackground;
   private AlphaVantageListing currentStock;
   @FXML
   private RatingsTile ratingsTileController;
@@ -53,6 +55,8 @@ public class GUIStockViewController {
     descBackground.setEffect(Effects.getDropShadow());
     statBackground.setEffect(Effects.getDropShadow());
     graphBackground.setEffect(Effects.getDropShadow());
+    //dialTileBackground.setEffect(Effects.getDropShadow());
+    System.out.println("Stock view controller initialized");
   }
 
   public void setController(GUIMainController controller) {
@@ -83,7 +87,7 @@ public class GUIStockViewController {
           public void run() {
             graphController.loadStockData(stock);
             setInfoTile();
-            ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation().getRating());
+            setRatingsTile();
             progress.setVisible(false);
           }
         });
@@ -94,9 +98,20 @@ public class GUIStockViewController {
 
   private void setInfoTile() {
     infoTileController.setCompanyName(
-        stock.getCompanyOverview().getName() + " " + stock.getCompanyOverview().getSymbol());
+        stock.getCompanyOverview().getName() + " (" + stock.getCompanyOverview().getSymbol() + ")");
     infoTileController.setSector(
         stock.getCompanyOverview().getSector() + " - " + stock.getCompanyOverview().getIndustry());
     infoTileController.setDescription(stock.getCompanyOverview().getDescription());
+  }
+
+  private void setRatingsTile(){
+    ratingsTileController.setCurrentPrice(stock.getTimeSeries().get(0).getClose());
+    ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation().getRating(), stock.getCompanyOverview().getPERatio(), stock.getPERatioEvaluation().getDescription());
+    ratingsTileController.setBusinessPerformance(1, 2.5); //TODO THIS IS WORK IN PROGRESS
+  }
+
+  @FXML
+  public void showGoldenCross(){
+    graphController.showGoldenCross();
   }
 }

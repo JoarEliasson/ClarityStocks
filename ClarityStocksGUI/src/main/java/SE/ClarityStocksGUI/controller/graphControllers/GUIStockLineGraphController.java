@@ -3,6 +3,8 @@ package SE.ClarityStocksGUI.controller.graphControllers;
 import alphaVantage.AlphaVantageStock;
 import alphaVantage.DailyDataPoint;
 import java.util.List;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -20,13 +22,13 @@ public class GUIStockLineGraphController {
   @FXML
   private NumberAxis yAxis;
   private static GUIStockLineGraphController stockLineGraphController;
-  private AlphaVantageStock stock;
+  //private AlphaVantageStock stock;
   private XYChart.Series<String, Number> series;
   private XYChart.Series<String, Number> shortTermSeries;
   private XYChart.Series<String, Number> longTermSeries;
+  private boolean goldenCrossActive = false;
 
   public void initialize() {
-    System.out.println("StockLineGraphController initialized");
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
     stockLineGraphController = this;
     //chart.setCreateSymbols(false);
@@ -44,6 +46,7 @@ public class GUIStockLineGraphController {
 
   public void loadStockData(AlphaVantageStock stock) {
     chart.getData().clear();
+    goldenCrossActive = false;
 
     XYChart.Series<String, Number> rawSeries = new XYChart.Series<>();
     rawSeries.setName("Stock Prices");
@@ -60,7 +63,6 @@ public class GUIStockLineGraphController {
     longTermSeries = new XYChart.Series<>();
     longTermSeries.setName("Long-Term MA");
 
-
     for (DailyDataPoint data : shortTermMovingAverage.reversed()) {
       shortTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
     }
@@ -69,7 +71,7 @@ public class GUIStockLineGraphController {
       longTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
     }
 
-    chart.getData().addAll(rawSeries, shortTermSeries, longTermSeries);
+    chart.getData().add(rawSeries);
     styleChart();
   }
 
@@ -84,6 +86,26 @@ public class GUIStockLineGraphController {
         data.getNode().setOnMouseEntered(event -> data.getNode().getStyleClass().add("onHover"));
         data.getNode().setOnMouseExited(event -> data.getNode().getStyleClass().remove("onHover"));
       }
+    }
+  }
+
+  public void showGoldenCross(){
+    if(!goldenCrossActive){
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          chart.getData().addAll(shortTermSeries, longTermSeries);
+          goldenCrossActive = true;
+        }
+      });
+    }else {
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          chart.getData().removeAll(shortTermSeries, longTermSeries);
+          goldenCrossActive = false;
+        }
+      });
     }
   }
 }

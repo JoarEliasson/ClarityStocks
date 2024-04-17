@@ -32,6 +32,7 @@ public class GUIMainController {
 
     homeView.setVisible(true);
     stockView.setVisible(false);
+    System.out.println("Main Controller initialized");
   }
 
   public void setApplication(GUIMainApplication application) {
