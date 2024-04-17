@@ -25,6 +25,7 @@ public class GoldenCross {
      * */
     private double calculatePercentageDifference(double ma50, double ma200) {
         percentageDifference = (1 - (ma50 / ma200)) * 100;
+        percentageDifference = Math.round(percentageDifference);
         return percentageDifference;
     }
 
