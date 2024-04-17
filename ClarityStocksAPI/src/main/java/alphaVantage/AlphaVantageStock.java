@@ -1,6 +1,11 @@
 package alphaVantage;
 
+import analysis.model.BusinessPerformanceEvaluation;
+import analysis.model.DividendEvaluationTiming;
+import analysis.model.GoldenCross;
+import analysis.model.HighAndLow;
 import analysis.model.PERatioEvaluation;
+import analysis.model.StockPriceInRelationToBusinessPerformance;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +14,22 @@ public class AlphaVantageStock {
   private final FullStockOverview companyOverview;
   private final List<DailyDataPoint> timeSeries;
   private final PERatioEvaluation PERatioEvaluation;
+  private final BusinessPerformanceEvaluation businessPerformanceEvaluation;
+  private final DividendEvaluationTiming dividendEvaluationTiming;
+  private final GoldenCross goldenCross;
+  private final HighAndLow highAndLow;
+  private final StockPriceInRelationToBusinessPerformance priceInRelationToBusinessPerformance;
 
   public AlphaVantageStock(FullStockOverview companyOverview, List<DailyDataPoint> timeSeries,
-      PERatioEvaluation PERatioEvaluation) {
+      PERatioEvaluation PERatioEvaluation, BusinessPerformanceEvaluation businessPerformanceEvaluation, DividendEvaluationTiming dividendEvaluationTiming, GoldenCross goldenCross, HighAndLow highAndLow, StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance) {
     this.companyOverview = companyOverview;
     this.timeSeries = timeSeries;
     this.PERatioEvaluation = PERatioEvaluation;
+    this.businessPerformanceEvaluation = businessPerformanceEvaluation;
+    this.dividendEvaluationTiming = dividendEvaluationTiming;
+    this.goldenCross = goldenCross;
+    this.highAndLow = highAndLow;
+    this.priceInRelationToBusinessPerformance = stockPriceInRelationToBusinessPerformance;
   }
 
   public FullStockOverview getCompanyOverview() {
@@ -52,5 +67,25 @@ public class AlphaVantageStock {
 
   public PERatioEvaluation getPERatioEvaluation() {
     return PERatioEvaluation;
+  }
+
+  public BusinessPerformanceEvaluation getBusinessPerformanceEvaluation() {
+    return businessPerformanceEvaluation;
+  }
+
+  public DividendEvaluationTiming getDividendEvaluationTiming() {
+    return dividendEvaluationTiming;
+  }
+
+  public GoldenCross getGoldenCross() {
+    return goldenCross;
+  }
+
+  public HighAndLow getHighAndLow() {
+    return highAndLow;
+  }
+
+  public StockPriceInRelationToBusinessPerformance getPriceInRelationToBusinessPerformance() {
+    return priceInRelationToBusinessPerformance;
   }
 }
