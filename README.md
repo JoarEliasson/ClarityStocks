@@ -19,3 +19,5 @@ Clarity Stocks offers a clear and minimalistic interface that simplifies the pro
 1. **Building the project**: Build the project from the root folder and import Maven sources.
 2. **Running the program**: Run the class GUIMainApplication located in the module ClarityStocksGUI.
 3. **Searching for stocks**: Search for a stock in the search bar located in the top-right corner of the application.
+4. **Viewing stock data**: Select a stock from the search results to view its real-time and historical price data.
+5. **Analyzing stock performance**: Utilize the various analysis options available to gain deeper insights into stock performance and company metrics (currently GoldenCross by pressing the button above the graph + evaluations).
