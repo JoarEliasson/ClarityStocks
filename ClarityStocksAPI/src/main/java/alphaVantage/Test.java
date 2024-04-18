@@ -6,6 +6,7 @@ public class Test {
 
   public static void main(String[] args) {
     String symbol = "AAPL";
+    String test = "test";
 
     AlphaVantageClient client = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
     CompanyOverview companyOverview = null;
