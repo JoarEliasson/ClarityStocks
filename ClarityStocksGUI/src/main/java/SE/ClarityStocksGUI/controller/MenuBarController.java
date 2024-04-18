@@ -36,7 +36,7 @@ public class MenuBarController {
     setupComboBox();
     homeButton.setText("Home");
     stockButton.setText("Stock");
-
+    System.out.println("Menu bar initialized");
   }
 
   @FXML

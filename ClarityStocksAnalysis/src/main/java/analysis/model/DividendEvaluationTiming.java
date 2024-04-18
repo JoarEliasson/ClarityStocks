@@ -8,11 +8,11 @@ public class DividendEvaluationTiming {
     int fiscalYear;
     double dividendPerShare;
     double dividendYield;
-    long fiscalYearEnd;
+    String fiscalYearEnd;
     double dividend;
     double closingPrice;
     String description = "";
-    public DividendEvaluationTiming(String symbol, int fiscalYear, double dividendPerShare, double dividendYield, long fiscalYearEnd) {
+    public DividendEvaluationTiming(String symbol, int fiscalYear, double dividendPerShare, double dividendYield, String fiscalYearEnd) {
         this.symbol = symbol;
         this.fiscalYear = fiscalYear;
         this.dividendPerShare = dividendPerShare;

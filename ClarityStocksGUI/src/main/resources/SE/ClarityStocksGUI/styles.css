@@ -124,3 +124,7 @@
   -fx-spacing: 15px;
 }
 
+.currentPrice{
+  -fx-font-size: 20;
+}
+

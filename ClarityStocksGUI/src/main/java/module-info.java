@@ -4,6 +4,7 @@ module SE.ClarityStocksGUI {
   requires org.kordamp.bootstrapfx.core;
   requires javafx.graphics;
   requires javafx.controls;
+  requires javafx.swing;
   requires javafx.fxml;
   requires javafx.base;
   requires VirtualizedFX;
@@ -11,8 +12,10 @@ module SE.ClarityStocksGUI {
   requires ClarityStocksAPI;
   requires ClarityStocksData;
   requires java.logging;
-  requires atlantafx.base;
   requires ClarityStocksAnalysis;
+  requires eu.hansolo.medusa;
+
+
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
 

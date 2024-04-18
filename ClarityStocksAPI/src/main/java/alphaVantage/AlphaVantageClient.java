@@ -7,6 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,22 @@ public class AlphaVantageClient {
     }
 
   }
+
+
+  /** Method for displaying the stocks 52-week high and low. Returns an object of HighAndLow class
+   * @author Olivia Svensson
+   * */
+
+  private HighAndLow highAndLow() {
+    FullStockOverview fullStockOverview = new FullStockOverview();
+    String symbol = fullStockOverview.getSymbol();
+    double high = fullStockOverview.getWeek52High();
+    double low = fullStockOverview.getWeek52Low();
+    HighAndLow highAndLow = new HighAndLow(symbol, high, low);
+    String description = highAndLow.getDescription();
+    return highAndLow;
+  }
+
   /** Method for evaluating the business performance of a company.Returns business performance object
    * @author Olivia Svensson
    * */
@@ -47,6 +64,7 @@ public class AlphaVantageClient {
   /** Method for getting dividend evaluation depending on fiscal year, also gets dividend yield depending on fiscal year. Returns dividend evaluation timing object
    * @author Olivia Svensson
    * */
+  /*
   private DividendEvaluationTiming dividendEvaluationTiming(int year) {
       FullStockOverview fullStockOverview = new FullStockOverview();
 
@@ -59,6 +77,8 @@ public class AlphaVantageClient {
     DividendEvaluationTiming dividendEvaluationTiming = new DividendEvaluationTiming(symbol, fiscalYear, dividendYield, dividendYield, fiscalYearEnd);
     return dividendEvaluationTiming;
   }
+
+   */
 
   /** Method for evaluating stock price in relation to business performance. Returns stock price in relation to business performance object
    * @author Olivia Svensson
@@ -81,7 +101,7 @@ public class AlphaVantageClient {
     double ma50 = fullStockOverview.getDay50MovingAverage();
     double ma200 = fullStockOverview.getDay200MovingAverage();
     GoldenCross goldenCross = new GoldenCross(symbol, ma50, ma200);
-    String description = goldenCross.getDesciption();
+    String description = goldenCross.getDescription();
     return goldenCross;
   }
 /** Method for analyst prediction of stock.
@@ -120,14 +140,19 @@ public class AlphaVantageClient {
     }
     assert companyOverview != null;
     assert timeSeries != null;
-    for (DailyDataPoint dailyDataPoint : timeSeries) {
-      System.out.println(dailyDataPoint);
-    }
 
     List<DailyDataPoint> filteredDailyDataPoints = filterByYear(timeSeries,
         new int[]{2022, 2023, 2024});
-    return new AlphaVantageStock(companyOverview, filteredDailyDataPoints,
-        (new PERatioEvaluation(symbol, companyOverview.getPERatio())));
+
+    PERatioEvaluation peRatioEvaluation = new PERatioEvaluation(symbol, companyOverview.getPERatio());
+    BusinessPerformanceEvaluation performanceEvaluation = new BusinessPerformanceEvaluation(symbol, companyOverview.getEBITDA(), companyOverview.getRevenueTTM());
+    int currentYear = LocalDate.now().getYear();
+    DividendEvaluationTiming dividendEvaluationTiming = new DividendEvaluationTiming(symbol, currentYear, companyOverview.getDividendPerShare(), companyOverview.getDividendYield(), companyOverview.getFiscalYearEnd());
+    GoldenCross goldenCross = new GoldenCross(symbol, companyOverview.getDay50MovingAverage(), companyOverview.getDay200MovingAverage());
+    HighAndLow highLow = new HighAndLow(symbol, companyOverview.getWeek52High(), companyOverview.getWeek52Low());
+    StockPriceInRelationToBusinessPerformance priceInRelationToBusinessPerformance = new StockPriceInRelationToBusinessPerformance(symbol, companyOverview.getPERatio(),
+        companyOverview.getSector());
+    return new AlphaVantageStock(companyOverview, filteredDailyDataPoints, peRatioEvaluation, performanceEvaluation, dividendEvaluationTiming, goldenCross, highLow, priceInRelationToBusinessPerformance);
   }
 
   private List<DailyDataPoint> filterByYear(List<DailyDataPoint> dailyDataPoints, int[] years) {
@@ -138,7 +163,6 @@ public class AlphaVantageClient {
       int dataYear = Integer.parseInt(dateParts[0]);
       for (int year : years) {
         if (dataYear == year) {
-          System.out.println(dailyDataPoint);
           filteredDailyDataPoints.add(dailyDataPoint);
         }
       }

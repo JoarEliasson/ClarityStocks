@@ -3,7 +3,6 @@ package SE.ClarityStocksGUI.view;
 import SE.ClarityStocksGUI.controller.GUIHomeController;
 import SE.ClarityStocksGUI.controller.GUIMainController;
 import SE.ClarityStocksGUI.controller.GUIStockViewController;
-import atlantafx.base.theme.PrimerLight;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
@@ -32,19 +31,23 @@ public class GUIMainApplication extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
+
     this.stage = stage;
-    stage.getIcons().add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png")
-            .toExternalForm()));
+    //stage.getIcons().add(new Image(
+    //    getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png")
+    //        .toExternalForm()));
     guiMainApplication = this;
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
     //Setting up the Home view
 
-    FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
+    FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml")); //SLOW AF?
     mainView = new Scene(mainLoader.load(), 1280, 720);
     mainView.getStylesheets().add(css);
     mainController = mainLoader.getController();
     mainController.setApplication(this);
+
+
+    System.out.println("MainController set up");
     //stockViewController.setCompanyData(companyData);
 
     //MaterialFX default code to get stylesheets working
@@ -56,9 +59,11 @@ public class GUIMainApplication extends Application {
         .build()
         .setGlobal();
 
+    System.out.println("MaterialFX set up");
     stage.setTitle("Clarity Stocks");
     stage.setScene(mainView);
     stage.show();
+    System.out.println("Program should be visible");
 
   }
 

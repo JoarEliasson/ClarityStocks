@@ -10,10 +10,20 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="SE.ClarityStocksGUI.controller.stockViewTiles.RatingsTile"
-      alignment="CENTER" maxHeight="350" maxWidth="250">
-
-    <HBox styleClass="ratingsTile">
+      maxHeight="350" maxWidth="375">
+    <VBox alignment="CENTER">
+        <Label fx:id="currentPrice" styleClass="currentPrice"/>
+    </VBox>
+    <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
         <ImageView fx:id="peRatingImg" styleClass="ratingsImage"/>
         <Label styleClass="statLabel" fx:id="peEvaluation" wrapText="true"/>
+    </HBox>
+    <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
+        <ImageView fx:id="businessPerformanceImg" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="businessPerformance" wrapText="true"/>
+    </HBox>
+    <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
+        <ImageView fx:id="goldenCrossImage" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="goldenCrossRating" wrapText="true"/>
     </HBox>
 </VBox>

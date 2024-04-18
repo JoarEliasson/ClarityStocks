@@ -21,6 +21,9 @@
   <BorderPane fx:id="layout">
     <center>
       <VBox alignment="CENTER" spacing="20">
+        <padding>
+          <Insets bottom="50"/>
+        </padding>
         <HBox alignment="CENTER" spacing="50">
           <VBox.margin>
             <Insets top="30" />
@@ -32,8 +35,9 @@
                            styleClass="backgroundPanelStockView"/>
               </VBox>
               <VBox alignment="CENTER">
+                <MFXButton text="Show golden cross" onAction="#showGoldenCross"/>
                 <StackPane>
-                  <fx:include source="Stock-linegraph.fxml" fx:id="graph"/>
+                  <fx:include source="Stock-lineGraph.fxml" fx:id="graph"/>
                   <ProgressBar fx:id="progress" styleClass="progress-bar-primary"/>
                 </StackPane>
               </VBox>
