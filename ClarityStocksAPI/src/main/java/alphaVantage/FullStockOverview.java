@@ -274,13 +274,13 @@ public class FullStockOverview {
    * over the last 50 days, helping to smooth out price data by creating a constantly updated
    * average price.
    */
-  private double day50MovingAverage;
+  private double movingAverage50;
 
   /**
    * The 200-day moving average of the stock price, similar to the 50-day moving average but over a
    * longer period, often used to determine the long-term trend of a stock.
    */
-  private double day200MovingAverage;
+  private double movingAverage200;
 
   /**
    * The number of shares that are currently outstanding, which are shares that have been issued by
@@ -320,7 +320,7 @@ public class FullStockOverview {
       double forwardPE,
       double priceToSalesRatioTTM, double priceToBookRatio, double EVToRevenue, double EVToEBITDA,
       double beta,
-      double week52High, double week52Low, double day50MovingAverage, double day200MovingAverage,
+      double week52High, double week52Low, double movingAverage50, double movingAverage200,
       long sharesOutstanding, String dividendDate,
       String exDividendDate) {
     this.symbol = symbol;
@@ -364,8 +364,8 @@ public class FullStockOverview {
     this.beta = beta;
     this.week52High = week52High;
     this.week52Low = week52Low;
-    this.day50MovingAverage = day50MovingAverage;
-    this.day200MovingAverage = day200MovingAverage;
+    this.movingAverage50 = movingAverage50;
+    this.movingAverage200 = movingAverage200;
     this.sharesOutstanding = sharesOutstanding;
     this.dividendDate = dividendDate;
     this.exDividendDate = exDividendDate;
@@ -699,20 +699,20 @@ public class FullStockOverview {
     this.week52Low = week52Low;
   }
 
-  public double getDay50MovingAverage() {
-    return day50MovingAverage;
+  public double getMovingAverage50() {
+    return movingAverage50;
   }
 
-  public void setDay50MovingAverage(double day50MovingAverage) {
-    this.day50MovingAverage = day50MovingAverage;
+  public void setMovingAverage50(double movingAverage50) {
+    this.movingAverage50 = movingAverage50;
   }
 
-  public double getDay200MovingAverage() {
-    return day200MovingAverage;
+  public double getMovingAverage200() {
+    return movingAverage200;
   }
 
-  public void setDay200MovingAverage(double day200MovingAverage) {
-    this.day200MovingAverage = day200MovingAverage;
+  public void setMovingAverage200(double movingAverage200) {
+    this.movingAverage200 = movingAverage200;
   }
 
   public long getSharesOutstanding() {
@@ -749,7 +749,7 @@ public class FullStockOverview {
         operatingMarginTTM, returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM,
         dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice,
         trailingPE, forwardPE, priceToSalesRatioTTM, priceToBookRatio, EVToRevenue, EVToEBITDA,
-        beta, week52High, week52Low, day50MovingAverage, day200MovingAverage, sharesOutstanding,
+        beta, week52High, week52Low, movingAverage50, movingAverage200, sharesOutstanding,
         dividendDate, exDividendDate);
   }
 }

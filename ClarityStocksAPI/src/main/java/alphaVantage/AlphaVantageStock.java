@@ -5,7 +5,7 @@ import analysis.model.DividendEvaluationTiming;
 import analysis.model.GoldenCross;
 import analysis.model.HighAndLow;
 import analysis.model.PERatioEvaluation;
-import analysis.model.StockPriceInRelationToBusinessPerformance;
+import analysis.model.PriceToBusinessPerformance;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +18,10 @@ public class AlphaVantageStock {
   private final DividendEvaluationTiming dividendEvaluationTiming;
   private final GoldenCross goldenCross;
   private final HighAndLow highAndLow;
-  private final StockPriceInRelationToBusinessPerformance priceInRelationToBusinessPerformance;
+  private final PriceToBusinessPerformance priceInRelationToBusinessPerformance;
 
   public AlphaVantageStock(FullStockOverview companyOverview, List<DailyDataPoint> timeSeries,
-      PERatioEvaluation PERatioEvaluation, BusinessPerformanceEvaluation businessPerformanceEvaluation, DividendEvaluationTiming dividendEvaluationTiming, GoldenCross goldenCross, HighAndLow highAndLow, StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance) {
+      PERatioEvaluation PERatioEvaluation, BusinessPerformanceEvaluation businessPerformanceEvaluation, DividendEvaluationTiming dividendEvaluationTiming, GoldenCross goldenCross, HighAndLow highAndLow, PriceToBusinessPerformance priceToBusinessPerformance) {
     this.companyOverview = companyOverview;
     this.timeSeries = timeSeries;
     this.PERatioEvaluation = PERatioEvaluation;
@@ -29,7 +29,7 @@ public class AlphaVantageStock {
     this.dividendEvaluationTiming = dividendEvaluationTiming;
     this.goldenCross = goldenCross;
     this.highAndLow = highAndLow;
-    this.priceInRelationToBusinessPerformance = stockPriceInRelationToBusinessPerformance;
+    this.priceInRelationToBusinessPerformance = priceToBusinessPerformance;
   }
 
   public FullStockOverview getCompanyOverview() {
@@ -85,7 +85,7 @@ public class AlphaVantageStock {
     return highAndLow;
   }
 
-  public StockPriceInRelationToBusinessPerformance getPriceInRelationToBusinessPerformance() {
+  public PriceToBusinessPerformance getPriceInRelationToBusinessPerformance() {
     return priceInRelationToBusinessPerformance;
   }
 }

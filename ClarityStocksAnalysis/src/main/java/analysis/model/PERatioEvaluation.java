@@ -10,28 +10,42 @@ public class PERatioEvaluation {
     this.symbol = symbol;
 
     if (peRatio < 0) {
-      description = "Price Earnings ratio is negative, which is a warning sign. The company is likely losing money and has negative earnings.";
+      description = "Price Earnings ratio is negative, which is a warning sign. The company is "
+          + "likely losing money and has negative earnings.";
       rating = 0;
     } else if (peRatio < 10) {
-      description = "Price Earnings ratio is less than 10, which is low. This is could indicate that the company is undervalued or the prospect for the future of the company is uncertain. Compare with the other stock-parameters.";
+      description = "Price Earnings ratio is less than 10, which is low. This is could indicate "
+        + "that the company is undervalued or the prospect for the future of the company is "
+        + "uncertain. Compare with the other stock-parameters.";
       rating = 5;
     } else if (peRatio < 15) {
-      description = "Price Earnings ratio is between 10 and 15, which from a long-term historical perspective is normal. It is lower than the market average, which is a positive sign.";
+      description = "Price Earnings ratio is between 10 and 15, which from a long-term historical "
+        + "perspective is normal. It is lower than the market average, which is a positive sign.";
       rating = 4;
     } else if (peRatio < 20) {
-      description = "Price Earnings ratio is between 15 and 20, which is normal within the last 10 years. It is slightly lower than the market average, which is a positive sign. Compare with the other stock-parameters.";
+      description = "Price Earnings ratio is between 15 and 20, which is normal within the last 10 "
+        + "years. It is slightly lower than the market average, which is a positive sign. Compare"
+        + " with the other stock-parameters.";
       rating = 3;
     } else if (peRatio < 25) {
-      description = "Price Earnings ratio is between 20 and 25, which is a high value from a historical perspective. A value this high should be based on strengths in other performance indicators.";
+      description = "Price Earnings ratio is between 20 and 25, which is a high value from a "
+        + "historical perspective. A value this high should be based on strengths in other "
+        + "performance indicators.";
       rating = 2;
     } else if (peRatio < 30) {
-      description = "Price Earnings ratio is between 25 and 30, which is high. This is potentially a negative sign, indicating that there is a risk that the company is overvalued. Compare with the other stock-parameters.";
+      description = "Price Earnings ratio is between 25 and 30, which is high. This is potentially "
+        + "a negative sign, indicating that there is a risk that the company is overvalued. "
+        + "Compare with the other stock-parameters.";
       rating = 1;
-    } else if (peRatio < 40){
-      description = "Price Earnings ratio is greater than 30, which is high. Caution is advised since there is a notable risk that the company is overvalued. Compare with the other stock-parameters.";
+    } else if (peRatio < 40) {
+      description = "Price Earnings ratio is greater than 30, which is high. Caution is advised "
+        + "since there is a notable risk that the company is overvalued. Compare with the other "
+        + "stock-parameters.";
       rating = 0;
     } else {
-      description = "Price Earnings ratio is greater than 40, which is very high. This is a negative sign, indicating that the price might be inflated by hype and is not based on the companys earnings.";
+      description = "Price Earnings ratio is greater than 40, which is very high. This is a"
+        + "negative sign, indicating that the price might be inflated by hype and is not based on"
+        + " the companys earnings.";
       rating = 0;
     }
   }

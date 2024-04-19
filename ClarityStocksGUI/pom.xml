@@ -117,7 +117,7 @@
           <execution>
             <id>default-cli</id>
             <configuration>
-              <mainClass>SE.ClarityStocksGUI.controller.HelloApplication</mainClass>
+              <mainClass>SE.ClarityStocksGUI.view.GUIMainApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

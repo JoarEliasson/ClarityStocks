@@ -1,7 +1,12 @@
 package alphaVantage;
 
-import analysis.model.*;
-
+import analysis.model.AnalystPrediction;
+import analysis.model.BusinessPerformanceEvaluation;
+import analysis.model.DividendEvaluationTiming;
+import analysis.model.GoldenCross;
+import analysis.model.HighAndLow;
+import analysis.model.PERatioEvaluation;
+import analysis.model.PriceToBusinessPerformance;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -17,26 +22,15 @@ public class AlphaVantageClient {
   private final HttpClient httpClient;
   private final AlphaVantageParser parser = new AlphaVantageParser();
 
-  //Constructor. Creates instance of httpClient
   public AlphaVantageClient(String apiKey) {
     this.apiKey = apiKey;
     this.httpClient = HttpClient.newHttpClient();
   }
 
-  public static void main(String[] args) {
-    AlphaVantageClient client = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
-    List<AlphaVantageStockInfo> searchResults = client.searchEndpoint("");
-    for (AlphaVantageStockInfo alphaVantageStockInfo : searchResults) {
-      System.out.println(alphaVantageStockInfo);
-    }
-
-  }
-
-
-  /** Method for displaying the stocks 52-week high and low. Returns an object of HighAndLow class
+  /**
+   * Method for displaying the stocks 52-week high and low. Returns an object of HighAndLow class
    * @author Olivia Svensson
-   * */
-
+   */
   private HighAndLow highAndLow() {
     FullStockOverview fullStockOverview = new FullStockOverview();
     String symbol = fullStockOverview.getSymbol();
@@ -49,21 +43,22 @@ public class AlphaVantageClient {
 
   /** Method for evaluating the business performance of a company.Returns business performance object
    * @author Olivia Svensson
-   * */
-
-  private BusinessPerformanceEvaluator getBusinessPerformanceEvaluation() {
+   *
+   */
+  private BusinessPerformanceEvaluation getBusinessPerformanceEvaluation() {
     FullStockOverview  fullStockOverview = new FullStockOverview();
     String name = fullStockOverview.getName();
     double ebidta = fullStockOverview.getEBITDA();
     double totalRevenue = fullStockOverview.getRevenueTTM();
 
-    BusinessPerformanceEvaluator businessPerformanceEvaluator = new BusinessPerformanceEvaluator(name, ebidta, totalRevenue);
-      return businessPerformanceEvaluator;
+    BusinessPerformanceEvaluation businessPerformanceEvaluation = new BusinessPerformanceEvaluation(name, ebidta, totalRevenue);
+      return businessPerformanceEvaluation;
   }
 
   /** Method for getting dividend evaluation depending on fiscal year, also gets dividend yield depending on fiscal year. Returns dividend evaluation timing object
    * @author Olivia Svensson
    * */
+  //conflicting variables
   /*
   private DividendEvaluationTiming dividendEvaluationTiming(int year) {
       FullStockOverview fullStockOverview = new FullStockOverview();
@@ -77,19 +72,18 @@ public class AlphaVantageClient {
     DividendEvaluationTiming dividendEvaluationTiming = new DividendEvaluationTiming(symbol, fiscalYear, dividendYield, dividendYield, fiscalYearEnd);
     return dividendEvaluationTiming;
   }
-
    */
 
   /** Method for evaluating stock price in relation to business performance. Returns stock price in relation to business performance object
    * @author Olivia Svensson
    * */
-  private StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance() {
+  private PriceToBusinessPerformance stockPriceInRelationToBusinessPerformance() {
     FullStockOverview fullStockOverview = new FullStockOverview();
     String symbol = fullStockOverview.getName();
     double peRatio = fullStockOverview.getPERatio();
     String sector = fullStockOverview.getSector();
-    StockPriceInRelationToBusinessPerformance stockPriceInRelationToBusinessPerformance = new StockPriceInRelationToBusinessPerformance(symbol, peRatio, sector);
-    return stockPriceInRelationToBusinessPerformance;
+    PriceToBusinessPerformance priceToBusinessPerformance = new PriceToBusinessPerformance(symbol, peRatio, sector);
+    return priceToBusinessPerformance;
   }
 
 /** Method for analysing the stock price according to the golden cross method.
@@ -98,12 +92,13 @@ public class AlphaVantageClient {
   private GoldenCross goldenCross() {
     FullStockOverview fullStockOverview = new FullStockOverview();
     String symbol = fullStockOverview.getSymbol();
-    double ma50 = fullStockOverview.getDay50MovingAverage();
-    double ma200 = fullStockOverview.getDay200MovingAverage();
+    double ma50 = fullStockOverview.getMovingAverage50();
+    double ma200 = fullStockOverview.getMovingAverage200();
     GoldenCross goldenCross = new GoldenCross(symbol, ma50, ma200);
     String description = goldenCross.getDescription();
     return goldenCross;
   }
+
 /** Method for analyst prediction of stock.
  * Can't currently find the analyst ratings which are presented here  https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo.
  * Method will be updated in the future.
@@ -117,7 +112,7 @@ public class AlphaVantageClient {
     String elaborateDescription = "";
     double analystTargetPrice = fullStockOverview.getAnalystTargetPrice();
     double currentPrice = 100; //can't find the current price.
-    int analystRatingStrongBuy =  5;//can't find
+    int analystRatingStrongBuy =  5; //can't find
     int analystRatingBuy = 5;  //can't find
     int analystRatingHold = 5;  //can't find
     int analystRatingSell = 5;  //can't find
@@ -125,7 +120,6 @@ public class AlphaVantageClient {
     AnalystPrediction analystPrediction = new AnalystPrediction(symbol, currentPrice, analystTargetPrice, analystRatingStrongBuy, analystRatingBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
     description = analystPrediction.getDescription(symbol, currentPrice, analystTargetPrice, analystRatingStrongBuy,analystRatingBuy,analystRatingHold, analystRatingSell, analystRatingStrongSell);
     elaborateDescription = analystPrediction.getElaborateDescription(analystTargetPrice, currentPrice, analystRatingBuy, analystRatingStrongBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
-
     return analystPrediction;
   }
 
@@ -148,9 +142,9 @@ public class AlphaVantageClient {
     BusinessPerformanceEvaluation performanceEvaluation = new BusinessPerformanceEvaluation(symbol, companyOverview.getEBITDA(), companyOverview.getRevenueTTM());
     int currentYear = LocalDate.now().getYear();
     DividendEvaluationTiming dividendEvaluationTiming = new DividendEvaluationTiming(symbol, currentYear, companyOverview.getDividendPerShare(), companyOverview.getDividendYield(), companyOverview.getFiscalYearEnd());
-    GoldenCross goldenCross = new GoldenCross(symbol, companyOverview.getDay50MovingAverage(), companyOverview.getDay200MovingAverage());
+    GoldenCross goldenCross = new GoldenCross(symbol, companyOverview.getMovingAverage50(), companyOverview.getMovingAverage200());
     HighAndLow highLow = new HighAndLow(symbol, companyOverview.getWeek52High(), companyOverview.getWeek52Low());
-    StockPriceInRelationToBusinessPerformance priceInRelationToBusinessPerformance = new StockPriceInRelationToBusinessPerformance(symbol, companyOverview.getPERatio(),
+    PriceToBusinessPerformance priceInRelationToBusinessPerformance = new PriceToBusinessPerformance(symbol, companyOverview.getPERatio(),
         companyOverview.getSector());
     return new AlphaVantageStock(companyOverview, filteredDailyDataPoints, peRatioEvaluation, performanceEvaluation, dividendEvaluationTiming, goldenCross, highLow, priceInRelationToBusinessPerformance);
   }
@@ -224,29 +218,6 @@ public class AlphaVantageClient {
         .build();
     HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     return parser.parseTimeSeries(response.body());
-  }
-
-  public List<AlphaVantageStockInfo> searchEndpoint(String query) {
-    String url = String.format(
-        "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=%s&apikey=%s", query,
-        apiKey);
-    HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(url))
-        .timeout(Duration.ofMinutes(1))
-        .GET()
-        .build();
-    try {
-      HttpResponse<String> response = httpClient.send(request,
-          HttpResponse.BodyHandlers.ofString());
-      if (response.statusCode() == 200) {
-        return parser.parseSearchResults(response.body());
-      } else {
-        throw new RuntimeException(
-            "Failed to fetch data: HTTP status code " + response.statusCode());
-      }
-    } catch (Exception e) {
-      throw new RuntimeException("Error fetching search results", e);
-    }
   }
 
   public List<String> getIncomeStatement(String symbol) {

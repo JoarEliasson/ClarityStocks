@@ -97,8 +97,8 @@ public class AlphaVantageParser {
       fullStockOverview.setBeta(root.path("Beta").asDouble());
       fullStockOverview.setWeek52High(root.path("52WeekHigh").asDouble());
       fullStockOverview.setWeek52Low(root.path("52WeekLow").asDouble());
-      fullStockOverview.setDay50MovingAverage(root.path("50DayMovingAverage").asDouble());
-      fullStockOverview.setDay200MovingAverage(root.path("200DayMovingAverage").asDouble());
+      fullStockOverview.setMovingAverage50(root.path("50DayMovingAverage").asDouble());
+      fullStockOverview.setMovingAverage200(root.path("200DayMovingAverage").asDouble());
       fullStockOverview.setSharesOutstanding(root.path("SharesOutstanding").asLong());
       fullStockOverview.setDividendDate(root.path("DividendDate").asText());
       fullStockOverview.setExDividendDate(root.path("ExDividendDate").asText());
@@ -138,39 +138,6 @@ public class AlphaVantageParser {
       e.printStackTrace();
     }
     return dailyDataPoints;
-  }
-
-
-  public List<AlphaVantageStockInfo> parseSearchResults(String body) {
-    List<AlphaVantageStockInfo> searchResults = new ArrayList<>();
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-      JsonNode root = mapper.readTree(body);
-      JsonNode bestMatches = root.path("bestMatches");
-      if (!bestMatches.isMissingNode()) {
-        Iterator<JsonNode> elements = bestMatches.elements();
-        while (elements.hasNext()) {
-          JsonNode match = elements.next();
-          String symbol = match.path("1. symbol").asText();
-          String name = match.path("2. name").asText();
-          String type = match.path("3. type").asText();
-          String region = match.path("4. region").asText();
-          String marketOpen = match.path("5. marketOpen").asText();
-          String marketClose = match.path("6. marketClose").asText();
-          String timezone = match.path("7. timezone").asText();
-          String currency = match.path("8. currency").asText();
-          double matchScore = match.path("9. matchScore").asDouble();
-          AlphaVantageStockInfo alphaVantageStockInfo = new AlphaVantageStockInfo(symbol, name,
-              type, region, marketOpen, marketClose, timezone, currency, matchScore);
-          searchResults.add(alphaVantageStockInfo);
-        }
-      } else {
-        System.out.println("No search results found.");
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return searchResults;
   }
 
   public List<String> parseIncomeStatement(String body) {
