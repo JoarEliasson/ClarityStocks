@@ -1,9 +1,9 @@
 package SE.ClarityStocksGUI.controller.graphControllers;
 
-import alphaVantage.AlphaVantageStock;
-import alphaVantage.DailyDataPoint;
+import alphaVantage.model.AlphaVantageStock;
+import alphaVantage.model.data.series.DailyDataPoint;
+import java.time.LocalDate;
 import java.util.List;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
@@ -48,27 +48,28 @@ public class GUIStockLineGraphController {
     chart.getData().clear();
     goldenCrossActive = false;
 
+    List<DailyDataPoint> data = stock.getTimeSeriesDaily().getDailyDataInRange("2021-01-01",
+        LocalDate.now().toString());
+
+    List<DailyDataPoint> shortTermMovingAverage = stock.getTimeSeriesDaily().calculateCenteredMovingAverage(data, 50);
+
+    List<DailyDataPoint> longTermMovingAverage = stock.getTimeSeriesDaily().calculateTrailingMovingAverage(data, 200);
+
     XYChart.Series<String, Number> rawSeries = new XYChart.Series<>();
     rawSeries.setName("Stock Prices");
-
-    for (DailyDataPoint data : stock.getTimeSeries().reversed()) {
-      XYChart.Data<String, Number> point = new XYChart.Data<>(data.getDate(), data.getClose());
-      rawSeries.getData().add(point);
+    for (DailyDataPoint dataPoint : data) {
+      rawSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), dataPoint.getClose()));
     }
 
-    List<DailyDataPoint> shortTermMovingAverage = stock.getMovingAverage(50);
-    List<DailyDataPoint> longTermMovingAverage = stock.getMovingAverage(200);
     shortTermSeries = new XYChart.Series<>();
     shortTermSeries.setName("Short-Term MA");
     longTermSeries = new XYChart.Series<>();
     longTermSeries.setName("Long-Term MA");
-
-    for (DailyDataPoint data : shortTermMovingAverage.reversed()) {
-      shortTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
+    for (DailyDataPoint dataPoint : shortTermMovingAverage) {
+      shortTermSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), dataPoint.getClose()));
     }
-
-    for (DailyDataPoint data : longTermMovingAverage.reversed()) {
-      longTermSeries.getData().add(new XYChart.Data<>(data.getDate(), data.getClose()));
+    for (DailyDataPoint dataPoint : longTermMovingAverage) {
+      longTermSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), dataPoint.getClose()));
     }
 
     chart.getData().add(rawSeries);

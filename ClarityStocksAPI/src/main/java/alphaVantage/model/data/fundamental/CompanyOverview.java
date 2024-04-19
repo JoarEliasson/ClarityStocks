@@ -1,4 +1,4 @@
-package alphaVantage;
+package alphaVantage.model.data.fundamental;
 
 /**
  * Encapsulates detailed financial and operational information about a publicly traded company. This
@@ -10,7 +10,7 @@ package alphaVantage;
  * capitalization, earnings metrics, dividend data, and stock performance statistics over different
  * periods.
  */
-public class FullStockOverview {
+public class CompanyOverview {
 
   /**
    * The unique symbol used to identify the company's stock on the stock exchange.
@@ -301,75 +301,6 @@ public class FullStockOverview {
    * eligible to receive the company’s dividend.
    */
   private String exDividendDate;
-
-  public FullStockOverview() {
-  }
-
-  public FullStockOverview(String symbol, String assetType, String name, String description,
-      String CIK, String exchange,
-      String currency, String country, String sector, String industry, String address,
-      String fiscalYearEnd,
-      String latestQuarter, long marketCapitalization, double EBITDA, double PERatio,
-      double PEGRatio,
-      double bookValue, double dividendPerShare, double dividendYield, double EPS,
-      double revenuePerShareTTM,
-      double profitMargin, double operatingMarginTTM, double returnOnAssetsTTM,
-      double returnOnEquityTTM,
-      long revenueTTM, long grossProfitTTM, double dilutedEPSTTM, double quarterlyEarningsGrowthYOY,
-      double quarterlyRevenueGrowthYOY, double analystTargetPrice, double trailingPE,
-      double forwardPE,
-      double priceToSalesRatioTTM, double priceToBookRatio, double EVToRevenue, double EVToEBITDA,
-      double beta,
-      double week52High, double week52Low, double movingAverage50, double movingAverage200,
-      long sharesOutstanding, String dividendDate,
-      String exDividendDate) {
-    this.symbol = symbol;
-    this.assetType = assetType;
-    this.name = name;
-    this.description = description;
-    this.CIK = CIK;
-    this.exchange = exchange;
-    this.currency = currency;
-    this.country = country;
-    this.sector = sector;
-    this.industry = industry;
-    this.address = address;
-    this.fiscalYearEnd = fiscalYearEnd;
-    this.latestQuarter = latestQuarter;
-    this.marketCapitalization = marketCapitalization;
-    this.EBITDA = EBITDA;
-    this.PERatio = PERatio;
-    this.PEGRatio = PEGRatio;
-    this.bookValue = bookValue;
-    this.dividendPerShare = dividendPerShare;
-    this.dividendYield = dividendYield;
-    this.EPS = EPS;
-    this.revenuePerShareTTM = revenuePerShareTTM;
-    this.profitMargin = profitMargin;
-    this.operatingMarginTTM = operatingMarginTTM;
-    this.returnOnAssetsTTM = returnOnAssetsTTM;
-    this.returnOnEquityTTM = returnOnEquityTTM;
-    this.revenueTTM = revenueTTM;
-    this.grossProfitTTM = grossProfitTTM;
-    this.dilutedEPSTTM = dilutedEPSTTM;
-    this.quarterlyEarningsGrowthYOY = quarterlyEarningsGrowthYOY;
-    this.quarterlyRevenueGrowthYOY = quarterlyRevenueGrowthYOY;
-    this.analystTargetPrice = analystTargetPrice;
-    this.trailingPE = trailingPE;
-    this.forwardPE = forwardPE;
-    this.priceToSalesRatioTTM = priceToSalesRatioTTM;
-    this.priceToBookRatio = priceToBookRatio;
-    this.EVToRevenue = EVToRevenue;
-    this.EVToEBITDA = EVToEBITDA;
-    this.beta = beta;
-    this.week52High = week52High;
-    this.week52Low = week52Low;
-    this.movingAverage50 = movingAverage50;
-    this.movingAverage200 = movingAverage200;
-    this.sharesOutstanding = sharesOutstanding;
-    this.dividendDate = dividendDate;
-    this.exDividendDate = exDividendDate;
-  }
 
   public String getSymbol() {
     return symbol;
@@ -742,7 +673,21 @@ public class FullStockOverview {
   @Override
   public String toString() {
     return String.format(
-        "FullStockOverview{symbol='%s%n', assetType='%s%n', name='%s%n', description='%s%n', CIK='%s%n', exchange='%s%n', currency='%s%n', country='%s%n', sector='%s%n', industry='%s%n', address='%s%n', fiscalYearEnd='%s%n', latestQuarter='%s%n', marketCapitalization=%d%n, EBITDA=%f%n, PERatio=%f%n, PEGRatio=%f%n, bookValue=%f%n, dividendPerShare=%f%n, dividendYield=%f%n, EPS=%f%n, revenuePerShareTTM=%f%n, profitMargin=%f%n, operatingMarginTTM=%f%n, returnOnAssetsTTM=%f%n, returnOnEquityTTM=%f%n, revenueTTM=%d%n, grossProfitTTM=%d%n, dilutedEPSTTM=%f%n, quarterlyEarningsGrowthYOY=%f%n, quarterlyRevenueGrowthYOY=%f%n, analystTargetPrice=%f%n, trailingPE=%f%n, forwardPE=%f%n, priceToSalesRatioTTM=%f%n, priceToBookRatio=%f%n, EVToRevenue=%f%n, EVToEBITDA=%f%n, beta=%f%n, week52High=%f%n, week52Low=%f%n, day50MovingAverage=%f%n, day200MovingAverage=%f%n, sharesOutstanding=%d%n, dividendDate='%s%n', exDividendDate='%s%n'}",
+        "CompanyOverview [%s]:%n Asset Type: %s%n "
+        + "Name: %s%n Description: %s%n CIK: %s%n Exchange: %s%n Currency: %s%n Country: %s%n "
+            + "Sector: %s%n Industry: %s%n Address: %s%n Fiscal Year End: %s%n "
+            + "Latest Quarter: %s%n Market Capitalization: %d%n EBITDA: %.2f%n "
+            + "PE Ratio: %.2f%n PEG Ratio: %.2f%n Book Value: %.2f%n "
+            + "Dividend Per Share: %.2f%n Dividend Yield: %.2f%n EPS: %.2f%n "
+            + "Revenue Per Share TTM: %.2f%n Profit Margin: %.2f%n Operating Margin TTM: %.2f%n "
+            + "Return on Assets TTM: %.2f%n Return on Equity TTM: %.2f%n Revenue TTM: %d%n "
+            + "Gross Profit TTM: %d%n Diluted EPS TTM: %.2f%n "
+            + "Quarterly Earnings Growth YOY: %.2f%n Quarterly Revenue Growth YOY: %.2f%n "
+            + "Analyst Target Price: %.2f%n Trailing PE: %.2f%n Forward PE: %.2f%n "
+            + "Price to Sales Ratio TTM: %.2f%n Price to Book Ratio: %.2f%n EV to Revenue: %.2f%n "
+            + "EV to EBITDA: %.2f%n Beta: %.2f%n 52-Week High: %.2f%n 52-Week Low: %.2f%n "
+            + "50-Day Moving Average: %.2f%n 200-Day Moving Average: %.2f%n "
+            + "Shares Outstanding: %d%n Dividend Date: %s%n Ex-Dividend Date: %s%n",
         symbol, assetType, name, description, CIK, exchange, currency, country, sector, industry,
         address, fiscalYearEnd, latestQuarter, marketCapitalization, EBITDA, PERatio, PEGRatio,
         bookValue, dividendPerShare, dividendYield, EPS, revenuePerShareTTM, profitMargin,
@@ -750,6 +695,7 @@ public class FullStockOverview {
         dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice,
         trailingPE, forwardPE, priceToSalesRatioTTM, priceToBookRatio, EVToRevenue, EVToEBITDA,
         beta, week52High, week52Low, movingAverage50, movingAverage200, sharesOutstanding,
-        dividendDate, exDividendDate);
+        dividendDate, exDividendDate
+    );
   }
 }

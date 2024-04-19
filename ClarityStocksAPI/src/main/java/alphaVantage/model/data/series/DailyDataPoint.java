@@ -1,4 +1,4 @@
-package alphaVantage;
+package alphaVantage.model.data.series;
 
 public class DailyDataPoint {
 

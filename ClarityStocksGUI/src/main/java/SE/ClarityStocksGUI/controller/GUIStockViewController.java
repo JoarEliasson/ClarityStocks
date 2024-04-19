@@ -4,8 +4,8 @@ import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphControll
 import SE.ClarityStocksGUI.controller.stockViewTiles.InfoTile;
 import SE.ClarityStocksGUI.controller.stockViewTiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
-import alphaVantage.AlphaVantageClient;
-import alphaVantage.AlphaVantageStock;
+import alphaVantage.controller.AlphaVantageClient;
+import alphaVantage.model.AlphaVantageStock;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
@@ -105,10 +105,10 @@ public class GUIStockViewController {
   }
 
   private void setRatingsTile(){
-    ratingsTileController.setCurrentPrice(stock.getTimeSeries().get(0).getClose());
-    ratingsTileController.setPeEvaluationText(stock.getPERatioEvaluation().getRating(), stock.getCompanyOverview().getPERatio(), stock.getPERatioEvaluation().getDescription());
+    ratingsTileController.setCurrentPrice(stock.getTimeSeriesDaily().getDailyData().getFirst().getClose());
+    ratingsTileController.setPeEvaluationText(stock.getPeRatioEvaluation().getRating(), stock.getCompanyOverview().getPERatio(), stock.getPeRatioEvaluation().getDescription());
     ratingsTileController.setBusinessPerformance(5, stock.getBusinessPerformanceEvaluation().getDescription()); //TODO THIS IS WORK IN PROGRESS
-    ratingsTileController.setGoldenCross(5, stock.getGoldenCross().getDescription());
+    ratingsTileController.setGoldenCross(5, stock.getGoldenCrossEvaluation().getDescription());
   }
 
   @FXML

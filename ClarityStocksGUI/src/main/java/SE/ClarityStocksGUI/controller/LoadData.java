@@ -1,6 +1,6 @@
 package SE.ClarityStocksGUI.controller;
 
-import alphaVantage.AlphaVantageClient;
+import alphaVantage.controller.AlphaVantageClient;
 
 public class LoadData {
 

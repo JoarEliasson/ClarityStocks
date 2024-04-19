@@ -1,4 +1,4 @@
-package alphaVantage;
+package alphaVantage.model.enums;
 
 /**
  * Enum for representing different time intervals for retrieving time series data from the Alpha
