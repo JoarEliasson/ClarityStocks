@@ -1,11 +1,10 @@
 package alphaVantage;
 
-import analysis.model.BusinessPerformanceEvaluation;
-import analysis.model.DividendEvaluationTiming;
-import analysis.model.GoldenCross;
-import analysis.model.HighAndLow;
-import analysis.model.PERatioEvaluation;
-import analysis.model.PriceToBusinessPerformance;
+import analysis.model.evaluations.BusinessPerformanceEvaluation;
+import analysis.model.evaluations.DividendEvaluation;
+import analysis.model.evaluations.GoldenCrossEvaluation;
+import analysis.model.evaluations.HighAndLow;
+import analysis.model.unfinished.PriceToPerformance;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,23 +12,23 @@ public class AlphaVantageStock {
 
   private final FullStockOverview companyOverview;
   private final List<DailyDataPoint> timeSeries;
-  private final PERatioEvaluation PERatioEvaluation;
+  private final analysis.model.evaluations.PERatioEvaluation PERatioEvaluation;
   private final BusinessPerformanceEvaluation businessPerformanceEvaluation;
-  private final DividendEvaluationTiming dividendEvaluationTiming;
-  private final GoldenCross goldenCross;
+  private final DividendEvaluation dividendEvaluationTiming;
+  private final GoldenCrossEvaluation goldenCrossEvaluation;
   private final HighAndLow highAndLow;
-  private final PriceToBusinessPerformance priceInRelationToBusinessPerformance;
+  private final PriceToPerformance priceInRelationToBusinessPerformance;
 
   public AlphaVantageStock(FullStockOverview companyOverview, List<DailyDataPoint> timeSeries,
-      PERatioEvaluation PERatioEvaluation, BusinessPerformanceEvaluation businessPerformanceEvaluation, DividendEvaluationTiming dividendEvaluationTiming, GoldenCross goldenCross, HighAndLow highAndLow, PriceToBusinessPerformance priceToBusinessPerformance) {
+      analysis.model.evaluations.PERatioEvaluation PERatioEvaluation, BusinessPerformanceEvaluation businessPerformanceEvaluation, DividendEvaluation dividendEvaluationTiming, GoldenCrossEvaluation goldenCrossEvaluation, HighAndLow highAndLow, PriceToPerformance priceToPerformance) {
     this.companyOverview = companyOverview;
     this.timeSeries = timeSeries;
     this.PERatioEvaluation = PERatioEvaluation;
     this.businessPerformanceEvaluation = businessPerformanceEvaluation;
     this.dividendEvaluationTiming = dividendEvaluationTiming;
-    this.goldenCross = goldenCross;
+    this.goldenCrossEvaluation = goldenCrossEvaluation;
     this.highAndLow = highAndLow;
-    this.priceInRelationToBusinessPerformance = priceToBusinessPerformance;
+    this.priceInRelationToBusinessPerformance = priceToPerformance;
   }
 
   public FullStockOverview getCompanyOverview() {
@@ -65,7 +64,7 @@ public class AlphaVantageStock {
 
   }
 
-  public PERatioEvaluation getPERatioEvaluation() {
+  public analysis.model.evaluations.PERatioEvaluation getPERatioEvaluation() {
     return PERatioEvaluation;
   }
 
@@ -73,19 +72,19 @@ public class AlphaVantageStock {
     return businessPerformanceEvaluation;
   }
 
-  public DividendEvaluationTiming getDividendEvaluationTiming() {
+  public DividendEvaluation getDividendEvaluationTiming() {
     return dividendEvaluationTiming;
   }
 
-  public GoldenCross getGoldenCross() {
-    return goldenCross;
+  public GoldenCrossEvaluation getGoldenCross() {
+    return goldenCrossEvaluation;
   }
 
   public HighAndLow getHighAndLow() {
     return highAndLow;
   }
 
-  public PriceToBusinessPerformance getPriceInRelationToBusinessPerformance() {
+  public PriceToPerformance getPriceInRelationToBusinessPerformance() {
     return priceInRelationToBusinessPerformance;
   }
 }

@@ -31,14 +31,6 @@ public class SearchList {
     }
   }
 
-  private void addToList(AlphaVantageListing listing) {
-    searchList.add(listing);
-  }
-
-  public ArrayList<AlphaVantageListing> getSearchList() {
-    return searchList;
-  }
-
   public static void main(String[] args) {
     SearchList searchList = new SearchList();
     ArrayList<AlphaVantageListing> searchList1 = searchList.getSearchList();
@@ -48,6 +40,14 @@ public class SearchList {
       System.out.println("3. " + listing.getExchange());
       System.out.println();
     }
+  }
+
+  private void addToList(AlphaVantageListing listing) {
+    searchList.add(listing);
+  }
+
+  public ArrayList<AlphaVantageListing> getSearchList() {
+    return searchList;
   }
 
 }

@@ -1,3 +1,4 @@
 module ClarityStocksAnalysis {
-  exports analysis.model;
+  exports analysis.model.unfinished;
+  exports analysis.model.evaluations;
 }

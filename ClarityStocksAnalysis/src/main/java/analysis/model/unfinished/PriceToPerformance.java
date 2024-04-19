@@ -1,4 +1,7 @@
-package analysis.model;
+package analysis.model.unfinished;
+
+import analysis.model.evaluations.PERatioEvaluation;
+import analysis.model.interfaces.Evaluation;
 
 /**
  * Class for evaluating the stock price in relation to how the company is performing. How is the
@@ -8,14 +11,14 @@ package analysis.model;
  *
  * @author Olivia Svensson
  */
-public class PriceToBusinessPerformance {
+public class PriceToPerformance implements Evaluation {
 
-  String symbol;
-  double peRatio;
-  String sector;
-  String description = "";
+  private final String symbol;
+  private final double peRatio;
+  private final String sector;
+  private String description;
 
-  public PriceToBusinessPerformance(String symbol, double peRatio, String sector) {
+  public PriceToPerformance(String symbol, double peRatio, String sector) {
     this.symbol = symbol;
     this.peRatio = peRatio;
     this.sector = sector;
@@ -71,11 +74,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 11.15;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the energy sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the energy sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the energy sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the energy sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -84,11 +89,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 44;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the energy sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the energy sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the energy sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the energy sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -97,11 +104,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 61.7;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the software sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the software sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the software sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the software sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -110,11 +119,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 49.3;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the real estate sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the real estate sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the real estate sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the real estate sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -123,11 +134,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 30.7;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the materials sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the materials sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the materials sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the materials sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -136,11 +149,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 30.4;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the industry sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the industry sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the industry sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the industry sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -149,11 +164,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 28.9;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the consumer staples sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the consumer staples sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the consumer staples sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the consumer staples sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -162,11 +179,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 71.4;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the healthcare sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the healthcare sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the healthcare sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the healthcare sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -175,11 +194,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 16.3;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the financial sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the financial sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the financial sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the financial sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -188,11 +209,13 @@ public class PriceToBusinessPerformance {
     double averagePE = 29.3;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the telecom sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the telecom sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the telecom sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the telecom sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
   }
@@ -201,13 +224,30 @@ public class PriceToBusinessPerformance {
     double averagePE = 71.4;
     if (peRatio < averagePE) {
       return description =
-          "The stocks price in relation to its business performance is considered to be high. \nThe average P/E-ratio for the utilities sector is "
+          "The stocks price in relation to its business performance is considered to be high. "
+              + "\nThe average P/E-ratio for the utilities sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     } else {
       return description =
-          "The stocks price in relation to its business performance is considered to be low. \nThe average P/E-ratio for the utilities sector is "
+          "The stocks price in relation to its business performance is considered to be low. "
+              + "\nThe average P/E-ratio for the utilities sector is "
               + averagePE + " and " + symbol + " P/E-ratio is " + peRatio;
     }
+  }
+
+  @Override
+  public void evaluate() {
+    // TODO: Implement method
+  }
+
+  @Override
+  public String getSymbol() {
+    return symbol;
+  }
+
+  @Override
+  public String getDescription() {
+    return description;
   }
 
 }

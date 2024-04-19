@@ -13,6 +13,7 @@ import org.controlsfx.control.SearchableComboBox;
 
 public class MenuBarController {
 
+  private static Views currentView;
   private GUIMainController controller;
   @FXML
   private Rectangle menuBar;
@@ -27,7 +28,6 @@ public class MenuBarController {
   @FXML
   private SearchableComboBox<AlphaVantageListing> searchField;
   private AlphaVantageListing currentStock;
-  private static Views currentView;
 
   public void initialize() {
     homeButton.setStyle("-fx-background-color: #c6daff");

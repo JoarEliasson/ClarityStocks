@@ -1,12 +1,12 @@
 package alphaVantage;
 
-import analysis.model.AnalystPrediction;
-import analysis.model.BusinessPerformanceEvaluation;
-import analysis.model.DividendEvaluationTiming;
-import analysis.model.GoldenCross;
-import analysis.model.HighAndLow;
-import analysis.model.PERatioEvaluation;
-import analysis.model.PriceToBusinessPerformance;
+import analysis.model.unfinished.AnalystPrediction;
+import analysis.model.evaluations.BusinessPerformanceEvaluation;
+import analysis.model.evaluations.DividendEvaluation;
+import analysis.model.evaluations.GoldenCrossEvaluation;
+import analysis.model.evaluations.HighAndLow;
+import analysis.model.evaluations.PERatioEvaluation;
+import analysis.model.unfinished.PriceToPerformance;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -60,7 +60,7 @@ public class AlphaVantageClient {
    * */
   //conflicting variables
   /*
-  private DividendEvaluationTiming dividendEvaluationTiming(int year) {
+  private DividendEvaluation dividendEvaluationTiming(int year) {
       FullStockOverview fullStockOverview = new FullStockOverview();
 
     String symbol = fullStockOverview.getSymbol();
@@ -69,7 +69,7 @@ public class AlphaVantageClient {
     double dividendYield = fullStockOverview.getDividendYield();
     long fiscalYearEnd = Long.parseLong(fullStockOverview.getFiscalYearEnd());
 
-    DividendEvaluationTiming dividendEvaluationTiming = new DividendEvaluationTiming(symbol, fiscalYear, dividendYield, dividendYield, fiscalYearEnd);
+    DividendEvaluation dividendEvaluationTiming = new DividendEvaluation(symbol, fiscalYear, dividendYield, dividendYield, fiscalYearEnd);
     return dividendEvaluationTiming;
   }
    */
@@ -77,26 +77,26 @@ public class AlphaVantageClient {
   /** Method for evaluating stock price in relation to business performance. Returns stock price in relation to business performance object
    * @author Olivia Svensson
    * */
-  private PriceToBusinessPerformance stockPriceInRelationToBusinessPerformance() {
+  private PriceToPerformance stockPriceInRelationToBusinessPerformance() {
     FullStockOverview fullStockOverview = new FullStockOverview();
     String symbol = fullStockOverview.getName();
     double peRatio = fullStockOverview.getPERatio();
     String sector = fullStockOverview.getSector();
-    PriceToBusinessPerformance priceToBusinessPerformance = new PriceToBusinessPerformance(symbol, peRatio, sector);
-    return priceToBusinessPerformance;
+    PriceToPerformance priceToPerformance = new PriceToPerformance(symbol, peRatio, sector);
+    return priceToPerformance;
   }
 
 /** Method for analysing the stock price according to the golden cross method.
  * @author Olivia Svensson
  * */
-  private GoldenCross goldenCross() {
+  private GoldenCrossEvaluation goldenCross() {
     FullStockOverview fullStockOverview = new FullStockOverview();
     String symbol = fullStockOverview.getSymbol();
     double ma50 = fullStockOverview.getMovingAverage50();
     double ma200 = fullStockOverview.getMovingAverage200();
-    GoldenCross goldenCross = new GoldenCross(symbol, ma50, ma200);
-    String description = goldenCross.getDescription();
-    return goldenCross;
+    GoldenCrossEvaluation goldenCrossEvaluation = new GoldenCrossEvaluation(symbol, ma50, ma200);
+    String description = goldenCrossEvaluation.getDescription();
+    return goldenCrossEvaluation;
   }
 
 /** Method for analyst prediction of stock.
@@ -141,12 +141,13 @@ public class AlphaVantageClient {
     PERatioEvaluation peRatioEvaluation = new PERatioEvaluation(symbol, companyOverview.getPERatio());
     BusinessPerformanceEvaluation performanceEvaluation = new BusinessPerformanceEvaluation(symbol, companyOverview.getEBITDA(), companyOverview.getRevenueTTM());
     int currentYear = LocalDate.now().getYear();
-    DividendEvaluationTiming dividendEvaluationTiming = new DividendEvaluationTiming(symbol, currentYear, companyOverview.getDividendPerShare(), companyOverview.getDividendYield(), companyOverview.getFiscalYearEnd());
-    GoldenCross goldenCross = new GoldenCross(symbol, companyOverview.getMovingAverage50(), companyOverview.getMovingAverage200());
+    DividendEvaluation dividendEvaluationTiming = new DividendEvaluation(symbol, currentYear, companyOverview.getDividendPerShare(), companyOverview.getFiscalYearEnd());
+    GoldenCrossEvaluation goldenCrossEvaluation = new GoldenCrossEvaluation(symbol, companyOverview.getMovingAverage50(), companyOverview.getMovingAverage200());
     HighAndLow highLow = new HighAndLow(symbol, companyOverview.getWeek52High(), companyOverview.getWeek52Low());
-    PriceToBusinessPerformance priceInRelationToBusinessPerformance = new PriceToBusinessPerformance(symbol, companyOverview.getPERatio(),
+    PriceToPerformance priceInRelationToBusinessPerformance = new PriceToPerformance(symbol, companyOverview.getPERatio(),
         companyOverview.getSector());
-    return new AlphaVantageStock(companyOverview, filteredDailyDataPoints, peRatioEvaluation, performanceEvaluation, dividendEvaluationTiming, goldenCross, highLow, priceInRelationToBusinessPerformance);
+    return new AlphaVantageStock(companyOverview, filteredDailyDataPoints, peRatioEvaluation, performanceEvaluation, dividendEvaluationTiming,
+        goldenCrossEvaluation, highLow, priceInRelationToBusinessPerformance);
   }
 
   private List<DailyDataPoint> filterByYear(List<DailyDataPoint> dailyDataPoints, int[] years) {

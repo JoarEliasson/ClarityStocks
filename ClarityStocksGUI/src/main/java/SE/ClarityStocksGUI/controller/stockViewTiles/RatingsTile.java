@@ -1,13 +1,10 @@
 package SE.ClarityStocksGUI.controller.stockViewTiles;
 
-import SE.ClarityStocksGUI.model.Effects;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 public class RatingsTile {
 

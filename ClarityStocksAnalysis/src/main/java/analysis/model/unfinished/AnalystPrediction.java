@@ -1,4 +1,6 @@
-package analysis.model;
+package analysis.model.unfinished;
+
+import analysis.model.interfaces.Evaluation;
 
 /**
  * Class for evaluating the analyst prediction of a stock. The analyst grades the evaluations on a
@@ -6,7 +8,7 @@ package analysis.model;
  *
  * @author Olivia Svensson
  */
-public class AnalystPrediction {
+public class AnalystPrediction implements Evaluation {
 
   String symbol;
   String description;
@@ -37,6 +39,8 @@ public class AnalystPrediction {
     this.analystRatingStrongSell = analystRatingStrongSell;
     this.analystTargetPrice = analystTargetPrice;
   }
+
+
 
   public String getDescription(String symbol, double currentPrice, double analystTargetPrice,
       int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold,
@@ -137,4 +141,38 @@ public class AnalystPrediction {
     return elaborateDescription =
         aPrice + "\n" + aRB + "\n" + aRSB + "\n" + aRH + "\n" + aRS + "\n" + aRSS;
   }
+
+  /**
+   * Method for evaluating the stock parameters.
+   */
+  @Override
+  public void evaluate() {
+    getDescription(symbol, currentPrice, analystTargetPrice, analystRatingStrongBuy,
+        analystRatingBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
+    getElaborateDescription(analystTargetPrice, currentPrice, analystRatingBuy,
+        analystRatingStrongBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
+  }
+
+  /**
+   * Method for getting the symbol of the stock.
+   *
+   * @return the symbol of the stock.
+   */
+  @Override
+  public String getSymbol() {
+    return symbol;
+  }
+
+  /**
+   * Method for getting the description of the evaluation.
+   *
+   * @return the description of the evaluation.
+   */
+  @Override
+  public String getDescription() {
+    return description;
+  }
+
+
+
 }
