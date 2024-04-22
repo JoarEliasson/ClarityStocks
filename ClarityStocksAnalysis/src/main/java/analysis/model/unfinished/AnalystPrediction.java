@@ -38,6 +38,7 @@ public class AnalystPrediction implements Evaluation {
     this.analystRatingSell = analystRatingSell;
     this.analystRatingStrongSell = analystRatingStrongSell;
     this.analystTargetPrice = analystTargetPrice;
+    evaluate();
   }
 
 
