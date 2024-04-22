@@ -3,6 +3,9 @@ module ClarityStocksAPI {
   requires com.fasterxml.jackson.databind;
   requires ClarityStocksAnalysis;
   requires java.logging;
+  requires commons.math3;
+  requires org.jfree.jfreechart;
+  requires java.desktop;
 
   exports alphaVantage.controller;
   exports alphaVantage.model;
