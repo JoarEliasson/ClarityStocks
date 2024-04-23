@@ -13,145 +13,204 @@ public class AnalystPrediction implements Evaluation {
   String symbol;
   String description;
   String elaborateDescription;
-  double analystTargetPrice;
+  double targetPrice;
   double currentPrice;
-  int analystRatingStrongBuy;
-  int analystRatingBuy;
-  int analystRatingHold;
-  int analystRatingSell;
-  int analystRatingStrongSell;
-  String aPrice;
-  String aRB;
-  String aRSB;
-  String aRH;
-  String aRS;
-  String aRSS;
+  int ratingStrongBuy;
+  int ratingBuy;
+  int ratingHold;
+  int ratingSell;
+  int ratingStrongSell;
+  String descriptionPrice;
+  String descriptionBuy;
+  String descriptionStrongBuy;
+  String descriptionHold;
+  String descriptionSell;
+  String descriptionStrongSell;
+
+  /*
+  * Constructor for the AnalystPrediction. Passes in values from the Alpha Vantage API and sets the instance variables
+  *  of the class to the ones passed in from the method parameters. Also calls the evaluate method.
+  * */
 
   public AnalystPrediction(String symbol, double currentPrice, double analystTargetPrice,
       int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold,
       int analystRatingSell, int analystRatingStrongSell) {
     this.symbol = symbol;
     this.currentPrice = currentPrice;
-    this.analystRatingBuy = analystRatingBuy;
-    this.analystRatingStrongBuy = analystRatingStrongBuy;
-    this.analystRatingHold = analystRatingHold;
-    this.analystRatingSell = analystRatingSell;
-    this.analystRatingStrongSell = analystRatingStrongSell;
-    this.analystTargetPrice = analystTargetPrice;
+    this.ratingBuy = analystRatingBuy;
+    this.ratingStrongBuy = analystRatingStrongBuy;
+    this.ratingHold = analystRatingHold;
+    this.ratingSell = analystRatingSell;
+    this.ratingStrongSell = analystRatingStrongSell;
+    this.targetPrice = analystTargetPrice;
     evaluate();
   }
 
+/*
+* Method which returns a simple description of several analyst ratings.
+* @author Olivia Svensson, Joar Eliasson
+* */
 
-
-  public String getDescription(String symbol, double currentPrice, double analystTargetPrice,
-      int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold,
-      int analystRatingSell, int analystRatingStrongSell) {
+  public String getDescription(String symbol, double currentPrice, double targetPrice,
+      int ratingStrongBuy, int ratingBuy, int ratingHold,
+      int ratingSell, int ratingStrongSell) {
     return description =
-        "Analyst target price for " + symbol + ": " + analystTargetPrice + ". Current price is "
+        "Analyst target price for " + symbol + ": " + targetPrice + ". Current price is "
             + currentPrice + "." +
-            "\nAnalyst rating buy: " + analystRatingBuy + "." +
-            "\nAnalyst rating strong buy: " + analystRatingStrongBuy + "." +
-            "\nAnalyst rating hold: " + analystRatingHold + "." +
-            "\nAnalyst rating sell: " + analystRatingSell + "." +
-            "\nAnalyst rating strong sell: " + analystRatingStrongSell + ".";
+            "\nAnalyst rating buy: " + ratingBuy + "." +
+            "\nAnalyst rating strong buy: " + ratingStrongBuy + "." +
+            "\nAnalyst rating hold: " + ratingHold + "." +
+            "\nAnalyst rating sell: " + ratingSell + "." +
+            "\nAnalyst rating strong sell: " + ratingStrongSell + ".";
   }
 
-  private String getaPriceDescription(double analystTargetPrice, double currentPrice) {
-    if (analystTargetPrice > currentPrice) {
-      return aPrice = "There is an indication that the stock is undervalued.";
-    } else if (analystTargetPrice < currentPrice) {
-      return aPrice = "There is an indication that the stock is overvalued.";
-    } else if (analystTargetPrice == currentPrice) {
-      return aPrice = "There is an indication that the stock is at a fair price.";
+  /*
+   * Method for getting a description of analysts stock price rating.
+   * @return description in a String
+   * */
+
+  private String getDescriptionPrice(double targetPrice, double currentPrice) {
+    if (targetPrice > currentPrice) {
+      return descriptionPrice = "There is an indication that the stock is undervalued.";
+    } else if (targetPrice < currentPrice) {
+      return descriptionPrice = "There is an indication that the stock is overvalued.";
+    } else if (targetPrice == currentPrice) {
+      return descriptionPrice = "There is an indication that the stock is at a fair price.";
     } else {
-      return aPrice = "Something went wrong with the evaluation of the analyst target price compared to the current price.";
+      return descriptionPrice = "Something went wrong with the evaluation of the analyst target price compared to" +
+              " the current price.";
     }
   }
 
-  private String getARBDescription(int analystRatingBuy) {
-    if (analystRatingBuy > 5) {
-      return aRB = "There is an indication that it is a good idea to buy the stock according to the analyst.";
-    } else if (analystRatingBuy < 5) {
-      return aRB = "There is an indication that it is a bad idea to buy the stock according to the analyst.";
-    } else if (analystRatingBuy == 5) {
-      return aRB = "There is an indication that it is an okay idea to buy the stock according to the analyst.";
+  /*
+   * Method for getting a description of analysts buy rating.
+   * @return description in a String
+   * */
+
+  private String getDescriptionBuy(int ratingBuy) {
+    if (ratingBuy > 5) {
+      return descriptionBuy = "There is an indication that it is a good idea to buy the stock according to the" +
+              " analyst.";
+    } else if (ratingBuy < 5) {
+      return descriptionBuy = "There is an indication that it is a bad idea to buy the stock according to the" +
+              " analyst.";
+    } else if (ratingBuy == 5) {
+      return descriptionBuy = "There is an indication that it is an okay idea to buy the stock according to the" +
+              " analyst.";
     } else {
-      return aRB = "Something went wrong with the analyst buy rating.";
+      return descriptionBuy = "Something went wrong with the analyst buy rating.";
     }
   }
 
-  private String getaRSBDescription(int analystRatingStrongBuy) {
-    if (analystRatingStrongBuy > 5) {
-      return aRSB = "There is a strong indication that it is a good idea to buy the stock according to the analyst.";
-    } else if (analystRatingStrongBuy < 5) {
-      return aRSB = "There is a strong indication that it is a bad idea to buy the stock according to the analyst.";
-    } else if (analystRatingStrongBuy == 5) {
-      return aRSB = "There is a strong indication that it is an okay idea to buy the stock according to the analyst.";
+  /*
+   * Method for getting a description of analysts strong buy rating.
+   * @return description in a String
+   * */
+
+  private String getDescriptionStrongBuy(int ratingStrongBuy) {
+    if (ratingStrongBuy > 5) {
+      return descriptionStrongBuy = "There is a strong indication that it is a good idea to buy the stock according" +
+              " to the analyst.";
+    } else if (ratingStrongBuy < 5) {
+      return descriptionStrongBuy = "There is a strong indication that it is a bad idea to buy the stock according" +
+              " to the analyst.";
+    } else if (ratingStrongBuy == 5) {
+      return descriptionStrongBuy = "There is a strong indication that it is an okay idea to buy the stock according" +
+              " to the analyst.";
     } else {
-      return aRSB = "Something went wrong with the analyst strong buy rating.";
+      return descriptionStrongBuy = "Something went wrong with the analyst strong buy rating.";
     }
   }
 
-  private String getaRHDescription(int analystRatingHold) {
-    if (analystRatingHold > 5) {
-      return aRH = "There is an indication that it is a good idea to hold the stock according to the analyst.";
-    } else if (analystRatingHold < 5) {
-      return aRH = "There is an indication that it is a bad idea to hold the stock according to the analyst.";
-    } else if (analystRatingHold == 5) {
-      return aRH = "There is an indication that it is an okay idea to hold the stock according to the analyst.";
+  /*
+   * Method for getting a description of analysts hold rating.
+   * @return description in a String
+   * */
+
+  private String getDescriptionHold(int ratingHold) {
+    if (ratingHold > 5) {
+      return descriptionHold = "There is an indication that it is a good idea to hold the stock according to" +
+              " the analyst.";
+    } else if (ratingHold < 5) {
+      return descriptionHold = "There is an indication that it is a bad idea to hold the stock according to" +
+              " the analyst.";
+    } else if (ratingHold == 5) {
+      return descriptionHold = "There is an indication that it is an okay idea to hold the stock according to" +
+              " the analyst.";
     } else {
-      return aRH = "Something went wrong with the analyst hold rating.";
+      return descriptionHold = "Something went wrong with the analyst hold rating.";
     }
   }
 
-  private String getaRSDescription(int analystRatingSell) {
-    if (analystRatingSell > 5) {
-      return aRS = "There is an indication that it is a good idea to sell the stock according to the analyst.";
-    } else if (analystRatingSell < 5) {
-      return aRS = "There is an indication that it is a bad idea to sell the stock according to the analyst.";
-    } else if (analystRatingSell == 5) {
-      return aRS = "There is an indication that it is an okay idea to sell the stock according to the analyst.";
+  /*
+   * Method for getting a description of analysts sell rating.
+   * @return description in a String
+   * */
+
+  private String getDescriptionSell(int ratingSell) {
+    if (ratingSell > 5) {
+      return descriptionSell = "There is an indication that it is a good idea to sell the stock according to" +
+              " the analyst.";
+    } else if (ratingSell < 5) {
+      return descriptionSell = "There is an indication that it is a bad idea to sell the stock according to" +
+              " the analyst.";
+    } else if (ratingSell == 5) {
+      return descriptionSell = "There is an indication that it is an okay idea to sell the stock according to" +
+              " the analyst.";
     } else {
-      return aRS = "Something went wrong with the analyst sell rating.";
+      return descriptionSell = "Something went wrong with the analyst sell rating.";
     }
   }
 
-  private String getaRSSDescription(int analystRatingStrongSell) {
-    if (analystRatingStrongSell > 5) {
-      return aRSS = "There is a strong indication that it is a good idea to sell the stock according to the analyst.";
-    } else if (analystRatingStrongSell < 5) {
-      return aRSS = "There is a strong indication that it is a bad idea to sell the stock according to the analyst.";
-    } else if (analystRatingStrongSell == 5) {
-      return aRSS = "There is a strong indication that it is an okay idea to sell the stock according to the analyst.";
+  /*
+   * Method for getting a description of analysts strong sell rating.
+   * @return description in a String
+   * */
+
+  private String getDescriptionStrongSell(int ratingStrongSell) {
+    if (ratingStrongSell > 5) {
+      return descriptionStrongSell = "There is a strong indication that it is a good idea to sell the stock according" +
+              " to the analyst.";
+    } else if (ratingStrongSell < 5) {
+      return descriptionStrongSell = "There is a strong indication that it is a bad idea to sell the stock according" +
+              " to the analyst.";
+    } else if (ratingStrongSell == 5) {
+      return descriptionStrongSell = "There is a strong indication that it is an okay idea to sell the stock " +
+              "according to the analyst.";
     } else {
-      return aRSS = "Something went wrong with the analyst strong sell rating.";
+      return descriptionStrongSell = "Something went wrong with the analyst strong sell rating.";
     }
   }
-
+  /*
+  * Method for getting the more elaborate description of the analysis.
+  * @return description in a String
+  * */
 
   public String getElaborateDescription(double analystTargetPrice, double currentPrice,
-      int analystRatingBuy, int analystRatingStrongBuy, int analystRatingHold,
-      int analystRatingSell, int analystRatingStrongSell) {
-    aPrice = getaPriceDescription(analystTargetPrice, currentPrice);
-    aRB = getARBDescription(analystRatingBuy);
-    aRSB = getaRSBDescription(analystRatingStrongBuy);
-    aRH = getaRHDescription(analystRatingHold);
-    aRS = getaRSDescription(analystRatingSell);
-    aRSS = getaRSSDescription(analystRatingStrongSell);
+    int analystRatingBuy, int analystRatingStrongBuy, int analystRatingHold,
+    int analystRatingSell, int analystRatingStrongSell) {
+    descriptionPrice = getDescriptionPrice(analystTargetPrice, currentPrice);
+    descriptionBuy = getDescriptionBuy(analystRatingBuy);
+    descriptionStrongBuy = getDescriptionStrongBuy(analystRatingStrongBuy);
+    descriptionHold = getDescriptionHold(analystRatingHold);
+    descriptionSell = getDescriptionSell(analystRatingSell);
+    descriptionStrongSell = getDescriptionStrongSell(analystRatingStrongSell);
 
     return elaborateDescription =
-        aPrice + "\n" + aRB + "\n" + aRSB + "\n" + aRH + "\n" + aRS + "\n" + aRSS;
+        descriptionPrice + "\n" + descriptionBuy + "\n" + descriptionStrongBuy + "\n" + descriptionHold + "\n"
+                + descriptionSell + "\n" + descriptionStrongSell;
   }
 
   /**
    * Method for evaluating the stock parameters.
    */
+
   @Override
   public void evaluate() {
-    getDescription(symbol, currentPrice, analystTargetPrice, analystRatingStrongBuy,
-        analystRatingBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
-    getElaborateDescription(analystTargetPrice, currentPrice, analystRatingBuy,
-        analystRatingStrongBuy, analystRatingHold, analystRatingSell, analystRatingStrongSell);
+    getDescription(symbol, currentPrice,targetPrice, ratingStrongBuy,
+        ratingBuy, ratingHold, ratingSell, ratingStrongSell);
+    getElaborateDescription(targetPrice, currentPrice, ratingBuy,
+        ratingStrongBuy, ratingHold, ratingSell, ratingStrongSell);
   }
 
   /**
@@ -159,6 +218,7 @@ public class AnalystPrediction implements Evaluation {
    *
    * @return the symbol of the stock.
    */
+
   @Override
   public String getSymbol() {
     return symbol;
@@ -169,6 +229,7 @@ public class AnalystPrediction implements Evaluation {
    *
    * @return the description of the evaluation.
    */
+
   @Override
   public String getDescription() {
     return description;
