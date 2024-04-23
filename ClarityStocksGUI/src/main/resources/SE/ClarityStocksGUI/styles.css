@@ -31,6 +31,50 @@
   -fx-font-family: "Montserrat", sans-serif;
 
 }
+.hover-label {
+    -fx-font-size: 14px;
+    -fx-underline: false;
+}
+
+.hover-label:hover {
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+.welcome-text {
+    -fx-font-size: 24px;
+}
+
+.title-text {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+.profile-text {
+    -fx-font-weight: bold;
+}
+
+.section-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.welcome-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: normal;
+}
+
+.title-text {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+.favorites-section {
+    -fx-padding: 20px;
+}
+
+.recently-viewed-section {
+    -fx-padding: 20px;
+}
+
+/* Other CSS styles... */
 
 .menuBar {
   -fx-fill: #e0e0e0;

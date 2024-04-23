@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ComboBox?>
-<?import org.controlsfx.control.SearchableComboBox?>
-<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <VBox fx:id="mainVBox" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21"
-  xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
 
+<BorderPane style="-fx-background-color: #FFFFFF;">
+  <!-- Top Section for User Info -->
+  <top>
+    <HBox spacing="10" style="-fx-padding: 10;">
+      <ImageView fx:id="userImage" fitWidth="50" fitHeight="50"/>
+      <Text text="Logged in as"  styleClass="profile-text"/>
+      <Text fx:id="usernameText" text="Logged in as User1234" styleClass="profile-text"/>
+    </HBox>
+  </top>
 
-  <BorderPane fx:id="layout">
-    <!-- Center Center Center Center Center Center Center Center Center Center -->
-    <center>
-      <VBox alignment="CENTER" spacing="20">
-        <Label fx:id="welcomeText" styleClass="welcomeText"/>
+  <!-- Center Section for Welcome Message -->
+  <center>
+    <VBox alignment="CENTER" spacing="20" style="-fx-padding: 10;" VBox.vgrow="ALWAYS">
+      <Text fx:id="welcomeToText" text="Welcome to" styleClass="welcome-text"/>
+      <Text fx:id="clarityStocksText" text="Clarity Stocks" styleClass="title-text"/>
+    </VBox>
+  </center>
+
+  <!-- Bottom Section for Favorites and Recently Viewed -->
+  <bottom>
+    <HBox alignment="BASELINE_CENTER" spacing="400" style="-fx-padding: 50;">
+      <VBox alignment="TOP_CENTER" spacing="10">
+        <Label text="Favorites" styleClass="section-header"/>
+        <ListView fx:id="favoritesListView" maxHeight="300" maxWidth="250"/>
       </VBox>
-    </center>
-
-
-  </BorderPane>
+      <VBox alignment="TOP_CENTER" spacing="10">
+        <Label text="Recently Viewed" styleClass="section-header"/>
+        <ListView fx:id="recentlyViewedListView" maxHeight="300" maxWidth="250"/>
+      </VBox>
+    </HBox>
+  </bottom>
+</BorderPane>
 </VBox>

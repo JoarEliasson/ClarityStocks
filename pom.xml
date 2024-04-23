@@ -15,6 +15,7 @@
     <module>ClarityStocksGUI</module>
     <module>ClarityStocksAnalysis</module>
     <module>ClarityStocksData</module>
+    <module>ClarityStocksUser</module>
   </modules>
 
   <properties>
