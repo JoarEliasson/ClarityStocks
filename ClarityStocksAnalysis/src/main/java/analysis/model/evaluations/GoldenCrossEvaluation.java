@@ -48,16 +48,16 @@ public class GoldenCrossEvaluation implements Evaluation {
     calculatePercentageDifference();
     if (percentageDifference > 0) {
       description = String.format(
-          "Stock traded %.2f higher than usual.%n"
-              + "Consider being a bit cautious if the high trading price has no reflection in "
-              + "business indicators.",
-          percentageDifference
+      "Stock traded %.2f higher than usual.%n"
+      + "Consider being a bit cautious if the high trading price has no reflection in "
+      + "business indicators.",
+      percentageDifference
       );
     } else if (percentageDifference < 0) {
       description = String.format(
-          "Stock traded %.2f  lower than usual. %n"
-              + "Consider buying if business indicators are favorable.",
-          Math.abs(percentageDifference)
+      "Stock traded %.2f  lower than usual. %n"
+      + "Consider buying if business indicators are favorable.",
+      Math.abs(percentageDifference)
       );
     } else {
       description = "Something went wrong with the evaluation of the percentage difference";

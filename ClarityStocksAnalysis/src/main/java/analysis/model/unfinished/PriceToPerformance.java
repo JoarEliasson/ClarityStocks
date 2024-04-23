@@ -79,14 +79,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 11.15;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -94,14 +94,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 44;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the energy sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -109,14 +109,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 61.7;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the software sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the software sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the software sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the software sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -124,14 +124,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 49.3;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the real estate sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the real estate sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the real estate sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the real estate sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -139,14 +139,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 30.7;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the materials sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the materials sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the materials sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the materials sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -154,14 +154,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 30.4;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the industry sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the industry sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the industry sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the industry sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -169,14 +169,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 28.9;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the consumer staples sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the consumer staples sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the consumer staples sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the consumer staples sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -184,14 +184,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 71.4;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the healthcare sector is %f and %s P/E-ratio is %f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the healthcare sector is %f and %s P/E-ratio is %f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the healthcare sector is %f and %s P/E-ratio is %f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the healthcare sector is %f and %s P/E-ratio is %f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -199,14 +199,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 16.3;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the financial sector is %f and %s P/E-ratio is %f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the financial sector is %f and %s P/E-ratio is %f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the financial sector is %f and %s P/E-ratio is %f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the financial sector is %f and %s P/E-ratio is %f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -214,14 +214,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 29.3;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the telecom sector is %f and %s P/E-ratio is %f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the telecom sector is %f and %s P/E-ratio is %f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the telecom sector is %f and %s P/E-ratio is %f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the telecom sector is %f and %s P/E-ratio is %f",
+      averagePE, symbol, peRatio);
     }
   }
 
@@ -229,14 +229,14 @@ public class PriceToPerformance implements Evaluation {
     double averagePE = 71.4;
     if (peRatio < averagePE) {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be high.%n" +
-        "The average P/E-ratio for the utilities sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be high.%n" +
+      "The average P/E-ratio for the utilities sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     } else {
       return description = String.format(
-        "The stocks price in relation to its business performance is considered to be low.%n" +
-        "The average P/E-ratio for the utilities sector is %.2f and %s P/E-ratio is %.2f",
-        averagePE, symbol, peRatio);
+      "The stocks price in relation to its business performance is considered to be low.%n" +
+      "The average P/E-ratio for the utilities sector is %.2f and %s P/E-ratio is %.2f",
+      averagePE, symbol, peRatio);
     }
   }
 
