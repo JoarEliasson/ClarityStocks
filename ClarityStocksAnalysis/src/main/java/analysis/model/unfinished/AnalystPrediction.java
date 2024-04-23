@@ -9,23 +9,22 @@ import analysis.model.interfaces.Evaluation;
  * @author Olivia Svensson
  */
 public class AnalystPrediction implements Evaluation {
-
-  String symbol;
-  String description;
-  String elaborateDescription;
-  double targetPrice;
-  double currentPrice;
-  int ratingStrongBuy;
-  int ratingBuy;
-  int ratingHold;
-  int ratingSell;
-  int ratingStrongSell;
-  String descriptionPrice;
-  String descriptionBuy;
-  String descriptionStrongBuy;
-  String descriptionHold;
-  String descriptionSell;
-  String descriptionStrongSell;
+  private String symbol;
+  private String description;
+  private String elaborateDescription;
+  private double targetPrice;
+  private double currentPrice;
+  private int ratingStrongBuy;
+  private int ratingBuy;
+  private int ratingHold;
+  private int ratingSell;
+  private int ratingStrongSell;
+  private String descriptionPrice;
+  private String descriptionBuy;
+  private String descriptionStrongBuy;
+  private String descriptionHold;
+  private String descriptionSell;
+  private String descriptionStrongSell;
 
   /*
   * Constructor for the AnalystPrediction. Passes in values from the Alpha Vantage API and sets the instance variables
@@ -52,16 +51,16 @@ public class AnalystPrediction implements Evaluation {
 * */
 
   public String getDescription(String symbol, double currentPrice, double targetPrice,
-      int ratingStrongBuy, int ratingBuy, int ratingHold,
-      int ratingSell, int ratingStrongSell) {
+    int ratingStrongBuy, int ratingBuy, int ratingHold,
+    int ratingSell, int ratingStrongSell) {
     return description =
-        "Analyst target price for " + symbol + ": " + targetPrice + ". Current price is "
-            + currentPrice + "." +
-            "\nAnalyst rating buy: " + ratingBuy + "." +
-            "\nAnalyst rating strong buy: " + ratingStrongBuy + "." +
-            "\nAnalyst rating hold: " + ratingHold + "." +
-            "\nAnalyst rating sell: " + ratingSell + "." +
-            "\nAnalyst rating strong sell: " + ratingStrongSell + ".";
+    "Analyst target price for " + symbol + ": " + targetPrice + ". Current price is "
+    + currentPrice + "." +
+    "\nAnalyst rating buy: " + ratingBuy + "." +
+    "\nAnalyst rating strong buy: " + ratingStrongBuy + "." +
+    "\nAnalyst rating hold: " + ratingHold + "." +
+    "\nAnalyst rating sell: " + ratingSell + "." +
+    "\nAnalyst rating strong sell: " + ratingStrongSell + ".";
   }
 
   /*
@@ -78,7 +77,7 @@ public class AnalystPrediction implements Evaluation {
       return descriptionPrice = "There is an indication that the stock is at a fair price.";
     } else {
       return descriptionPrice = "Something went wrong with the evaluation of the analyst target price compared to" +
-              " the current price.";
+      " the current price.";
     }
   }
 
@@ -90,13 +89,13 @@ public class AnalystPrediction implements Evaluation {
   private String getDescriptionBuy(int ratingBuy) {
     if (ratingBuy > 5) {
       return descriptionBuy = "There is an indication that it is a good idea to buy the stock according to the" +
-              " analyst.";
+      " analyst.";
     } else if (ratingBuy < 5) {
       return descriptionBuy = "There is an indication that it is a bad idea to buy the stock according to the" +
-              " analyst.";
+      " analyst.";
     } else if (ratingBuy == 5) {
       return descriptionBuy = "There is an indication that it is an okay idea to buy the stock according to the" +
-              " analyst.";
+      " analyst.";
     } else {
       return descriptionBuy = "Something went wrong with the analyst buy rating.";
     }
@@ -110,13 +109,13 @@ public class AnalystPrediction implements Evaluation {
   private String getDescriptionStrongBuy(int ratingStrongBuy) {
     if (ratingStrongBuy > 5) {
       return descriptionStrongBuy = "There is a strong indication that it is a good idea to buy the stock according" +
-              " to the analyst.";
+      " to the analyst.";
     } else if (ratingStrongBuy < 5) {
       return descriptionStrongBuy = "There is a strong indication that it is a bad idea to buy the stock according" +
-              " to the analyst.";
+      " to the analyst.";
     } else if (ratingStrongBuy == 5) {
       return descriptionStrongBuy = "There is a strong indication that it is an okay idea to buy the stock according" +
-              " to the analyst.";
+      " to the analyst.";
     } else {
       return descriptionStrongBuy = "Something went wrong with the analyst strong buy rating.";
     }
@@ -130,13 +129,13 @@ public class AnalystPrediction implements Evaluation {
   private String getDescriptionHold(int ratingHold) {
     if (ratingHold > 5) {
       return descriptionHold = "There is an indication that it is a good idea to hold the stock according to" +
-              " the analyst.";
+      " the analyst.";
     } else if (ratingHold < 5) {
       return descriptionHold = "There is an indication that it is a bad idea to hold the stock according to" +
-              " the analyst.";
+      " the analyst.";
     } else if (ratingHold == 5) {
       return descriptionHold = "There is an indication that it is an okay idea to hold the stock according to" +
-              " the analyst.";
+      " the analyst.";
     } else {
       return descriptionHold = "Something went wrong with the analyst hold rating.";
     }
@@ -150,13 +149,13 @@ public class AnalystPrediction implements Evaluation {
   private String getDescriptionSell(int ratingSell) {
     if (ratingSell > 5) {
       return descriptionSell = "There is an indication that it is a good idea to sell the stock according to" +
-              " the analyst.";
+      " the analyst.";
     } else if (ratingSell < 5) {
       return descriptionSell = "There is an indication that it is a bad idea to sell the stock according to" +
-              " the analyst.";
+      " the analyst.";
     } else if (ratingSell == 5) {
       return descriptionSell = "There is an indication that it is an okay idea to sell the stock according to" +
-              " the analyst.";
+      " the analyst.";
     } else {
       return descriptionSell = "Something went wrong with the analyst sell rating.";
     }
@@ -170,13 +169,13 @@ public class AnalystPrediction implements Evaluation {
   private String getDescriptionStrongSell(int ratingStrongSell) {
     if (ratingStrongSell > 5) {
       return descriptionStrongSell = "There is a strong indication that it is a good idea to sell the stock according" +
-              " to the analyst.";
+      " to the analyst.";
     } else if (ratingStrongSell < 5) {
       return descriptionStrongSell = "There is a strong indication that it is a bad idea to sell the stock according" +
-              " to the analyst.";
+      " to the analyst.";
     } else if (ratingStrongSell == 5) {
       return descriptionStrongSell = "There is a strong indication that it is an okay idea to sell the stock " +
-              "according to the analyst.";
+      "according to the analyst.";
     } else {
       return descriptionStrongSell = "Something went wrong with the analyst strong sell rating.";
     }
@@ -197,8 +196,8 @@ public class AnalystPrediction implements Evaluation {
     descriptionStrongSell = getDescriptionStrongSell(analystRatingStrongSell);
 
     return elaborateDescription =
-        descriptionPrice + "\n" + descriptionBuy + "\n" + descriptionStrongBuy + "\n" + descriptionHold + "\n"
-                + descriptionSell + "\n" + descriptionStrongSell;
+    descriptionPrice + "\n" + descriptionBuy + "\n" + descriptionStrongBuy + "\n" + descriptionHold + "\n"
+    + descriptionSell + "\n" + descriptionStrongSell;
   }
 
   /**
@@ -208,9 +207,9 @@ public class AnalystPrediction implements Evaluation {
   @Override
   public void evaluate() {
     getDescription(symbol, currentPrice,targetPrice, ratingStrongBuy,
-        ratingBuy, ratingHold, ratingSell, ratingStrongSell);
+    ratingBuy, ratingHold, ratingSell, ratingStrongSell);
     getElaborateDescription(targetPrice, currentPrice, ratingBuy,
-        ratingStrongBuy, ratingHold, ratingSell, ratingStrongSell);
+    ratingStrongBuy, ratingHold, ratingSell, ratingStrongSell);
   }
 
   /**
