@@ -21,15 +21,19 @@ public enum Function {
   TECHNICAL_INDICATORS("TECHNICAL_INDICATORS"),
   SECTOR_PERFORMANCE("SECTOR_PERFORMANCE");
 
-  private final String URL;
+  private final String FUNCTION;
+  private final String SUFFIX = "&apikey=";
+  private final String BASE_URL = "https://www.alphavantage.co/query?function=";
 
   Function(String function) {
-    String baseURL = "https://www.alphavantage.co/query?function=";
-    String suffix = "&symbol=";
-    this.URL = baseURL + function + suffix;
+    this.FUNCTION = function;
   }
 
-  public String getURL() {
-    return URL;
+  public String getURL(String symbol, boolean fullOutputSize) {
+    if (fullOutputSize) {
+      return BASE_URL + FUNCTION + "&symbol=" + symbol + "&outputsize=full" + SUFFIX;
+    } else {
+      return BASE_URL + FUNCTION + "&symbol=" + symbol + SUFFIX;
+    }
   }
 }
