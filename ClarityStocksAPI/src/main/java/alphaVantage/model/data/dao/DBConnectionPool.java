@@ -23,11 +23,13 @@ public class DBConnectionPool {
             e.printStackTrace();
         }
 
-
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(properties.getProperty("url"));
         config.setUsername(properties.getProperty("username"));
         config.setPassword(properties.getProperty("password"));
+        config.addDataSourceProperty( "cachePrepStmts" , "true" );
+        config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
         config.setMaximumPoolSize(10);
         dataSource = new HikariDataSource(config);
     }
