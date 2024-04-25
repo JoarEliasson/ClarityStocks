@@ -45,6 +45,16 @@ public class GUIStockLineGraphController {
   }
 
   public void loadStockData(AlphaVantageStock stock) {
+    List<String> goldenCrossEvents = stock.getTimeSeriesDaily().getGoldenCrossEvents("2021-01-01" , LocalDate.now().toString());
+    List<String> deathCrossEvents = stock.getTimeSeriesDaily().getDeathCrossEvents("2021-01-01" , LocalDate.now().toString());
+    for (String date : goldenCrossEvents) {
+      System.out.println("Golden Cross events" + goldenCrossEvents.size());
+      System.out.println("Golden Cross on " + date);
+    }
+    for (String date : deathCrossEvents) {
+      System.out.println("Death Cross events" + deathCrossEvents.size());
+      System.out.println("Death Cross on " + date);
+    }
     chart.getData().clear();
     goldenCrossActive = false;
 

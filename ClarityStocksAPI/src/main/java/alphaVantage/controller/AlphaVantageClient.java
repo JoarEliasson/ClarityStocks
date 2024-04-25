@@ -39,7 +39,7 @@ public class AlphaVantageClient {
   }
 
   public CompanyOverview getFullStockOverview(String symbol) {
-    String requestURL = Function.OVERVIEW.getURL() + symbol + "&apikey=" + apiKey;
+    String requestURL = Function.OVERVIEW.getURL(symbol,false) + apiKey;
     try (HttpClient httpClient = HttpClient.newHttpClient()) {
       HttpRequest request = HttpRequest.newBuilder()
           .uri(URI.create(requestURL))
@@ -61,7 +61,7 @@ public class AlphaVantageClient {
   }
 
   public TimeSeriesDaily getTimeSeriesDaily(String symbol) {
-    String requestURL = Function.TIME_SERIES_DAILY.getURL() + symbol + "&apikey=" + apiKey;
+    String requestURL = Function.TIME_SERIES_DAILY.getURL(symbol, true) + apiKey;
     try (HttpClient httpClient = HttpClient.newHttpClient()) {
       HttpRequest request = HttpRequest.newBuilder()
           .uri(URI.create(requestURL))
@@ -83,7 +83,7 @@ public class AlphaVantageClient {
   }
 
   public List<IncomeStatement> getIncomeStatements(String symbol) {
-    String requestURL = Function.INCOME_STATEMENT.getURL() + symbol + "&apikey=" + apiKey;
+    String requestURL = Function.INCOME_STATEMENT.getURL(symbol,false) + apiKey;
     try (HttpClient httpClient = HttpClient.newHttpClient()) {
       HttpRequest request = HttpRequest.newBuilder()
           .uri(URI.create(requestURL))
@@ -105,7 +105,7 @@ public class AlphaVantageClient {
   }
 
   public List<BalanceSheet> getBalanceSheet(String symbol) {
-    String requestURL = Function.BALANCE_SHEET.getURL() + symbol + "&apikey=" + apiKey;
+    String requestURL = Function.BALANCE_SHEET.getURL(symbol,false) + apiKey;
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(requestURL))
         .timeout(Duration.ofMinutes(1))
@@ -126,7 +126,7 @@ public class AlphaVantageClient {
   }
 
   public List<CashFlowReport> getCashFlowReports(String symbol) {
-    String requestURL = Function.CASH_FLOW.getURL() + symbol + "&apikey=" + apiKey;
+    String requestURL = Function.CASH_FLOW.getURL(symbol,false) + apiKey;
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(requestURL))
         .timeout(Duration.ofMinutes(1))
@@ -147,7 +147,7 @@ public class AlphaVantageClient {
   }
 
   public EarningsData getEarningsData(String symbol) {
-    String requestURL = Function.EARNINGS.getURL() + symbol + "&apikey=" + apiKey;
+    String requestURL = Function.EARNINGS.getURL(symbol,false) + apiKey;
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(requestURL))
         .timeout(Duration.ofMinutes(1))

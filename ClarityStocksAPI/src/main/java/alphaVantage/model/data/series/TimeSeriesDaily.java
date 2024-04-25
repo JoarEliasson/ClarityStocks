@@ -13,10 +13,6 @@ public class TimeSeriesDaily {
     this.symbol = symbol;
   }
 
-  public void addDailyDataPoint(DailyDataPoint dataPoint) {
-    dailyData.add(dataPoint);
-  }
-
   public List<DailyDataPoint> getDailyDataInRange(String startDate, String endDate) {
     List<DailyDataPoint> dataInRange = new ArrayList<>();
     for (DailyDataPoint dataPoint : dailyData) {
@@ -26,6 +22,40 @@ public class TimeSeriesDaily {
       }
     }
     return dataInRange;
+  }
+
+  public List<String> getGoldenCrossEvents(String startDate, String endDate) {
+    List<DailyDataPoint> dailyDataPointsInRange = getDailyDataInRange(startDate, endDate);
+    List<DailyDataPoint> movingAverages50 = calculateMovingAverages(dailyDataPointsInRange, 50);
+    List<DailyDataPoint> movingAverages200 = calculateMovingAverages(dailyDataPointsInRange, 200);
+    List<String> goldenCrossEvents = new ArrayList<>();
+    for (int i = 0; i < dailyDataPointsInRange.size(); i++) {
+      if (movingAverages50.get(i).getClose() > movingAverages200.get(i).getClose() &&
+          movingAverages50.get(i - 1).getClose() < movingAverages200.get(i - 1).getClose()) {
+        goldenCrossEvents.add(dailyDataPointsInRange.get(i).getDate());
+      }
+    }
+    for (String date : goldenCrossEvents) {
+      System.out.println("Golden Cross on " + date);
+    }
+    return goldenCrossEvents;
+  }
+
+  public List<String> getDeathCrossEvents(String startDate, String endDate) {
+    List<DailyDataPoint> dailyDataPointsInRange = getDailyDataInRange(startDate, endDate);
+    List<DailyDataPoint> movingAverages50 = calculateMovingAverages(dailyDataPointsInRange, 50);
+    List<DailyDataPoint> movingAverages200 = calculateMovingAverages(dailyDataPointsInRange, 200);
+    List<String> deathCrossEvents = new ArrayList<>();
+    for (int i = 0; i < dailyDataPointsInRange.size(); i++) {
+      if (movingAverages50.get(i).getClose() < movingAverages200.get(i).getClose() &&
+          movingAverages50.get(i - 1).getClose() > movingAverages200.get(i - 1).getClose()) {
+        deathCrossEvents.add(dailyDataPointsInRange.get(i).getDate());
+      }
+    }
+    for (String date : deathCrossEvents) {
+      System.out.println("Death Cross on " + date);
+    }
+    return deathCrossEvents;
   }
 
   public List<DailyDataPoint> calculateMovingAverages(List<DailyDataPoint> data, int days) {
