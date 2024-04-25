@@ -36,18 +36,7 @@ public class TimeSeriesDailyDAO {
 
     public TimeSeriesDaily getDailyData(String symbol) {
         try {
-            TimeSeriesDaily timeSeriesDaily = new TimeSeriesDaily(symbol);
-            connection.select().from("daily_data").where("symbol = ?", symbol).fetch().forEach(record -> {
-                timeSeriesDaily.addDailyDataPoint(new DailyDataPoint(
-                        record.get("date", String.class),
-                        record.get("open", Double.class),
-                        record.get("high", Double.class),
-                        record.get("low", Double.class),
-                        record.get("close", Double.class),
-                        record.get("volume", Integer.class)
-                ));
-            });
-            return timeSeriesDaily;
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
