@@ -1,4 +1,4 @@
-package analysis.regression;
+package alphaVantage.regression;
 
 import alphaVantage.model.data.series.DailyDataPoint;
 import alphaVantage.model.data.series.TimeSeriesDaily;
@@ -78,7 +78,6 @@ public class LinearRegression {
      * @returns a String.
      * */
     private String getDescription() {
-
         return description = "The R is: " + simpleRegression.getR() + "." +
         "\n" + "R is the Pearson's product moment correlation coefficient. It measures the linear relationship " +
         "between two variables. " +
@@ -116,10 +115,7 @@ public class LinearRegression {
         cal.add(Calendar.YEAR, -1);
         Date start = cal.getTime();
         Date end = cal.getTime();
-        LinearRegression linearRegression = new LinearRegression("AAPL", alphaVantageClient,start, end);
-        linearRegression.getDescription();
+        LinearRegression linearRegression = new LinearRegression("Apple", alphaVantageClient,start, end);
+        System.out.println(linearRegression.getDescription());
     }
-
-
-
 }

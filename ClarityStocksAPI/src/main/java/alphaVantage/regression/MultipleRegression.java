@@ -1,4 +1,4 @@
-package analysis.regression;
+package alphaVantage.regression;
 
 /**
  * Class for implementing a multiple linear regression. Multiple linear regression is used for predicting the future
