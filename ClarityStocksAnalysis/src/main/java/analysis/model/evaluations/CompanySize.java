@@ -27,16 +27,13 @@ public class CompanySize implements Evaluation {
     }
 
     /**
+     * Evaluation is based on: 
      * Mega-cap: Market cap of $200 billion and greater
-     10
-     Big-cap: $10 billion and greater, up to $200 billion
-     Mid-cap: $2 billion to $10 billion
-     Small-cap: $250 million to $2 billion
-     1
-     Micro-cap: $50 million to $250 million
-     Nano-cap: Under $50 million
-     11
-     U.S. Securities and Exchange. "Microcap Stock: A Guide for Investors."
+     * Big-cap: $10 billion and greater, up to $200 billion
+     * Mid-cap: $2 billion to $10 billion
+     * Small-cap: $250 million to $2 billion
+     * Micro-cap: $50 million to $250 million
+     * Nano-cap: Under $50 million
      * */
 
     @Override
