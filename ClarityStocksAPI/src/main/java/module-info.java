@@ -14,4 +14,6 @@ module ClarityStocksAPI {
   exports alphaVantage.model.enums;
   exports alphaVantage.model.data.series;
   exports alphaVantage.model.data.fundamental;
+  exports alphaVantage.model.data.global;
+
 }

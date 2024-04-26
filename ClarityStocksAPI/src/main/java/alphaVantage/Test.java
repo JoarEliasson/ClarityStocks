@@ -41,6 +41,5 @@ public class Test {
     ChartTest chartTest = new ChartTest("Price vs Time", dataset, priceRegression);
     chartTest.pack();
     chartTest.setVisible(true);
-
   }
 }

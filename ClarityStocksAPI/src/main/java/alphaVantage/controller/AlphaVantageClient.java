@@ -1,11 +1,14 @@
 package alphaVantage.controller;
 
 import alphaVantage.model.AlphaVantageStock;
+import alphaVantage.model.GlobalMarketInfo;
 import alphaVantage.model.data.fundamental.BalanceSheet;
 import alphaVantage.model.data.fundamental.CashFlowReport;
 import alphaVantage.model.data.fundamental.CompanyOverview;
 import alphaVantage.model.data.fundamental.EarningsData;
 import alphaVantage.model.data.fundamental.IncomeStatement;
+import alphaVantage.model.data.global.DailyTopLists;
+import alphaVantage.model.data.global.MarketStatus;
 import alphaVantage.model.data.series.TimeSeriesDaily;
 import alphaVantage.model.enums.Function;
 import java.net.URI;
@@ -24,6 +27,13 @@ public class AlphaVantageClient {
   public AlphaVantageClient(String apiKey) {
     this.apiKey = apiKey;
     this.httpClient = HttpClient.newHttpClient();
+  }
+
+  public GlobalMarketInfo getGlobalMarketInfo() {
+    GlobalMarketInfo globalMarketInfo = new GlobalMarketInfo();
+    globalMarketInfo.setDailyTopLists(getDailyTopLists());
+    globalMarketInfo.setMarketStatus(getGlobalMarketStatus());
+    return globalMarketInfo;
   }
 
   public AlphaVantageStock getStock(String symbol) {
@@ -166,4 +176,47 @@ public class AlphaVantageClient {
       throw new RuntimeException("Error fetching company overview", e);
     }
   }
+
+  public DailyTopLists getDailyTopLists() {
+    String requestURL = Function.TOP_GAINERS_LOSERS.getURL(null,false) + apiKey;
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(requestURL))
+        .timeout(Duration.ofMinutes(1))
+        .GET()
+        .build();
+    try {
+      HttpResponse<String> response = httpClient.send(request,
+          HttpResponse.BodyHandlers.ofString());
+      if (response.statusCode() == 200) {
+        return parser.parseDailyTopLists(response.body());
+      } else {
+        throw new RuntimeException(
+            "Failed to fetch data: HTTP status code " + response.statusCode());
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error fetching company overview", e);
+    }
+  }
+
+  public List<MarketStatus> getGlobalMarketStatus() {
+    String requestURL = Function.MARKET_STATUS.getURL(null,false) + apiKey;
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(requestURL))
+        .timeout(Duration.ofMinutes(1))
+        .GET()
+        .build();
+    try {
+      HttpResponse<String> response = httpClient.send(request,
+          HttpResponse.BodyHandlers.ofString());
+      if (response.statusCode() == 200) {
+        return parser.parseMarketStatus(response.body());
+      } else {
+        throw new RuntimeException(
+            "Failed to fetch data: HTTP status code " + response.statusCode());
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error fetching company overview", e);
+    }
+  }
+
 }
