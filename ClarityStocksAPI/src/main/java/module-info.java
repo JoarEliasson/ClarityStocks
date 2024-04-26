@@ -6,6 +6,8 @@ module ClarityStocksAPI {
   requires commons.math3;
   requires org.jfree.jfreechart;
   requires java.desktop;
+  requires org.jooq;
+  requires com.zaxxer.hikari;
 
   exports alphaVantage.controller;
   exports alphaVantage.model;
