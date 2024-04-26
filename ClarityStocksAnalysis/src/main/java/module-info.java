@@ -1,4 +1,5 @@
 module ClarityStocksAnalysis {
-  exports analysis.model.unfinished;
-  exports analysis.model.evaluations;
+    requires commons.math3;
+    exports analysis.model.unfinished;
+    exports analysis.model.evaluations;
 }
