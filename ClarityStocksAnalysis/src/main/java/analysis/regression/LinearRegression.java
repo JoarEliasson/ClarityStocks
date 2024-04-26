@@ -20,21 +20,35 @@ public class LinearRegression {
     double[][] dailyDataPoints;
     SimpleRegression simpleRegression;
     AlphaVantageClient alphaVantageClient;
-   TimeSeriesDaily timeSeriesDaily;
+    TimeSeriesDaily timeSeriesDaily;
     List<DailyDataPoint> data;
 
-    public LinearRegression(String symbol, double[][] dailyDataPoints, AlphaVantageClient alphaVantageClient, Date start, Date end) {
+    public LinearRegression(String symbol, AlphaVantageClient alphaVantageClient,
+        Date start, Date end) {
         this.symbol = symbol;
         this.alphaVantageClient = alphaVantageClient;
-        this.dailyDataPoints = dailyDataPoints;
         timeSeriesDaily = alphaVantageClient.getTimeSeriesDaily(symbol);
         data = timeSeriesDaily.getDailyDataInRange(start.toString(), end.toString());
     }
 
-
     private void linearRegression() {
         simpleRegression = new SimpleRegression(true);
         simpleRegression.addData(dailyDataPoints);
+    }
+
+    /**
+     * Method which creates the value pairs used for the linear regression analysis. In linear regression, there needs
+     * to be two values (x and y) for an analysis to be possible, as the equation is Y = a + bX.
+     * The value pairs are then put into a 2D double array.
+     * @return a 2D double array with X and Y value pairs.
+     * */
+    private double[][] createXYValues(List<DailyDataPoint> data) {
+        dailyDataPoints = new double[data.size()][2];
+        for(int i = 0; i < data.size(); i++) {
+                dailyDataPoints[i][0] = i;
+                dailyDataPoints[i][1] = data.get(i).getClose();
+        }
+        return dailyDataPoints;
     }
 
 }
