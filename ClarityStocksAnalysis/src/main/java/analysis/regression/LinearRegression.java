@@ -5,8 +5,6 @@ import alphaVantage.model.data.series.TimeSeriesDaily;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import alphaVantage.controller.AlphaVantageClient;
 import java.util.Date;
-
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -23,16 +21,25 @@ public class LinearRegression {
     TimeSeriesDaily timeSeriesDaily;
     List<DailyDataPoint> data;
 
+    /**
+     * Constructor for the LinearRegression class. Takes in an AlphaVantage Client and a stock symbol.
+     * */
     public LinearRegression(String symbol, AlphaVantageClient alphaVantageClient,
         Date start, Date end) {
         this.symbol = symbol;
         this.alphaVantageClient = alphaVantageClient;
         timeSeriesDaily = alphaVantageClient.getTimeSeriesDaily(symbol);
         data = timeSeriesDaily.getDailyDataInRange(start.toString(), end.toString());
+        linearRegression(data);
     }
 
-    private void linearRegression() {
+    /**
+     * Method which creates a linear regression analysis. Adds data from a 2D array with value pairs into the
+     * regression.
+     * */
+    private void linearRegression(List<DailyDataPoint> data) {
         simpleRegression = new SimpleRegression(true);
+        dailyDataPoints = createXYValues(data);
         simpleRegression.addData(dailyDataPoints);
     }
 
