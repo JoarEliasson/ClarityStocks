@@ -92,6 +92,16 @@ public class AlphaVantageParser {
           "QuarterlyRevenueGrowthYOY").asDouble());
       companyOverview.setAnalystTargetPrice(root.path(
           "AnalystTargetPrice").asDouble());
+      companyOverview.setAnalystRatingStrongBuy(root.path(
+          "AnalystRatingStrongBuy").asInt());
+      companyOverview.setAnalystRatingBuy(root.path(
+          "AnalystRatingBuy").asInt());
+      companyOverview.setAnalystRatingHold(root.path(
+          "AnalystRatingHold").asInt());
+      companyOverview.setAnalystRatingSell(root.path(
+          "AnalystRatingSell").asInt());
+      companyOverview.setAnalystRatingStrongSell(root.path(
+          "AnalystRatingStrongSell").asInt());
       companyOverview.setTrailingPE(root.path(
           "TrailingPE").asDouble());
       companyOverview.setForwardPE(root.path(
