@@ -6,11 +6,7 @@ import alphaVantage.model.data.fundamental.CompanyOverview;
 import alphaVantage.model.data.fundamental.EarningsData;
 import alphaVantage.model.data.fundamental.IncomeStatement;
 import alphaVantage.model.data.series.TimeSeriesDaily;
-import analysis.model.evaluations.BusinessPerformanceEvaluation;
-import analysis.model.evaluations.DividendEvaluation;
-import analysis.model.evaluations.GoldenCrossEvaluation;
-import analysis.model.evaluations.HighAndLow;
-import analysis.model.evaluations.PERatioEvaluation;
+import analysis.model.evaluations.*;
 import analysis.model.unfinished.PriceToPerformance;
 import java.util.List;
 
@@ -28,6 +24,7 @@ public class AlphaVantageStock {
   private List<BalanceSheet> balanceSheets;
   private List<CashFlowReport> cashFlowReports;
   private EarningsData earningsData;
+  private CompanySize companySize;
 
   public void runEvaluations() {
     evaluatePERatio();
@@ -36,6 +33,7 @@ public class AlphaVantageStock {
     evaluateGoldenCross();
     evaluateHighAndLow();
     evaluatePriceToPerformance();
+    evaluateCompanySize();
   }
 
   private void evaluatePERatio() {
@@ -49,6 +47,13 @@ public class AlphaVantageStock {
         companyOverview.getSymbol(),
         companyOverview.getEBITDA(),
         companyOverview.getRevenueTTM()
+    );
+  }
+
+  private void evaluateCompanySize() {
+    companySize = new CompanySize(
+          companyOverview.getSymbol(),
+          companyOverview.getRevenueTTM()
     );
   }
 
