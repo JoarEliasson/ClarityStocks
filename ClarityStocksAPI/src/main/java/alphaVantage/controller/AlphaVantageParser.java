@@ -4,6 +4,9 @@ import alphaVantage.model.data.fundamental.AnnualEarnings;
 import alphaVantage.model.data.fundamental.BalanceSheet;
 import alphaVantage.model.data.fundamental.CashFlowReport;
 import alphaVantage.model.data.fundamental.CompanyOverview;
+import alphaVantage.model.data.global.DailyTopLists;
+import alphaVantage.model.data.global.MarketStatus;
+import alphaVantage.model.data.global.TopListDataPoint;
 import alphaVantage.model.data.series.DailyDataPoint;
 import alphaVantage.model.data.fundamental.IncomeStatement;
 import alphaVantage.model.data.fundamental.QuarterlyEarnings;
@@ -572,5 +575,55 @@ public class AlphaVantageParser {
       System.out.println("No quarterly earnings data found.");
     }
     return quarterlyEarningsList;
+  }
+
+  public DailyTopLists parseDailyTopLists(String body) {
+    ObjectMapper mapper = new ObjectMapper();
+    DailyTopLists dailyTopLists = new DailyTopLists();
+    try {
+      JsonNode root = mapper.readTree(body);
+      dailyTopLists.setInformation(root.path("metadata").asText());
+      dailyTopLists.setLastUpdated(root.path("last_updated").asText());
+      dailyTopLists.setTopGainers(parseTopListDataPoints(root.path("top_gainers")));
+      dailyTopLists.setTopLosers(parseTopListDataPoints(root.path("top_losers")));
+      dailyTopLists.setMostTraded(parseTopListDataPoints(root.path("most_actively_traded")));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return dailyTopLists;
+  }
+
+  private List<TopListDataPoint> parseTopListDataPoints(JsonNode topList) {
+    List<TopListDataPoint> topListDataPoints = new ArrayList<>();
+    for (JsonNode entry : topList) {
+      TopListDataPoint topListDataPoint = new TopListDataPoint(entry.path("ticker").asText());
+      topListDataPoint.setPriceDifference(entry.path("price").asDouble());
+      topListDataPoint.setChangeAmount(entry.path("change_amount").asDouble());
+      topListDataPoint.setChangePercentage(entry.path("change_percentage").asText());
+      topListDataPoint.setTradingVolume(entry.path("volume").asLong());
+      topListDataPoints.add(topListDataPoint);
+    }
+    return topListDataPoints;
+  }
+
+  public List<MarketStatus> parseMarketStatus(String body) {
+    ObjectMapper mapper = new ObjectMapper();
+    List<MarketStatus> marketStatusList = new ArrayList<>();
+    try {
+      JsonNode root = mapper.readTree(body);
+      for (JsonNode entry : root) {
+        MarketStatus marketStatus = new MarketStatus();
+        marketStatus.setMarketType(entry.path("market_type").asText());
+        marketStatus.setRegion(entry.path("region").asText());
+        marketStatus.setPrimaryExchanges(entry.path("primary_exchanges").asText());
+        marketStatus.setLocalOpeningTime(entry.path("local_open").asText());
+        marketStatus.setLocalClosingTime(entry.path("local_close").asText());
+        marketStatus.setCurrentStatus(entry.path("current_status").asText());
+        marketStatusList.add(marketStatus);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return marketStatusList;
   }
 }

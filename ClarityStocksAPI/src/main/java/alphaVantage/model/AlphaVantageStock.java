@@ -29,6 +29,8 @@ public class AlphaVantageStock {
   private List<CashFlowReport> cashFlowReports;
   private EarningsData earningsData;
   private CompanyGrowth companyGrowth;
+  private CompanySize companySize;
+
 
   public void runEvaluations() {
     evaluatePERatio();
@@ -38,6 +40,7 @@ public class AlphaVantageStock {
     evaluateHighAndLow();
     evaluatePriceToPerformance();
     evaluateCompanyGrowth();
+    evaluateCompanySize();
   }
 
   private void evaluatePERatio() {
@@ -54,10 +57,17 @@ public class AlphaVantageStock {
     );
   }
 
+
   private void evaluateCompanyGrowth() {
     companyGrowth = new CompanyGrowth(
             companyGrowth.getSymbol(),
             companyOverview.getQuarterlyRevenueGrowthYOY()
+
+  private void evaluateCompanySize() {
+    companySize = new CompanySize(
+          companyOverview.getSymbol(),
+          companyOverview.getRevenueTTM()
+
     );
   }
 

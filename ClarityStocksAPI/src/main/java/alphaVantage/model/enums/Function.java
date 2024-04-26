@@ -19,7 +19,9 @@ public enum Function {
   LISTING("LISTING"),
   SECTOR("SECTOR"),
   TECHNICAL_INDICATORS("TECHNICAL_INDICATORS"),
-  SECTOR_PERFORMANCE("SECTOR_PERFORMANCE");
+  SECTOR_PERFORMANCE("SECTOR_PERFORMANCE"),
+  TOP_GAINERS_LOSERS("TOP_GAINERS_LOSERS"),
+  MARKET_STATUS("MARKET_STATUS");
 
   private final String FUNCTION;
   private final String SUFFIX = "&apikey=";
@@ -32,8 +34,10 @@ public enum Function {
   public String getURL(String symbol, boolean fullOutputSize) {
     if (fullOutputSize) {
       return BASE_URL + FUNCTION + "&symbol=" + symbol + "&outputsize=full" + SUFFIX;
-    } else {
+    } else if (symbol != null) {
       return BASE_URL + FUNCTION + "&symbol=" + symbol + SUFFIX;
+    } else {
+      return BASE_URL + FUNCTION + SUFFIX;
     }
   }
 }
