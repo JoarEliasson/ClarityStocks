@@ -16,7 +16,7 @@
     </VBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
         <ImageView fx:id="peRatingImg" styleClass="ratingsImage"/>
-        <Label styleClass="statLabel" fx:id="peEvaluation" wrapText="true"/>
+        <Label styleClass="statLabel" fx:id="peRatioEvaluation" wrapText="true"/>
     </HBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
         <ImageView fx:id="businessPerformanceImg" styleClass="ratingsImage"/>
