@@ -10,6 +10,7 @@ import alphaVantage.model.data.fundamental.IncomeStatement;
 import alphaVantage.model.data.global.DailyTopLists;
 import alphaVantage.model.data.global.MarketStatus;
 import alphaVantage.model.data.series.TimeSeriesDaily;
+import alphaVantage.model.data.series.TimeSeriesMonthly;
 import alphaVantage.model.enums.Function;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -40,14 +41,15 @@ public class AlphaVantageClient {
     AlphaVantageStock stock = new AlphaVantageStock();
     stock.setCompanyOverview(getFullStockOverview(symbol));
     stock.setTimeSeriesDaily(getTimeSeriesDaily(symbol));
+    stock.setTimeSeriesMonthly(getTimeSeriesMonthly(symbol));
+
     //Retrieval of historical data that is not used in the current implementation is commented out
     //Remove comments if the data is needed
-    /*
-    stock.setIncomeStatements(getIncomeStatements(symbol));
-    stock.setBalanceSheets(getBalanceSheet(symbol));
-    stock.setCashFlowReports(getCashFlowReports(symbol));
-    stock.setEarningsData(getEarningsData(symbol));
-     */
+    //stock.setIncomeStatements(getIncomeStatements(symbol));
+    //stock.setBalanceSheets(getBalanceSheet(symbol));
+    //stock.setCashFlowReports(getCashFlowReports(symbol));
+    //stock.setEarningsData(getEarningsData(symbol));
+
     stock.runEvaluations();
     return stock;
   }
@@ -87,6 +89,28 @@ public class AlphaVantageClient {
       );
       if (response.statusCode() == 200) {
         return parser.parseTimeSeriesDaily(response.body());
+      } else {
+        throw new RuntimeException(
+            "Failed to fetch data: HTTP status code " + response.statusCode());
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error fetching time series data", e);
+    }
+  }
+
+  public TimeSeriesMonthly getTimeSeriesMonthly(String symbol) {
+    String requestURL = Function.TIME_SERIES_MONTHLY.getURL(symbol, true) + apiKey;
+    try (HttpClient httpClient = HttpClient.newHttpClient()) {
+      HttpRequest request = HttpRequest.newBuilder()
+          .uri(URI.create(requestURL))
+          .timeout(Duration.ofMinutes(1))
+          .GET()
+          .build();
+      HttpResponse<String> response = httpClient.send(
+          request, HttpResponse.BodyHandlers.ofString()
+      );
+      if (response.statusCode() == 200) {
+        return parser.parseTimeSeriesMonthly(response.body());
       } else {
         throw new RuntimeException(
             "Failed to fetch data: HTTP status code " + response.statusCode());

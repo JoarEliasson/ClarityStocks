@@ -28,7 +28,8 @@ public class LinearRegression {
 
     /**
      * Constructor for the LinearRegression class. Takes in an AlphaVantage Client and a stock symbol.
-     * */
+     *
+     */
     public LinearRegression(String symbol, AlphaVantageClient alphaVantageClient,
         Date start, Date end) {
         this.symbol = symbol;

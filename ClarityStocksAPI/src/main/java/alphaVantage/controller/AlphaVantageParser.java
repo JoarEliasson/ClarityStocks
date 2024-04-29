@@ -12,6 +12,7 @@ import alphaVantage.model.data.fundamental.IncomeStatement;
 import alphaVantage.model.data.fundamental.QuarterlyEarnings;
 import alphaVantage.model.data.fundamental.EarningsData;
 import alphaVantage.model.data.series.TimeSeriesDaily;
+import alphaVantage.model.data.series.TimeSeriesMonthly;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -163,6 +164,32 @@ public class AlphaVantageParser {
       e.printStackTrace();
     }
     return timeSeriesDaily;
+  }
+
+  public TimeSeriesMonthly parseTimeSeriesMonthly(String responseBody) {
+    ObjectMapper mapper = new ObjectMapper();
+    TimeSeriesMonthly timeSeriesMonthly = null;
+
+    try {
+      JsonNode metaNode = mapper.readTree(responseBody).path("Meta Data");
+      String symbol = metaNode.path("2. Symbol").asText();
+      String lastRefreshed = metaNode.path("3. Last Refreshed").asText();
+      timeSeriesMonthly = new TimeSeriesMonthly(symbol);
+      timeSeriesMonthly.setLastRefreshed(lastRefreshed);
+
+      JsonNode root = mapper.readTree(responseBody);
+      JsonNode timeSeries = root.path("Monthly Time Series");
+      if (!timeSeries.isMissingNode()) {
+        timeSeriesMonthly.setMonthlyData(
+            parseDailyDataPoints(timeSeries)
+        );
+      } else {
+        System.out.println("No monthly time series data found.");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return timeSeriesMonthly;
   }
 
   private List<DailyDataPoint> parseDailyDataPoints(JsonNode timeSeries) {

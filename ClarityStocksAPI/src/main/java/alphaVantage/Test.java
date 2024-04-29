@@ -1,45 +1,91 @@
 package alphaVantage;
 
 import alphaVantage.controller.AlphaVantageClient;
+import alphaVantage.model.data.fundamental.IncomeStatement;
 import alphaVantage.model.data.series.DailyDataPoint;
-import alphaVantage.model.data.series.TimeSeriesDaily;
-import java.time.LocalDate;
+import alphaVantage.model.data.series.TimeSeriesMonthly;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 public class Test {
+
 
   public static void main(String[] args) {
 
     AlphaVantageClient alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LD");
 
 
-    TimeSeriesDaily timeSeriesDaily = alphaVantageClient.getTimeSeriesDaily("AAPL");
-    List<DailyDataPoint> data = timeSeriesDaily.getDailyDataInRange("2020-01-01", LocalDate.now().toString());
+    TimeSeriesMonthly timeSeriesMonthly = alphaVantageClient.getTimeSeriesMonthly("AAPL");
 
-
-    SimpleRegression priceRegression = new SimpleRegression();
-    XYSeries seriesPriceTime = new XYSeries("Price");
-
-    //SimpleRegression timeSeriesRegression = new SimpleRegression();
-    //Add data to the priceRegression
+    List<DailyDataPoint> data = timeSeriesMonthly.getMonthlyData();
+    List<Double> filteredData = new ArrayList<>();
     for (int i = 0; i < data.size(); i++) {
-      priceRegression.addData(i, data.get(i).getClose());
-      seriesPriceTime.add(i, data.get(i).getClose());
-
+      String[] split = data.get(i).getDate().split("-");
+      if (split[1].equals("09")) {
+        filteredData.add(data.get(i).getClose());
+        System.out.println(data.get(i).getDate() + " " + data.get(i).getClose());
+      }
     }
 
-    XYSeriesCollection dataset = new XYSeriesCollection();
-    dataset.addSeries(seriesPriceTime);
+    List<IncomeStatement> incomeStatements = alphaVantageClient.getIncomeStatements("AAPL");
+    String date = incomeStatements.getFirst().getFiscalDateEnding();
 
-    System.out.println("Price Regression Slope: " + priceRegression.getSlope());
-    System.out.println("Price Regression Intercept: " + priceRegression.getIntercept());
-    System.out.println("Price Regression R^2: " + priceRegression.getRSquare());
 
-    ChartTest chartTest = new ChartTest("Price vs Time", dataset, priceRegression);
-    chartTest.pack();
-    chartTest.setVisible(true);
+    List<Long> netIncome = new ArrayList<>();
+    for (IncomeStatement statement : incomeStatements) {
+      netIncome.add(statement.getNetIncome());
+    }
+
+
+    //netIncome regression
+    SimpleRegression netIncomeReg = new SimpleRegression();
+
+    for (int i = 0; i < incomeStatements.size(); i++) {
+      netIncomeReg.addData(netIncome.get(i), filteredData.get(i));
+    }
+    System.out.println("NET INCOME");
+    System.out.println("Price Regression Slope: " + netIncomeReg.getSlope());
+    System.out.println("Price Regression Intercept: " + netIncomeReg.getIntercept());
+    System.out.println("Price Regression R^2: " + netIncomeReg.getRSquare());
+    System.out.println("The equation = " + netIncomeReg.getSlope() + "x + " + netIncomeReg.getIntercept());
+    System.out.println();
+
+    //revenue regression
+
+    List<Long> revenue = new ArrayList<>();
+    for (IncomeStatement statement : incomeStatements) {
+      revenue.add(statement.getTotalRevenue());
+    }
+
+    SimpleRegression revenueReg = new SimpleRegression();
+
+    for (int i = 0; i < incomeStatements.size(); i++) {
+      revenueReg.addData(revenue.get(i), filteredData.get(i));
+    }
+
+    System.out.println("REVENUE");
+    System.out.println("Price Regression Slope: " + revenueReg.getSlope());
+    System.out.println("Price Regression Intercept: " + revenueReg.getIntercept());
+    System.out.println("Price Regression R^2: " + revenueReg.getRSquare());
+    System.out.println("The equation = " + revenueReg.getSlope() + "x + " + revenueReg.getIntercept());
+    System.out.println();
+
+    //gross profit
+    List<Long> grossProfit = new ArrayList<>();
+    for (IncomeStatement statement : incomeStatements) {
+      grossProfit.add(statement.getGrossProfit());
+    }
+
+    SimpleRegression grossProfitReg = new SimpleRegression();
+
+    for (int i = 0; i < incomeStatements.size(); i++) {
+      grossProfitReg.addData(grossProfit.get(i), filteredData.get(i));
+    }
+    System.out.println("GROSS PROFIT");
+    System.out.println("Price Regression Slope: " + grossProfitReg.getSlope());
+    System.out.println("Price Regression Intercept: " + grossProfitReg.getIntercept());
+    System.out.println("Price Regression R^2: " + grossProfitReg.getRSquare());
+    System.out.println("The equation = " + grossProfitReg.getSlope() + "x + " + grossProfitReg.getIntercept());
   }
 }
