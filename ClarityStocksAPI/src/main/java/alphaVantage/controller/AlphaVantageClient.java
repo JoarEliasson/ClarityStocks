@@ -49,7 +49,6 @@ public class AlphaVantageClient {
     //stock.setBalanceSheets(getBalanceSheet(symbol));
     //stock.setCashFlowReports(getCashFlowReports(symbol));
     //stock.setEarningsData(getEarningsData(symbol));
-
     stock.runEvaluations();
     return stock;
   }
@@ -99,7 +98,7 @@ public class AlphaVantageClient {
   }
 
   public TimeSeriesMonthly getTimeSeriesMonthly(String symbol) {
-    String requestURL = Function.TIME_SERIES_MONTHLY.getURL(symbol, true) + apiKey;
+    String requestURL = Function.TIME_SERIES_MONTHLY_ADJUSTED.getURL(symbol, true) + apiKey;
     try (HttpClient httpClient = HttpClient.newHttpClient()) {
       HttpRequest request = HttpRequest.newBuilder()
           .uri(URI.create(requestURL))
@@ -110,6 +109,7 @@ public class AlphaVantageClient {
           request, HttpResponse.BodyHandlers.ofString()
       );
       if (response.statusCode() == 200) {
+        System.out.println(response.body());
         return parser.parseTimeSeriesMonthly(response.body());
       } else {
         throw new RuntimeException(

@@ -166,31 +166,6 @@ public class AlphaVantageParser {
     return timeSeriesDaily;
   }
 
-  public TimeSeriesMonthly parseTimeSeriesMonthly(String responseBody) {
-    ObjectMapper mapper = new ObjectMapper();
-    TimeSeriesMonthly timeSeriesMonthly = null;
-
-    try {
-      JsonNode metaNode = mapper.readTree(responseBody).path("Meta Data");
-      String symbol = metaNode.path("2. Symbol").asText();
-      String lastRefreshed = metaNode.path("3. Last Refreshed").asText();
-      timeSeriesMonthly = new TimeSeriesMonthly(symbol);
-      timeSeriesMonthly.setLastRefreshed(lastRefreshed);
-
-      JsonNode root = mapper.readTree(responseBody);
-      JsonNode timeSeries = root.path("Monthly Time Series");
-      if (!timeSeries.isMissingNode()) {
-        timeSeriesMonthly.setMonthlyData(
-            parseDailyDataPoints(timeSeries)
-        );
-      } else {
-        System.out.println("No monthly time series data found.");
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return timeSeriesMonthly;
-  }
 
   private List<DailyDataPoint> parseDailyDataPoints(JsonNode timeSeries) {
     List<DailyDataPoint> timeSeriesData = new ArrayList<>();
@@ -206,6 +181,55 @@ public class AlphaVantageParser {
         double close = data.path("4. close").asDouble();
         long volume = data.path("5. volume").asLong();
         DailyDataPoint dataPoint = new DailyDataPoint(date, open, high, low, close, volume);
+        timeSeriesData.add(dataPoint);
+      }
+    } else {
+      System.out.println("No daily data points found.");
+    }
+    return timeSeriesData;
+  }
+
+  public TimeSeriesMonthly parseTimeSeriesMonthly(String responseBody) {
+    ObjectMapper mapper = new ObjectMapper();
+    TimeSeriesMonthly timeSeriesMonthly = null;
+
+    try {
+      JsonNode metaNode = mapper.readTree(responseBody).path("Meta Data");
+      String symbol = metaNode.path("2. Symbol").asText();
+      String lastRefreshed = metaNode.path("3. Last Refreshed").asText();
+      timeSeriesMonthly = new TimeSeriesMonthly(symbol);
+      timeSeriesMonthly.setLastRefreshed(lastRefreshed);
+
+      JsonNode root = mapper.readTree(responseBody);
+      JsonNode timeSeries = root.path("Monthly Adjusted Time Series");
+      if (!timeSeries.isMissingNode()) {
+        timeSeriesMonthly.setMonthlyData(
+            parseDailyAdjustedDataPoints(timeSeries)
+        );
+      } else {
+        System.out.println("No monthly time series data found.");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return timeSeriesMonthly;
+  }
+
+  private List<DailyDataPoint> parseDailyAdjustedDataPoints(JsonNode timeSeries) {
+    List<DailyDataPoint> timeSeriesData = new ArrayList<>();
+    if (!timeSeries.isMissingNode()) {
+      Iterator<Map.Entry<String, JsonNode>> fields = timeSeries.fields();
+      while (fields.hasNext()) {
+        Map.Entry<String, JsonNode> entry = fields.next();
+        String date = entry.getKey();
+        JsonNode data = entry.getValue();
+        double open = data.path("1. open").asDouble();
+        double high = data.path("2. high").asDouble();
+        double low = data.path("3. low").asDouble();
+        double close = data.path("4. close").asDouble();
+        double adjustedClose = data.path("5. adjusted close").asDouble();
+        long volume = data.path("6. volume").asLong();
+        DailyDataPoint dataPoint = new DailyDataPoint(date, open, high, low, close, adjustedClose, volume);
         timeSeriesData.add(dataPoint);
       }
     } else {

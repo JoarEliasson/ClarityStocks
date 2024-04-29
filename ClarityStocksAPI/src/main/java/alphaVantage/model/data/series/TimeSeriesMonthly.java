@@ -1,5 +1,6 @@
 package alphaVantage.model.data.series;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimeSeriesMonthly {
@@ -11,6 +12,17 @@ public class TimeSeriesMonthly {
 
   public TimeSeriesMonthly(String symbol) {
     this.symbol = symbol;
+  }
+
+  public List<DailyDataPoint> getMonthlyClosePrices(String month, int numberOfYears) {
+    List<DailyDataPoint> monthlyData = getMonthlyData();
+    List<DailyDataPoint> closePrices = new ArrayList<>();
+    for (DailyDataPoint dataPoint : monthlyData) {
+      if (dataPoint.getDate().split("-")[1].equals(month)) {
+        closePrices.add(dataPoint);
+      }
+    }
+    return closePrices.subList(0, numberOfYears).reversed();
   }
 
   public String getInformation() {

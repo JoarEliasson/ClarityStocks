@@ -9,6 +9,7 @@ import alphaVantage.model.AlphaVantageStock;
 import alphaVantage.model.GlobalMarketInfo;
 import alphaVantage.model.data.global.DailyTopLists;
 import alphaVantage.model.data.global.TopListDataPoint;
+import alphaVantage.model.data.series.DailyDataPoint;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -128,6 +129,33 @@ public class GUIStockViewController {
           System.out.println("Change percentage: " + topListDataPoint.getChangePercentage());
           System.out.println("Trading volume: " + topListDataPoint.getTradingVolume());
           System.out.println();
+        }
+
+         */
+
+        //Nedan finns exempel kall för de specifika intervallen av DailyData som finns i GUI
+        //En dag finns ej med då det kräver implementation av intra-day data hämtning.
+        List<DailyDataPoint> exOneYear = stock.getTimeSeriesDaily().getDailyDataLastYear();
+        List<DailyDataPoint> exYTD = stock.getTimeSeriesDaily().getDailyDataLastYearToDate();
+        List<DailyDataPoint> exOneMonth = stock.getTimeSeriesDaily().getDailyDataLastMonth();
+        List<DailyDataPoint> exOneWeek = stock.getTimeSeriesDaily().getDailyDataLastWeek();
+        //Kommentera in nedan kod för testutskrift av data
+        /*
+        System.out.println("One year");
+        for (DailyDataPoint dailyDataPoint : exOneYear) {
+          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
+        }
+        System.out.println("Year to date");
+        for (DailyDataPoint dailyDataPoint : exYTD) {
+          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
+        }
+        System.out.println("One month");
+        for (DailyDataPoint dailyDataPoint : exOneMonth) {
+          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
+        }
+        System.out.println("One week");
+        for (DailyDataPoint dailyDataPoint : exOneWeek) {
+          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
         }
 
          */
