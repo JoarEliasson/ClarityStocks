@@ -88,8 +88,9 @@ public class AlphaVantageStock {
    */
   private void evaluateCompanyGrowth() {
     companyGrowthEvaluation = new CompanyGrowthEvaluation(
-            companyGrowthEvaluation.getSymbol(),
-            companyOverview.getQuarterlyRevenueGrowthYOY());
+            companyOverview.getSymbol(),
+            companyOverview.getQuarterlyRevenueGrowthYOY()
+    );
   }
 
   /**

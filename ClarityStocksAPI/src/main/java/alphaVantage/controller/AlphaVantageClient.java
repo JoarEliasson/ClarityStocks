@@ -40,10 +40,14 @@ public class AlphaVantageClient {
     AlphaVantageStock stock = new AlphaVantageStock();
     stock.setCompanyOverview(getFullStockOverview(symbol));
     stock.setTimeSeriesDaily(getTimeSeriesDaily(symbol));
+    //Retrieval of historical data that is not used in the current implementation is commented out
+    //Remove comments if the data is needed
+    /*
     stock.setIncomeStatements(getIncomeStatements(symbol));
     stock.setBalanceSheets(getBalanceSheet(symbol));
     stock.setCashFlowReports(getCashFlowReports(symbol));
     stock.setEarningsData(getEarningsData(symbol));
+     */
     stock.runEvaluations();
     return stock;
   }
