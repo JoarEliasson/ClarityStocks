@@ -1,7 +1,11 @@
 {
   "userName": "Ibra",
   "favoriteStocks": [
-    "Apple"
+    "AAPL",
+    "AMZN",
+    "GOOGL",
+    "MSFT",
+    "TSLA"
   ],
   "isLoggedIn": true
 }

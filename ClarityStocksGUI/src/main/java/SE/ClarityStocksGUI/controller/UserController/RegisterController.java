@@ -1,4 +1,4 @@
-package SE.ClarityStocksGUI.controller;
+package SE.ClarityStocksGUI.controller.UserController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
