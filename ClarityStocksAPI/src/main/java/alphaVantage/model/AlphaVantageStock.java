@@ -7,43 +7,72 @@ import alphaVantage.model.data.fundamental.EarningsData;
 import alphaVantage.model.data.fundamental.IncomeStatement;
 import alphaVantage.model.data.series.TimeSeriesDaily;
 import analysis.model.evaluations.BusinessPerformanceEvaluation;
+import analysis.model.evaluations.CompanyGrowthEvaluation;
+import analysis.model.evaluations.CompanySizeEvaluation;
 import analysis.model.evaluations.DividendEvaluation;
 import analysis.model.evaluations.GoldenCrossEvaluation;
 import analysis.model.evaluations.HighAndLow;
 import analysis.model.evaluations.PERatioEvaluation;
-import analysis.model.unfinished.PriceToPerformance;
 import java.util.List;
 
+/**
+ * This class represents a company's stock data, including evaluations, time series data, general
+ * information, and fundamental data. Objects of this class contain all necessary data used by the
+ * GUI to display information about a stock.
+ */
 public class AlphaVantageStock {
 
+  /**
+   * Stock data variables.
+   */
   private CompanyOverview companyOverview;
   private TimeSeriesDaily timeSeriesDaily;
-  private PERatioEvaluation peRatioEvaluation;
-  private BusinessPerformanceEvaluation businessPerformanceEvaluation;
-  private DividendEvaluation dividendEvaluation;
-  private GoldenCrossEvaluation goldenCrossEvaluation;
-  private HighAndLow highAndLow;
-  private PriceToPerformance priceToPerformance;
+  private EarningsData earningsData;
   private List<IncomeStatement> incomeStatements;
   private List<BalanceSheet> balanceSheets;
   private List<CashFlowReport> cashFlowReports;
-  private EarningsData earningsData;
 
+  /**
+   * Evaluation variables.
+   */
+  private HighAndLow highAndLow;
+  private PERatioEvaluation peRatioEvaluation;
+  private CompanySizeEvaluation companySizeEvaluation;
+  private CompanyGrowthEvaluation companyGrowthEvaluation;
+  private BusinessPerformanceEvaluation businessPerformanceEvaluation;
+  private DividendEvaluation dividendEvaluation;
+  private GoldenCrossEvaluation goldenCrossEvaluation;
+
+  /**
+   * This method runs all evaluations on the retrieved stock data. The evaluations are stored as
+   * instance variables in the class.
+   */
   public void runEvaluations() {
     evaluatePERatio();
+    evaluateCompanySize();
+    evaluateCompanyGrowth();
     evaluateBusinessPerformance();
     evaluateDividend();
     evaluateGoldenCross();
     evaluateHighAndLow();
-    evaluatePriceToPerformance();
   }
 
+  /**
+   * This method creates a new instance of {@code PERatioEvaluation} representing the evaluation.
+   * The result is stored as an instance variable.
+   * @see PERatioEvaluation for the evaluation details.
+   */
   private void evaluatePERatio() {
     peRatioEvaluation = new PERatioEvaluation(
         companyOverview.getSymbol(), companyOverview.getPERatio()
     );
   }
 
+  /**
+   * This method creates a new instance of {@code BusinessPerformanceEvaluation} representing the
+   * evaluation. The result is stored as an instance variable.
+   * @see BusinessPerformanceEvaluation for the evaluation details.
+   */
   private void evaluateBusinessPerformance() {
     businessPerformanceEvaluation = new BusinessPerformanceEvaluation(
         companyOverview.getSymbol(),
@@ -52,6 +81,35 @@ public class AlphaVantageStock {
     );
   }
 
+  /**
+   * This method creates a new instance of {@code CompanyGrowthEvaluation} representing the evaluation. The
+   * result is stored as an instance variable.
+   * @see CompanyGrowthEvaluation for the evaluation details.
+   */
+  private void evaluateCompanyGrowth() {
+    companyGrowthEvaluation = new CompanyGrowthEvaluation(
+            companyOverview.getSymbol(),
+            companyOverview.getQuarterlyRevenueGrowthYOY()
+    );
+  }
+
+  /**
+   * This method creates a new instance of {@code CompanySizeEvaluation} representing the evaluation. The
+   * result is stored as an instance variable.
+   * @see CompanySizeEvaluation for the evaluation details.
+   */
+  private void evaluateCompanySize() {
+    companySizeEvaluation = new CompanySizeEvaluation(
+          companyOverview.getSymbol(),
+          companyOverview.getRevenueTTM()
+    );
+  }
+
+  /**
+   * This method creates a new instance of {@code DividendEvaluation} representing the evaluation.
+   * The result is stored as an instance variable.
+   * @see DividendEvaluation for the evaluation details.
+   */
   private void evaluateDividend() {
     dividendEvaluation = new DividendEvaluation(
         companyOverview.getSymbol(),
@@ -61,6 +119,11 @@ public class AlphaVantageStock {
     );
   }
 
+  /**
+   * This method creates a new instance of {@code GoldenCrossEvaluation} representing the evaluation.
+   * The result is stored as an instance variable.
+   * @see GoldenCrossEvaluation for the evaluation details.
+   */
   private void evaluateGoldenCross() {
     goldenCrossEvaluation = new GoldenCrossEvaluation(
         companyOverview.getSymbol(),
@@ -69,19 +132,16 @@ public class AlphaVantageStock {
     );
   }
 
+  /**
+   * This method creates a new instance of {@code HighAndLow} representing the evaluation. The result
+   * is stored as an instance variable.
+   * @see HighAndLow for the evaluation details.
+   */
   private void evaluateHighAndLow() {
     highAndLow = new HighAndLow(
         companyOverview.getSymbol(),
         companyOverview.getWeek52High(),
         companyOverview.getWeek52Low()
-    );
-  }
-
-  private void evaluatePriceToPerformance() {
-    priceToPerformance = new PriceToPerformance(
-        companyOverview.getSymbol(),
-        companyOverview.getPERatio(),
-        companyOverview.getSector()
     );
   }
 
@@ -101,8 +161,55 @@ public class AlphaVantageStock {
     this.timeSeriesDaily = timeSeriesDaily;
   }
 
+  public EarningsData getEarningsData() {
+    return earningsData;
+  }
+
+  public void setEarningsData(EarningsData earningsData) {
+    this.earningsData = earningsData;
+  }
+
+  public List<IncomeStatement> getIncomeStatements() {
+    return incomeStatements;
+  }
+
+  public void setIncomeStatements(
+      List<IncomeStatement> incomeStatements) {
+    this.incomeStatements = incomeStatements;
+  }
+
+  public List<BalanceSheet> getBalanceSheets() {
+    return balanceSheets;
+  }
+
+  public void setBalanceSheets(
+      List<BalanceSheet> balanceSheets) {
+    this.balanceSheets = balanceSheets;
+  }
+
+  public List<CashFlowReport> getCashFlowReports() {
+    return cashFlowReports;
+  }
+
+  public void setCashFlowReports(
+      List<CashFlowReport> cashFlowReports) {
+    this.cashFlowReports = cashFlowReports;
+  }
+
+  public HighAndLow getHighAndLow() {
+    return highAndLow;
+  }
+
   public PERatioEvaluation getPeRatioEvaluation() {
     return peRatioEvaluation;
+  }
+
+  public CompanySizeEvaluation getCompanySizeEvaluation() {
+    return companySizeEvaluation;
+  }
+
+  public CompanyGrowthEvaluation getCompanyGrowthEvaluation() {
+    return companyGrowthEvaluation;
   }
 
   public BusinessPerformanceEvaluation getBusinessPerformanceEvaluation() {
@@ -117,57 +224,16 @@ public class AlphaVantageStock {
     return goldenCrossEvaluation;
   }
 
-  public HighAndLow getHighAndLow() {
-    return highAndLow;
-  }
-
-  public PriceToPerformance getPriceToPerformance() {
-    return priceToPerformance;
-  }
-
-  public EarningsData getEarningsData() {
-    return earningsData;
-  }
-
-  public void setEarningsData(EarningsData earningsData) {
-    this.earningsData = earningsData;
-  }
-
-  public List<CashFlowReport> getCashFlowReports() {
-    return cashFlowReports;
-  }
-
-  public void setCashFlowReports(List<CashFlowReport> cashFlowReports) {
-    this.cashFlowReports = cashFlowReports;
-  }
-
-  public List<BalanceSheet> getBalanceSheets() {
-    return balanceSheets;
-  }
-
-  public void setBalanceSheets(List<BalanceSheet> balanceSheets) {
-    this.balanceSheets = balanceSheets;
-  }
-
-  public List<IncomeStatement> getIncomeStatements() {
-    return incomeStatements;
-  }
-
-  public void setIncomeStatements(List<IncomeStatement> incomeStatements) {
-    this.incomeStatements = incomeStatements;
-  }
-
   @Override
   public String toString() {
     return String.format(
         "Company Overview: %s%nTime Series Daily: %s%nPE Ratio Evaluation: %s%n"
         + "Business Performance Evaluation: %s%nDividend Evaluation: %s%n"
-        + "Golden Cross Evaluation: %s%nHigh and Low: %s%nPrice to Performance: %s%n"
-        + "Earnings Data: %s%nCash Flow Reports: %s%nBalance Sheets: %s%n"
-        + "Income Statements: %s%n",
+        + "Golden Cross Evaluation: %s%nHigh and Low: %s%nEarnings Data: %s%n"
+        + "Cash Flow Reports: %s%nBalance Sheets: %s%nIncome Statements: %s%n",
         companyOverview, timeSeriesDaily, peRatioEvaluation, businessPerformanceEvaluation,
-        dividendEvaluation, goldenCrossEvaluation, highAndLow, priceToPerformance, earningsData,
-        cashFlowReports, balanceSheets, incomeStatements
+        dividendEvaluation, goldenCrossEvaluation, highAndLow, earningsData, cashFlowReports,
+        balanceSheets, incomeStatements
     );
   }
 }

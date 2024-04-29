@@ -23,6 +23,9 @@ public class BusinessPerformanceEvaluation implements RatingEvaluation {
   private int rating;
   private String description;
 
+  /*
+  * Constructor for BusinessPerformanceEvaluation. Calls the method evaluate.
+  * */
   public BusinessPerformanceEvaluation(String symbol, double EBITDA, double revenueTTM) {
     this.symbol = symbol;
     this.EBITDA = EBITDA;
@@ -30,13 +33,20 @@ public class BusinessPerformanceEvaluation implements RatingEvaluation {
     evaluate();
   }
 
-  private void evaluateEBIDTAMargin() {
+  /*
+  * Method for evaluating the EBITDA to the revenue for the past twelve months, which is the EBITDA margin.
+  * */
+  private void evaluateEBITDAMargin() {
     EBITDAMargin = EBITDA / revenueTTM;
   }
 
+  /*
+  * Method for evaluating the EBITDA margin which sets the description variable to a fitting one depending on
+  * the performance of the stock.
+  * */
   @Override
   public void evaluate() {
-    evaluateEBIDTAMargin();
+    evaluateEBITDAMargin();
     if (EBITDAMargin > 0.20) {
       rating = 5;
       description = "There is an indication that " + symbol + " has a great performance";

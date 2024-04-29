@@ -6,6 +6,10 @@ import SE.ClarityStocksGUI.controller.stockViewTiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
 import alphaVantage.controller.AlphaVantageClient;
 import alphaVantage.model.AlphaVantageStock;
+import alphaVantage.model.data.global.DailyTopLists;
+import alphaVantage.model.data.global.TopListDataPoint;
+import alphaVantage.model.GlobalMarketInfo;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
@@ -81,6 +85,52 @@ public class GUIStockViewController {
       public void run() {
         AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
         stock = alphaVantageClient.getStock(stockSymbol);
+
+        //GlobalMarketInfo motsvarar "stock" objektet fast med global data för home view.
+        //Just nu market status och top; gainers, losers och most traded.
+        GlobalMarketInfo globalMarketInfo = alphaVantageClient.getGlobalMarketInfo();
+        /*
+        Om ni vill testa att skriva ut market status så kan det göras med följande kod:
+        for (MarketStatus market : globalMarketInfo.getMarketStatus()) {
+          System.out.println(market.getRegion());
+          System.out.println(market.getPrimaryExchanges());
+          System.out.println(market.getCurrentStatus());
+        }
+
+         */
+        DailyTopLists dailyTopLists = globalMarketInfo.getDailyTopLists();
+        List<TopListDataPoint> topGainers = dailyTopLists.getTopGainers();
+        List<TopListDataPoint> topLosers = dailyTopLists.getTopLosers();
+        List<TopListDataPoint> mostTraded = dailyTopLists.getMostTraded();
+        /*
+        Om ni vill testa att skriva ut topGainers, topLosers och mostTraded så kan det göras med
+        följande kod:
+        for (TopListDataPoint topListDataPoint : topGainers) {
+          System.out.println("Symbol: " + topListDataPoint.getSymbol());
+          System.out.println("Price difference: " + topListDataPoint.getPriceDifference());
+          System.out.println("Change amount: " + topListDataPoint.getChangeAmount());
+          System.out.println("Change percentage: " + topListDataPoint.getChangePercentage());
+          System.out.println("Trading volume: " + topListDataPoint.getTradingVolume());
+          System.out.println();
+        }
+        for (TopListDataPoint topListDataPoint : topLosers) {
+          System.out.println("Symbol: " + topListDataPoint.getSymbol());
+          System.out.println("Price difference: " + topListDataPoint.getPriceDifference());
+          System.out.println("Change amount: " + topListDataPoint.getChangeAmount());
+          System.out.println("Change percentage: " + topListDataPoint.getChangePercentage());
+          System.out.println("Trading volume: " + topListDataPoint.getTradingVolume());
+          System.out.println();
+        }
+        for (TopListDataPoint topListDataPoint : mostTraded) {
+          System.out.println("Symbol: " + topListDataPoint.getSymbol());
+          System.out.println("Price difference: " + topListDataPoint.getPriceDifference());
+          System.out.println("Change amount: " + topListDataPoint.getChangeAmount());
+          System.out.println("Change percentage: " + topListDataPoint.getChangePercentage());
+          System.out.println("Trading volume: " + topListDataPoint.getTradingVolume());
+          System.out.println();
+        }
+
+         */
 
         Platform.runLater(new Runnable() {
           @Override

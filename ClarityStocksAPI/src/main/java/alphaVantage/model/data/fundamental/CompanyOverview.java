@@ -208,6 +208,12 @@ public class CompanyOverview {
    */
   private double analystTargetPrice;
 
+  private int analystRatingStrongBuy;
+  private int analystRatingBuy;
+  private int analystRatingHold;
+  private int analystRatingSell;
+  private int analystRatingStrongSell;
+
   /**
    * The trailing price to earnings (P/E) ratio measures the current share price relative to its
    * per-share earnings over the past 12 months, providing a snapshot of how a stock is valued in
@@ -558,6 +564,46 @@ public class CompanyOverview {
     this.analystTargetPrice = analystTargetPrice;
   }
 
+  public int getAnalystRatingStrongBuy() {
+    return analystRatingStrongBuy;
+  }
+
+  public void setAnalystRatingStrongBuy(int analystRatingStrongBuy) {
+    this.analystRatingStrongBuy = analystRatingStrongBuy;
+  }
+
+  public int getAnalystRatingBuy() {
+    return analystRatingBuy;
+  }
+
+  public void setAnalystRatingBuy(int analystRatingBuy) {
+    this.analystRatingBuy = analystRatingBuy;
+  }
+
+  public int getAnalystRatingHold() {
+    return analystRatingHold;
+  }
+
+  public void setAnalystRatingHold(int analystRatingHold) {
+    this.analystRatingHold = analystRatingHold;
+  }
+
+  public int getAnalystRatingSell() {
+    return analystRatingSell;
+  }
+
+  public void setAnalystRatingSell(int analystRatingSell) {
+    this.analystRatingSell = analystRatingSell;
+  }
+
+  public int getAnalystRatingStrongSell() {
+    return analystRatingStrongSell;
+  }
+
+  public void setAnalystRatingStrongSell(int analystRatingStrongSell) {
+    this.analystRatingStrongSell = analystRatingStrongSell;
+  }
+
   public double getTrailingPE() {
     return trailingPE;
   }
@@ -683,7 +729,9 @@ public class CompanyOverview {
             + "Return on Assets TTM: %.2f%n Return on Equity TTM: %.2f%n Revenue TTM: %d%n "
             + "Gross Profit TTM: %d%n Diluted EPS TTM: %.2f%n "
             + "Quarterly Earnings Growth YOY: %.2f%n Quarterly Revenue Growth YOY: %.2f%n "
-            + "Analyst Target Price: %.2f%n Trailing PE: %.2f%n Forward PE: %.2f%n "
+            + "Analyst Target Price: %.2f%n Analyst Rating (Strong Buy): %d%n"
+            + "Analyst Rating (Buy): %d%n Analyst Rating (Hold): %d%n Analyst Rating (Sell): %d%n "
+            + "Analyst Rating (Strong Sell): %d%n Trailing PE: %.2f%n Forward PE: %.2f%n "
             + "Price to Sales Ratio TTM: %.2f%n Price to Book Ratio: %.2f%n EV to Revenue: %.2f%n "
             + "EV to EBITDA: %.2f%n Beta: %.2f%n 52-Week High: %.2f%n 52-Week Low: %.2f%n "
             + "50-Day Moving Average: %.2f%n 200-Day Moving Average: %.2f%n "
@@ -693,9 +741,10 @@ public class CompanyOverview {
         bookValue, dividendPerShare, dividendYield, EPS, revenuePerShareTTM, profitMargin,
         operatingMarginTTM, returnOnAssetsTTM, returnOnEquityTTM, revenueTTM, grossProfitTTM,
         dilutedEPSTTM, quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice,
-        trailingPE, forwardPE, priceToSalesRatioTTM, priceToBookRatio, EVToRevenue, EVToEBITDA,
-        beta, week52High, week52Low, movingAverage50, movingAverage200, sharesOutstanding,
-        dividendDate, exDividendDate
+        analystRatingStrongBuy, analystRatingBuy, analystRatingHold, analystRatingSell,
+        analystRatingStrongSell, trailingPE, forwardPE, priceToSalesRatioTTM, priceToBookRatio,
+        EVToRevenue, EVToEBITDA, beta, week52High, week52Low, movingAverage50, movingAverage200,
+        sharesOutstanding, dividendDate, exDividendDate
     );
   }
 }

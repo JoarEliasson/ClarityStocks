@@ -24,9 +24,9 @@ public class HighAndLow implements Evaluation {
   @Override
   public void evaluate() {
     description = String.format(
-        "The 52-week high for %s is %.2f.%n"
-        + "The 52-week low for %s is %.2f",
-        symbol, high, symbol, low
+    "The 52-week high for %s is %.2f.%n"
+    + "The 52-week low for %s is %.2f",
+    symbol, high, symbol, low
     );
   }
 
