@@ -27,8 +27,6 @@ import java.util.*;
 
 public class GUIHomeController {
 
-  @FXML private ListView<String> stockListView;
-
   @FXML public Text welcomeToText;
   @FXML public Text clarityStocksText;
   @FXML public Label messageLabel;
@@ -39,9 +37,14 @@ public class GUIHomeController {
   @FXML public ImageView userImage;
   @FXML public Text usernameText;
   @FXML public ListView<String> recentlyViewedListView;
+  @FXML public ListView<String> topGainList;
+  @FXML public ListView<String> topLooserList;
+  @FXML public ListView<String> volumeList;
   @FXML public Rectangle favorite;
   @FXML public Rectangle recentView;
-  @FXML public Rectangle topStocks;
+  @FXML public Rectangle topGainRectangle;
+  @FXML public Rectangle topLooserRectangle;
+  @FXML public Rectangle volumeRectangle;
 
   @FXML public StackPane recentlyViewedStack;
 
@@ -179,7 +182,9 @@ public class GUIHomeController {
   private void setupViewBasedOnUser() {
     favorite.setEffect(Effects.getDropShadow());
     recentView.setEffect(Effects.getDropShadow());
-    topStocks.setEffect(Effects.getDropShadow());
+    topGainRectangle.setEffect(Effects.getDropShadow());
+    topLooserRectangle.setEffect(Effects.getDropShadow());
+    volumeRectangle.setEffect(Effects.getDropShadow());
     if (userProfile == null || !userProfile.isLoggedIn()) {
       messageLabel.setText("Log in to show favorite stocks");
       showElements(false);
@@ -245,31 +250,6 @@ public class GUIHomeController {
     SequentialTransition seqTransitionIn = new SequentialTransition(ftWelcomeIn, ftClarityIn);
     return seqTransitionIn;
   }
-  public void showTopGainers() {
-    List<String> gainers = fetchStockData("gainers");
-    stockListView.setItems(FXCollections.observableArrayList(gainers));
-  }
 
-  public void showTopLosers() {
-    List<String> losers = fetchStockData("losers");
-    stockListView.setItems(FXCollections.observableArrayList(losers));
-  }
 
-  public void showMostActive() {
-    List<String> active = fetchStockData("active");
-    stockListView.setItems(FXCollections.observableArrayList(active));
-  }
-  private List<String> fetchStockData(String type) {
-
-    switch (type) {
-      case "gainers":
-        return Arrays.asList("AAPL $150 +5%", "MSFT $305 +3%");
-      case "losers":
-        return Arrays.asList("TSLA $600 -4%", "FB $270 -2%");
-      case "active":
-        return Arrays.asList("AMZN $3200 +1%", "GOOGL $1500 +1.5%");
-      default:
-        return new ArrayList<>();
-    }
-  }
 }

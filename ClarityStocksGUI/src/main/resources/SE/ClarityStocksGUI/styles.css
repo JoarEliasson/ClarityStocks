@@ -62,10 +62,6 @@
     -fx-font-weight: normal;
 }
 
-.title-text {
-    -fx-font-size: 36px;
-    -fx-font-weight: bold;
-}
 .favorites-section {
     -fx-padding: 20px;
 }
