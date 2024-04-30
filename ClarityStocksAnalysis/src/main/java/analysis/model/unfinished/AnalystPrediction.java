@@ -48,7 +48,8 @@ public class AnalystPrediction implements Evaluation {
 /*
 * Method which returns a simple description of several analyst ratings.
 * @author Olivia Svensson, Joar Eliasson
-* */
+*
+*/
 
   public String getDescription(String symbol, double currentPrice, double targetPrice,
     int ratingStrongBuy, int ratingBuy, int ratingHold,

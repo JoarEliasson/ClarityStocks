@@ -3,12 +3,25 @@ package alphaVantage.model.data.series;
 public class DailyDataPoint {
 
   private final String date;
-  private final double close;
   private double open;
   private double high;
   private double low;
+  private double close;
+  private double adjustedClose;
   private double average;
   private long volume;
+
+  public DailyDataPoint(String date, double open, double high, double low, double close,
+      double adjustedClose, long volume) {
+    this.date = date;
+    this.open = open;
+    this.high = high;
+    this.low = low;
+    this.close = close;
+    this.adjustedClose = adjustedClose;
+    this.average = getDailyAverage();
+    this.volume = volume;
+  }
 
   public DailyDataPoint(String date, double open, double high, double low, double close,
       long volume) {
@@ -17,6 +30,7 @@ public class DailyDataPoint {
     this.high = high;
     this.low = low;
     this.close = close;
+    this.adjustedClose = close;
     this.average = getDailyAverage();
     this.volume = volume;
   }
@@ -62,23 +76,55 @@ public class DailyDataPoint {
     return open;
   }
 
+  public void setOpen(double open) {
+    this.open = open;
+  }
+
   public double getHigh() {
     return high;
+  }
+
+  public void setHigh(double high) {
+    this.high = high;
   }
 
   public double getLow() {
     return low;
   }
 
+  public void setLow(double low) {
+    this.low = low;
+  }
+
   public double getClose() {
     return close;
+  }
+
+  public void setClose(double close) {
+    this.close = close;
+  }
+
+  public double getAdjustedClose() {
+    return adjustedClose;
+  }
+
+  public void setAdjustedClose(double adjustedClose) {
+    this.adjustedClose = adjustedClose;
   }
 
   public double getAverage() {
     return average;
   }
 
+  public void setAverage(double average) {
+    this.average = average;
+  }
+
   public long getVolume() {
     return volume;
+  }
+
+  public void setVolume(long volume) {
+    this.volume = volume;
   }
 }

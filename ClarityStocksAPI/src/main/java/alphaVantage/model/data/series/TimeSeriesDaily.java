@@ -1,5 +1,6 @@
 package alphaVantage.model.data.series;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,46 @@ public class TimeSeriesDaily {
       }
     }
     return dataInRange;
+  }
+
+  public List<DailyDataPoint> getDailyDataLastYear() {
+    List<DailyDataPoint> reversedData = dailyData.reversed();
+    List<DailyDataPoint> dataLastYear = new ArrayList<>();
+    for (int i = 0; i < 252; i++) {
+      dataLastYear.add(reversedData.get(i));
+    }
+    return dataLastYear.reversed();
+  }
+
+  public List<DailyDataPoint> getDailyDataLastYearToDate() {
+    List<DailyDataPoint> dataLastYearToDate = new ArrayList<>();
+    LocalDate today = LocalDate.now();
+    for (DailyDataPoint dataPoint : dailyData) {
+      if (dataPoint.getDate().substring(0, 4).equals(String.valueOf(today.getYear())) &&
+          dataPoint.getDate().compareTo(today.toString()) <= 0) {
+        dataLastYearToDate.add(dataPoint);
+      }
+
+    }
+    return dataLastYearToDate;
+  }
+
+  public List<DailyDataPoint> getDailyDataLastMonth() {
+    List<DailyDataPoint> reversedData = dailyData.reversed();
+    List<DailyDataPoint> dataLastMonth = new ArrayList<>();
+    for (int i = 0; i < 21; i++) {
+      dataLastMonth.add(reversedData.get(i));
+    }
+    return dataLastMonth.reversed();
+  }
+
+  public List<DailyDataPoint> getDailyDataLastWeek() {
+    List<DailyDataPoint> reversedData = dailyData.reversed();
+    List<DailyDataPoint> dataLastWeek = new ArrayList<>();
+    for (int i = 0; i < 5; i++) {
+      dataLastWeek.add(reversedData.get(i));
+    }
+    return dataLastWeek.reversed();
   }
 
   public List<String> getGoldenCrossEvents(String startDate, String endDate) {

@@ -1,18 +1,8 @@
 package alphaVantage.model;
 
-import alphaVantage.model.data.fundamental.BalanceSheet;
-import alphaVantage.model.data.fundamental.CashFlowReport;
-import alphaVantage.model.data.fundamental.CompanyOverview;
-import alphaVantage.model.data.fundamental.EarningsData;
-import alphaVantage.model.data.fundamental.IncomeStatement;
-import alphaVantage.model.data.series.TimeSeriesDaily;
-import analysis.model.evaluations.BusinessPerformanceEvaluation;
-import analysis.model.evaluations.CompanyGrowthEvaluation;
-import analysis.model.evaluations.CompanySizeEvaluation;
-import analysis.model.evaluations.DividendEvaluation;
-import analysis.model.evaluations.GoldenCrossEvaluation;
-import analysis.model.evaluations.HighAndLow;
-import analysis.model.evaluations.PERatioEvaluation;
+import alphaVantage.model.data.fundamental.*;
+import alphaVantage.model.data.series.*;
+import analysis.model.evaluations.*;
 import java.util.List;
 
 /**
@@ -27,6 +17,7 @@ public class AlphaVantageStock {
    */
   private CompanyOverview companyOverview;
   private TimeSeriesDaily timeSeriesDaily;
+  private TimeSeriesMonthly timeSeriesMonthly;
   private EarningsData earningsData;
   private List<IncomeStatement> incomeStatements;
   private List<BalanceSheet> balanceSheets;
@@ -159,6 +150,14 @@ public class AlphaVantageStock {
 
   public void setTimeSeriesDaily(TimeSeriesDaily timeSeriesDaily) {
     this.timeSeriesDaily = timeSeriesDaily;
+  }
+
+  public TimeSeriesMonthly getTimeSeriesMonthly() {
+    return timeSeriesMonthly;
+  }
+
+  public void setTimeSeriesMonthly(TimeSeriesMonthly timeSeriesMonthly) {
+    this.timeSeriesMonthly = timeSeriesMonthly;
   }
 
   public EarningsData getEarningsData() {
