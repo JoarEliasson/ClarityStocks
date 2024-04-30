@@ -20,6 +20,7 @@ public class Test {
     String fiscalDateEndingMonth = incomeStatements.getLast().getFiscalDateEnding().split("-")[1];
     List<DailyDataPoint> closePrices = timeSeriesMonthly.getMonthlyClosePrices(
         fiscalDateEndingMonth, incomeStatements.size());
+
     System.out.println("Ending " + incomeStatements.getLast().getFiscalDateEnding() + " Size" + incomeStatements.size());
     double[] closePricesArray = new double[closePrices.size()];
     for (int i = 0; i < closePrices.size(); i++) {
@@ -29,6 +30,7 @@ public class Test {
 
     System.out.println("NET INCOME");
     double[] netIncomeData = new double[closePricesArray.length];
+
     List<IncomeStatement> reversedIncomeStatements = incomeStatements.reversed();
 
     int index = 0;
@@ -55,6 +57,7 @@ public class Test {
       System.out.println("Net Income: " + indexedNetIncome[i] + " Close Price: " + closePricesArray[i]);
       netIncomeReg.addData(indexedNetIncome[i], closePricesArray[i]);
     }
+
     System.out.println("NET INCOME");
     System.out.println("Price Regression Slope: " + netIncomeReg.getSlope());
     System.out.println("Price Regression Intercept: " + netIncomeReg.getIntercept());
