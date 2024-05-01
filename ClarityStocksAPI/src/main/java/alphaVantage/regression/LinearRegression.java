@@ -19,25 +19,25 @@ import java.util.Calendar;
 public class LinearRegression {
 
     static AlphaVantageClient alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LD");
-    String symbol;
-    String fiscalDateEndingMonth;
-    String description = "";
-    String descriptionPrediction = "";
-    SimpleRegression simpleRegression;
+    private String symbol;
+    private String fiscalDateEndingMonth;
+    private String description = "";
+    private String descriptionPrediction = "";
+    private SimpleRegression simpleRegression;
     //AlphaVantageClient alphaVantageClient;
-    TimeSeriesDaily timeSeriesDaily;
-    TimeSeriesMonthly timeSeriesMonthly;
+    private TimeSeriesDaily timeSeriesDaily;
+    private TimeSeriesMonthly timeSeriesMonthly;
 
    //might come to use later, however will not be implemented as of right now
     //TimeSeriesDaily getTimeSeriesDaily;
-    double[] closePricesArray;
-    double[][] dailyDataPoints;
-    double[] netIncomeData;
-    double[] indexedNetIncome;
-    List<DailyDataPoint> data;
-    List<DailyDataPoint> closePrices;
-    List<IncomeStatement> incomeStatements;
-    List<IncomeStatement> reversedIncomeStatements;
+   private double[] closePricesArray;
+    private double[][] dailyDataPoints;
+    private double[] netIncomeData;
+    private double[] indexedNetIncome;
+    private List<DailyDataPoint> data;
+    private List<DailyDataPoint> closePrices;
+    private List<IncomeStatement> incomeStatements;
+    private List<IncomeStatement> reversedIncomeStatements;
 
 
     /**
@@ -64,7 +64,7 @@ public class LinearRegression {
      *
      * */
 
-    public void setIncomeStatements(String symbol) {
+    private void setIncomeStatements(String symbol) {
         incomeStatements = alphaVantageClient.getIncomeStatements(symbol);
     }
 
@@ -76,7 +76,7 @@ public class LinearRegression {
      * considered, the analysis will be incorrect. The adjusted close means that the historical prices are compared to
      * the current prices and takes into consideration stock-splits.
      * */
-    public void setClosePrices() {
+    private void setClosePrices() {
         closePrices = timeSeriesMonthly.getMonthlyClosePrices(fiscalDateEndingMonth, incomeStatements.size());
         closePricesArray = new double[closePrices.size()];
         for (int i = 0; i < closePrices.size(); i++) {
@@ -89,14 +89,14 @@ public class LinearRegression {
      * Method for sorting the income statements by reversing them, as we want the latest income statement to be first
      * in the list.
      * */
-    public void reverseIncomeStatements() {
+    private void reverseIncomeStatements() {
         reversedIncomeStatements = incomeStatements.reversed();
     }
 
     /**
      * Method for setting the net income.
      * */
-    public void setNetIncome() {
+    private void setNetIncome() {
        // System.out.println("NET INCOME");
         netIncomeData = new double[closePricesArray.length];
         int index = 0;
@@ -116,7 +116,7 @@ public class LinearRegression {
      * The index income is then set to the rounded value in the array.
      * */
 
-    public void indexNetIncome() {
+    private void indexNetIncome() {
         indexedNetIncome = new double[closePricesArray.length];
         for (int i = 0; i < indexedNetIncome.length; i++) {
             double indexValue = netIncomeData[i] / netIncomeData[0];
@@ -129,7 +129,7 @@ public class LinearRegression {
     /**
      * Method for getting the time series of the stock on a monthly basis
      * */
-    public void setTimeSeriesMonthly(String symbol) {
+    private void setTimeSeriesMonthly(String symbol) {
         timeSeriesMonthly = alphaVantageClient.getTimeSeriesMonthly(symbol);
         fiscalDateEndingMonth = incomeStatements.getLast().getFiscalDateEnding().split("-")[1];
     }
@@ -142,6 +142,8 @@ public class LinearRegression {
         dailyDataPoints = createXYValues(data);
         simpleRegression.addData(dailyDataPoints);
     }
+
+    private void
 
     /**
      * Method which creates the value pairs used for the linear regression analysis. In linear regression, there needs
