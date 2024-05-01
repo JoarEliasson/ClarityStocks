@@ -3,10 +3,15 @@ package SE.ClarityStocksGUI.controller;
 import SE.ClarityStocksGUI.model.Effects;
 import alphaVantage.controller.AlphaVantageClient;
 import alphaVantage.model.AlphaVantageStock;
+import alphaVantage.model.GlobalMarketInfo;
+import alphaVantage.model.data.global.DailyTopLists;
+import alphaVantage.model.data.global.TopListDataPoint;
+import alphaVantage.model.data.series.DailyDataPoint;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -15,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -25,49 +31,110 @@ import javafx.scene.text.Text;
 
 import java.util.*;
 
+
+
 public class GUIHomeController {
 
+  @FXML public Text usernameText;
   @FXML public Text welcomeToText;
   @FXML public Text clarityStocksText;
+
   @FXML public Label messageLabel;
   @FXML public BorderPane layout;
   @FXML public VBox mainVBox;
-  @FXML public ListView<String> favoritesListView;
   @FXML public Button addStockButton;
   @FXML public ImageView userImage;
-  @FXML public Text usernameText;
+
+  @FXML public ListView<String> favoritesListView;
   @FXML public ListView<String> recentlyViewedListView;
   @FXML public ListView<String> topGainList;
   @FXML public ListView<String> topLooserList;
   @FXML public ListView<String> volumeList;
+
   @FXML public Rectangle favorite;
   @FXML public Rectangle recentView;
   @FXML public Rectangle topGainRectangle;
   @FXML public Rectangle topLooserRectangle;
   @FXML public Rectangle volumeRectangle;
+  private AlphaVantageStock stock;
 
-  @FXML public StackPane recentlyViewedStack;
-
-  private GUIMainController controller;
+    private GUIMainController controller;
   private UserProfile userProfile;
   private final String userFilePath = "ClarityStocksUser/userInfo.json";
-  @FXML private StackPane favoritesStack;
+
   @FXML private Label noFavoritesLabel;
 
   public void initialize() {
 
     userProfile = UserProfileManager.loadUserInformation(userFilePath);
-    VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
+    VBox.setVgrow(layout, Priority.ALWAYS);
     layout.setEffect(new GaussianBlur(20));
 
-    Platform.runLater(() -> {
 
+    Platform.runLater(() -> {
       addDefaultStocks();
       animateWelcomeTextVisibility();
       setupViewBasedOnUser();
+      setTopGainList1();
+
       //setupInteractions();
     });
   }
+
+// Take the topFlopVolume and put in the list TO DO fix the problem with multiple API calls
+  public void setTopGainList1() {
+    AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
+    GlobalMarketInfo globalMarketInfo = alphaVantageClient.getGlobalMarketInfo();
+    DailyTopLists dailyTopLists = globalMarketInfo.getDailyTopLists();
+
+    List<TopListDataPoint> topGainers = dailyTopLists.getTopGainers();
+    List<TopListDataPoint> topLosers = dailyTopLists.getTopLosers();
+    List<TopListDataPoint> mostTraded = dailyTopLists.getMostTraded();
+
+    topGainList.getItems().clear();
+    topLooserList.getItems().clear();
+    volumeList.getItems().clear();
+
+    for (int i = 0; i < 4; i++) {
+      try {
+        if (topGainers.size() > i) {
+          TopListDataPoint topList = topGainers.get(i);
+          String topListSymbol = topList.getSymbol();
+          if (!alphaVantageClient.getStock(topListSymbol).getTimeSeriesDaily().getDailyData().isEmpty()) {
+            String topListName = alphaVantageClient.getStock(topListSymbol).getCompanyOverview().getName();
+            double topListPrice = alphaVantageClient.getStock(topListSymbol).getTimeSeriesDaily().getDailyData().get(0).getClose();
+            topGainList.getItems().add(topListName + "(" + topListSymbol + ")" + " | " + topListPrice);
+          }
+        }
+
+        if (topLosers.size() > i) {
+          TopListDataPoint flopList = topLosers.get(i);
+          String flopListSymbol = flopList.getSymbol();
+          if (!alphaVantageClient.getStock(flopListSymbol).getTimeSeriesDaily().getDailyData().isEmpty()) {
+            String flopListName = alphaVantageClient.getStock(flopListSymbol).getCompanyOverview().getName();
+            double flopListPrice = alphaVantageClient.getStock(flopListSymbol).getTimeSeriesDaily().getDailyData().get(0).getClose();
+            topLooserList.getItems().add(flopListName + "(" + flopListSymbol + ")" + " | " + flopListPrice);
+          }
+        }
+
+        if (mostTraded.size() > i) {
+          TopListDataPoint volumeLists = mostTraded.get(i);
+          String volumeListSymbol = volumeLists.getSymbol();
+          if (!alphaVantageClient.getStock(volumeListSymbol).getTimeSeriesDaily().getDailyData().isEmpty()) {
+            String volumeListName = alphaVantageClient.getStock(volumeListSymbol).getCompanyOverview().getName();
+            double volumeListPrice = alphaVantageClient.getStock(volumeListSymbol).getTimeSeriesDaily().getDailyData().get(0).getClose();
+            volumeList.getItems().add(volumeListName + "(" + volumeListSymbol + ")" + " | " + volumeListPrice);
+          }
+        }
+      } catch (Exception e) {
+        System.out.println("Error processing stock data for index " + i + ": " + e.getMessage());
+      }
+    }
+  }
+
+
+
+
 
   private void addDefaultStocks() {
     List<String> defaultStocks = Arrays.asList("AAPL", "AMZN", "GOOGL", "MSFT", "TSLA");
@@ -158,23 +225,16 @@ public class GUIHomeController {
   }
 
   public void handleAddStock(MouseEvent actionEvent) {
-    // You'll need to determine how you want to get the stock symbol.
-    // This could be from a text input dialog or by selecting a stock from a list.
-    // For example, let's assume we open a dialog and get a stock symbol back.
+
     TextInputDialog dialog = new TextInputDialog();
     dialog.setTitle("Add Favorite Stock");
     dialog.setHeaderText("Enter the stock symbol you wish to add to favorites:");
 
-    // Traditional way to get the response value.
     Optional<String> result = dialog.showAndWait();
     result.ifPresent(stockSymbol -> {
-      // Check if the stockSymbol is valid or not before adding.
-      // For simplicity, let's assume it's always valid.
       userProfile.addFavoriteStock(stockSymbol);
-      // Save the updated list of favorite stocks.
       UserProfileManager.saveUserInformation(userProfile, userFilePath);
 
-      // Update the view to reflect the new list of favorite stocks.
       updateView();
     });
   }
