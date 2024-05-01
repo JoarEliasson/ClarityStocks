@@ -20,21 +20,25 @@ public class LinearRegression {
 
     static AlphaVantageClient alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LD");
     String symbol;
-    double[][] dailyDataPoints;
+    String fiscalDateEndingMonth;
+    String description = "";
+    String descriptionPrediction = "";
     SimpleRegression simpleRegression;
     //AlphaVantageClient alphaVantageClient;
     TimeSeriesDaily timeSeriesDaily;
-    List<DailyDataPoint> data;
-    String description = "";
-    String descriptionPrediction = "";
-
     TimeSeriesMonthly timeSeriesMonthly;
-    TimeSeriesDaily getTimeSeriesDaily;
-    double[] closePricesArray;
-    List<DailyDataPoint> closePrices;
 
+   //might come to use later, however will not be implemented as of right now
+    //TimeSeriesDaily getTimeSeriesDaily;
+    double[] closePricesArray;
+    double[][] dailyDataPoints;
+    double[] netIncomeData;
+    double[] indexedNetIncome;
+    List<DailyDataPoint> data;
+    List<DailyDataPoint> closePrices;
     List<IncomeStatement> incomeStatements;
-    String fiscalDateEndingMonth;
+    List<IncomeStatement> reversedIncomeStatements;
+
 
     /**
      * Constructor for the LinearRegression class. Takes in an AlphaVantage Client and a stock symbol.
@@ -50,11 +54,13 @@ public class LinearRegression {
         setIncomeStatements(symbol);
         setTimeSeriesMonthly(symbol);
         setClosePrices();
-
+        reverseIncomeStatements();
+        setNetIncome();
+        indexNetIncome();
     }
 
     /**
-     * Method for getting the income statements of a company. Sorts the income statements
+     * Method for getting the income statements of a company.
      *
      * */
 
@@ -79,8 +85,46 @@ public class LinearRegression {
         }
     }
 
+    /**
+     * Method for sorting the income statements by reversing them, as we want the latest income statement to be first
+     * in the list.
+     * */
+    public void reverseIncomeStatements() {
+        reversedIncomeStatements = incomeStatements.reversed();
+    }
 
+    /**
+     * Method for setting the net income.
+     * */
+    public void setNetIncome() {
+       // System.out.println("NET INCOME");
+        netIncomeData = new double[closePricesArray.length];
+        int index = 0;
+        for (int i = 0; i < reversedIncomeStatements.size(); i++) {
+            netIncomeData[index] = reversedIncomeStatements.get(i).getNetIncome();
+          //  System.out.println(reversedIncomeStatements.get(i).getFiscalDateEnding() + " " + netIncomeData[index]);
+            index++;
+        }
+    }
 
+    /**
+     * Method for indexing the net income of a stock. Loops through a double array and calculates the index value
+     * by dividing each net income value by the first net income value. This indexes each net income value to the first
+     * value in the array. For each iteration the index value gets rounded to two decimal places, which is done by
+     * multiplying the index value by 100, which rounds it to the nearest integer, then it divides it back by 100
+     * to obtain the rounded value with two decimal places.
+     * The index income is then set to the rounded value in the array.
+     * */
+
+    public void indexNetIncome() {
+        indexedNetIncome = new double[closePricesArray.length];
+        for (int i = 0; i < indexedNetIncome.length; i++) {
+            double indexValue = netIncomeData[i] / netIncomeData[0];
+            double roundedValue = Math.round(indexValue * 100.0) / 100.0;
+            indexedNetIncome[i] = roundedValue;
+            System.out.println(indexedNetIncome[i]);
+        }
+    }
 
     /**
      * Method for getting the time series of the stock on a monthly basis
