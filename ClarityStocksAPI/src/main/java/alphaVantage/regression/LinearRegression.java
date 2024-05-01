@@ -64,11 +64,11 @@ public class LinearRegression {
 
     /**
      * Method for setting the closing prices of a stock. Has a for-loop which loops through all the close prices
-     * and sets the closePricesArray at that particular index to the adjusted closing price of the stock. The
-     * adjusted stock price is necessary as there could be stock-splits which means that a company divides their stocks
-     * so that more shares are created, making the price of the stock lower. If this is not considered, the analysis
-     * will be incorrect. The adjusted close means that the historical prices are compared to the current prices and
-     * takes into consideration stock-splits.
+     * and sets the double array with the closing prices  at that particular index to the adjusted closing price of
+     * the stock. The adjusted stock price is necessary as there could be stock-splits which means that a company
+     * divides their stocks so that more shares are created, making the price of the stock lower. If this is not
+     * considered, the analysis will be incorrect. The adjusted close means that the historical prices are compared to
+     * the current prices and takes into consideration stock-splits.
      * */
     public void setClosePrices() {
         closePrices = timeSeriesMonthly.getMonthlyClosePrices(fiscalDateEndingMonth, incomeStatements.size());
