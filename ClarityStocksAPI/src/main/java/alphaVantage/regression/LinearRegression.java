@@ -38,6 +38,9 @@ public class LinearRegression {
     private List<DailyDataPoint> closePrices;
     private List<IncomeStatement> incomeStatements;
     private List<IncomeStatement> reversedIncomeStatements;
+    private double rSquare;
+    //array of linear regression objects
+    private SimpleRegression[] linearRegressionAnalysis;
 
     /**
      * Constructor for the LinearRegression class. Takes in an AlphaVantage Client and a stock symbol.
@@ -56,7 +59,7 @@ public class LinearRegression {
         setNetIncome();
         indexNetIncome();
         linearRegressionNetIncome();
-        getDescription();
+        System.out.println(getDescription());
     }
 
     /**
@@ -137,6 +140,19 @@ public class LinearRegression {
      * Method which creates a linear regression analysis on the net income of the company og the stock. Adds data from
      * a 2D array with value pairs into the regression.
      * */
+
+
+    //universal method for several kinds of data, should not just be net income but work for other statistics
+    /** send in income statement array instead of alpha vantage client, or a stock object (array of regression?)
+     * 2d array linear regression object, send in stock object.
+     * make several linear regression on different statistics, and then get the top 3 for example with the highest values
+     * cashflow report, balance sheet <-- wait with these
+     * earnings yearly (more difficult because of dates (quarterly), see if can make yearly)
+     *
+     * incomestatement variables
+     * regressiondata for each incomestatement variable
+     * run a linear regression on each variable
+     * */
     private void linearRegressionNetIncome() {
         netIncomeReg = new SimpleRegression();
         for (int i = 0; i < closePricesArray.length; i++) {
@@ -144,6 +160,9 @@ public class LinearRegression {
             netIncomeReg.addData(indexedNetIncome[i], closePricesArray[i]);
         }
     }
+
+
+
 
     /**
      * Method which creates the value pairs used for the linear regression analysis. In linear regression, there needs
@@ -175,6 +194,7 @@ public class LinearRegression {
      * @returns a String.
      * */
     private String getDescription() {
+        rSquare = netIncomeReg.getRSquare();
         return description = "The R is: " + netIncomeReg.getR() + "." +
         "\n" + "R is the Pearson's product moment correlation coefficient. It measures the linear relationship " +
         "between two variables. " +
