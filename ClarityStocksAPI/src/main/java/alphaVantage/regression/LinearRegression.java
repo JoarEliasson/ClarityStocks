@@ -1,7 +1,9 @@
 package alphaVantage.regression;
 
+import alphaVantage.model.data.fundamental.IncomeStatement;
 import alphaVantage.model.data.series.DailyDataPoint;
 import alphaVantage.model.data.series.TimeSeriesDaily;
+import alphaVantage.model.data.series.TimeSeriesMonthly;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import alphaVantage.controller.AlphaVantageClient;
 import java.util.Date;
@@ -26,6 +28,14 @@ public class LinearRegression {
     String description = "";
     String descriptionPrediction = "";
 
+    TimeSeriesMonthly timeSeriesMonthly;
+    TimeSeriesDaily getTimeSeriesDaily;
+    double[] closePricesArray;
+    List<DailyDataPoint> closePrices;
+
+    List<IncomeStatement> incomeStatements;
+    String fiscalDateEndingMonth;
+
     /**
      * Constructor for the LinearRegression class. Takes in an AlphaVantage Client and a stock symbol.
      *
@@ -37,8 +47,48 @@ public class LinearRegression {
         timeSeriesDaily = alphaVantageClient.getTimeSeriesDaily(symbol);
         data = timeSeriesDaily.getDailyDataInRange(start.toString(), end.toString());
         linearRegression(data);
+        setIncomeStatements(symbol);
+        setTimeSeriesMonthly(symbol);
+        setClosePrices();
+
     }
 
+    /**
+     * Method for getting the income statements of a company. Sorts the income statements
+     *
+     * */
+
+    public void setIncomeStatements(String symbol) {
+        incomeStatements = alphaVantageClient.getIncomeStatements(symbol);
+    }
+
+    /**
+     * Method for setting the closing prices of a stock. Has a for-loop which loops through all the close prices
+     * and sets the closePricesArray at that particular index to the adjusted closing price of the stock. The
+     * adjusted stock price is necessary as there could be stock-splits which means that a company divides their stocks
+     * so that more shares are created, making the price of the stock lower. If this is not considered, the analysis
+     * will be incorrect. The adjusted close means that the historical prices are compared to the current prices and
+     * takes into consideration stock-splits.
+     * */
+    public void setClosePrices() {
+        closePrices = timeSeriesMonthly.getMonthlyClosePrices(fiscalDateEndingMonth, incomeStatements.size());
+        closePricesArray = new double[closePrices.size()];
+        for (int i = 0; i < closePrices.size(); i++) {
+            System.out.println(closePrices.get(i).getDate() + " " + closePrices.get(i).getAdjustedClose());
+            closePricesArray[i] = closePrices.get(i).getAdjustedClose();
+        }
+    }
+
+
+
+
+    /**
+     * Method for getting the time series of the stock on a monthly basis
+     * */
+    public void setTimeSeriesMonthly(String symbol) {
+        timeSeriesMonthly = alphaVantageClient.getTimeSeriesMonthly(symbol);
+        fiscalDateEndingMonth = incomeStatements.getLast().getFiscalDateEnding().split("-")[1];
+    }
     /**
      * Method which creates a linear regression analysis. Adds data from a 2D array with value pairs into the
      * regression.
