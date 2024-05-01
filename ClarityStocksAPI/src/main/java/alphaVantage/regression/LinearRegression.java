@@ -23,14 +23,14 @@ public class LinearRegression {
     private String fiscalDateEndingMonth;
     private String description = "";
     private String descriptionPrediction = "";
-    private SimpleRegression simpleRegression;
+    private SimpleRegression netIncomeReg;
     //AlphaVantageClient alphaVantageClient;
     private TimeSeriesDaily timeSeriesDaily;
     private TimeSeriesMonthly timeSeriesMonthly;
 
    //might come to use later, however will not be implemented as of right now
-    //TimeSeriesDaily getTimeSeriesDaily;
-   private double[] closePricesArray;
+    //private TimeSeriesDaily getTimeSeriesDaily;
+    private double[] closePricesArray;
     private double[][] dailyDataPoints;
     private double[] netIncomeData;
     private double[] indexedNetIncome;
@@ -39,24 +39,24 @@ public class LinearRegression {
     private List<IncomeStatement> incomeStatements;
     private List<IncomeStatement> reversedIncomeStatements;
 
-
     /**
      * Constructor for the LinearRegression class. Takes in an AlphaVantage Client and a stock symbol.
      *
      */
-    public LinearRegression(String symbol, AlphaVantageClient alphaVantageClient,
-        Date start, Date end) {
+    public LinearRegression(String symbol, AlphaVantageClient alphaVantageClient) {
         this.symbol = symbol;
         //this.alphaVantageClient = alphaVantageClient;
-        timeSeriesDaily = alphaVantageClient.getTimeSeriesDaily(symbol);
-        data = timeSeriesDaily.getDailyDataInRange(start.toString(), end.toString());
-        linearRegression(data);
+       // timeSeriesDaily = alphaVantageClient.getTimeSeriesDaily(symbol);
+        //data = timeSeriesDaily.getDailyDataInRange(start.toString(), end.toString());
+       // linearRegression(data);
         setIncomeStatements(symbol);
         setTimeSeriesMonthly(symbol);
         setClosePrices();
         reverseIncomeStatements();
         setNetIncome();
         indexNetIncome();
+        linearRegressionNetIncome();
+        getDescription();
     }
 
     /**
@@ -134,16 +134,16 @@ public class LinearRegression {
         fiscalDateEndingMonth = incomeStatements.getLast().getFiscalDateEnding().split("-")[1];
     }
     /**
-     * Method which creates a linear regression analysis. Adds data from a 2D array with value pairs into the
-     * regression.
+     * Method which creates a linear regression analysis on the net income of the company og the stock. Adds data from
+     * a 2D array with value pairs into the regression.
      * */
-    private void linearRegression(List<DailyDataPoint> data) {
-        simpleRegression = new SimpleRegression(true);
-        dailyDataPoints = createXYValues(data);
-        simpleRegression.addData(dailyDataPoints);
+    private void linearRegressionNetIncome() {
+        netIncomeReg = new SimpleRegression();
+        for (int i = 0; i < closePricesArray.length; i++) {
+            System.out.println("Net Income: " + indexedNetIncome[i] + " Close Price: " + closePricesArray[i]);
+            netIncomeReg.addData(indexedNetIncome[i], closePricesArray[i]);
+        }
     }
-
-    private void
 
     /**
      * Method which creates the value pairs used for the linear regression analysis. In linear regression, there needs
@@ -167,7 +167,7 @@ public class LinearRegression {
      * */
     private String predict(double prediction) {
         return descriptionPrediction = "The prediction for " + prediction + " is " +
-        simpleRegression.predict(prediction);
+        netIncomeReg.predict(prediction);
     }
 
     /**
@@ -175,14 +175,14 @@ public class LinearRegression {
      * @returns a String.
      * */
     private String getDescription() {
-        return description = "The R is: " + simpleRegression.getR() + "." +
+        return description = "The R is: " + netIncomeReg.getR() + "." +
         "\n" + "R is the Pearson's product moment correlation coefficient. It measures the linear relationship " +
         "between two variables. " +
         "\nThe coefficient ranges from -1 to 1, where: " +
         "\n1 indicates a perfect positive linear relationship." +
         "\n-1 indicates a perfect negative linear relationship." +
         "\n0 indicates no linear relationship." +
-        "\n" + "The R-square is: " + simpleRegression.getRSquare() + "." +
+        "\n" + "The R-square is: " + netIncomeReg.getRSquare() + "." +
         "\n" + "R-square is the coefficient of determination. It represents the proportion of the variance in the " +
         "dependent variable that is predictable from the independent variables. It indicates how well the " +
         "independent variables explain the variability of the dependent variable." +
@@ -191,10 +191,10 @@ public class LinearRegression {
         "variable." +
         "\n1 indicates that the independent variables perfectly explain all the variability of the dependent " +
         "variable." +
-        "The slope is: " + simpleRegression.getSlope() + "." +
+        "The slope is: " + netIncomeReg.getSlope() + "." +
         "\nThe slope represents the rate of change in the dependent variable for a one-unit change in the " +
         "independent variable. It quantifies the effect of the independent variable on the dependent variable." +
-        "\nThe significance is: " + simpleRegression.getSignificance() + "." +
+        "\nThe significance is: " + netIncomeReg.getSignificance() + "." +
         "\nSignificance is the statistical significance of the estimated coefficients. It indicated whether these " +
         "coefficients are reliably different from 0." +
         "\nA significance level less than 0.05 / 5% indicates that the coefficient is statistically significant, " +
@@ -207,12 +207,7 @@ public class LinearRegression {
      * now.
      * */
     public static void main(String[] args) {
-        System.out.println("Test");
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -1);
-        Date start = cal.getTime();
-        Date end = cal.getTime();
-        LinearRegression linearRegression = new LinearRegression("Apple", alphaVantageClient,start, end);
-        System.out.println(linearRegression.getDescription());
+        LinearRegression linearRegression = new LinearRegression("AAPL", alphaVantageClient);
+
     }
 }
