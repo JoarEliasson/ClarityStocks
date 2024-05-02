@@ -76,7 +76,7 @@ public class LinearRegressionAnalysis {
    * */
   private void makeLinearRegressions() {
     for(int i = 0; i < linearRegressions.length; i++) {
-      linearRegressions[i] = new LinearRegression(symbol, );
+      linearRegressions[i] = new LinearRegression(symbol,alphaVantageClient, incomeStatementsList.get(i));
     }
   }
 

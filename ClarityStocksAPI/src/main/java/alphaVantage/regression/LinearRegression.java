@@ -23,7 +23,10 @@ public class LinearRegression {
     private String fiscalDateEndingMonth;
     private String description = "";
     private String descriptionPrediction = "";
-    private SimpleRegression netIncomeReg;
+
+    //changed this to linear regression as we will use this as a general class for making simple regressions, not just
+    //one
+    private SimpleRegression linearRegression;
     //AlphaVantageClient alphaVantageClient;
     private TimeSeriesDaily timeSeriesDaily;
     private TimeSeriesMonthly timeSeriesMonthly;
@@ -32,8 +35,8 @@ public class LinearRegression {
     //private TimeSeriesDaily getTimeSeriesDaily;
     private double[] closePricesArray;
     private double[][] dailyDataPoints;
-    private double[] netIncomeData;
-    private double[] indexedNetIncome;
+    private double[] incomeData;
+    private double[] indexedIncomeData;
     private List<DailyDataPoint> data;
     private List<DailyDataPoint> closePrices;
     private List<IncomeStatement> incomeStatements;
@@ -46,7 +49,7 @@ public class LinearRegression {
      * Constructor for the LinearRegression class. Takes in an AlphaVantage Client and a stock symbol.
      *
      */
-    public LinearRegression(String symbol, AlphaVantageClient alphaVantageClient) {
+    public LinearRegression(String symbol, AlphaVantageClient alphaVantageClient, long incomeStatement) {
         this.symbol = symbol;
         //this.alphaVantageClient = alphaVantageClient;
        // timeSeriesDaily = alphaVantageClient.getTimeSeriesDaily(symbol);
@@ -56,9 +59,9 @@ public class LinearRegression {
         setTimeSeriesMonthly(symbol);
         setClosePrices();
         reverseIncomeStatements();
-        setNetIncome();
-        indexNetIncome();
-        linearRegressionNetIncome();
+        setIncomeData();
+        indexIncomeData();
+        linearRegressionIncomeData();
         System.out.println(getDescription());
     }
 
@@ -79,6 +82,8 @@ public class LinearRegression {
      * considered, the analysis will be incorrect. The adjusted close means that the historical prices are compared to
      * the current prices and takes into consideration stock-splits.
      * */
+
+    //need to create a more general method for this which works with more kinds of income statements
     private void setClosePrices() {
         closePrices = timeSeriesMonthly.getMonthlyClosePrices(fiscalDateEndingMonth, incomeStatements.size());
         closePricesArray = new double[closePrices.size()];
@@ -99,12 +104,12 @@ public class LinearRegression {
     /**
      * Method for setting the net income.
      * */
-    private void setNetIncome() {
+    private void setIncomeData() {
        // System.out.println("NET INCOME");
-        netIncomeData = new double[closePricesArray.length];
+        incomeData = new double[closePricesArray.length];
         int index = 0;
         for (int i = 0; i < reversedIncomeStatements.size(); i++) {
-            netIncomeData[index] = reversedIncomeStatements.get(i).getNetIncome();
+            incomeData[index] = reversedIncomeStatements.get(i).getNetIncome();
           //  System.out.println(reversedIncomeStatements.get(i).getFiscalDateEnding() + " " + netIncomeData[index]);
             index++;
         }
@@ -118,14 +123,13 @@ public class LinearRegression {
      * to obtain the rounded value with two decimal places.
      * The index income is then set to the rounded value in the array.
      * */
-
-    private void indexNetIncome() {
-        indexedNetIncome = new double[closePricesArray.length];
-        for (int i = 0; i < indexedNetIncome.length; i++) {
-            double indexValue = netIncomeData[i] / netIncomeData[0];
+    private void indexIncomeData() {
+        indexedIncomeData = new double[closePricesArray.length];
+        for (int i = 0; i < indexedIncomeData.length; i++) {
+            double indexValue = indexedIncomeData[i] / indexedIncomeData[0];
             double roundedValue = Math.round(indexValue * 100.0) / 100.0;
-            indexedNetIncome[i] = roundedValue;
-            System.out.println(indexedNetIncome[i]);
+            indexedIncomeData[i] = roundedValue;
+            System.out.println(indexedIncomeData[i]);
         }
     }
 
@@ -153,16 +157,13 @@ public class LinearRegression {
      * regressiondata for each incomestatement variable
      * run a linear regression on each variable
      * */
-    private void linearRegressionNetIncome() {
-        netIncomeReg = new SimpleRegression();
+    private void linearRegressionIncomeData() {
+        linearRegression = new SimpleRegression();
         for (int i = 0; i < closePricesArray.length; i++) {
-            System.out.println("Net Income: " + indexedNetIncome[i] + " Close Price: " + closePricesArray[i]);
-            netIncomeReg.addData(indexedNetIncome[i], closePricesArray[i]);
+            System.out.println("Net Income: " + indexedIncomeData[i] + " Close Price: " + closePricesArray[i]);
+            linearRegression.addData(indexedIncomeData[i], closePricesArray[i]);
         }
     }
-
-
-
 
     /**
      * Method which creates the value pairs used for the linear regression analysis. In linear regression, there needs
@@ -186,7 +187,7 @@ public class LinearRegression {
      * */
     private String predict(double prediction) {
         return descriptionPrediction = "The prediction for " + prediction + " is " +
-        netIncomeReg.predict(prediction);
+        linearRegression.predict(prediction);
     }
 
     /**
@@ -194,15 +195,15 @@ public class LinearRegression {
      * @returns a String.
      * */
     private String getDescription() {
-        rSquare = netIncomeReg.getRSquare();
-        return description = "The R is: " + netIncomeReg.getR() + "." +
+        rSquare = linearRegression.getRSquare();
+        return description = "The R is: " + linearRegression.getR() + "." +
         "\n" + "R is the Pearson's product moment correlation coefficient. It measures the linear relationship " +
         "between two variables. " +
         "\nThe coefficient ranges from -1 to 1, where: " +
         "\n1 indicates a perfect positive linear relationship." +
         "\n-1 indicates a perfect negative linear relationship." +
         "\n0 indicates no linear relationship." +
-        "\n" + "The R-square is: " + netIncomeReg.getRSquare() + "." +
+        "\n" + "The R-square is: " + linearRegression.getRSquare() + "." +
         "\n" + "R-square is the coefficient of determination. It represents the proportion of the variance in the " +
         "dependent variable that is predictable from the independent variables. It indicates how well the " +
         "independent variables explain the variability of the dependent variable." +
@@ -211,10 +212,10 @@ public class LinearRegression {
         "variable." +
         "\n1 indicates that the independent variables perfectly explain all the variability of the dependent " +
         "variable." +
-        "The slope is: " + netIncomeReg.getSlope() + "." +
+        "The slope is: " + linearRegression.getSlope() + "." +
         "\nThe slope represents the rate of change in the dependent variable for a one-unit change in the " +
         "independent variable. It quantifies the effect of the independent variable on the dependent variable." +
-        "\nThe significance is: " + netIncomeReg.getSignificance() + "." +
+        "\nThe significance is: " + linearRegression.getSignificance() + "." +
         "\nSignificance is the statistical significance of the estimated coefficients. It indicated whether these " +
         "coefficients are reliably different from 0." +
         "\nA significance level less than 0.05 / 5% indicates that the coefficient is statistically significant, " +
