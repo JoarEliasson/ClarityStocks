@@ -1,19 +1,28 @@
 package alphaVantage.regression;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 /**
- * Interface which all the linear regression classes implements. The interface contains methods which can be applied
- * generally for linear regressions to be made.
+ * Interface which all the linear regression calculator classes implements. The interface contains
+ * methods which can be applied generally for linear regressions to be made.
  *
- * not sure yet if this interface should be implemented
- * @author Olivia Svensson
- * */
+ * @author Olivia Svensson, Joar Eliasson
+ */
 public interface LinearRegressions {
-    public void setIncomeStatements(String symbol);
-    public void setClosePrices();
-    public void reverseIncomeStatements();
-    public void setIncomeData();
-    public void indexIncomeData();
-    public void setTimeSeriesMonthly(String symbol);
-    public void linearRegressionIncomeData();
-    public String getDescription();
-    }
+
+  void fetchAdjustedData(String fiscalDateEnding);
+
+  void reverseVariableData();
+
+  long[] getVariableData(IncomeStatementVariable variable);
+
+  double[] getIndexedVariableData(long[] variableData);
+
+  SimpleRegression getRegression(String variableName, double[] indexedVariableData);
+
+  String fetchDescription(SimpleRegression regression, String variableName);
+
+  String fetchPrediction(double independentVariable, SimpleRegression regression);
+
+  RegressionResult runRegression(IncomeStatementVariable variable);
+}

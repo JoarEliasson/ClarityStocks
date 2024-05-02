@@ -48,8 +48,9 @@ public class AlphaVantageClient {
     //stock.setIncomeStatements(getIncomeStatements(symbol));
     //stock.setBalanceSheets(getBalanceSheet(symbol));
     //stock.setCashFlowReports(getCashFlowReports(symbol));
-    //stock.setEarningsData(getEarningsData(symbol));
+    stock.setEarningsData(getEarningsData(symbol));
     stock.runEvaluations();
+    stock.runAnalyses();
     return stock;
   }
 

@@ -3,6 +3,21 @@ package alphaVantage.model;
 import alphaVantage.model.data.fundamental.*;
 import alphaVantage.model.data.series.*;
 import analysis.model.evaluations.*;
+import alphaVantage.model.data.fundamental.BalanceSheet;
+import alphaVantage.model.data.fundamental.CashFlowReport;
+import alphaVantage.model.data.fundamental.CompanyOverview;
+import alphaVantage.model.data.fundamental.EarningsData;
+import alphaVantage.model.data.fundamental.IncomeStatement;
+import alphaVantage.model.data.series.TimeSeriesDaily;
+import alphaVantage.model.data.series.TimeSeriesMonthly;
+import alphaVantage.regression.RegressionAnalysis;
+import analysis.model.evaluations.BusinessPerformanceEvaluation;
+import analysis.model.evaluations.CompanyGrowthEvaluation;
+import analysis.model.evaluations.CompanySizeEvaluation;
+import analysis.model.evaluations.DividendEvaluation;
+import analysis.model.evaluations.GoldenCrossEvaluation;
+import analysis.model.evaluations.HighAndLow;
+import analysis.model.evaluations.PERatioEvaluation;
 import java.util.List;
 
 /**
@@ -35,6 +50,11 @@ public class AlphaVantageStock {
   private GoldenCrossEvaluation goldenCrossEvaluation;
 
   /**
+   * Analysis variables.
+   */
+  private RegressionAnalysis regressionAnalysis;
+
+  /**
    * This method runs all evaluations on the retrieved stock data. The evaluations are stored as
    * instance variables in the class.
    */
@@ -46,6 +66,10 @@ public class AlphaVantageStock {
     evaluateDividend();
     evaluateGoldenCross();
     evaluateHighAndLow();
+  }
+
+  public void runAnalyses() {
+    runRegressionAnalysis();
   }
 
   /**
@@ -133,6 +157,14 @@ public class AlphaVantageStock {
         companyOverview.getSymbol(),
         companyOverview.getWeek52High(),
         companyOverview.getWeek52Low()
+    );
+  }
+
+  private void runRegressionAnalysis() {
+    regressionAnalysis = new RegressionAnalysis(
+        companyOverview.getSymbol(),
+        incomeStatements,
+        timeSeriesMonthly
     );
   }
 
