@@ -1,8 +1,8 @@
 package SE.ClarityStocksGUI.controller;
 
-import SE.ClarityStocksGUI.controller.graphControllers.GUIStockLineGraphController;
-import SE.ClarityStocksGUI.controller.stockViewTiles.InfoTile;
-import SE.ClarityStocksGUI.controller.stockViewTiles.RatingsTile;
+import SE.ClarityStocksGUI.controller.graph.GUIStockLineGraphController;
+import SE.ClarityStocksGUI.controller.tile.InfoTile;
+import SE.ClarityStocksGUI.controller.tile.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
 import alphaVantage.controller.AlphaVantageClient;
 import alphaVantage.model.AlphaVantageStock;

@@ -5,7 +5,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="SE.ClarityStocksGUI.controller.stockViewTiles.InfoTile"
+            fx:controller="SE.ClarityStocksGUI.controller.tile.InfoTile"
             maxWidth="1050">
     <Label fx:id="nameLabel" styleClass="stockName" text="test" wrapText="true"/>
     <Label fx:id="sectorLabel" styleClass="sectorLabel" text="test" wrapText="true"/>

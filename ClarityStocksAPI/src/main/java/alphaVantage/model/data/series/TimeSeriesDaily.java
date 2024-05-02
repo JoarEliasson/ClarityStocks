@@ -15,6 +15,9 @@ public class TimeSeriesDaily {
   }
 
   public List<DailyDataPoint> getDailyDataInRange(String startDate, String endDate) {
+    if (startDate == null || endDate == null) {
+      return dailyData;
+    }
     List<DailyDataPoint> dataInRange = new ArrayList<>();
     for (DailyDataPoint dataPoint : dailyData) {
       if (dataPoint.getDate().compareTo(startDate) >= 0 &&

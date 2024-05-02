@@ -16,14 +16,14 @@ module SE.ClarityStocksGUI {
   requires eu.hansolo.medusa;
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
-  opens SE.ClarityStocksGUI.controller.stockViewTiles;
+  opens SE.ClarityStocksGUI.controller.tile;
   opens SE.ClarityStocksGUI.controller to javafx.fxml;
   opens SE.ClarityStocksGUI to javafx.fxml;
-  opens SE.ClarityStocksGUI.controller.graphControllers to javafx.fxml;
+  opens SE.ClarityStocksGUI.controller.graph to javafx.fxml;
 
   exports SE.ClarityStocksGUI.view;
   exports SE.ClarityStocksGUI.controller;
-  exports SE.ClarityStocksGUI.controller.stockViewTiles;
+  exports SE.ClarityStocksGUI.controller.tile;
   exports SE.ClarityStocksGUI;
-  exports SE.ClarityStocksGUI.controller.graphControllers;
+  exports SE.ClarityStocksGUI.controller.graph;
 }

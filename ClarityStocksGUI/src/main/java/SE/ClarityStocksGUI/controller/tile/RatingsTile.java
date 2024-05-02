@@ -1,4 +1,4 @@
-package SE.ClarityStocksGUI.controller.stockViewTiles;
+package SE.ClarityStocksGUI.controller.tile;
 
 import java.util.ArrayList;
 import javafx.fxml.FXML;

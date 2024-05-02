@@ -40,7 +40,7 @@
             <StackPane>
               <Rectangle fill="#d9d9d9" height="400" width="425" fx:id="statBackground"
                 styleClass="backgroundPanelStockView"/>
-                <fx:include source="ratings-tile.fxml" fx:id="ratingsTile"/>
+                <fx:include source="Ratings-tile.fxml" fx:id="ratingsTile"/>
             </StackPane>
 
           </VBox>

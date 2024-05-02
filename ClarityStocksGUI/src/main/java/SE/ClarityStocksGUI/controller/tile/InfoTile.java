@@ -1,4 +1,4 @@
-package SE.ClarityStocksGUI.controller.stockViewTiles;
+package SE.ClarityStocksGUI.controller.tile;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

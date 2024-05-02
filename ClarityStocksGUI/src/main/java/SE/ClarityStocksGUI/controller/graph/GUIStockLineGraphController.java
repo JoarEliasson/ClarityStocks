@@ -1,4 +1,4 @@
-package SE.ClarityStocksGUI.controller.graphControllers;
+package SE.ClarityStocksGUI.controller.graph;
 
 import alphaVantage.model.AlphaVantageStock;
 import alphaVantage.model.data.series.DailyDataPoint;
