@@ -16,7 +16,7 @@ import java.util.Calendar;
  * regression.
  * @author Olivia Svensson
  * */
-public class LinearRegression {
+public class LinearRegression implements LinearRegressions{
 
     static AlphaVantageClient alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LD");
     private String symbol;
@@ -70,7 +70,7 @@ public class LinearRegression {
      *
      * */
 
-    private void setIncomeStatements(String symbol) {
+    public void setIncomeStatements(String symbol) {
         incomeStatements = alphaVantageClient.getIncomeStatements(symbol);
     }
 
@@ -84,7 +84,7 @@ public class LinearRegression {
      * */
 
     //need to create a more general method for this which works with more kinds of income statements
-    private void setClosePrices() {
+    public void setClosePrices() {
         closePrices = timeSeriesMonthly.getMonthlyClosePrices(fiscalDateEndingMonth, incomeStatements.size());
         closePricesArray = new double[closePrices.size()];
         for (int i = 0; i < closePrices.size(); i++) {
@@ -97,14 +97,14 @@ public class LinearRegression {
      * Method for sorting the income statements by reversing them, as we want the latest income statement to be first
      * in the list.
      * */
-    private void reverseIncomeStatements() {
+    public void reverseIncomeStatements() {
         reversedIncomeStatements = incomeStatements.reversed();
     }
 
     /**
      * Method for setting the net income.
      * */
-    private void setIncomeData() {
+    public void setIncomeData() {
        // System.out.println("NET INCOME");
         incomeData = new double[closePricesArray.length];
         int index = 0;
@@ -123,7 +123,7 @@ public class LinearRegression {
      * to obtain the rounded value with two decimal places.
      * The index income is then set to the rounded value in the array.
      * */
-    private void indexIncomeData() {
+    public void indexIncomeData() {
         indexedIncomeData = new double[closePricesArray.length];
         for (int i = 0; i < indexedIncomeData.length; i++) {
             double indexValue = indexedIncomeData[i] / indexedIncomeData[0];
@@ -136,7 +136,7 @@ public class LinearRegression {
     /**
      * Method for getting the time series of the stock on a monthly basis
      * */
-    private void setTimeSeriesMonthly(String symbol) {
+    public void setTimeSeriesMonthly(String symbol) {
         timeSeriesMonthly = alphaVantageClient.getTimeSeriesMonthly(symbol);
         fiscalDateEndingMonth = incomeStatements.getLast().getFiscalDateEnding().split("-")[1];
     }
@@ -157,7 +157,7 @@ public class LinearRegression {
      * regressiondata for each incomestatement variable
      * run a linear regression on each variable
      * */
-    private void linearRegressionIncomeData() {
+    public void linearRegressionIncomeData() {
         linearRegression = new SimpleRegression();
         for (int i = 0; i < closePricesArray.length; i++) {
             System.out.println("Net Income: " + indexedIncomeData[i] + " Close Price: " + closePricesArray[i]);
@@ -194,7 +194,7 @@ public class LinearRegression {
      * Method for getting a simple description of the linear regression analysis of a specific stock.
      * @returns a String.
      * */
-    private String getDescription() {
+    public String getDescription() {
         rSquare = linearRegression.getRSquare();
         return description = "The R is: " + linearRegression.getR() + "." +
         "\n" + "R is the Pearson's product moment correlation coefficient. It measures the linear relationship " +
