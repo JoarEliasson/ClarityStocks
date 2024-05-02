@@ -21,9 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GUIMainApplication extends Application {
-
-  private Scene homeView;
-  private Scene stockView;
   private Scene mainView;
   private Stage stage;
   private GUIMainController mainController;
@@ -33,14 +30,14 @@ public class GUIMainApplication extends Application {
   public void start(Stage stage) throws IOException {
 
     this.stage = stage;
-    //stage.getIcons().add(new Image(
-    //    getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png")
-    //        .toExternalForm()));
+    stage.getIcons().add(new Image(
+        getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png")
+            .toExternalForm()));
     guiMainApplication = this;
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
     //Setting up the Home view
 
-    FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml")); //SLOW AF?
+    FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
     mainView = new Scene(mainLoader.load(), 1280, 720);
     mainView.getStylesheets().add(css);
     mainController = mainLoader.getController();
@@ -66,63 +63,6 @@ public class GUIMainApplication extends Application {
     System.out.println("Program should be visible");
 
   }
-
-  public double getHeight() {
-    return stage.getHeight();
-  }
-
-  public double getWidth() {
-    return stage.getWidth();
-  }
-
-  public void setHeight(double height) {
-    stage.setHeight(height);
-  }
-
-  public void setWidth(double width) {
-    stage.setWidth(width);
-  }
-    /*
-
-    public void sceneSwitch(){
-        double height = stage.getHeight();
-        double width = stage.getWidth();
-        stage.setHeight(height);
-        stage.setWidth(width);
-    }
-
-    public void goToStockView(){
-        double height = stage.getHeight();
-        double width = stage.getWidth();
-        stockViewController.loadStockView("TSLA");
-
-        stage.setHeight(height);
-        stage.setWidth(width);
-        stage.setScene(stockView);
-
-    }
-
-    public void goToHomeView(){
-        double height = stage.getHeight();
-        double width = stage.getWidth();
-
-        stage.setHeight(height);
-        stage.setWidth(width);
-        try {
-            stage.setScene(homeView);
-
-        }catch (ClassCastException e){
-
-        }
-
-    }
-
-     */
-
-  public static GUIMainApplication getInstance() {
-    return guiMainApplication;
-  }
-
   public static void main(String[] args) {
         /*
             All logging is disabled because of a bug in an external library that gives tons of error messages when

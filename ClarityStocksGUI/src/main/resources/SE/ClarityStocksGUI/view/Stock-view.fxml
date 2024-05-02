@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.geometry.Insets?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.SearchableComboBox?>
-<?import javafx.scene.text.Text?>
 <VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/fxml/21"
   xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController"
