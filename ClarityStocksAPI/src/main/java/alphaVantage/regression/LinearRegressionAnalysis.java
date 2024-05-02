@@ -4,6 +4,8 @@ import alphaVantage.controller.AlphaVantageClient;
 import alphaVantage.model.data.fundamental.IncomeStatement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ public class LinearRegressionAnalysis {
   private IncomeStatement incomeStatement;
   private AlphaVantageClient alphaVantageClient;
   private String symbol;
+  private String rSquareDescription = "";
   private ArrayList<Long> incomeStatementsList;
   private int numberOfIncomeStatements;
   private List<String> results = new ArrayList<>();
@@ -79,5 +82,50 @@ public class LinearRegressionAnalysis {
       linearRegressions[i] = new LinearRegression(symbol,alphaVantageClient, incomeStatementsList.get(i));
     }
   }
+
+  /**
+   * Method which sorts the linear regressions array to an ascending order based on the regressions r-square value.
+   * The r-square value is an indicator to show which income statements have the highest correlation with the price of
+   * the stock.
+   * */
+  private String sortByRSquare() {
+    /*
+    double[] rSquareArray = new double[linearRegressions.length];
+    for(int i = 0; i < linearRegressions.length; i++) {
+      rSquareArray[i] = linearRegressions[i].getRSquare();
+    }
+    //sorts in ascending order
+    Arrays.sort(rSquareArray);
+  //sort array into descending order
+    int count = 0;
+    double[] rSquareArrayDesc = new double[linearRegressions.length];
+    for(int i = rSquareArray.length; i > 0; i--) {
+      rSquareArrayDesc[count] = rSquareArray[i];
+      count++;
+    }
+
+     */
+
+    //bubble sort algorithm
+    int n = linearRegressions.length;
+    double temp = 0.0;
+    for(int i = 0; i < n; i++) {
+      for(int j = 1; j < (n - i); j++) {
+        if(linearRegressions[j-1].getRSquare() > linearRegressions[j].getRSquare()) {
+          temp = linearRegressions[j-1].getRSquare();
+          linearRegressions[j-1] = linearRegressions[j];
+          linearRegressions[j].setRSquare(temp);
+        }
+      }
+    }
+
+    return rSquareDescription = "The highest r-square values are: \n" + linearRegressions[0].getRSquare() + " from " +
+       linearRegressions[0] +  ". \n" +
+       linearRegressions[1].getRSquare() + " from " + linearRegressions[1] +  ". \n" +
+      linearRegressions[2].getRSquare() + " from " + linearRegressions[2] +  ".";
+
+
+  }
+
 
 }

@@ -6,9 +6,8 @@ import alphaVantage.model.data.series.TimeSeriesDaily;
 import alphaVantage.model.data.series.TimeSeriesMonthly;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import alphaVantage.controller.AlphaVantageClient;
-import java.util.Date;
+
 import java.util.List;
-import java.util.Calendar;
 
 /**
  * Class for implementing a linear regression. Linear regression is used for predicting the future price of the stock
@@ -223,6 +222,10 @@ public class LinearRegression implements LinearRegressions{
         "equal to 0.";
     }
 
+    public double getRSquare() {
+        return this.rSquare;
+    }
+
     /**
      * Main method for testing the class. The class has circular dependencies which makes it not runnable as of right
      * now.
@@ -230,5 +233,9 @@ public class LinearRegression implements LinearRegressions{
     public static void main(String[] args) {
         LinearRegression linearRegression = new LinearRegression("AAPL", alphaVantageClient);
 
+    }
+
+    public void setRSquare(double temp) {
+        this.rSquare = temp;
     }
 }
