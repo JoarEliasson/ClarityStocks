@@ -34,6 +34,61 @@ public class IncomeStatement {
     this.symbol = symbol;
   }
 
+  public long getVariable(String variableName) {
+    switch (variableName) {
+      case "grossProfit":
+        return grossProfit;
+      case "totalRevenue":
+        return totalRevenue;
+      case "costOfRevenue":
+        return costOfRevenue;
+      case "costofGoodsAndServicesSold":
+        return costofGoodsAndServicesSold;
+      case "operatingIncome":
+        return operatingIncome;
+      case "sellingGeneralAndAdministrative":
+        return sellingGeneralAndAdministrative;
+      case "researchAndDevelopment":
+        return researchAndDevelopment;
+      case "operatingExpenses":
+        return operatingExpenses;
+      case "investmentIncomeNet":
+        return investmentIncomeNet;
+      case "netInterestIncome":
+        return netInterestIncome;
+      case "interestIncome":
+        return interestIncome;
+      case "interestExpense":
+        return interestExpense;
+      case "nonInterestIncome":
+        return nonInterestIncome;
+      case "otherNonOperatingIncome":
+        return otherNonOperatingIncome;
+      case "depreciation":
+        return depreciation;
+      case "depreciationAndAmortization":
+        return depreciationAndAmortization;
+      case "incomeBeforeTax":
+        return incomeBeforeTax;
+      case "incomeTaxExpense":
+        return incomeTaxExpense;
+      case "interestAndDebtExpense":
+        return interestAndDebtExpense;
+      case "netIncomeFromContinuingOperations":
+        return netIncomeFromContinuingOperations;
+      case "comprehensiveIncomeNetOfTax":
+        return comprehensiveIncomeNetOfTax;
+      case "ebit":
+        return ebit;
+      case "ebitda":
+        return ebitda;
+      case "netIncome":
+        return netIncome;
+      default:
+        return 0;
+    }
+  }
+
   public String getSymbol() {
     return symbol;
   }
