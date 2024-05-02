@@ -24,6 +24,5 @@ module SE.ClarityStocksGUI {
   exports SE.ClarityStocksGUI.view;
   exports SE.ClarityStocksGUI.controller;
   exports SE.ClarityStocksGUI.controller.tile;
-  exports SE.ClarityStocksGUI;
   exports SE.ClarityStocksGUI.controller.graph;
 }
