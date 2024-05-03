@@ -1,16 +1,11 @@
 package alphaVantage.model.data.dao;
 
 import alphaVantage.model.data.fundamental.CompanyOverview;
-import alphaVantage.model.data.series.DailyDataPoint;
-import alphaVantage.model.data.series.TimeSeriesDaily;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.impl.DSL;
-import java.sql.Date;
-import java.time.LocalDate;
 
 /**
  * The class facilitates interaction with the database to manage company fundamental data.
@@ -39,7 +34,7 @@ public class CompanyOverviewDAO {
         DSLContext transactionContext = DSL.using(configuration);
 
         transactionContext.execute(
-          "CALL insertFundamental(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+          "CALL insertfundamental(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
           + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 
           companyOverview.getSymbol(),
