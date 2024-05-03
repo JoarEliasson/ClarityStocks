@@ -2,12 +2,13 @@ package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.model.Effects;
 import alphaVantage.controller.AlphaVantageClient;
-import alphaVantage.model.AlphaVantageStock;
 import alphaVantage.model.data.global.DailyTopLists;
 import alphaVantage.model.data.global.TopListDataPoint;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.shape.Rectangle;
+import model.AlphaVantageListing;
+import model.SearchList;
 
 public class TopListsController {
 
@@ -50,15 +51,35 @@ public class TopListsController {
     list.getItems().clear();
     int count = 0;
 
+    String symbol;
+    String stockName;
+    SearchList searchList = new SearchList();
+    boolean notUnknown = true;
     for (TopListDataPoint point : dataPoints) {
-        if (count >= 3) {
-            break;
+      if (count >= 3 && notUnknown) {
+        break;
+      }
+      notUnknown = true;
+      try {
+        symbol = dataPoints.get(count).getSymbol();
+        String finalSymbol = symbol;
+        stockName = searchList.getSearchList().stream()
+            .filter(stock -> stock.getSymbol().equals(finalSymbol))
+            .findFirst()
+            .map(AlphaVantageListing::getName)
+            .orElse("Unknown");
+        System.out.println("Name retrieved from searchlist " + stockName);
+        if (stockName.length() > 20) {
+          stockName = stockName.substring(0, 20) + "...";
+        }
+        if (stockName.equals("Unknown")) {
+          notUnknown = false;
+        } else {
+
+          String displayText = formatStockDisplay(stockName, point);
+          list.getItems().add(displayText);
         }
 
-      try {
-        AlphaVantageStock stock = alphaVantageClient.getStock(point.getSymbol());
-        String displayText = formatStockDisplay(stock, point);
-        list.getItems().add(displayText);
         count++;
       } catch (Exception e) {
         list.getItems().add("Error loading data for: " + point.getSymbol());
@@ -66,14 +87,14 @@ public class TopListsController {
     }
   }
 
-  private String formatStockDisplay(AlphaVantageStock stock, TopListDataPoint point) {
-    if (stock != null && !stock.getTimeSeriesDaily().getDailyData().isEmpty()) {
-      String name = stock.getCompanyOverview().getName();
-      double price = stock.getTimeSeriesDaily().getDailyData().get(0).getClose();
-      return String.format("%s (%s) | $%.2f", name, point.getSymbol(), price);
-    }
-    return String.format("%s (%s) | No data available", point.getSymbol(), point.getSymbol());
+  private String formatStockDisplay(String stockName, TopListDataPoint point) {
+    return String.format("%s (%s) | Current price: %.2f | Change: %s | Volume: %d",
+        stockName,
+        point.getSymbol(),
+        point.getCurrentPrice(),
+        point.getChangePercentage(),
+        point.getTradingVolume()
+    );
   }
-
 
 }
