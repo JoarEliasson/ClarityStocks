@@ -53,6 +53,7 @@ public class GUIStockViewController {
 
 
   public void initialize() {
+    infoTileController.setController(this);
     progress.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
     VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
 
@@ -165,4 +166,9 @@ public class GUIStockViewController {
   public void showGoldenCross(){
     graphController.showGoldenCross();
   }
+
+  public void stockFavoritePressed(boolean stockIsFavorite){
+    controller.stockFavoritePressed(stockIsFavorite, stock.getCompanyOverview().getSymbol());
+  }
+
 }

@@ -55,6 +55,11 @@ public class GUIMainController {
     homeView.setVisible(true);
   }
 
+
+  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol){
+    System.out.println(stockSymbol + " favorite status: " + stockIsFavorite);
+  }
+
   public ReadOnlyDoubleProperty getWidthProperty() {
     return mainBorderPane.widthProperty();
   }
