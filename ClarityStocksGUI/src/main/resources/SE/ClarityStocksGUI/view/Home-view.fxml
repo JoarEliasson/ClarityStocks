@@ -11,71 +11,39 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="mainVBox" alignment="CENTER" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
-    <Label fx:id="messageLabel" styleClass="message-label" />
-    <StackPane VBox.vgrow="ALWAYS">
-        <HBox prefHeight="100.0" prefWidth="200.0">
-            <ImageView fx:id="userImage" fitHeight="50" fitWidth="50" />
-            <Text fx:id="usernameText" styleClass="profile-text" text="User1234" />
-        </HBox>
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css"
+  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
+  <Label fx:id="messageLabel" styleClass="message-label"/>
+  <StackPane VBox.vgrow="ALWAYS">
+    <HBox prefHeight="100.0" prefWidth="200.0">
+      <ImageView fx:id="userImage" fitHeight="50" fitWidth="50"/>
+      <Text fx:id="usernameText" styleClass="profile-text" text="User1234"/>
+    </HBox>
     <VBox alignment="TOP_CENTER" spacing="20">
-      <Text fx:id="welcomeToText" styleClass="welcome-text" text="Welcome to" />
-      <Text fx:id="clarityStocksText" styleClass="title-text" text="Clarity Stocks" />
+      <Text fx:id="welcomeToText" styleClass="welcome-text" text="Welcome to"/>
+      <Text fx:id="clarityStocksText" styleClass="title-text" text="Clarity Stocks"/>
     </VBox>
-        <BorderPane fx:id="layout">
-            <top>
-                <HBox alignment="CENTER" prefHeight="247.0" prefWidth="1110.0" style="-fx-padding: 10;">
-                    <VBox alignment="CENTER" prefHeight="170.0" prefWidth="305.0">
-                        <HBox.margin>
-                            <Insets top="70.0" />
-                        </HBox.margin>
-                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-header" text="Top gainers" />
-                        <StackPane minHeight="110.0" minWidth="280.0" style="-fx-padding: 20;">
-                            <Rectangle fx:id="topGainRectangle" height="111.0" styleClass="backgroundPanelStockView" width="305.0" />
-                            <ListView fx:id="topGainList" maxHeight="131.0" maxWidth="350.0" minHeight="105.0" minWidth="300.0" prefHeight="105.0" prefWidth="300.0" />
-                        </StackPane>
-                    </VBox>
-                    <VBox alignment="CENTER" prefHeight="170.0" prefWidth="305.0">
-                        <HBox.margin>
-                            <Insets left="70.0" top="70.0" />
-                        </HBox.margin>
-                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-header" text="Top loosers" />
-                        <StackPane minHeight="110.0" minWidth="280.0" style="-fx-padding: 20;">
-                            <Rectangle fx:id="topLooserRectangle" height="111.0" styleClass="backgroundPanelStockView" width="305.0" />
-                            <ListView fx:id="topLooserList" maxHeight="131.0" maxWidth="350.0" minHeight="105.0" minWidth="300.0" prefHeight="105.0" prefWidth="300.0" />
-                        </StackPane>
-                    </VBox>
-                    <VBox alignment="CENTER_RIGHT" minWidth="-Infinity" prefHeight="150.0" prefWidth="305.0">
-                        <HBox.margin>
-                            <Insets left="70.0" top="70.0" />
-                        </HBox.margin>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="320.0" styleClass="section-header" text="Volume" textAlignment="CENTER" />
-                        <StackPane minHeight="110.0" minWidth="280.0" style="-fx-padding: 20;">
-                            <Rectangle fx:id="volumeRectangle" height="111.0" styleClass="backgroundPanelStockView" width="305.0" />
-                            <ListView fx:id="volumeList" maxHeight="131.0" maxWidth="350.0" minHeight="105.0" minWidth="300.0" prefHeight="105.0" prefWidth="300.0" />
-                        </StackPane>
-                    </VBox>
-                </HBox>
-            </top>
-            <bottom>
-                <HBox alignment="CENTER" minHeight="400.0" minWidth="1110.0" prefHeight="455.0" prefWidth="1110.0" spacing="50" style="-fx-padding: 20;">
-                    <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 10;">
-                        <Label styleClass="section-header" text="Favorite Stocks" />
-                        <StackPane style="-fx-padding: 20;">
-                            <Rectangle fx:id="favorite" height="300" styleClass="backgroundPanelStockView" width="450" />
-                            <ListView fx:id="favoritesListView" maxHeight="295" maxWidth="445" />
-                            <Label fx:id="noFavoritesLabel" onMouseClicked="#handleAddStock" styleClass="clickable-label" text="No stocks here, add some!" visible="false" />
-                        </StackPane>
-                    </VBox>
-                    <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 10;">
-                        <Label styleClass="section-header" text="Recently Viewed" />
-                        <StackPane style="-fx-padding: 20;">
-                            <Rectangle fx:id="recentView" height="300" styleClass="backgroundPanelStockView" width="450" />
-                            <ListView fx:id="recentlyViewedListView" maxHeight="295" maxWidth="445" />
-                        </StackPane>
-                    </VBox>
-                </HBox>
-            </bottom>
-        </BorderPane>
-    </StackPane>
+    <BorderPane fx:id="layout">
+      <top>
+        <HBox alignment="CENTER" prefHeight="247.0" prefWidth="1110.0" style="-fx-padding: 10;">
+          <fx:include source="TopListsView.fxml"/>
+        </HBox>
+      </top>
+      <bottom>
+        <HBox alignment="CENTER" minHeight="400.0" minWidth="1110.0" prefHeight="455.0"
+          prefWidth="1110.0" spacing="50" style="-fx-padding: 20;">
+          <fx:include source="FavoriteListView.fxml"/>
+          <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 10;">
+            <Label styleClass="section-header" text="Recently Viewed"/>
+            <StackPane style="-fx-padding: 20;">
+              <Rectangle fx:id="recentView" height="300" styleClass="backgroundPanelStockView"
+                width="450"/>
+              <ListView fx:id="recentlyViewedListView" maxHeight="295" maxWidth="445"/>
+            </StackPane>
+          </VBox>
+        </HBox>
+      </bottom>
+    </BorderPane>
+  </StackPane>
 </VBox>
