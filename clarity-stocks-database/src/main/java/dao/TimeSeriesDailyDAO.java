@@ -1,18 +1,5 @@
 package dao;
 
-import model.data.series.DailyDataPoint;
-import model.data.series.TimeSeriesDaily;
-import org.jooq.DSLContext;
-import org.jooq.Result;
-import org.jooq.impl.DSL;
-import org.jooq.Record;
-
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * The class manages the database interactions related to daily financial time series data.
  * <p>
@@ -27,6 +14,7 @@ import java.util.List;
  * @author Kasper Schröder
  */
 public class TimeSeriesDailyDAO {
+  /*
   private final DSLContext connectionContext;
 
   public TimeSeriesDailyDAO(DSLContext connection) {
@@ -99,6 +87,8 @@ public class TimeSeriesDailyDAO {
     Date lastUpdated = result1.getValue(0, DSL.field("lastUpdated", Date.class));
     return lastUpdated.toString();
   }
+
+   */
 
 
 
