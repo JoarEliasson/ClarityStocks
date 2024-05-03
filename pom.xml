@@ -3,7 +3,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>SE.ClarityStocks</groupId>
+  <groupId>com.claritystocks</groupId>
   <artifactId>ClarityStocks</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -11,10 +11,13 @@
   <name>ClarityStocks</name>
   <url>https://maven.apache.org</url>
   <modules>
-    <module>ClarityStocksAPI</module>
-    <module>ClarityStocksGUI</module>
-    <module>ClarityStocksAnalysis</module>
-    <module>ClarityStocksData</module>
+    <module>clarity-stocks-api-integration</module>
+    <module>clarity-stocks-gui</module>
+    <module>clarity-stocks-analysis</module>
+    <module>clarity-stocks-data</module>
+    <module>clarity-stocks-user</module>
+    <module>clarity-stocks-database</module>
+    <module>clarity-stocks-common</module>
   </modules>
 
   <properties>
