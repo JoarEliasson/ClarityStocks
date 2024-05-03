@@ -24,6 +24,7 @@ import java.time.LocalDate;
  *  <li>Inserting fundamental data of a company into the database.</li>
  *  <li>Retrieving fundamental data of a company from the database.</li>
  * </ul>
+ * @author Kasper Schröder
  */
 public class CompanyOverviewDAO {
   private final DSLContext connectionContext;

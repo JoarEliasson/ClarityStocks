@@ -24,6 +24,7 @@ import java.util.List;
  *  <li>Inserting daily data points of a stock into the database.</li>
  *  <li>Retrieving daily data points of a stock from the database.</li>
  * </ul>
+ * @author Kasper Schröder
  */
 public class TimeSeriesDailyDAO {
   private final DSLContext connectionContext;
