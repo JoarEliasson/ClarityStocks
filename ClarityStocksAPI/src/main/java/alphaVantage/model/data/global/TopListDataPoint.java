@@ -8,7 +8,7 @@ package alphaVantage.model.data.global;
 public class TopListDataPoint {
 
   private String symbol;
-  private double priceDifference;
+  private double currentPrice;
   private double changeAmount;
   private String changePercentage;
   private long tradingVolume;
@@ -25,12 +25,12 @@ public class TopListDataPoint {
     this.symbol = symbol;
   }
 
-  public double getPriceDifference() {
-    return priceDifference;
+  public double getCurrentPrice() {
+    return currentPrice;
   }
 
-  public void setPriceDifference(double priceDifference) {
-    this.priceDifference = priceDifference;
+  public void setCurrentPrice(double currentPrice) {
+    this.currentPrice = currentPrice;
   }
 
   public double getChangeAmount() {

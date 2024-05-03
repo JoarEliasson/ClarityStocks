@@ -648,7 +648,7 @@ public class AlphaVantageParser {
     List<TopListDataPoint> topListDataPoints = new ArrayList<>();
     for (JsonNode entry : topList) {
       TopListDataPoint topListDataPoint = new TopListDataPoint(entry.path("ticker").asText());
-      topListDataPoint.setPriceDifference(entry.path("price").asDouble());
+      topListDataPoint.setCurrentPrice(entry.path("price").asDouble());
       topListDataPoint.setChangeAmount(entry.path("change_amount").asDouble());
       topListDataPoint.setChangePercentage(entry.path("change_percentage").asText());
       topListDataPoint.setTradingVolume(entry.path("volume").asLong());
