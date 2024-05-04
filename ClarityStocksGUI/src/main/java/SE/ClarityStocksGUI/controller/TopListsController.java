@@ -88,7 +88,7 @@ public class TopListsController {
   }
 
   private String formatStockDisplay(String stockName, TopListDataPoint point) {
-    return String.format("%s (%s) | Current price: %.2f | Change: %s | Volume: %d",
+    return String.format("%s (%s) | $ %.2f | Change: %s | Volume: %d",
         stockName,
         point.getSymbol(),
         point.getCurrentPrice(),

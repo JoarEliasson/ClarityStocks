@@ -44,18 +44,24 @@ public class InfoTile {
 
   @FXML
   public void favoritePressed(){
+    stockIsFavorite = !stockIsFavorite;
+    favoriteIcon.setImage(favoriteImages.get(stockIsFavorite ? 1 : 0));  //Update the image
     controller.stockFavoritePressed(stockIsFavorite);
   }
 
+
   private void loadFavoriteImages(){
     favoriteImages = new ArrayList<>();
-    favoriteImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-not-selected.png")
-            .toExternalForm()));
-    favoriteImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-selected.png")
-            .toExternalForm()));
+    try {
+      Image notSelected = new Image(getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-not-selected.png").toExternalForm());
+      Image selected = new Image(getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-selected.png").toExternalForm());
+      favoriteImages.add(notSelected);
+      favoriteImages.add(selected);
+    } catch (Exception e) {
+      System.err.println("Error loading images: " + e.getMessage());
+    }
   }
+
   public void setCompanyName(String text) {
     nameLabel.setText(text);
   }
@@ -71,4 +77,10 @@ public class InfoTile {
   public void setController(GUIStockViewController controller){
     this.controller = controller;
   }
+
+  public void setFavorite(boolean isFavorite) {
+    stockIsFavorite = isFavorite;
+    favoriteIcon.setImage(favoriteImages.get(stockIsFavorite ? 1 : 0));  // Update the icon immediately
+  }
+
 }

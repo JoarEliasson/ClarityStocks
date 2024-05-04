@@ -170,5 +170,4 @@ public class GUIStockViewController {
   public void stockFavoritePressed(boolean stockIsFavorite){
     controller.stockFavoritePressed(stockIsFavorite, stock.getCompanyOverview().getSymbol());
   }
-
 }

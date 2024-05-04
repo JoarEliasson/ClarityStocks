@@ -1,11 +1,17 @@
 {
   "userName": "Anton",
   "favoriteStocks": [
+    "ABEO",
     "AAPL",
-    "AMZN",
-    "GOOGL",
-    "MSFT",
-    "TSLA"
+    "NVDA",
+    "ABCB",
+    "AAT",
+    "ABVC",
+    "ACAD",
+    "GOOG",
+    "IVR",
+    "BVFL",
+    "ABIO"
   ],
   "isLoggedIn": true
 }

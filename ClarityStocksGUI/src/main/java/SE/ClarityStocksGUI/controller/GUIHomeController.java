@@ -6,6 +6,7 @@ import alphaVantage.model.AlphaVantageStock;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
@@ -56,45 +57,21 @@ public class GUIHomeController {
     layout.setEffect(new GaussianBlur(20));
 
     Platform.runLater(() -> {
-      addDefaultStocks();
+     // addDefaultStocks();
       animateWelcomeTextVisibility();
       setupViewBasedOnUser();
     });
   }
 
-  private void addDefaultStocks() {
-    List<String> defaultStocks = Arrays.asList("AAPL", "AMZN", "GOOGL", "MSFT", "TSLA");
 
-    if (userProfile != null && (userProfile.getFavoriteStocks() == null
-        || userProfile.getFavoriteStocks().isEmpty())) {
-      for (String stockSymbol : defaultStocks) {
-        AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
-        AlphaVantageStock stock = alphaVantageClient.getStock(stockSymbol);
-        userProfile.addFavoriteStock(String.valueOf(stock));
-      }
-      UserProfileManager.saveUserInformation(userProfile, userFilePath);
-    }
-  }
-
-  private void updateView() {
+  public void updateView() {
     if (userProfile != null && userProfile.isLoggedIn()) {
       String userImagePath = "/SE/ClarityStocksGUI/view/user.png";
       Image image = new Image(
           Objects.requireNonNull(getClass().getResourceAsStream(userImagePath)));
       userImage.setImage(image);
-      usernameText.setText(userProfile.getUserName());
-      List<String> stocks = userProfile.getFavoriteStocks();
-
-      List<String> recentStocks = userProfile.getRecentlyViewedStocks();
-      if (recentStocks != null && !recentStocks.isEmpty()) {
-        recentlyViewedListView.getItems().setAll(recentStocks);
-        recentlyViewedListView.setVisible(true);
-      } else {
-        recentlyViewedListView.setVisible(true);
-      }
     } else {
-
-      recentlyViewedListView.setVisible(false);
+      usernameText.setText("Not logged in");
     }
   }
 

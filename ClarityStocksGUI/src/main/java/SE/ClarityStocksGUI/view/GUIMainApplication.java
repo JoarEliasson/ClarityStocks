@@ -1,5 +1,6 @@
 package SE.ClarityStocksGUI.view;
 
+import SE.ClarityStocksGUI.controller.FavoriteListController;
 import SE.ClarityStocksGUI.controller.GUIHomeController;
 import SE.ClarityStocksGUI.controller.GUIMainController;
 import SE.ClarityStocksGUI.controller.GUIStockViewController;
@@ -9,6 +10,7 @@ import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -46,6 +48,14 @@ public class GUIMainApplication extends Application {
     mainController = mainLoader.getController();
     mainController.setApplication(this);
 
+
+    // Load the Favorite List GUI and set up the Favorite List Controller
+    FXMLLoader favoriteLoader = new FXMLLoader(GUIMainApplication.class.getResource("FavoriteListView.fxml"));
+    Parent favoriteRoot = favoriteLoader.load();  // Assuming FavoriteList-view.fxml is the correct path
+    FavoriteListController favoriteListController = favoriteLoader.getController();
+
+    // Set the FavoriteListController in the MainController
+    mainController.setFavoriteListController(favoriteListController);
 
     System.out.println("MainController set up");
     //stockViewController.setCompanyData(companyData);

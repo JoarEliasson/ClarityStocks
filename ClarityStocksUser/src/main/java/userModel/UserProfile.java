@@ -44,10 +44,11 @@ public class UserProfile {
 
     public List<String> getFavoriteStocks() {
         if (favoriteStocks == null) {
-            favoriteStocks = new ArrayList<>(); // Initialize the list if it's null
+            favoriteStocks = new ArrayList<>();
         }
         return favoriteStocks;
-    }    public boolean isLoggedIn() {
+    }
+    public boolean isLoggedIn() {
         return isLoggedIn;
     }
 

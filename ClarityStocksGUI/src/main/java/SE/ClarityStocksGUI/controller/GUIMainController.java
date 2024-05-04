@@ -1,10 +1,14 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.view.GUIMainApplication;
+import alphaVantage.controller.AlphaVantageClient;
+import alphaVantage.model.AlphaVantageStock;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import userModel.UserProfile;
+import userModel.UserProfileManager;
 
 public class GUIMainController {
 
@@ -21,6 +25,10 @@ public class GUIMainController {
   private GUIStockViewController stockViewController;
   @FXML
   private GUIHomeController homeViewController;
+  @FXML
+  private FavoriteListController favoriteListController;
+
+
 
   public void initialize() {
     homeViewController.setController(this);
@@ -53,12 +61,26 @@ public class GUIMainController {
   public void goToHomeView() {
     stockView.setVisible(false);
     homeView.setVisible(true);
+    favoriteListController.updateFavoriteList();
+
   }
 
-
-  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol){
-    System.out.println(stockSymbol + " favorite status: " + stockIsFavorite);
+  public void setFavoriteListController(FavoriteListController favoriteListController) {
+    this.favoriteListController = favoriteListController;
   }
+
+  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol) {
+    if (favoriteListController == null) {
+      System.out.println("FavoriteListController is not initialized.");
+      return;
+    }
+    if (stockIsFavorite) {
+      favoriteListController.addFavoriteStock(stockSymbol);
+    } else {
+      favoriteListController.removeFavoriteStock(stockSymbol);
+    }
+  }
+
 
   public ReadOnlyDoubleProperty getWidthProperty() {
     return mainBorderPane.widthProperty();
