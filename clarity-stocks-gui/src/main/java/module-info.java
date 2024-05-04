@@ -13,17 +13,22 @@ module SE.ClarityStocksGUI {
   requires clarity.stocks.data;
   requires java.logging;
   requires clarity.stocks.analysis;
-  requires eu.hansolo.medusa;
   requires clarity.stocks.common;
+  requires eu.hansolo.medusa;
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
-  opens SE.ClarityStocksGUI.controller.tile;
+
+  exports SE.ClarityStocksGUI.controller;
+  exports SE.ClarityStocksGUI.controller.tiles;
+  opens SE.ClarityStocksGUI.controller.tiles;
   opens SE.ClarityStocksGUI.controller to javafx.fxml;
   opens SE.ClarityStocksGUI to javafx.fxml;
-  opens SE.ClarityStocksGUI.controller.graph to javafx.fxml;
-
-  exports SE.ClarityStocksGUI.view;
-  exports SE.ClarityStocksGUI.controller;
-  exports SE.ClarityStocksGUI.controller.tile;
   exports SE.ClarityStocksGUI.controller.graph;
+  opens SE.ClarityStocksGUI.controller.graph to javafx.fxml;
+  exports SE.ClarityStocksGUI.model;
+  opens SE.ClarityStocksGUI.model to javafx.fxml;
+  exports SE.ClarityStocksGUI.controller.tiles.test;
+  opens SE.ClarityStocksGUI.controller.tiles.test;
+  exports SE.ClarityStocksGUI.view;
+
 }

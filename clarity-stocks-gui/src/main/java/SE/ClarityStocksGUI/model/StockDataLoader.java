@@ -1,8 +1,8 @@
-package SE.ClarityStocksGUI.controller;
+package SE.ClarityStocksGUI.model;
 
 import alphaVantage.AlphaVantageClient;
 
-public class LoadData {
+public class StockDataLoader {
 
   private static AlphaVantageClient alphaVantageClient = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
 

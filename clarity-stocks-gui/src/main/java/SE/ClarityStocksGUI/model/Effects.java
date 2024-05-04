@@ -4,6 +4,12 @@ import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
+/**
+ * This class is used to store different kind of javafx effects that can be applied to different
+ * objects in the GUI. It consists of only static methods that return an effect when called.
+ *
+ * @author Douglas Almö Thorsell.
+ */
 public class Effects {
 
   private static DropShadow dropShadow;

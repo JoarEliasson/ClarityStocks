@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
@@ -15,6 +19,7 @@
     <Rectangle fx:id="menuBarLine" fill="#c3c3c3" height="0.5" width="6.0"/>
   </VBox>
   <HBox spacing="5">
+
     <MFXButton fx:id="homeButton" styleClass="menuButton" textAlignment="CENTER"
       onAction="#goToHomeView">
       <font>
@@ -27,6 +32,7 @@
         <Insets right="20.0"/>
       </opaqueInsets>
     </MFXButton>
+
     <MFXButton fx:id="stockButton" onAction="#goToStockView" styleClass="menuButton"
       textAlignment="CENTER">
       <font>

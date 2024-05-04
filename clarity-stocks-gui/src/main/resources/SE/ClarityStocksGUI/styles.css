@@ -88,7 +88,7 @@
   -fx-pref-height: 40px; /* Set preferred height */
   -fx-min-height: 10px; /* Set minimum height */
   -fx-max-height: 25px;
-  -fx-background-color: transparent;
+  -fx-background-color: white;
   -fx-font-size: 12;
   -color-cell-border: transparent;
 }
@@ -97,15 +97,13 @@
   -fx-padding: 0;
 }
 
-.searchField, .arrow, .arrow-button {
-  -fx-background-color: white;
-}
+
 
 .searchField > .arrow-button {
   -fx-padding: 0;
 }
 
-.searchField > .arrow-button > .arrow {
+.searchField .arrow-button > .arrow {
   -fx-padding: 0;
   -fx-background-color: transparent;
 
@@ -122,9 +120,69 @@
 
 .ratingsTile{
   -fx-spacing: 15px;
+  -fx-padding: 7;
+  -fx-max-height: 60px;
 }
 
 .currentPrice{
   -fx-font-size: 20;
 }
 
+ToggleButton{
+  -fx-pref-height: 30;
+  -fx-pref-width: 50;
+  -fx-font-size: 14;
+  -fx-font-weight: bold;
+  -fx-background-color: #ececec;
+  -fx-background-radius: 0;
+}
+
+ToggleButton:hover{
+  -fx-background-color: #c4c4c4;
+}
+
+ToggleButton:selected{
+  -fx-background-color: #c6daff;
+  -fx-text-fill: #339ACC;
+}
+
+.historyFirstButton{
+  -fx-background-radius: 5 0 0 5;
+}
+
+.historyLastButton{
+  -fx-background-radius: 0 5 5 0;
+}
+
+.analysisSelector{
+  -fx-pref-height: 30;
+  -fx-pref-width: 150;
+  -fx-font-size: 14;
+  -fx-background-color: #ececec;
+  -fx-background-radius: 5;
+}
+
+.analysisSelector:hover{
+  -fx-background-color: #c4c4c4;
+}
+
+.combo-box-popup .list-view
+{
+  -fx-background-insets: 0, 0, 0, 0;
+  -fx-background-radius: 5;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover
+{
+  -fx-background-color: #c4c4c4;
+  -fx-text-fill: black;
+}
+
+.combo-box .list-view .list-cell:hover {
+  -fx-background-color : #c4c4c4;
+  -fx-text-fill: #000000;
+}
+.combo-box .list-view .list-cell:focused {
+  -fx-background-color : #c4c4c4;
+  -fx-text-fill: #000000;
+}
