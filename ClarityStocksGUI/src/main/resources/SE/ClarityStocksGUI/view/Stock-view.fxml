@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.geometry.Insets?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import org.controlsfx.control.CheckComboBox?>
 <VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/fxml/21"
   xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="SE.ClarityStocksGUI.controller.GUIStockViewController"
@@ -27,7 +30,21 @@
                            styleClass="backgroundPanelStockView"/>
               </VBox>
               <VBox alignment="CENTER">
-                <MFXButton text="Show golden cross" onAction="#showGoldenCross"/>
+                <HBox>
+                  <HBox fx:id="historyButtonGroup" styleClass="btn-group-horizontal">
+                    <padding>
+                      <Insets left="45"/>
+                    </padding>
+                    <ToggleButton styleClass="historyFirstButton">1W</ToggleButton>
+                    <ToggleButton>1M</ToggleButton>
+                    <ToggleButton>YTD</ToggleButton>
+                    <ToggleButton>1Y</ToggleButton>
+                    <ToggleButton styleClass="historyLastButton">MAX</ToggleButton>
+                  </HBox>
+                  <VBox prefWidth="340" alignment="CENTER_RIGHT">
+                    <ComboBox styleClass="analysisSelector" fx:id="analysisSelector" onAction="#analysisSelected"/>
+                  </VBox>
+                </HBox>
                 <StackPane>
                   <fx:include source="Stock-lineGraph.fxml" fx:id="graph"/>
                   <ProgressBar fx:id="progress" styleClass="progress-bar-primary"/>
@@ -53,10 +70,17 @@
             <fx:include source="Info-tile.fxml" fx:id="infoTile"/>
           </StackPane>
         </VBox>
-        <Rectangle fill="#d9d9d9" height="1000" width="500"/>
+        <HBox alignment="CENTER">
+          <StackPane>
+            <Rectangle fill="#d9d9d9" height="250" width="250" fx:id="dialTileBackground"
+                       styleClass="backgroundPanelStockView"/>
+            <fx:include source="DialTileTEST.fxml"/>
+          </StackPane>
+
+
+        </HBox>
 
       </VBox>
-
 
     </center>
   </BorderPane>

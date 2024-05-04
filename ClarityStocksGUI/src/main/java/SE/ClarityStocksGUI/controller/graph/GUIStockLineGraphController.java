@@ -1,8 +1,10 @@
 package SE.ClarityStocksGUI.controller.graph;
 
+import SE.ClarityStocksGUI.controller.GUIStockViewController;
 import alphaVantage.model.AlphaVantageStock;
 import alphaVantage.model.data.series.DailyDataPoint;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,9 +12,19 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Tooltip;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+/**
+ * This class handles the line graph which is displayed in the stock-view. It also handles the
+ * different analysis that can be displayed on the graph.
+ * <p>
+ * Its parent class is the stock-view.
+ * @author Douglas Almö Thorsell
+ * @see GUIStockViewController
+ */
 public class GUIStockLineGraphController {
 
   @FXML
@@ -21,11 +33,13 @@ public class GUIStockLineGraphController {
   private CategoryAxis xAxis;
   @FXML
   private NumberAxis yAxis;
+  private AlphaVantageStock stock;
+  private GUIStockViewController controller;
   private static GUIStockLineGraphController stockLineGraphController;
   //private AlphaVantageStock stock;
-  private XYChart.Series<String, Number> series;
   private XYChart.Series<String, Number> shortTermSeries;
   private XYChart.Series<String, Number> longTermSeries;
+  private XYChart.Series<String, Number> rawSeries;
   private boolean goldenCrossActive = false;
 
   public void initialize() {
@@ -44,38 +58,6 @@ public class GUIStockLineGraphController {
     return stockLineGraphController;
   }
 
-  public void loadStockData(AlphaVantageStock stock) {
-    chart.getData().clear();
-    goldenCrossActive = false;
-
-    List<DailyDataPoint> data = stock.getTimeSeriesDaily().getDailyDataInRange("2021-01-01",
-        LocalDate.now().toString());
-
-    List<DailyDataPoint> shortTermMovingAverage = stock.getTimeSeriesDaily().calculateCenteredMovingAverage(data, 50);
-
-    List<DailyDataPoint> longTermMovingAverage = stock.getTimeSeriesDaily().calculateTrailingMovingAverage(data, 200);
-
-    XYChart.Series<String, Number> rawSeries = new XYChart.Series<>();
-    rawSeries.setName("Stock Prices");
-    for (DailyDataPoint dataPoint : data) {
-      rawSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), dataPoint.getClose()));
-    }
-
-    shortTermSeries = new XYChart.Series<>();
-    shortTermSeries.setName("Short-Term MA");
-    longTermSeries = new XYChart.Series<>();
-    longTermSeries.setName("Long-Term MA");
-    for (DailyDataPoint dataPoint : shortTermMovingAverage) {
-      shortTermSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), dataPoint.getClose()));
-    }
-    for (DailyDataPoint dataPoint : longTermMovingAverage) {
-      longTermSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), dataPoint.getClose()));
-    }
-
-    chart.getData().add(rawSeries);
-    styleChart();
-  }
-
   private void styleChart() {
     for (XYChart.Series<String, Number> s : chart.getData()) {
       for (XYChart.Data<String, Number> data : s.getData()) {
@@ -88,6 +70,78 @@ public class GUIStockLineGraphController {
         data.getNode().setOnMouseExited(event -> data.getNode().getStyleClass().remove("onHover"));
       }
     }
+  }
+
+  public void loadStockData(AlphaVantageStock selectedStock, String startDate) {
+    this.stock = selectedStock;
+    chart.getData().clear();
+    goldenCrossActive = false;
+    boolean adjusted = false;
+    List<DailyDataPoint> data;
+    if (startDate == null) {
+      data = stock.getTimeSeriesMonthly().getMonthlyData();
+      adjusted = true;
+      data = data.reversed();
+    } else {
+      data = stock.getTimeSeriesDaily().getDailyDataInRange(startDate, LocalDate.now().toString());
+    }
+
+    List<DailyDataPoint> shortTermMovingAverage = stock.getTimeSeriesDaily().calculateCenteredMovingAverage(data, 50);
+
+    List<DailyDataPoint> longTermMovingAverage = stock.getTimeSeriesDaily().calculateTrailingMovingAverage(data, 200);
+
+    rawSeries = new XYChart.Series<>();
+    rawSeries.setName("Stock Prices");
+    for (DailyDataPoint dataPoint : data) {
+      rawSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), getClose(dataPoint, adjusted)));
+    }
+
+    shortTermSeries = new XYChart.Series<>();
+    shortTermSeries.setName("Short-Term MA");
+    longTermSeries = new XYChart.Series<>();
+    longTermSeries.setName("Long-Term MA");
+    for (DailyDataPoint dataPoint : shortTermMovingAverage) {
+      shortTermSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), getClose(dataPoint, adjusted)));
+    }
+    for (DailyDataPoint dataPoint : longTermMovingAverage) {
+      longTermSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), getClose(dataPoint, adjusted)));
+    }
+
+    chart.getData().add(rawSeries);
+    getCrossPoints();
+    styleChart();
+  }
+
+  private double getClose(DailyDataPoint dataPoint, boolean adjusted) {
+    return adjusted ? dataPoint.getAdjustedClose() : dataPoint.getClose();
+  }
+
+  public void changeDate(String changeTo){
+    switch (changeTo){
+      case "1W":
+        loadStockData(stock, LocalDate.now().minusWeeks(1).toString());
+        break;
+
+      case "1M":
+        loadStockData(stock, LocalDate.now().minusMonths(1).toString());
+        break;
+
+      case "YTD":
+        loadStockData(stock, LocalDate.ofYearDay(2024, 1).toString());
+        break;
+      case "1Y":
+        loadStockData(stock, LocalDate.now().minusYears(1).toString());
+        break;
+      case "MAX":
+        loadStockData(stock, null);
+        break;
+
+
+      default:
+        System.out.println("Error: Can't change date");
+        break;
+    }
+
   }
 
   public void showGoldenCross(){
@@ -108,5 +162,24 @@ public class GUIStockLineGraphController {
         }
       });
     }
+  }
+
+  private void getCrossPoints() {
+    ArrayList<Data<String, Number>> crossPoints = new ArrayList();
+    List<String> goldenCrossEvents = stock.getTimeSeriesDaily()
+        .getGoldenCrossEvents("2021-01-01", LocalDate.now().toString());
+    for (String s : goldenCrossEvents) {
+      LocalDate crossDate = LocalDate.parse(s);
+      for (Data<String, Number> data : longTermSeries.getData()) {
+        LocalDate checkDate = LocalDate.parse(data.getXValue());
+        if (crossDate.equals(checkDate)) {
+          data.setNode(new Circle(4));
+        }
+      }
+    }
+  }
+
+  public void setController(GUIStockViewController controller){
+    this.controller = controller;
   }
 }

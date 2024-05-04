@@ -62,7 +62,7 @@ public class PERatioEvaluation implements RatingEvaluation {
       + "stock-parameters.";
       rating = 0;
     } else {
-      description = "Price Earnings ratio is greater than 40, which is very high. This is a"
+      description = "Price Earnings ratio is greater than 40, which is very high. This is a "
       + "negative sign, indicating that the price might be inflated by hype and is not based on"
       + " the company's earnings.";
       rating = 0;

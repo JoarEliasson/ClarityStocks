@@ -1,33 +1,61 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.controller.graph.GUIStockLineGraphController;
-import SE.ClarityStocksGUI.controller.tile.InfoTile;
-import SE.ClarityStocksGUI.controller.tile.RatingsTile;
+import SE.ClarityStocksGUI.controller.tiles.InfoTile;
+import SE.ClarityStocksGUI.controller.tiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
 import alphaVantage.controller.AlphaVantageClient;
 import alphaVantage.model.AlphaVantageStock;
-import alphaVantage.model.GlobalMarketInfo;
-import alphaVantage.model.data.global.DailyTopLists;
-import alphaVantage.model.data.global.TopListDataPoint;
-import alphaVantage.model.data.series.DailyDataPoint;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.NoSuchElementException;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import model.AlphaVantageListing;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+/**
+ * {@code GUIStockViewController}
+ * <p>
+ * This class is the controller for the stock-view. It's the controller for the Stock-view.fxml file.
+ * <p>
+ * The stock-view is split up between different tiles. Where each tile shows different information
+ * about the stock. The GUIStockViewController class handles the loading of data to the different
+ * tiles that exist inside the stock-view.
+ * <p>
+ * The class has the Main-view as the parent and the children are the following, Info-Tile,
+ * Ratings-tile and Stock-lineGraph.
+ *
+ * @author Douglas Almö Thorsell
+ * @see GUIMainController
+ * @see InfoTile
+ * @see RatingsTile
+ * @see GUIStockLineGraphController
+ */
 public class GUIStockViewController {
 
   private GUIMainController controller;
   @FXML
   private BorderPane layout;
   @FXML
-  private VBox mainVBox;
+  private HBox historyButtonGroup;
+  @FXML
+  private ComboBox<Label> analysisSelector;
   @FXML
   private GUIStockLineGraphController graphController;
   @FXML
@@ -38,37 +66,42 @@ public class GUIStockViewController {
   private Rectangle statBackground;
   @FXML
   private Rectangle dialTileBackground;
-  private AlphaVantageListing currentStock;
   @FXML
   private RatingsTile ratingsTileController;
   @FXML
   private InfoTile infoTileController;
   @FXML
-  private VBox stockStatsBox;
-  @FXML
   private ScrollPane scrollPane;
+  private Dialog<String> errorDialog;
   private AlphaVantageStock stock;
+  private HashMap<Integer, Boolean> selectedAnalysis;
 
   @FXML
   private ProgressBar progress;
 
 
   public void initialize() {
+    setUpControllers();
     progress.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+    setupHistoryButtons();
+    setupAnalysisSelector();
+    createErrorDialog();
     VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
 
     descBackground.setEffect(Effects.getDropShadow());
     statBackground.setEffect(Effects.getDropShadow());
     graphBackground.setEffect(Effects.getDropShadow());
-    //dialTileBackground.setEffect(Effects.getDropShadow());
-    System.out.println("Stock view controller initialized");
+    dialTileBackground.setEffect(Effects.getDropShadow());
+  }
+
+  private void setUpControllers(){
+    graphController.setController(this);
+    infoTileController.setController(this);
   }
 
   public void setController(GUIMainController controller) {
     this.controller = controller;
   }
-
-
   public void setupScrollbar() {
     scrollPane.minWidthProperty().bind(controller.getWidthProperty());
     scrollPane.minHeightProperty().bind(controller.getHeightProperty());
@@ -79,118 +112,205 @@ public class GUIStockViewController {
     scrollPane.setEffect(null);
   }
 
-  public void loadStockView(String stockSymbol) {
-    progress.setVisible(true);
-    new Thread(new Runnable() {
+  private void setupHistoryButtons(){
+    historyButtonGroup.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+    for(Node button : historyButtonGroup.getChildren()){
+      ToggleButton button1 = (ToggleButton) button;
+      if(button1.getText().equals("YTD")){
+        button1.setSelected(true);
+      }
+      button1.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          unselectHistoryButtons(button1.getText());
+          resetAnalysisSelector();
+          graphController.changeDate(button1.getText());
+        }
+      });
+    }
+  }
+
+  private void resetHistoryButtons() {
+    for (Node button : historyButtonGroup.getChildren()) {
+      ToggleButton button1 = (ToggleButton) button;
+      button1.setSelected(button1.getText().equals("YTD"));
+    }
+  }
+
+  @FXML
+  public void unselectHistoryButtons(String buttonText){
+    for(Node button : historyButtonGroup.getChildren()){
+      ToggleButton button1 = (ToggleButton) button;
+      if(!(buttonText.equals(button1.getText()))){
+        button1.setSelected(false);
+      }
+    }
+  }
+
+  private void createErrorDialog(){
+    errorDialog = new Dialog<>();
+    errorDialog.setTitle("Error: Couldn't load stock");
+    errorDialog.setContentText("The stock couldn't be loaded.\n"
+        + "You are either out of API calls or have no internet.");
+    ButtonType button = new ButtonType("Ok", ButtonData.OK_DONE);
+    errorDialog.getDialogPane().getButtonTypes().add(button);
+  }
+  private void setupAnalysisSelector(){
+    selectedAnalysis = new HashMap<>();
+    analysisSelector.setPromptText("Analysis");
+    analysisSelector.setButtonCell(new ListCell<>() {
       @Override
-      public void run() {
-        AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
-        stock = alphaVantageClient.getStock(stockSymbol);
+      protected void updateItem(Label item, boolean empty) {
+        super.updateItem(item, empty);
+        if (item == null || empty) {
+          setText(analysisSelector.getPromptText());
+        } else {
+          setText(item.getText());
+        }
+      }
+    });
+    analysisSelector.getItems().add(new Label("Golden Cross"));
+    selectedAnalysis.put(0, false);
+  }
 
-        //GlobalMarketInfo motsvarar "stock" objektet fast med global data för home view.
-        //Just nu market status och top; gainers, losers och most traded.
-        GlobalMarketInfo globalMarketInfo = alphaVantageClient.getGlobalMarketInfo();
-        /*
-        Om ni vill testa att skriva ut market status så kan det göras med följande kod:
-        for (MarketStatus market : globalMarketInfo.getMarketStatus()) {
-          System.out.println(market.getRegion());
-          System.out.println(market.getPrimaryExchanges());
-          System.out.println(market.getCurrentStatus());
-        }
-
-         */
-        DailyTopLists dailyTopLists = globalMarketInfo.getDailyTopLists();
-        List<TopListDataPoint> topGainers = dailyTopLists.getTopGainers();
-        List<TopListDataPoint> topLosers = dailyTopLists.getTopLosers();
-        List<TopListDataPoint> mostTraded = dailyTopLists.getMostTraded();
-        /*
-        Om ni vill testa att skriva ut topGainers, topLosers och mostTraded så kan det göras med
-        följande kod:
-        for (TopListDataPoint topListDataPoint : topGainers) {
-          System.out.println("Symbol: " + topListDataPoint.getSymbol());
-          System.out.println("Price difference: " + topListDataPoint.getPriceDifference());
-          System.out.println("Change amount: " + topListDataPoint.getChangeAmount());
-          System.out.println("Change percentage: " + topListDataPoint.getChangePercentage());
-          System.out.println("Trading volume: " + topListDataPoint.getTradingVolume());
-          System.out.println();
-        }
-        for (TopListDataPoint topListDataPoint : topLosers) {
-          System.out.println("Symbol: " + topListDataPoint.getSymbol());
-          System.out.println("Price difference: " + topListDataPoint.getPriceDifference());
-          System.out.println("Change amount: " + topListDataPoint.getChangeAmount());
-          System.out.println("Change percentage: " + topListDataPoint.getChangePercentage());
-          System.out.println("Trading volume: " + topListDataPoint.getTradingVolume());
-          System.out.println();
-        }
-        for (TopListDataPoint topListDataPoint : mostTraded) {
-          System.out.println("Symbol: " + topListDataPoint.getSymbol());
-          System.out.println("Price difference: " + topListDataPoint.getPriceDifference());
-          System.out.println("Change amount: " + topListDataPoint.getChangeAmount());
-          System.out.println("Change percentage: " + topListDataPoint.getChangePercentage());
-          System.out.println("Trading volume: " + topListDataPoint.getTradingVolume());
-          System.out.println();
-        }
-
-         */
-
-        //Nedan finns exempel kall för de specifika intervallen av DailyData som finns i GUI
-        //En dag finns ej med då det kräver implementation av intra-day data hämtning.
-        List<DailyDataPoint> exOneYear = stock.getTimeSeriesDaily().getDailyDataLastYear();
-        List<DailyDataPoint> exYTD = stock.getTimeSeriesDaily().getDailyDataLastYearToDate();
-        List<DailyDataPoint> exOneMonth = stock.getTimeSeriesDaily().getDailyDataLastMonth();
-        List<DailyDataPoint> exOneWeek = stock.getTimeSeriesDaily().getDailyDataLastWeek();
-        //Kommentera in nedan kod för testutskrift av data
-        /*
-        System.out.println("One year");
-        for (DailyDataPoint dailyDataPoint : exOneYear) {
-          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
-        }
-        System.out.println("Year to date");
-        for (DailyDataPoint dailyDataPoint : exYTD) {
-          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
-        }
-        System.out.println("One month");
-        for (DailyDataPoint dailyDataPoint : exOneMonth) {
-          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
-        }
-        System.out.println("One week");
-        for (DailyDataPoint dailyDataPoint : exOneWeek) {
-          System.out.println(dailyDataPoint.getDate() + " " + dailyDataPoint.getClose());
-        }
-
-         */
-
+  @FXML
+  public void analysisSelected(){
+    if(!analysisSelector.getValue().getText().equals("")){
+      int index = getAnalysisIndex(analysisSelector.getValue().getText());
+      if(index > -1){
+        setSelectedAnalysisColor(index);
+        goToAnalysis(analysisSelector.getValue().getText());
         Platform.runLater(new Runnable() {
           @Override
           public void run() {
-            graphController.loadStockData(stock);
-            setInfoTile();
-            setRatingsTile();
-            progress.setVisible(false);
+            analysisSelector.setValue(new Label());
           }
         });
       }
-    }).start();
-
+    }
   }
 
+  private void resetAnalysisSelector(){
+    for(int i : selectedAnalysis.keySet()){
+      analysisSelector.getItems().get(i).
+          setStyle("-fx-background-color: transparent; -fx-padding: 3; -fx-background-radius: 10");
+      selectedAnalysis.put(i, false);
+    }
+  }
+
+  private void setSelectedAnalysisColor(int index){
+    if(selectedAnalysis.get(index)){
+      analysisSelector.getItems().get(index).
+          setStyle("-fx-background-color: transparent; -fx-padding: 3; -fx-background-radius: 10");
+      selectedAnalysis.put(index, false);
+
+    }else {
+      analysisSelector.getItems().get(index).
+          setStyle("-fx-background-color: #9f9f9f; -fx-padding: 3; -fx-background-radius: 10");
+      selectedAnalysis.put(index, true);
+
+    }
+  }
+  private int getAnalysisIndex(String text){
+    for(int i = 0; i < analysisSelector.getItems().size(); i++){
+      if(analysisSelector.getItems().get(i).getText().equals(text)){
+        return i;
+      }
+    }
+    return -1;
+  }
+  
+  private void goToAnalysis(String text){
+    switch(text){
+      case("Golden Cross"):
+        showGoldenCross();
+    }
+  }
+
+  public void loadStockView(String stockSymbol) {
+    progress.setVisible(true);
+    new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        try{
+          AlphaVantageClient alphaVantageClient = LoadData.getAlphaVantageClient();
+          stock = alphaVantageClient.getStock(stockSymbol);
+
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+              try{
+                graphController.loadStockData(stock, LocalDate.ofYearDay(2024, 1).toString());
+                resetHistoryButtons();
+                resetAnalysisSelector();
+                setInfoTile();
+                setRatingsTile();
+                progress.setVisible(false);
+              }catch (NoSuchElementException e){
+                errorLoadingStock();
+                e.printStackTrace();
+              }
+            }
+          });
+        }catch (RuntimeException e){
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+              errorLoadingStock();
+              e.printStackTrace();
+
+            }
+          });
+        }
+
+      }
+    }).start();
+  }
+
+  public void errorLoadingStock(){
+    errorDialog.showAndWait();
+    controller.errorLoadingStock();
+  }
   private void setInfoTile() {
     infoTileController.setCompanyName(
         stock.getCompanyOverview().getName() + " (" + stock.getCompanyOverview().getSymbol() + ")");
+
     infoTileController.setSector(
         stock.getCompanyOverview().getSector() + " - " + stock.getCompanyOverview().getIndustry());
+
     infoTileController.setDescription(stock.getCompanyOverview().getDescription());
   }
 
   private void setRatingsTile(){
-    ratingsTileController.setCurrentPrice(stock.getTimeSeriesDaily().getDailyData().getFirst().getClose());
-    ratingsTileController.setPeEvaluationText(stock.getPeRatioEvaluation().getRating(), stock.getCompanyOverview().getPERatio(), stock.getPeRatioEvaluation().getDescription());
-    ratingsTileController.setBusinessPerformance(5, stock.getBusinessPerformanceEvaluation().getDescription()); //TODO THIS IS WORK IN PROGRESS
-    ratingsTileController.setGoldenCross(5, stock.getGoldenCrossEvaluation().getDescription());
+    ratingsTileController.setCurrentPrice(
+        stock.getTimeSeriesDaily().getDailyData().getFirst().getClose());
+
+    ratingsTileController.setPeEvaluationText(
+        stock.getPeRatioEvaluation().getRating(),
+        stock.getCompanyOverview().getPERatio(),
+        stock.getPeRatioEvaluation().getDescription());
+
+    ratingsTileController.setBusinessPerformance(
+        stock.getBusinessPerformanceEvaluation().getRating(),
+        stock.getBusinessPerformanceEvaluation().getDescription());
+
+    ratingsTileController.setCompanyGrowth(
+        stock.getCompanyGrowthEvaluation().getRating(),
+        stock.getCompanyGrowthEvaluation().getDescription());
+
+    ratingsTileController.setCompanySize(
+        stock.getCompanySizeEvaluation().getRating(),
+        stock.getCompanySizeEvaluation().getDescription());
   }
 
   @FXML
   public void showGoldenCross(){
     graphController.showGoldenCross();
   }
+
+  public void stockFavoritePressed(boolean stockIsFavorite){
+    controller.stockFavoritePressed(stockIsFavorite, stock.getCompanyOverview().getSymbol());
+  }
+
 }

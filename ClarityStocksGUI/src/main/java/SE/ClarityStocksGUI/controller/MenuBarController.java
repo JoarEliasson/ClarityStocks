@@ -11,9 +11,18 @@ import model.AlphaVantageListing;
 import model.SearchList;
 import org.controlsfx.control.SearchableComboBox;
 
+/**
+ * This controller handles the menu bar in the GUI. It is the controller to the Menu-bar.fxml file.
+ * <p>
+ * It also handles the search function and the search bar that is contained in the menu bar.
+ * <p>
+ * The class have one parent-class which is the Main-view.
+ *
+ * @author Douglas Almö Thorsell
+ * @see GUIMainController
+ */
 public class MenuBarController {
 
-  private static Views currentView;
   private GUIMainController controller;
   @FXML
   private Rectangle menuBar;
@@ -24,10 +33,9 @@ public class MenuBarController {
   @FXML
   private MFXButton homeButton;
   @FXML
-  private StackPane mainStackPane;
-  @FXML
   private SearchableComboBox<AlphaVantageListing> searchField;
   private AlphaVantageListing currentStock;
+  private static Views currentView;
 
   public void initialize() {
     homeButton.setStyle("-fx-background-color: #c6daff");
@@ -36,39 +44,38 @@ public class MenuBarController {
     setupComboBox();
     homeButton.setText("Home");
     stockButton.setText("Stock");
-    System.out.println("Menu bar initialized");
   }
 
   @FXML
   public void goToStockView() {
     if (currentView != Views.STOCK) {
-      System.out.println("STOCKVIEW");
-      System.out.println(currentView);
-      homeButton.setStyle("-fx-background-color: #ffffff");
-      stockButton.setStyle("-fx-background-color: #c6daff");
       controller.goToStockView();
-      currentView = Views.STOCK;
     }
   }
 
   @FXML
   public void goToHomeView() {
     if (currentView != Views.HOME) {
-      System.out.println("HOMEVIEW");
-      homeButton.setStyle("-fx-background-color: #c6daff");
-      stockButton.setStyle("-fx-background-color: #ffffff");
       controller.goToHomeView();
-      currentView = Views.HOME;
       resetSearchBar();
     }
+  }
+
+  public void setHomeButtonActive(){
+    currentView = Views.HOME;
+    homeButton.setStyle("-fx-background-color: #c6daff");
+    stockButton.setStyle("-fx-background-color: #ffffff");
+  }
+  public void setStockButtonActive(){
+    currentView = Views.STOCK;
+    homeButton.setStyle("-fx-background-color: #ffffff");
+    stockButton.setStyle("-fx-background-color: #c6daff");
   }
 
   @FXML
   public void loadStock() {
     if (searchField.getValue() != null && currentStock != searchField.getValue()) {
-      System.out.println(((AlphaVantageListing) searchField.getValue()).getName());
       currentStock = searchField.getValue();
-      System.out.println(currentStock.getSymbol());
       currentView = Views.STOCK;
       homeButton.setStyle("-fx-background-color: #ffffff");
       stockButton.setStyle("-fx-background-color: #c6daff");
@@ -122,6 +129,10 @@ public class MenuBarController {
     STOCK,
     HOME
 
+  }
+
+  public void setCurrentStock(AlphaVantageListing stock){
+    currentStock = stock;
   }
 
 }

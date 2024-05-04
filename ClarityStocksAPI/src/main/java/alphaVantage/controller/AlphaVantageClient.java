@@ -45,7 +45,7 @@ public class AlphaVantageClient {
 
     //Retrieval of historical data that is not used in the current implementation is commented out
     //Remove comments if the data is needed
-    //stock.setIncomeStatements(getIncomeStatements(symbol));
+    stock.setIncomeStatements(getIncomeStatements(symbol));
     //stock.setBalanceSheets(getBalanceSheet(symbol));
     //stock.setCashFlowReports(getCashFlowReports(symbol));
     stock.setEarningsData(getEarningsData(symbol));

@@ -47,7 +47,7 @@ public class CompanySizeEvaluation implements RatingEvaluation {
       description = String.format(
           "The Company (%s) is considered a very small company, a Nano-cap company "
           + "(below 50 million $) , judging by the revenue for the past twelve months "
-          + "(%s $). A small company is often considered riskier than larger companies, but"
+          + "(%s $). A small company is often considered riskier than larger companies, but "
           + "it also has the potential for high growth.",
           symbol, revenueTTM
       );
@@ -55,8 +55,8 @@ public class CompanySizeEvaluation implements RatingEvaluation {
     } else if (revenueTTM < microCapThreshold) {
       description = String.format(
           "The Company (%s) is considered a small company, a Micro-cap company "
-          + "(between 50 million $ and 250 million $) , judging by the revenue for the past"
-          + "twelve months (%s $). A small company is often considered riskier than a large"
+          + "(between 50 million $ and 250 million $) , judging by the revenue for the past "
+          + "twelve months (%s $). A small company is often considered riskier than a large "
           + "company, but it also has the potential for high growth.",
           symbol, revenueTTM
       );
@@ -64,7 +64,7 @@ public class CompanySizeEvaluation implements RatingEvaluation {
     } else if (revenueTTM < midCapThreshold) {
       description = String.format(
           "The Company (%s) is considered a medium-sized company, a Mid-cap company "
-          + "(between 250 million $ and 2 billion $) , judging by the revenue for the past"
+          + "(between 250 million $ and 2 billion $) , judging by the revenue for the past "
           + "twelve months (%s $). A medium-sized company is often considered less risky "
           + "than a small company, but it also has less growth potential. This is due to "
           + "the company's size and market position.",
@@ -74,8 +74,8 @@ public class CompanySizeEvaluation implements RatingEvaluation {
     } else if (revenueTTM < bigCapThreshold) {
       description = String.format(
           "The Company (%s) is considered a large company, a Big-cap company "
-          + "(between 2 billion $ and 10 billion $) , judging by the revenue for the past"
-          + "twelve months (%s $). A large company often brings less risk and more stability"
+          + "(between 2 billion $ and 10 billion $) , judging by the revenue for the past "
+          + "twelve months (%s $). A large company often brings less risk and more stability "
           + "than smaller companies. It is also less likely to experience high growth. This "
           + "is due to the company's size and market position.",
           symbol, revenueTTM
@@ -85,7 +85,7 @@ public class CompanySizeEvaluation implements RatingEvaluation {
       description = String.format(
           "The Company (%s) is considered a very large company, a Mega-cap company "
           + "(between 10 billion $ and 200 billion $) , judging by the revenue for the past"
-          + "twelve months (%s $). Companies of this size are often big players in their "
+          + " twelve months (%s $). Companies of this size are often big players in their "
           + "market and are considered less risky than smaller companies.",
           symbol, revenueTTM
       );
@@ -95,7 +95,7 @@ public class CompanySizeEvaluation implements RatingEvaluation {
           "The Company (%s) is considered an extremely large company, a Mega-cap company "
           + "(above 200 billion $) , judging by the revenue for the past twelve months "
           + "(%s $). Few companies are this large, and they are often considered less risky"
-          + "than smaller companies, since they most likely hold a dominant position in"
+          + " than smaller companies, since they most likely hold a dominant position in"
           + "their market.",
           symbol, revenueTTM
       );

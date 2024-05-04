@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="SE.ClarityStocksGUI.controller.tile.RatingsTile"
+      fx:controller="SE.ClarityStocksGUI.controller.tiles.RatingsTile"
       maxHeight="350" maxWidth="375">
     <VBox alignment="CENTER">
         <Label fx:id="currentPrice" styleClass="currentPrice"/>
@@ -19,7 +19,11 @@
         <Label styleClass="statLabel" fx:id="businessPerformance" wrapText="true"/>
     </HBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
-        <ImageView fx:id="goldenCrossImage" styleClass="ratingsImage"/>
-        <Label styleClass="statLabel" fx:id="goldenCrossRating" wrapText="true"/>
+        <ImageView fx:id="companyGrowthImg" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="companyGrowth" wrapText="true"/>
+    </HBox>
+    <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
+        <ImageView fx:id="companySizeImg" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="companySize" wrapText="true"/>
     </HBox>
 </VBox>

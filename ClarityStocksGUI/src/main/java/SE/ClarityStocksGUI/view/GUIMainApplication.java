@@ -20,34 +20,40 @@ import java.lang.reflect.Array;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This is the main application for the GUI. This class starts the program and loads in the
+ * necessary files for the program to run.
+ * @author Douglas Almö Thorsell
+ */
 public class GUIMainApplication extends Application {
+
   private Scene mainView;
   private Stage stage;
   private GUIMainController mainController;
-  private static GUIMainApplication guiMainApplication;
 
   @Override
-  public void start(Stage stage) throws IOException {
-
-    this.stage = stage;
+  public void start(Stage newStage) throws IOException {
+    this.stage = newStage;
     stage.getIcons().add(new Image(
         getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png")
             .toExternalForm()));
-    guiMainApplication = this;
+
+    setUpMainView();
+    setUpMaterialsFX();
+    setScene();
+  }
+
+  private void setUpMainView() throws IOException{
     String css = this.getClass().getResource("/se/ClarityStocksGUI/styles.css").toExternalForm();
-    //Setting up the Home view
 
     FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
     mainView = new Scene(mainLoader.load(), 1280, 720);
     mainView.getStylesheets().add(css);
     mainController = mainLoader.getController();
     mainController.setApplication(this);
+  }
 
-
-    System.out.println("MainController set up");
-    //stockViewController.setCompanyData(companyData);
-
-    //MaterialFX default code to get stylesheets working
+  private void setUpMaterialsFX(){
     UserAgentBuilder.builder()
         .themes(JavaFXThemes.MODENA)
         .themes(MaterialFXStylesheets.forAssemble(true))
@@ -55,14 +61,15 @@ public class GUIMainApplication extends Application {
         .setResolveAssets(true)
         .build()
         .setGlobal();
+  }
 
-    System.out.println("MaterialFX set up");
+  private void setScene(){
     stage.setTitle("Clarity Stocks");
     stage.setScene(mainView);
     stage.show();
-    System.out.println("Program should be visible");
-
   }
+
+
   public static void main(String[] args) {
         /*
             All logging is disabled because of a bug in an external library that gives tons of error messages when
