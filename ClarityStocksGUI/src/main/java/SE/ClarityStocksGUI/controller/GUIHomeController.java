@@ -57,7 +57,6 @@ public class GUIHomeController {
     layout.setEffect(new GaussianBlur(20));
 
     Platform.runLater(() -> {
-     // addDefaultStocks();
       animateWelcomeTextVisibility();
       setupViewBasedOnUser();
     });
@@ -139,6 +138,4 @@ public class GUIHomeController {
     SequentialTransition seqTransitionIn = new SequentialTransition(ftWelcomeIn, ftClarityIn);
     return seqTransitionIn;
   }
-
-
 }

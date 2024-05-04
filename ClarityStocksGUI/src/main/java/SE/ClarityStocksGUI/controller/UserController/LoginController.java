@@ -24,8 +24,7 @@ public class LoginController {
     public void handleLogin() {
         String username = usernameField.getText().trim();
         if (UserProfileManager.isUserExist(username, USER_PROFILE_FILE_PATH)) {
-            // Proceed with login
-            loadHomePage();  // Load the main application home page
+            loadHomePage();
         } else {
             showAlert("Not available user. Do you want to register?", Alert.AlertType.CONFIRMATION);
         }
@@ -46,7 +45,6 @@ public class LoginController {
         }
     }
 
-
     private void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type, message);
         if (type == Alert.AlertType.CONFIRMATION) {
@@ -61,13 +59,11 @@ public class LoginController {
             alert.showAndWait();
         }
     }
-
     public void handleGoToRegister() {
         Stage stage = (Stage) registerPrompt.getScene().getWindow();
         stage.setTitle("Add Username");
         loadRegisterPage(stage);
     }
-
     private void loadRegisterPage(Stage stage) {
         try {
             // Assuming the registration page FXML is "register.fxml" and located in the same package
@@ -82,5 +78,4 @@ public class LoginController {
             showAlert("Failed to load the registration page.", Alert.AlertType.ERROR);
         }
     }
-
 }

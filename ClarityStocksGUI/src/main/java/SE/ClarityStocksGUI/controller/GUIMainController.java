@@ -58,11 +58,10 @@ public class GUIMainController {
     stockViewController.loadStockView(stockSymbol);
   }
 
+  @FXML
   public void goToHomeView() {
     stockView.setVisible(false);
     homeView.setVisible(true);
-    favoriteListController.updateFavoriteList();
-
   }
 
   public void setFavoriteListController(FavoriteListController favoriteListController) {
@@ -80,8 +79,6 @@ public class GUIMainController {
       favoriteListController.removeFavoriteStock(stockSymbol);
     }
   }
-
-
   public ReadOnlyDoubleProperty getWidthProperty() {
     return mainBorderPane.widthProperty();
   }

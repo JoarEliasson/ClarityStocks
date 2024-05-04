@@ -56,8 +56,4 @@ public class UserProfile {
         isLoggedIn = loggedIn;
     }
 
-
-    public List<String> getRecentlyViewedStocks() {
-        return null;
-    }
 }

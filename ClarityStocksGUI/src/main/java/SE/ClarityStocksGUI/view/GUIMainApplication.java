@@ -49,12 +49,10 @@ public class GUIMainApplication extends Application {
     mainController.setApplication(this);
 
 
-    // Load the Favorite List GUI and set up the Favorite List Controller
     FXMLLoader favoriteLoader = new FXMLLoader(GUIMainApplication.class.getResource("FavoriteListView.fxml"));
-    Parent favoriteRoot = favoriteLoader.load();  // Assuming FavoriteList-view.fxml is the correct path
+    Parent favoriteRoot = favoriteLoader.load();
     FavoriteListController favoriteListController = favoriteLoader.getController();
 
-    // Set the FavoriteListController in the MainController
     mainController.setFavoriteListController(favoriteListController);
 
     System.out.println("MainController set up");

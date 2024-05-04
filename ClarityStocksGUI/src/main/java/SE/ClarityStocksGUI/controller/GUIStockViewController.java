@@ -139,6 +139,11 @@ public class GUIStockViewController {
             graphController.loadStockData(stock);
             setInfoTile();
             setRatingsTile();
+            try {
+              infoTileController.updateFavoriteStatus(stock.getCompanyOverview().getSymbol());
+            } catch (NullPointerException e) {
+              System.err.println("Failed to update favorite status: " + e.getMessage());
+            }
             progress.setVisible(false);
           }
         });

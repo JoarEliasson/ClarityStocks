@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javax.swing.ImageIcon;
+import userModel.UserProfile;
+import userModel.UserProfileManager;
 
 /**
  * This class handles the info tile which displays general information about the stock in the
@@ -28,11 +30,13 @@ public class InfoTile {
   @FXML
   private ImageView favoriteIcon;
   private ArrayList<Image> favoriteImages;
-  private boolean stockIsFavorite = false;
+  private boolean stockIsFavorite;
   private GUIStockViewController controller;
+  private UserProfile userProfile;
   public void initialize(){
     loadFavoriteImages();
     setUpFavoriteIcon();
+    userProfile = UserProfileManager.loadUserInformation("ClarityStocksUser/userInfo.json");
   }
 
   public void setUpFavoriteIcon(){
@@ -41,7 +45,6 @@ public class InfoTile {
     favoriteIcon.setImage(favoriteImages.get(0));
   }
 
-
   @FXML
   public void favoritePressed(){
     stockIsFavorite = !stockIsFavorite;
@@ -49,6 +52,15 @@ public class InfoTile {
     controller.stockFavoritePressed(stockIsFavorite);
   }
 
+  public void updateFavoriteStatus(String stockSymbol) {
+    if (userProfile == null) {
+      userProfile = UserProfileManager.loadUserInformation("ClarityStocksUser/userInfo.json");
+    }
+    assert userProfile != null;
+    boolean isFavorite = userProfile.isFavorite(stockSymbol);
+    favoriteIcon.setImage(favoriteImages.get(isFavorite ? 1 : 0));
+    stockIsFavorite = isFavorite;
+  }
 
   private void loadFavoriteImages(){
     favoriteImages = new ArrayList<>();
@@ -77,10 +89,4 @@ public class InfoTile {
   public void setController(GUIStockViewController controller){
     this.controller = controller;
   }
-
-  public void setFavorite(boolean isFavorite) {
-    stockIsFavorite = isFavorite;
-    favoriteIcon.setImage(favoriteImages.get(stockIsFavorite ? 1 : 0));  // Update the icon immediately
-  }
-
 }

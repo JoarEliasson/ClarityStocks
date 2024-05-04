@@ -15,7 +15,6 @@ public class UserProfileManager {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    // Saves user information in a JSON file
     public static void saveUserInformation(UserProfile userProfile, String filePath){
         try(FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(userProfile, writer);
@@ -24,7 +23,6 @@ public class UserProfileManager {
             e.printStackTrace();
         }
     }
-    // Load user information from a JSON file
     public static UserProfile loadUserInformation(String filePath){
         try(FileReader reader = new FileReader(filePath)){
             System.out.println("User profile loaded successfully.");
@@ -34,7 +32,6 @@ public class UserProfileManager {
             return null;
         }
     }
-
     public static boolean isUserExist(String username, String filePath) {
         UserProfile userProfile = loadUserInformation(filePath);
         if (userProfile != null) {
@@ -42,22 +39,13 @@ public class UserProfileManager {
         }
         return false;
     }
-
-
     public static boolean createUserProfile(String newUsername, String filePath) {
         UserProfile userProfile = loadUserInformation(filePath);
-        if (!isUserExist(newUsername, filePath)) {  // Check if user already exists
+        if (!isUserExist(newUsername, filePath)) {
             userProfile = new UserProfile(newUsername);
             saveUserInformation(userProfile, filePath);
             return true;
         }
         return false;
     }
-
-
-
-    public void updateUserProfile(UserProfile userProfile, String filePath) {
-        saveUserInformation(userProfile, filePath);
-    }
-
 }
