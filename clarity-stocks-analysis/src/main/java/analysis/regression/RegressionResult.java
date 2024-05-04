@@ -11,14 +11,15 @@ public class RegressionResult {
   private final IncomeStatementVariable variable;
   private final SimpleRegression simpleRegression;
   private final String description;
-  private final String prediction;
+  private final PricePrediction pricePrediction;
 
   public RegressionResult(IncomeStatementVariable variable, SimpleRegression simpleRegression,
-      String description, String prediction) {
+      String description, PricePrediction pricePrediction) {
     this.variable = variable;
     this.simpleRegression = simpleRegression;
     this.description = description;
-    this.prediction = prediction;
+    this.pricePrediction = pricePrediction;
+    System.out.println(pricePrediction.getDescription());
   }
 
   public IncomeStatementVariable getVariable() {
@@ -33,7 +34,7 @@ public class RegressionResult {
     return description;
   }
 
-  public String getPrediction() {
-    return prediction;
+  public PricePrediction getPricePrediction() {
+    return pricePrediction;
   }
 }

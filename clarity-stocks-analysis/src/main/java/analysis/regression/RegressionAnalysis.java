@@ -22,7 +22,8 @@ public class RegressionAnalysis {
   private final IncomeStatementVariable[] variables = IncomeStatementVariable.values();
   private String result;
 
-  public RegressionAnalysis(String symbol, List<IncomeStatement> incomeStatements, TimeSeriesMonthly timeSeriesMonthly) {
+  public RegressionAnalysis(String symbol, List<IncomeStatement> incomeStatements,
+      TimeSeriesMonthly timeSeriesMonthly) {
     this.symbol = symbol;
     this.regressionCalculator = new RegressionCalculator(incomeStatements, timeSeriesMonthly);
     calculateRegressions();

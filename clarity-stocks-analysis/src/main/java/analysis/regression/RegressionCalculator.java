@@ -42,7 +42,7 @@ public class RegressionCalculator implements LinearRegressions {
         variable,
         regression,
         fetchDescription(regression, variable.name()),
-        fetchPrediction(indexedVariableData[indexedVariableData.length - 1], regression)
+        fetchPricePrediction(variable, indexedVariableData[indexedVariableData.length - 1], regression)
     );
   }
 
@@ -62,8 +62,6 @@ public class RegressionCalculator implements LinearRegressions {
         incomeStatements.size());
     adjustedPrices = new double[closePrices.size()];
     for (int i = 0; i < closePrices.size(); i++) {
-      System.out.println(
-          closePrices.get(i).getDate() + " " + closePrices.get(i).getAdjustedClose());
       adjustedPrices[i] = closePrices.get(i).getAdjustedClose();
     }
   }
@@ -83,7 +81,6 @@ public class RegressionCalculator implements LinearRegressions {
       double indexValue = (double) variableData[i] / variableData[0];
       double roundedValue = Math.round(indexValue * 100.0) / 100.0;
       indexedVariableData[i] = roundedValue;
-      System.out.println(indexedVariableData[i]);
     }
     return indexedVariableData;
   }
@@ -92,13 +89,9 @@ public class RegressionCalculator implements LinearRegressions {
   public SimpleRegression getRegression(String variableName, double[] indexedVariableData) {
     SimpleRegression regression = new SimpleRegression();
     for (int i = 0; i < adjustedPrices.length; i++) {
-      System.out.println(
-          variableName + ": " + indexedVariableData[i] + " price: " + adjustedPrices[i]
-      );
       regression.addData(indexedVariableData[i], adjustedPrices[i]);
     }
     fetchDescription(regression, variableName);
-    fetchPrediction(indexedVariableData[indexedVariableData.length - 1], regression);
     return regression;
   }
 
@@ -127,13 +120,25 @@ public class RegressionCalculator implements LinearRegressions {
   /**
    * Method for predicting the price of the stock.
    *
-   * @returns the predicted y-value associated with the supplied x-value, based on data that has
+   * @return the predicted y-value associated with the supplied x-value, based on data that has
    * been added to the model when the method is activated.
    */
   @Override
-  public String fetchPrediction(double dependentVariable, SimpleRegression linearRegression) {
-    return "The predicted price of the stock is: " + linearRegression
-        .predict(dependentVariable);
+  public PricePrediction fetchPricePrediction(IncomeStatementVariable variable, double indexedVariableData,
+      SimpleRegression regression) {
+    double prediction = regression.predict(indexedVariableData);
+    String description =  String.format("Price prediction for %s: %.2f$ R^2: %.2f", variable.name(),
+        prediction, regression.getRSquare()
+    );
+
+    return new PricePrediction(
+        timeSeriesMonthly.getSymbol(),
+        variable.name(),
+        adjustedPrices[adjustedPrices.length - 1],
+        prediction,
+        description
+    );
+
   }
 
   /**
@@ -145,29 +150,24 @@ public class RegressionCalculator implements LinearRegressions {
   public String fetchDescription(SimpleRegression linearRegression, String variableName) {
     String percentCharacter = "%";
     return String.format("The R value for the variable %s is: %.2f.%n"
-            + "R is the Pearson's product moment correlation coefficient. It measures the linear"
-            + "relationship between two variables. %nThe coefficient ranges from -1 to 1, where: %n"
-            + "1 indicates a perfect positive linear relationship.%n"
-            + "-1 indicates a perfect negative linear relationship.%n"
-            + "0 indicates no linear relationship.%n"
-            + "The R-square is: %.2f.%n"
-            + "R-square is the coefficient of determination. It represents the proportion of the variance in the "
-            + "dependent variable that is predictable from the independent variables. It indicates how well the "
-            + "independent variables explain the variability of the dependent variable.%n"
-            + "R-square values range from 0 to 1, where: %n"
-            + "0 indicates that the independent variables do not explain any of the variability of the dependent "
-            + "variable.%n"
-            + "1 indicates that the independent variables perfectly explain all the variability of the dependent "
-            + "variable.%n"
-            + "The slope is: %.2f.%n"
-            + "The slope represents the rate of change in the dependent variable for a one-unit change in the "
-            + "independent variable. It quantifies the effect of the independent variable on the dependent variable.%n"
-            + "The significance is: %.2f.%n"
-            + "Significance is the statistical significance of the estimated coefficients. It indicated whether these "
-            + "coefficients are reliably different from 0.%n"
-            + "A significance level less than 0.05 / 5%s indicates that the coefficient is statistically significant, "
-            + "suggesting that there is sufficient evidence to reject the null hypothesis that the coefficient is "
-            + "equal to 0.",
+        + "R is the Pearson's product moment correlation coefficient. It measures the linear"
+        + "relationship between two variables. %nThe coefficient ranges from -1 to 1, where: %n -1"
+        + "indicates a perfect negative linear relationship.%n 1 indicates a perfect positive"
+        + "linear relationship.%n 0 indicates no linear relationship.%n The R-square is: %.2f.%n"
+        + "R-square is the coefficient of determination. It represents the proportion of the"
+        + "variance in the dependent variable that is predictable from the independent variables."
+        + "It indicates how well the independent variables explain the variability of the dependent"
+        + "variable.%n R-square values range from 0 to 1, where: %n 0 indicates that the "
+        + "independent variables do not explain any of the variability of the dependent variable.%n"
+        + "1 indicates that the independent variables perfectly explain all the variability of the"
+        + "dependent variable.%n The slope is: %.2f.%n The slope represents the rate of change in"
+        + "the dependent variable for a one-unit change in the independent variable. It quantifies"
+        + "the effect of the independent variable on the dependent variable.%n The significance is:"
+        + "%.2f.%n Significance is the statistical significance of the estimated coefficients. It"
+        + "indicated whether these coefficients are reliably different from 0.%n A significance"
+        + "level less than 0.05 / 5%s indicates that the coefficient is statistically significant,"
+        + "suggesting that there is sufficient evidence to reject the null hypothesis that the"
+        + "coefficient is equal to 0.",
         variableName, linearRegression.getR(), linearRegression.getRSquare(),
         linearRegression.getSlope(), linearRegression.getSignificance(), percentCharacter
     );

@@ -1,5 +1,6 @@
 package analysis.interfaces;
 
+import analysis.regression.PricePrediction;
 import analysis.regression.RegressionResult;
 import common.enums.IncomeStatementVariable;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
@@ -24,7 +25,8 @@ public interface LinearRegressions {
 
   String fetchDescription(SimpleRegression regression, String variableName);
 
-  String fetchPrediction(double independentVariable, SimpleRegression regression);
+  PricePrediction fetchPricePrediction(IncomeStatementVariable variable, double indexedVariableData,
+      SimpleRegression regression);
 
   RegressionResult runRegression(IncomeStatementVariable variable);
 }
