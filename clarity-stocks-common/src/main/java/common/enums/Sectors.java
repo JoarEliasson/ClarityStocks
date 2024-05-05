@@ -1,4 +1,4 @@
-package analysis.unfinished;
+package common.enums;
 
 /**
  * Enum with values of different P/E-ratios for different company sectors.
