@@ -1,0 +1,2 @@
+module clarity.stocks.user {
+}
