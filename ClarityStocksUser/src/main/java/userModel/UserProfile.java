@@ -26,10 +26,6 @@ public class UserProfile {
         }
     }
 
-    public void removeFavoriteStock(String stockSymbol) {
-        favoriteStocks.remove(stockSymbol);
-    }
-
     public boolean isFavorite(String stockSymbol) {
         return favoriteStocks.contains(stockSymbol);
     }

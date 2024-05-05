@@ -27,6 +27,5 @@ module SE.ClarityStocksGUI {
   exports SE.ClarityStocksGUI.controller.stockViewTiles;
   exports SE.ClarityStocksGUI;
   exports SE.ClarityStocksGUI.controller.graphControllers;
-    exports SE.ClarityStocksGUI.controller.UserController;
-    opens SE.ClarityStocksGUI.controller.UserController to javafx.fxml;
+
 }
