@@ -13,28 +13,21 @@ import analysis.model.interfaces.Evaluation;
  */
 public class PriceToPerformance implements Evaluation {
   private final String symbol;
-  private final double peRatio;
+  private double peRatio;
   private final String sector;
   private final Sectors energy = Sectors.ENERGY;
   private final Sectors technology = Sectors.TECHNOLOGY;
-  private final Sectors energy = Sectors.ENERGY;
-  private final Sectors energy = Sectors.ENERGY;
-  private final Sectors energy = Sectors.ENERGY;
-  private final Sectors energy = Sectors.ENERGY;
-
+  private final Sectors telecom = Sectors.TELECOM;
+  private final Sectors industry = Sectors.INDUSTRY;
+  private final Sectors finance = Sectors.FINANCE;
+  private final Sectors software = Sectors.SOFTWARE;
+  private final Sectors consumerStaples = Sectors.CONSUMER_STAPLES;
+  private final Sectors healthcare = Sectors.HEALTHCARE;
+  private final Sectors materials = Sectors.MATERIALS;
+  private final Sectors realEstate = Sectors.REAL_ESTATE;
+  private final Sectors utilities = Sectors.UTILITIES;
   private String description;
-  private double pePercentage = 0.0;
-  private final double energyPE = 11.15;
-  private final double technologyPE = 44;
-  private final double softwarePE = 61.7;
-  private final double realEstatePE = 49.3;
-  private final double materialsPE = 30.7;
-  private final double industryPE = 30.4;
-  private final double consumerStaplesPE = 28.9;
-  private final double healthCarePE = 71.4;
-  private final double financePE = 16.3;
-  private final double telecomPE = 29.3;
-  private final double utilitiesPE = 71.4;
+  private double pePercentage;
 
   /*
   * Constructor for PriceToPerformance class. Has a switch statement which determines which method
@@ -45,14 +38,42 @@ public class PriceToPerformance implements Evaluation {
     this.peRatio = peRatio;
     this.sector = sector;
 
-
     PERatioEvaluation peRatioEvaluation = new PERatioEvaluation(symbol, peRatio);
     peRatio = peRatioEvaluation.getRating();
 
-    switch (sectors.getSector()) {
-      case "energy", "technology", "software", "real estate", "materials", "industry",
-        "consumer staples", "healthcare", "finance", "telecom", "utilities":
-        evaluatePE(peRatio, sectors.getPriceToEarnings(), sectors.getSector());
+    switch (sector.toLowerCase()) {
+      case "energy":
+        evaluatePE(peRatio, energy.getPriceToEarnings(), energy.getSector());
+        break;
+      case "technology":
+        evaluatePE(peRatio, technology.getPriceToEarnings(), technology.getSector());
+        break;
+      case "software":
+        evaluatePE(peRatio, software.getPriceToEarnings(), software.getSector());
+        break;
+      case "real estate":
+        evaluatePE(peRatio, realEstate.getPriceToEarnings(), realEstate.getSector());
+        break;
+      case "materials":
+        evaluatePE(peRatio, materials.getPriceToEarnings(), materials.getSector());
+        break;
+      case "industry":
+        evaluatePE(peRatio, industry.getPriceToEarnings(), industry.getSector());
+        break;
+      case "consumer staples":
+        evaluatePE(peRatio, consumerStaples.getPriceToEarnings(), consumerStaples.getSector());
+        break;
+      case "healthcare":
+        evaluatePE(peRatio, healthcare.getPriceToEarnings(), healthcare.getSector());
+        break;
+      case "finance":
+        evaluatePE(peRatio, finance.getPriceToEarnings(), finance.getSector());
+        break;
+      case "telecom":
+        evaluatePE(peRatio, telecom.getPriceToEarnings(), telecom.getSector());
+        break;
+        case "utilities":
+        evaluatePE(peRatio, utilities.getPriceToEarnings(), utilities.getSector());
         break;
       default:
         unknownSector();
@@ -132,7 +153,7 @@ public class PriceToPerformance implements Evaluation {
 
 
   public static void main(String[] args) {
-    PriceToPerformance priceToPerformance = new PriceToPerformance("AAPL", 30, "technology");
-
+    PriceToPerformance priceToPerformance = new PriceToPerformance("AAPL", 50.0, "technology");
+    System.out.println(priceToPerformance.getDescription());
   }
 }
