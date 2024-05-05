@@ -28,10 +28,15 @@ public class RegressionCalculator implements LinearRegressions {
   public RegressionCalculator(List<IncomeStatement> incomeStatements,
       TimeSeriesMonthly timeSeriesMonthly) {
 
-    this.incomeStatements = incomeStatements;
+    this.incomeStatements = incomeStatements.reversed();
+    //Preserved for debugging purposes
+    //System.out.println(incomeStatements.getFirst().getFiscalDateEnding());
+    //System.out.println(incomeStatements.getLast().getFiscalDateEnding());
     this.timeSeriesMonthly = timeSeriesMonthly;
+    //Preserved for debugging purposes
+    //System.out.println(timeSeriesMonthly.getMonthlyData().getFirst().getDate());
+    //System.out.println(timeSeriesMonthly.getMonthlyData().getLast().getDate());
     fetchAdjustedData(getFiscalDateEndingMonth());
-    reverseVariableData();
   }
 
   @Override
@@ -106,15 +111,6 @@ public class RegressionCalculator implements LinearRegressions {
 
   private String getFiscalDateEndingMonth() {
     return incomeStatements.getLast().getFiscalDateEnding().split("-")[1];
-  }
-
-  /**
-   * Method for sorting the income statements by reversing them, as we want the latest income
-   * statement to be first in the list.
-   */
-  @Override
-  public void reverseVariableData() {
-    incomeStatements.reversed();
   }
 
   /**

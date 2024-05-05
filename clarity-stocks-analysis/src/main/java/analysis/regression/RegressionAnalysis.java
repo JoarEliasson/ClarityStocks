@@ -84,6 +84,16 @@ public class RegressionAnalysis {
             sortedArray[2].getSimpleRegression().getRSquare() + " from " + sortedArray[2].getVariable() +  ".",
         symbol
     );
+    //Preliminary result printing for later GUI implementation
+    /*
+    for (RegressionResult result : sortedArray) {
+      System.out.println();
+      System.out.println(symbol);
+      System.out.println(result.getVariable() + " R = " + result.getSimpleRegression().getR());
+      System.out.println(result.getVariable() + " R^2 = " + result.getSimpleRegression().getRSquare());
+      System.out.println(result.getPricePrediction().getDescription());
+    }
+     */
   }
 
   public String getResult() {

@@ -15,8 +15,6 @@ public interface LinearRegressions {
 
   void fetchAdjustedData(String fiscalDateEnding);
 
-  void reverseVariableData();
-
   long[] getVariableData(IncomeStatementVariable variable);
 
   double[] getIndexedVariableData(long[] variableData);
