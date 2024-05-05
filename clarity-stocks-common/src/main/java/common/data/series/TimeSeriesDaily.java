@@ -79,9 +79,6 @@ public class TimeSeriesDaily {
         goldenCrossEvents.add(dailyDataPointsInRange.get(i).getDate());
       }
     }
-    for (String date : goldenCrossEvents) {
-      System.out.println("Golden Cross on " + date);
-    }
     return goldenCrossEvents;
   }
 
@@ -95,9 +92,6 @@ public class TimeSeriesDaily {
           movingAverages50.get(i - 1).getClose() > movingAverages200.get(i - 1).getClose()) {
         deathCrossEvents.add(dailyDataPointsInRange.get(i).getDate());
       }
-    }
-    for (String date : deathCrossEvents) {
-      System.out.println("Death Cross on " + date);
     }
     return deathCrossEvents;
   }

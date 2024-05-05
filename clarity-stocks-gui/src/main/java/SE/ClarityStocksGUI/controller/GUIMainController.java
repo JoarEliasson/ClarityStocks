@@ -5,7 +5,6 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import model.AlphaVantageListing;
 
 /**
  * This is the main controller class for the GUI. It's the main container of all the different views

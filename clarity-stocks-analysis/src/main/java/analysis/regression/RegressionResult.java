@@ -19,7 +19,7 @@ public class RegressionResult {
     this.simpleRegression = simpleRegression;
     this.description = description;
     this.pricePrediction = pricePrediction;
-    System.out.println(pricePrediction.getDescription());
+    //System.out.println(pricePrediction.getDescription());
   }
 
   public IncomeStatementVariable getVariable() {
