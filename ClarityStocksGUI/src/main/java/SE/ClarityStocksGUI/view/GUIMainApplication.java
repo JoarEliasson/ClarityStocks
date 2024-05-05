@@ -1,31 +1,23 @@
 package SE.ClarityStocksGUI.view;
 
 import SE.ClarityStocksGUI.controller.FavoriteListController;
-import SE.ClarityStocksGUI.controller.GUIHomeController;
 import SE.ClarityStocksGUI.controller.GUIMainController;
-import SE.ClarityStocksGUI.controller.GUIStockViewController;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 
-import java.lang.reflect.Array;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GUIMainApplication extends Application {
-
-  private Scene homeView;
-  private Scene stockView;
+  
   private Scene mainView;
   private Stage stage;
   private GUIMainController mainController;
