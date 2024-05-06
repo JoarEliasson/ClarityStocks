@@ -17,9 +17,9 @@ public class Test {
     //timeSeriesDailyDAO.batchInsertTimeSeriesDailyQuery(timeSeriesDaily);
     //timeSeriesDailyDAO.getDailyDataQuery("AAPL");
 
-    //CompanyOverview companyOverview = client.getFullStockOverview("AAPL");
+    CompanyOverview companyOverview = client.getFullStockOverview("AAPL");
     CompanyOverviewDAO companyOverviewDAO = new CompanyOverviewDAO(dbConnectionPool.getConnection());
-    //companyOverviewDAO.insertFundamentalData(companyOverview);
-    System.out.println(companyOverviewDAO.getCompanyOverviewQuery("AAPL").toString());
+    companyOverviewDAO.insertFundamentalData(companyOverview);
+    //System.out.println(companyOverviewDAO.getCompanyOverviewQuery("AAPL").toString());
   }
 }

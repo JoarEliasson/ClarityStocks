@@ -2,6 +2,7 @@ package dao;
 
 import common.data.series.TimeSeriesDaily;
 import common.data.series.DailyDataPoint;
+import java.sql.Date;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import org.jooq.exception.DataAccessException;
@@ -94,15 +95,20 @@ public class TimeSeriesDailyDAO {
   }
 
   public String fetchLatestUpdateQuery(String symbol) throws SQLException {
-    Result<Record> result = connectionContext.fetch(
-        "select max(date) "
-            + "from timeSeriesDaily "
-            + "where stockSymbol = ?",
-        symbol
-    );
+    try {
+      Result<Record> result = connectionContext.fetch(
+          "select max(date) "
+              + "from timeSeriesDaily "
+              + "where stockSymbol = ?",
+          symbol
+      );
 
-    java.sql.Date lastUpdated = result.getValue(0, DSL.field("max", java.sql.Date.class));
-    return lastUpdated.toString();
+      Date lastUpdated = result.getValue(0, DSL.field("max", Date.class));
+      return lastUpdated.toString();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
 

@@ -30,68 +30,6 @@ public class CompanyOverviewDAO {
     this.connectionContext = connection;
   }
 
-  public void insertCompanyOverview(CompanyOverview companyOverview) {
-    try {
-      connectionContext.transaction(configuration -> {
-        DSLContext transactionContext = DSL.using(configuration);
-
-        transactionContext.execute(
-            "CALL insertFundamental(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
-                + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-
-            companyOverview.getSymbol(),
-            companyOverview.getAssetType(),
-            companyOverview.getName(),
-            companyOverview.getDescription(),
-            companyOverview.getCIK(),
-            companyOverview.getExchange(),
-            companyOverview.getCurrency(),
-            companyOverview.getCountry(),
-            companyOverview.getSector(),
-            companyOverview.getIndustry(),
-            companyOverview.getAddress(),
-            companyOverview.getFiscalYearEnd(),
-            Date.valueOf(companyOverview.getLatestQuarter()),
-            companyOverview.getMarketCapitalization(),
-            companyOverview.getEBITDA(),
-            companyOverview.getPERatio(),
-            companyOverview.getPEGRatio(),
-            companyOverview.getBookValue(),
-            companyOverview.getDividendPerShare(),
-            companyOverview.getDividendYield(),
-            companyOverview.getEPS(),
-            companyOverview.getRevenuePerShareTTM(),
-            companyOverview.getProfitMargin(),
-            companyOverview.getOperatingMarginTTM(),
-            companyOverview.getReturnOnAssetsTTM(),
-            companyOverview.getReturnOnEquityTTM(),
-            companyOverview.getRevenueTTM(),
-            companyOverview.getGrossProfitTTM(),
-            companyOverview.getDilutedEPSTTM(),
-            companyOverview.getQuarterlyEarningsGrowthYOY(),
-            companyOverview.getQuarterlyRevenueGrowthYOY(),
-            companyOverview.getAnalystTargetPrice(),
-            companyOverview.getTrailingPE(),
-            companyOverview.getForwardPE(),
-            companyOverview.getPriceToSalesRatioTTM(),
-            companyOverview.getPriceToBookRatio(),
-            companyOverview.getEVToRevenue(),
-            companyOverview.getEVToEBITDA(),
-            companyOverview.getBeta(),
-            companyOverview.getWeek52High(),
-            companyOverview.getWeek52Low(),
-            companyOverview.getMovingAverage50(),
-            companyOverview.getMovingAverage200(),
-            companyOverview.getSharesOutstanding(),
-            Date.valueOf(companyOverview.getDividendDate()),
-            Date.valueOf(companyOverview.getExDividendDate())
-        );
-      });
-    } catch (DataAccessException e) {
-      // Handle exceptions as before
-    }
-  }
-
   public void insertFundamentalData(CompanyOverview companyOverview) {
     try {
       connectionContext.insertInto(DSL.table("fundamentaldata"),
@@ -205,87 +143,6 @@ public class CompanyOverviewDAO {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
-    /*
-    try {
-      connectionContext.transaction(configuration -> {
-        DSLContext transactionContext = DSL.using(configuration);
-
-        transactionContext.execute(
-      "insert into fundamentaldata " +
-          "(stockSymbol, assetType, name, description, cik, marketSymbol, currency, country, "
-          + "sector, industry, address, fiscalYearEnd, latestQuarter, marketCapitalization, "
-          + "ebitda, peRatio, pegRatio, bookValue, dividendPerShare, dividendYield, eps, "
-          + "revenuePerShareTTM, profitMargin, operationMarginTTM, returnOnAssetsTTM, "
-          + "returnOnEquityTTM, revenueTTM, grossProfitTTM, dilutedEPSTTM, "
-          + "quarterlyEarningsGrowthYOY, quarterlyRevenueGrowthYOY, analystTargetPrice, "
-          + "trailingPE, forwardPE, priceToSalesRatioTTM, priceToBookRatio, evToRevenue, "
-          + "evToEBITDA, beta, week52High, week52Low, day50movingaverage, day200movingaverage, "
-          + "sharesOutstanding, dividendDate, exDividendDate, dateRetrieved) " +
-          "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
-          + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_date)",
-
-          companyOverview.getSymbol(),
-          companyOverview.getAssetType(),
-          companyOverview.getName(),
-          companyOverview.getDescription(),
-          companyOverview.getCIK(),
-          companyOverview.getExchange(),
-          companyOverview.getCurrency(),
-          companyOverview.getCountry(),
-          companyOverview.getSector(),
-          companyOverview.getIndustry(),
-          companyOverview.getAddress(),
-          companyOverview.getFiscalYearEnd(),
-          Date.valueOf(companyOverview.getLatestQuarter()),
-          companyOverview.getMarketCapitalization(),
-          companyOverview.getEBITDA(),
-          companyOverview.getPERatio(),
-          companyOverview.getPEGRatio(),
-          companyOverview.getBookValue(),
-          companyOverview.getDividendPerShare(),
-          companyOverview.getDividendYield(),
-          companyOverview.getEPS(),
-          companyOverview.getRevenuePerShareTTM(),
-          companyOverview.getProfitMargin(),
-          companyOverview.getOperatingMarginTTM(),
-          companyOverview.getReturnOnAssetsTTM(),
-          companyOverview.getReturnOnEquityTTM(),
-          companyOverview.getRevenueTTM(),
-          companyOverview.getGrossProfitTTM(),
-          companyOverview.getDilutedEPSTTM(),
-          companyOverview.getQuarterlyEarningsGrowthYOY(),
-          companyOverview.getQuarterlyRevenueGrowthYOY(),
-          companyOverview.getAnalystTargetPrice(),
-          companyOverview.getTrailingPE(),
-          companyOverview.getForwardPE(),
-          companyOverview.getPriceToSalesRatioTTM(),
-          companyOverview.getPriceToBookRatio(),
-          companyOverview.getEVToRevenue(),
-          companyOverview.getEVToEBITDA(),
-          companyOverview.getBeta(),
-          companyOverview.getWeek52High(),
-          companyOverview.getWeek52Low(),
-          companyOverview.getMovingAverage50(),
-          companyOverview.getMovingAverage200(),
-          companyOverview.getSharesOutstanding(),
-          Date.valueOf(companyOverview.getDividendDate()),
-          Date.valueOf(companyOverview.getExDividendDate())
-        );
-      });
-    } catch (DataAccessException e) {
-      if (e.getCause() instanceof PSQLException) {
-        PSQLException psqlException = (PSQLException) e.getCause();
-        if (psqlException.getSQLState().equals("23505")) {
-          System.out.println("A record with the same stock symbol already exists in the database.");
-        } else {
-          System.out.println("Database error: " + e.getMessage());
-        }
-      } else {
-        System.out.println("Error: " + e.getMessage());
-      }
-    }
-     */
 
   }
 
@@ -446,19 +303,22 @@ public class CompanyOverviewDAO {
     }
   }
 
-  public String getStockSymbol(String symbol) {
+  public String fetchLatestUpdate(String symbol) {
     try {
       Result<Record> result = connectionContext.fetch(
-          "SELECT symbol " +
-              "FROM stock",
+          "select dateretrieved "
+              + "from fundamentaldata "
+              + "where stockSymbol = ?",
           symbol
       );
-      return result.getValue(0, DSL.field("stockSymbol", String.class));
+
+      Date dateRetrieved = result.getValue(0, DSL.field("dateretrieved", Date.class));
+      return dateRetrieved.toString();
     } catch (Exception e) {
-      System.out.println("Error when fetching company overview data");
       e.printStackTrace();
       return null;
     }
+
   }
 
 
