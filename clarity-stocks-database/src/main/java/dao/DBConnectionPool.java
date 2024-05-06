@@ -1,9 +1,5 @@
 package dao;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 /**
  * The class provides a centralized connection pool management using HikariCP for efficient database
  * connections.
@@ -20,6 +16,7 @@ import java.util.Properties;
  * @author Kasper Schröder
  */
 public class DBConnectionPool {
+  /*
   private static HikariDataSource dataSource;
   private static final String databasePropertiesPath = "ClarityStocksAPI/src/main/resources/database.properties";
 
@@ -42,7 +39,7 @@ public class DBConnectionPool {
     config.setMaximumPoolSize(10);
     dataSource = new HikariDataSource(config);
   }
-/*
+
   public static DSLContext getConnection(){
     return DSL.using(dataSource, SQLDialect.POSTGRES);
 
