@@ -1,5 +1,17 @@
 package dao;
 
+import common.data.series.TimeSeriesDaily;
+import common.data.series.DailyDataPoint;
+import org.jooq.DSLContext;
+import org.jooq.Result;
+import org.jooq.exception.DataAccessException;
+import org.jooq.impl.DSL;
+import org.jooq.Record;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The class manages the database interactions related to daily financial time series data.
  * <p>
@@ -14,57 +26,61 @@ package dao;
  * @author Kasper Schröder
  */
 public class TimeSeriesDailyDAO {
-  /*
   private final DSLContext connectionContext;
 
   public TimeSeriesDailyDAO(DSLContext connection) {
     this.connectionContext = connection;
   }
 
-  public void batchInsertDailyDataPoints(String symbol, DailyDataPoint[] dailyDataPoints) {
+  public void batchInsertTimeSeriesDailyQuery(TimeSeriesDaily timeSeriesDaily) {
     try {
-      connectionContext.transaction(configuration ->{
-        DSLContext transactionContext = DSL.using(configuration);
-        for (DailyDataPoint dailyDataPoint : dailyDataPoints) {
-          transactionContext.execute(
-            "CALL insertdailydata(?, ?, ?, ?, ?, ?, ?)",
-            symbol,
-            java.sql.Date.valueOf(dailyDataPoint.getDate()),
-            dailyDataPoint.getOpen(),
-            dailyDataPoint.getHigh(),
-            dailyDataPoint.getLow(),
-            dailyDataPoint.getClose(),
-            dailyDataPoint.getVolume()
-          );
-        }
-      });
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+      String symbol = timeSeriesDaily.getSymbol();
+      List<DailyDataPoint> dailyDataPoints = timeSeriesDaily.getDailyData();
 
+      var batchQueries = new ArrayList<org.jooq.Query>();
+      for (DailyDataPoint dailyDataPoint : dailyDataPoints) {
+        var query = connectionContext.insertInto(DSL.table("timeSeriesDaily"),
+                DSL.field("stocksymbol"), DSL.field("date"), DSL.field("dailyopen"),
+                DSL.field("dailyhigh"), DSL.field("dailylow"), DSL.field("dailyclose"),
+                DSL.field("dailyvolume"))
+            .values(symbol, java.sql.Date.valueOf(dailyDataPoint.getDate()),
+                dailyDataPoint.getOpen(), dailyDataPoint.getHigh(),
+                dailyDataPoint.getLow(), dailyDataPoint.getClose(),
+                dailyDataPoint.getVolume())
+            .onConflict(DSL.field("stocksymbol"), DSL.field("date")).doNothing();
+        batchQueries.add(query);
+      }
+
+      connectionContext.batch(batchQueries).execute();
+    } catch (DataAccessException e) {
+      System.err.println("Error executing batch insert: " + e.getMessage());
+    } catch (Exception e) {
+      System.err.println("Error in batchInsertTimeSeriesDailyQuery " + e.getMessage());
+    }
   }
 
-  public TimeSeriesDaily getDailyData(String symbol) {
+  public TimeSeriesDaily getDailyDataQuery(String symbol) {
     try {
       TimeSeriesDaily timeSeriesDaily = new TimeSeriesDaily(symbol);
+      timeSeriesDaily.setLastRefreshed(fetchLatestUpdateQuery(symbol));
 
-      timeSeriesDaily.setLastRefreshed(fetchLatestUpdate(symbol));
+      Result<Record> result = connectionContext.select()
+          .from("timeSeriesDaily")
+          .where("stockSymbol = ?", symbol)
+          .orderBy(DSL.field("date").asc())
+          .fetch();
 
-      Result<Record> result = connectionContext.fetch(
-        "SELECT stockSymbol, date, dailyOpen, dailyHigh, dailyLow, dailyClose, dailyVolume " +
-        "FROM getTimeSeriesDailyData(?)",
-        symbol
-      );
 
       List<DailyDataPoint> dailyData = new ArrayList<>();
       for (Record record : result) {
+        record.getValue("date", String.class);
         DailyDataPoint dataPoint = new DailyDataPoint(
-          record.getValue("date", String.class),
-          record.getValue("dailyOpen", Double.class),
-          record.getValue("dailyHigh", Double.class),
-          record.getValue("dailyLow", Double.class),
-          record.getValue("dailyClose", Double.class),
-          record.getValue("dailyVolume", Long.class)
+            record.getValue("date", String.class),
+            record.getValue("dailyopen", Double.class),
+            record.getValue("dailyhigh", Double.class),
+            record.getValue("dailylow", Double.class),
+            record.getValue("dailyclose", Double.class),
+            record.getValue("dailyvolume", Long.class)
         );
         dailyData.add(dataPoint);
       }
@@ -77,18 +93,17 @@ public class TimeSeriesDailyDAO {
     }
   }
 
-  public String fetchLatestUpdate(String symbol) throws SQLException {
-    Result<Record> result1 = connectionContext.fetch(
-      "SELECT getLatestUpdate(?) " +
-      "as lastUpdated",
-      symbol
+  public String fetchLatestUpdateQuery(String symbol) throws SQLException {
+    Result<Record> result = connectionContext.fetch(
+        "select max(date) "
+            + "from timeSeriesDaily "
+            + "where stockSymbol = ?",
+        symbol
     );
 
-    Date lastUpdated = result1.getValue(0, DSL.field("lastUpdated", Date.class));
+    java.sql.Date lastUpdated = result.getValue(0, DSL.field("max", java.sql.Date.class));
     return lastUpdated.toString();
   }
-
-   */
 
 
 
