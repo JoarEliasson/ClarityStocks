@@ -32,8 +32,8 @@ public class AnalystPrediction implements Evaluation {
    * Also calls the evaluate method.
    * */
   public AnalystPrediction(String symbol, double currentPrice, double analystTargetPrice,
-      int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold,
-      int analystRatingSell, int analystRatingStrongSell) {
+    int analystRatingStrongBuy, int analystRatingBuy, int analystRatingHold,
+    int analystRatingSell, int analystRatingStrongSell) {
     this.symbol = symbol;
     this.currentPrice = currentPrice;
     this.ratingBuy = analystRatingBuy;
@@ -52,13 +52,13 @@ public class AnalystPrediction implements Evaluation {
   public String getDescription(String symbol, double currentPrice, double targetPrice,
       int ratingStrongBuy, int ratingBuy, int ratingHold, int ratingSell, int ratingStrongSell) {
     return description =
-        "Analyst target price for " + symbol + ": " + targetPrice + ". Current price is "
-            + currentPrice + "." +
-            "\nAnalyst rating buy: " + ratingBuy + "." +
-            "\nAnalyst rating strong buy: " + ratingStrongBuy + "." +
-            "\nAnalyst rating hold: " + ratingHold + "." +
-            "\nAnalyst rating sell: " + ratingSell + "." +
-            "\nAnalyst rating strong sell: " + ratingStrongSell + ".";
+    "Analyst target price for " + symbol + ": " + targetPrice + ". Current price is "
+    + currentPrice + "." +
+    "\nAnalyst rating buy: " + ratingBuy + "." +
+    "\nAnalyst rating strong buy: " + ratingStrongBuy + "." +
+    "\nAnalyst rating hold: " + ratingHold + "." +
+    "\nAnalyst rating sell: " + ratingSell + "." +
+    "\nAnalyst rating strong sell: " + ratingStrongSell + ".";
   }
 
   /*
@@ -84,10 +84,10 @@ public class AnalystPrediction implements Evaluation {
     if (percentageCompared < 0) {
       percentageCompared = percentageCompared * (-1);
       return percentageDescription = "the current price of the stock is " + percentage + "% lower" +
-          " than the target price";
+      " than the target price";
     } else {
       return percentageDescription = "the current price of the stock is " + percentage +
-          "% higher than the target price";
+      "% higher than the target price";
     }
   }
 
@@ -121,7 +121,7 @@ public class AnalystPrediction implements Evaluation {
   @Override
   public void evaluate() {
     getDescription(symbol, currentPrice, targetPrice, ratingStrongBuy,
-        ratingBuy, ratingHold, ratingSell, ratingStrongSell);
+    ratingBuy, ratingHold, ratingSell, ratingStrongSell);
     calculatePercentage(targetPrice, currentPrice);
     getPercentageDescription();
     getDescriptionPrice();
