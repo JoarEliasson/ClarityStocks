@@ -13,18 +13,15 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
  */
 public interface LinearRegressions {
 
-  void fetchAdjustedData(String fiscalDateEnding);
+  long[] fetchVariableData(IncomeStatementVariable variable);
 
-  long[] getVariableData(IncomeStatementVariable variable);
+  double[] indexVariableData(long[] variableData);
 
-  double[] getIndexedVariableData(long[] variableData);
+  SimpleRegression createRegressionModel(String variableName, double[] indexedVariableData);
 
-  SimpleRegression getRegression(String variableName, double[] indexedVariableData);
+  String generateDescription(SimpleRegression regression, String variableName);
 
-  String fetchDescription(SimpleRegression regression, String variableName);
+  PricePrediction generatePrediction(SimpleRegression regression, String variableName, double variableData);
 
-  PricePrediction fetchPricePrediction(IncomeStatementVariable variable, double indexedVariableData,
-      SimpleRegression regression);
-
-  RegressionResult runRegression(IncomeStatementVariable variable);
+  RegressionResult runAnalysis(IncomeStatementVariable variable);
 }
