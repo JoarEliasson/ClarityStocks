@@ -4,7 +4,7 @@ import common.interfaces.Evaluation;
 
 /**
  * Class for evaluating the analyst prediction of a stock. The analyst grades the evaluations on a
- * scale of 0 to 10.
+ * scale of 0 to 10, 0 being the lowest indication of an analyst rating, and 10 being the highest.
  *
  * @author Olivia Svensson
  */
