@@ -128,6 +128,11 @@
   -fx-font-size: 20;
 }
 
+.percentageChange{
+  -fx-font-size: 20;
+  -fx-padding: 0 10 0 5;
+}
+
 ToggleButton{
   -fx-pref-height: 30;
   -fx-pref-width: 50;
@@ -186,5 +191,3 @@ ToggleButton:selected{
   -fx-background-color : #c4c4c4;
   -fx-text-fill: #000000;
 }
-
-

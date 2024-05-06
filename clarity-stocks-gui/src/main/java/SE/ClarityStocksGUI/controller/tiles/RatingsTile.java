@@ -1,6 +1,7 @@
 package SE.ClarityStocksGUI.controller.tiles;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -21,6 +22,10 @@ public class RatingsTile {
   @FXML
   private Label currentPrice;
   @FXML
+  private Label percentageChange;
+  @FXML
+  private ImageView upOrDownChange;
+  @FXML
   private Label peEvaluation;
   @FXML
   private ImageView peRatingImg;
@@ -37,6 +42,7 @@ public class RatingsTile {
   @FXML
   private ImageView companySizeImg;
   private ArrayList<Image> ratingImages;
+  private ArrayList<Image> upOrDownImage;
 
   public void initialize() {
     loadImages();
@@ -45,6 +51,7 @@ public class RatingsTile {
 
   private void loadImages() {
     ratingImages = new ArrayList<>();
+    upOrDownImage = new ArrayList<>();
     ratingImages.add(new Image(
         getClass().getResource("/SE/ClarityStocksGUI/view/0rating.png").toExternalForm()));
     ratingImages.add(new Image(
@@ -57,10 +64,14 @@ public class RatingsTile {
         getClass().getResource("/SE/ClarityStocksGUI/view/4rating.png").toExternalForm()));
     ratingImages.add(new Image(
         getClass().getResource("/SE/ClarityStocksGUI/view/5rating.png").toExternalForm()));
+
+    upOrDownImage.add(new Image(
+        getClass().getResource("/SE/ClarityStocksGUI/view/stockDown.png").toExternalForm()));
+    upOrDownImage.add(new Image(
+        getClass().getResource("/SE/ClarityStocksGUI/view/stockUp.png").toExternalForm()));
   }
 
   public void setPeEvaluationText(int rating, double peRatio, String description) {
-
     peRatingImg.setImage(ratingImages.get(rating));
     peEvaluation.setText("P/E Ratio " + peRatio + "\n" + description);
     installLabelTooltip(peEvaluation, description);
@@ -76,14 +87,12 @@ public class RatingsTile {
     companyGrowthImg.setImage(ratingImages.get(rating));
     companyGrowth.setText("Company growth: " + description);
     installLabelTooltip(companyGrowth, description);
-
   }
 
   public void setCompanySize(int rating, String description){
     companySizeImg.setImage(ratingImages.get(rating));
     companySize.setText("Company size: " + description);
     installLabelTooltip(companySize, description);
-
   }
 
   private void setImageSize(){
@@ -98,6 +107,9 @@ public class RatingsTile {
 
     companySizeImg.setFitHeight(50);
     companySizeImg.setFitWidth(50);
+
+    upOrDownChange.setFitHeight(25);
+    upOrDownChange.setFitWidth(25);
   }
 
   private void installLabelTooltip(Label label, String text){
@@ -110,8 +122,26 @@ public class RatingsTile {
     tooltip.setWrapText(true);
     label.setTooltip(tooltip);
   }
+  //TODO TODO TODO TODO TODO TODO
+  public void setCurrentPrice(double todayPrice, double yesterdayPrice){
+    currentPrice.setText("$" +  todayPrice);
 
-  public void setCurrentPrice(double price){
-    currentPrice.setText("$" +  price);
+    if(todayPrice > yesterdayPrice){
+      upOrDownChange.setImage(upOrDownImage.get(1));
+      percentageChange.setStyle("-fx-text-fill: #33c481");
+    }else {
+      upOrDownChange.setImage(upOrDownImage.get(0));
+      percentageChange.setStyle("-fx-text-fill: #e05757");
+    }
+    percentageChange.setText(getPercentage(todayPrice, yesterdayPrice));
+  }
+
+  private String getPercentage(double todayPrice, double yesterdayPrice){
+    double percentage = ((todayPrice-yesterdayPrice)/yesterdayPrice)*100;
+    if(todayPrice < yesterdayPrice){
+      percentage = Math.abs(percentage);
+    }
+
+    return String.format(Locale.US, "%.2f", percentage) + "%";
   }
 }

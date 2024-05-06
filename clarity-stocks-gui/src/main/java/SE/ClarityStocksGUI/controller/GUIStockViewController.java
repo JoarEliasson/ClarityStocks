@@ -4,8 +4,10 @@ import SE.ClarityStocksGUI.controller.graph.GUIStockLineGraphController;
 import SE.ClarityStocksGUI.controller.tiles.InfoTile;
 import SE.ClarityStocksGUI.controller.tiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
+import common.data.series.DailyDataPoint;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.NoSuchElementException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -124,6 +126,7 @@ public class GUIStockViewController {
         public void handle(ActionEvent event) {
           unselectHistoryButtons(button1.getText());
           resetAnalysisSelector();
+          setStockPrice(button1.getText());
           graphController.changeDate(button1.getText());
         }
       });
@@ -283,8 +286,7 @@ public class GUIStockViewController {
   }
 
   private void setRatingsTile(){
-    ratingsTileController.setCurrentPrice(
-        stockData.getTimeSeriesDaily().getDailyData().getFirst().getClose());
+    setStockPrice("YTD");
 
     ratingsTileController.setPeEvaluationText(
         stockData.getPeRatioEvaluation().getRating(),
@@ -313,4 +315,43 @@ public class GUIStockViewController {
     controller.stockFavoritePressed(stockIsFavorite, stockData.getCompanyOverview().getSymbol());
   }
 
+  private void setStockPrice(String stockHistory){
+    double comparePrice = 0;
+    List<DailyDataPoint> data;
+    switch (stockHistory){
+      case "1W":
+        data = stockData.getTimeSeriesDaily().getDailyDataInRange(
+            LocalDate.now().minusWeeks(1).toString(),
+            LocalDate.now().toString());
+        comparePrice = data.getFirst().getClose();
+        break;
+      case "1M":
+        data = stockData.getTimeSeriesDaily().getDailyDataInRange(
+            LocalDate.now().minusMonths(1).toString(),
+            LocalDate.now().toString());
+        comparePrice = data.getFirst().getClose();
+        break;
+      case "YTD":
+        data = stockData.getTimeSeriesDaily().getDailyDataInRange(
+            LocalDate.ofYearDay(2024, 1).toString(),
+            LocalDate.now().toString());
+        comparePrice = data.getFirst().getClose();
+        break;
+      case "1Y":
+        data = stockData.getTimeSeriesDaily().getDailyDataInRange(
+            LocalDate.now().minusYears(1).toString(),
+            LocalDate.now().toString());
+        comparePrice = data.getFirst().getClose();
+        break;
+      case "MAX":
+        data = stockData.getTimeSeriesMonthly().getMonthlyData();
+        comparePrice = data.getLast().getAdjustedClose();
+        break;
+      default:
+        break;
+    }
+    ratingsTileController.setCurrentPrice(
+        stockData.getTimeSeriesDaily().getDailyData().getLast().getClose(),
+        comparePrice);
+  }
 }
