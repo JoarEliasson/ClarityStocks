@@ -1,5 +1,7 @@
 package common.data.series;
 
+import java.util.Locale;
+
 public class DailyDataPoint {
 
   private final String date;
@@ -126,5 +128,33 @@ public class DailyDataPoint {
 
   public void setVolume(long volume) {
     this.volume = volume;
+  }
+
+  public String getOpenFormatted() {
+      return formatDouble(this.open);
+  }
+
+  public String getHighFormatted() {
+      return formatDouble(this.high);
+  }
+
+  public String getLowFormatted() {
+      return formatDouble(this.low);
+  }
+
+  public String getCloseFormatted() {
+      return formatDouble(this.close);
+  }
+
+  public String getAdjustedCloseFormatted() {
+      return formatDouble(this.adjustedClose);
+  }
+
+  public String getAverageFormatted() {
+      return formatDouble(this.average);
+  }
+
+  private String formatDouble(double value) {
+      return String.format(Locale.US, "%.4E", value);
   }
 }

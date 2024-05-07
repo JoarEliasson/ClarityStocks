@@ -46,8 +46,8 @@ public class TimeSeriesDailyDAO {
                 DSL.field("dailyhigh"), DSL.field("dailylow"), DSL.field("dailyclose"),
                 DSL.field("dailyvolume"))
             .values(symbol, java.sql.Date.valueOf(dailyDataPoint.getDate()),
-                dailyDataPoint.getOpen(), dailyDataPoint.getHigh(),
-                dailyDataPoint.getLow(), dailyDataPoint.getClose(),
+                dailyDataPoint.getOpenFormatted(), dailyDataPoint.getHighFormatted(),
+                dailyDataPoint.getLowFormatted(), dailyDataPoint.getCloseFormatted(),
                 dailyDataPoint.getVolume())
             .onConflict(DSL.field("stocksymbol"), DSL.field("date")).doNothing();
         batchQueries.add(query);
@@ -56,6 +56,7 @@ public class TimeSeriesDailyDAO {
       connectionContext.batch(batchQueries).execute();
     } catch (DataAccessException e) {
       System.err.println("Error executing batch insert: " + e.getMessage());
+      e.printStackTrace();
     } catch (Exception e) {
       System.err.println("Error in batchInsertTimeSeriesDailyQuery " + e.getMessage());
     }

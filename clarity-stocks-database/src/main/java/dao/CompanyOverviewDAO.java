@@ -193,7 +193,7 @@ public class CompanyOverviewDAO {
           "fiscalyearend", String.class))
       );
       companyOverview.setLatestQuarter(result.getValue(0, DSL.field(
-          "latestquarter", String.class))
+          "latestquarter", Date.class)).toString()
       );
       companyOverview.setMarketCapitalization(result.getValue(0, DSL.field(
           "marketcapitalization", Long.class))
@@ -289,10 +289,10 @@ public class CompanyOverviewDAO {
           "sharesoutstanding", Long.class))
       );
       companyOverview.setDividendDate(result.getValue(0, DSL.field(
-          "dividenddate", String.class))
+          "dividenddate", Date.class)).toString()
       );
       companyOverview.setExDividendDate(result.getValue(0, DSL.field(
-          "exdividenddate", String.class))
+          "exdividenddate", Date.class)).toString()
       );
 
       return companyOverview;
