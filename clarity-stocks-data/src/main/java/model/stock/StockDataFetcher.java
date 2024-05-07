@@ -31,5 +31,4 @@ public class StockDataFetcher {
     stockData.runAnalyses();
     return stockData;
   }
-
 }

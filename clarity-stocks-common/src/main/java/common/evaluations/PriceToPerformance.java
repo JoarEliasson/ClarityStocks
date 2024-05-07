@@ -1,6 +1,5 @@
 package common.evaluations;
 
-import common.evaluations.PERatioEvaluation;
 import common.enums.Sectors;
 import common.interfaces.Evaluation;
 
@@ -145,6 +144,42 @@ public class PriceToPerformance implements Evaluation {
   @Override
   public String getSymbol() {
     return symbol;
+  }
+
+  /**
+   * Method for getting the title of the evaluation.
+   * <p>
+   * The title corresponds to the type of evaluation that is performed.
+   *
+   * @return the title of the evaluation.
+   */
+  @Override
+  public String getTitle() {
+    return "";
+  }
+
+  /**
+   * Method for getting the subtitle of the evaluation.
+   * <p>
+   * The subtitle is a short description of the data that the evaluation is based on.
+   *
+   * @return the subtitle of the evaluation.
+   */
+  @Override
+  public String getSubtitle() {
+    return "";
+  }
+
+  /**
+   * Method for getting the evaluation method.
+   * <p>
+   * The evaluation method is a short description of how the evaluation is performed.
+   *
+   * @return the evaluation method.
+   */
+  @Override
+  public String getEvaluationMethod() {
+    return "";
   }
 
   @Override
