@@ -146,7 +146,7 @@ public class AnalystPrediction implements Evaluation {
    */
   @Override
   public String getTitle() {
-    return "";
+    return "Analyst Prediction";
   }
 
   /**
@@ -158,7 +158,19 @@ public class AnalystPrediction implements Evaluation {
    */
   @Override
   public String getSubtitle() {
-    return "";
+    return "The analyst prediction analysis is based on analysts’ ratings of the stock."
+        + " The analysts have research public financial statements of the stock company, listen"
+        + " in on conference calls, as well as talk to managers and customers of the company."
+        + " Through this investigation into company’s performance, the analyst decides whether the"
+        + " stock is a “strong buy”, “buy”, “hold”, “sell” or “strong sell” and grades it"
+        + " accordingly. The ratings provided by the financial analysts are independent of the"
+        + " companies, as there would be legal repercussions for analysts rating stocks which"
+        + " they have an interest in. The analyst ratings are meant as a complement for the other"
+        + " statistics and is not something to solely base your judgement of the stock on. There is"
+        + " also no industry standard for the rating scale of the stock. What we call “buy” could"
+        + " be called “outperform” according to other rating scales. The analysts also gives a"
+        + " target price, which is an estimation of what the stock's price is valued at in the"
+        + " future.\n";
   }
 
   /**
@@ -170,7 +182,18 @@ public class AnalystPrediction implements Evaluation {
    */
   @Override
   public String getEvaluationMethod() {
-    return "";
+    return "The evaluation of the analyst prediction in the application is made by comparing the"
+        + " target price and the current price of the stock. This is calculated by dividing the"
+        + " current price with the target price. From this we get a value which is either under or"
+        + " over the target price. We multiply the value by 100 to get the percentage. If the"
+        + " current price is less than 100% of the target price, that is an indication that the"
+        + " stock is currently undervalued. If the current price is more than 100%, it is an"
+        + " indication that the stock is currently overvalued. Another part of the analysis returns"
+        + " how many percentage points the current price of the stock is over or under the target"
+        + " price. The analysts’ ratings we receive are on a scale of 1-10, ranking each of the"
+        + " grades accordingly (“strong buy”, “buy”, “hold”, “sell” or “strong sell”). We sort the"
+        + " two most favored gradings from the analysts by evaluating which two have the highest"
+        + " grade.";
   }
 
   /**
