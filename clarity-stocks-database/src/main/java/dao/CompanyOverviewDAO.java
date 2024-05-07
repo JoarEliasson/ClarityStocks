@@ -1,6 +1,7 @@
 package dao;
 
 import common.data.fundamental.CompanyOverview;
+import java.math.BigDecimal;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -157,34 +158,30 @@ public class CompanyOverviewDAO {
       );
 
       companyOverview.setSymbol(result.getValue(0, DSL.field(
-        "stocksymbol", String.class))
+          "stocksymbol", String.class))
       );
       companyOverview.setAssetType(result.getValue(0, DSL.field(
-        "assettype", String.class))
+          "assettype", String.class))
       );
       companyOverview.setName(result.getValue(0, DSL.field(
-        "name", String.class))
+          "name", String.class))
       );
       companyOverview.setDescription(result.getValue(0, DSL.field(
-        "description", String.class))
+          "description", String.class))
       );
       companyOverview.setCIK(result.getValue(0, DSL.field(
-        "cik", String.class))
+          "cik", String.class))
       );
       companyOverview.setExchange(result.getValue(0, DSL.field(
-        "marketsymbol", String.class))
+          "marketsymbol", String.class))
       );
       companyOverview.setCurrency(result.getValue(0, DSL.field(
-          "currency", String.class))
-      );
-      companyOverview.setCountry(result.getValue(0, DSL.field(
-          "country", String.class))
+          "currency", String.class)));
+      companyOverview.setCountry(result.getValue(0, DSL.field("country", String.class))
       );
       companyOverview.setSector(result.getValue(0, DSL.field(
-          "sector", String.class))
-      );
-      companyOverview.setIndustry(result.getValue(0, DSL.field(
-          "industry", String.class))
+          "sector", String.class)));
+      companyOverview.setIndustry(result.getValue(0, DSL.field("industry", String.class))
       );
       companyOverview.setAddress(result.getValue(0, DSL.field(
           "address", String.class))
@@ -192,107 +189,232 @@ public class CompanyOverviewDAO {
       companyOverview.setFiscalYearEnd(result.getValue(0, DSL.field(
           "fiscalyearend", String.class))
       );
-      companyOverview.setLatestQuarter(result.getValue(0, DSL.field(
-          "latestquarter", Date.class)).toString()
+
+      Date latestQuarterValue = result.getValue(0, DSL.field(
+          "latestquarter", Date.class)
       );
+      companyOverview.setLatestQuarter(
+          latestQuarterValue != null ? latestQuarterValue.toString() : null
+      );
+
       companyOverview.setMarketCapitalization(result.getValue(0, DSL.field(
           "marketcapitalization", Long.class))
       );
-      companyOverview.setEBITDA(result.getValue(0, DSL.field(
-          "ebitda", Double.class))
+
+      BigDecimal ebitdaValue = result.getValue(0, DSL.field(
+          "ebitda", BigDecimal.class)
       );
-      companyOverview.setPERatio(result.getValue(0, DSL.field(
-          "peratio", Double.class))
+      companyOverview.setEBITDA(
+          ebitdaValue != null ? ebitdaValue.doubleValue() : null
       );
-      companyOverview.setPEGRatio(result.getValue(0, DSL.field(
-          "pegratio", Double.class))
+
+      BigDecimal peratioValue = result.getValue(0, DSL.field(
+          "peratio", BigDecimal.class)
       );
-      companyOverview.setBookValue(result.getValue(0, DSL.field(
-          "bookvalue", Double.class))
+      companyOverview.setPERatio(
+          peratioValue != null ? peratioValue.doubleValue() : null
       );
-      companyOverview.setDividendPerShare(result.getValue(0, DSL.field(
-          "dividendpershare", Double.class))
+
+      BigDecimal pegRatioValue = result.getValue(0, DSL.field(
+          "pegratio", BigDecimal.class)
       );
-      companyOverview.setDividendYield(result.getValue(0, DSL.field(
-          "dividendyield", Double.class))
+      companyOverview.setPEGRatio(
+          pegRatioValue != null ? pegRatioValue.doubleValue() : null
       );
-      companyOverview.setEPS(result.getValue(0, DSL.field(
-          "eps", Double.class))
+
+      BigDecimal bookValueValue = result.getValue(0, DSL.field(
+          "bookvalue", BigDecimal.class)
       );
-      companyOverview.setRevenuePerShareTTM(result.getValue(0, DSL.field(
-          "revenuepersharettm", Double.class))
+      companyOverview.setBookValue(
+          bookValueValue != null ? bookValueValue.doubleValue() : null
       );
-      companyOverview.setProfitMargin(result.getValue(0, DSL.field(
-          "profitmargin", Double.class))
+
+      BigDecimal dividendPerShareValue = result.getValue(0, DSL.field(
+          "dividendpershare", BigDecimal.class)
       );
-      companyOverview.setOperatingMarginTTM(result.getValue(0, DSL.field(
-          "operatingmarginttm", Double.class))
+      companyOverview.setDividendPerShare(
+          dividendPerShareValue != null ? dividendPerShareValue.doubleValue() : null
       );
-      companyOverview.setReturnOnAssetsTTM(result.getValue(0, DSL.field(
-          "returnonassetsttm", Double.class))
+
+      BigDecimal dividendYieldValue = result.getValue(0, DSL.field(
+          "dividendyield", BigDecimal.class)
       );
-      companyOverview.setReturnOnEquityTTM(result.getValue(0, DSL.field(
-          "returnonequityttm", Double.class))
+      companyOverview.setDividendYield(
+          dividendYieldValue != null ? dividendYieldValue.doubleValue() : null
       );
+
+      BigDecimal epsValue = result.getValue(0, DSL.field(
+          "eps", BigDecimal.class)
+      );
+      companyOverview.setEPS(
+          epsValue != null ? epsValue.doubleValue() : null
+      );
+
+      BigDecimal revenuePerShareTTMValue = result.getValue(0, DSL.field(
+          "revenuepersharettm", BigDecimal.class)
+      );
+      companyOverview.setRevenuePerShareTTM(
+          revenuePerShareTTMValue != null ? revenuePerShareTTMValue.doubleValue() : null
+      );
+
+      BigDecimal profitMarginValue = result.getValue(0, DSL.field(
+          "profitmargin", BigDecimal.class)
+      );
+      companyOverview.setProfitMargin(
+          profitMarginValue != null ? profitMarginValue.doubleValue() : null
+      );
+
+      BigDecimal operatingMarginTTMValue = result.getValue(0, DSL.field(
+          "operationmarginttm", BigDecimal.class)
+      );
+      companyOverview.setOperatingMarginTTM(
+          operatingMarginTTMValue != null ? operatingMarginTTMValue.doubleValue() : null
+      );
+
+      BigDecimal returnOnAssetsTTMValue = result.getValue(0, DSL.field(
+          "returnonassetsttm", BigDecimal.class)
+      );
+      companyOverview.setReturnOnAssetsTTM(
+          returnOnAssetsTTMValue != null ? returnOnAssetsTTMValue.doubleValue() : null
+      );
+
+      BigDecimal returnOnEquityTTMValue = result.getValue(0, DSL.field(
+          "returnonequityttm", BigDecimal.class)
+      );
+      companyOverview.setReturnOnEquityTTM(
+          returnOnEquityTTMValue != null ? returnOnEquityTTMValue.doubleValue() : null
+      );
+
       companyOverview.setRevenueTTM(result.getValue(0, DSL.field(
           "revenuettm", Long.class))
       );
       companyOverview.setGrossProfitTTM(result.getValue(0, DSL.field(
           "grossprofitttm", Long.class))
       );
-      companyOverview.setDilutedEPSTTM(result.getValue(0, DSL.field(
-          "dilutedepsttm", Double.class))
+
+      BigDecimal dilutedEPSTTMValue = result.getValue(0, DSL.field(
+          "dilutedepsttm", BigDecimal.class)
       );
-      companyOverview.setQuarterlyEarningsGrowthYOY(result.getValue(0, DSL.field(
-          "quarterlyearningsgrowthyoy", Double.class))
+      companyOverview.setDilutedEPSTTM(
+          dilutedEPSTTMValue != null ? dilutedEPSTTMValue.doubleValue() : null
       );
-      companyOverview.setQuarterlyRevenueGrowthYOY(result.getValue(0, DSL.field(
-          "quarterlyrevenuegrowthyoy", Double.class))
+
+      BigDecimal quarterlyEarningsGrowthYOYValue = result.getValue(
+          0, DSL.field("quarterlyearningsgrowthyoy", BigDecimal.class)
       );
-      companyOverview.setAnalystTargetPrice(result.getValue(0, DSL.field(
-          "analysttargetprice", Double.class))
+      companyOverview.setQuarterlyEarningsGrowthYOY(
+          quarterlyEarningsGrowthYOYValue != null ? quarterlyEarningsGrowthYOYValue.doubleValue()
+              : null
       );
-      companyOverview.setTrailingPE(result.getValue(0, DSL.field(
-          "trailingpe", Double.class))
+
+      BigDecimal quarterlyRevenueGrowthYOYValue = result.getValue(0, DSL.field(
+          "quarterlyrevenuegrowthyoy", BigDecimal.class)
       );
-      companyOverview.setForwardPE(result.getValue(0, DSL.field(
-          "forwardpe", Double.class))
+      companyOverview.setQuarterlyRevenueGrowthYOY(
+          quarterlyRevenueGrowthYOYValue != null ? quarterlyRevenueGrowthYOYValue.doubleValue()
+              : null
       );
-      companyOverview.setPriceToSalesRatioTTM(result.getValue(0, DSL.field(
-          "pricetosalesratiottm", Double.class))
+
+      BigDecimal analystTargetPriceValue = result.getValue(0, DSL.field(
+          "analysttargetprice", BigDecimal.class)
       );
-      companyOverview.setPriceToBookRatio(result.getValue(0, DSL.field(
-          "pricetobookratio", Double.class))
+      companyOverview.setAnalystTargetPrice(
+          analystTargetPriceValue != null ? analystTargetPriceValue.doubleValue() : null
       );
-      companyOverview.setEVToRevenue(result.getValue(0, DSL.field(
-          "evtorevenue", Double.class))
+
+      BigDecimal trailingPEValue = result.getValue(0, DSL.field(
+          "trailingpe", BigDecimal.class)
       );
-      companyOverview.setEVToEBITDA(result.getValue(0, DSL.field(
-          "evtoebitda", Double.class))
+      companyOverview.setTrailingPE(
+          trailingPEValue != null ? trailingPEValue.doubleValue() : null
       );
-      companyOverview.setBeta(result.getValue(0, DSL.field(
-          "beta", Double.class))
+
+      BigDecimal forwardPEValue = result.getValue(0, DSL.field(
+          "forwardpe", BigDecimal.class)
       );
-      companyOverview.setWeek52High(result.getValue(0, DSL.field(
-          "week52high", Double.class))
+      companyOverview.setForwardPE(
+          forwardPEValue != null ? forwardPEValue.doubleValue() : null
       );
-      companyOverview.setWeek52Low(result.getValue(0, DSL.field(
-          "week52low", Double.class))
+
+      BigDecimal priceToSalesRatioTTMValue = result.getValue(0, DSL.field(
+          "pricetosalesratiottm", BigDecimal.class)
       );
-      companyOverview.setMovingAverage50(result.getValue(0, DSL.field(
-          "movingaverage50", Double.class))
+      companyOverview.setPriceToSalesRatioTTM(
+          priceToSalesRatioTTMValue != null ? priceToSalesRatioTTMValue.doubleValue() : null
       );
-      companyOverview.setMovingAverage200(result.getValue(0, DSL.field(
-          "movingaverage200", Double.class))
+
+      BigDecimal priceToBookRatioValue = result.getValue(0, DSL.field(
+          "pricetobookratio", BigDecimal.class)
       );
+      companyOverview.setPriceToBookRatio(
+          priceToBookRatioValue != null ? priceToBookRatioValue.doubleValue() : null
+      );
+
+      BigDecimal evToRevenueValue = result.getValue(0, DSL.field(
+          "evtorevenue", BigDecimal.class)
+      );
+      companyOverview.setEVToRevenue(
+          evToRevenueValue != null ? evToRevenueValue.doubleValue() : null
+      );
+
+      BigDecimal evToEBITDAValue = result.getValue(0, DSL.field(
+          "evtoebitda", BigDecimal.class)
+      );
+      companyOverview.setEVToEBITDA(
+          evToEBITDAValue != null ? evToEBITDAValue.doubleValue() : null
+      );
+
+      BigDecimal betaValue = result.getValue(0, DSL.field(
+          "beta", BigDecimal.class)
+      );
+      companyOverview.setBeta(
+          betaValue != null ? betaValue.doubleValue() : null
+      );
+
+      BigDecimal week52HighValue = result.getValue(0, DSL.field(
+          "week52high", BigDecimal.class)
+      );
+      companyOverview.setWeek52High(
+          week52HighValue != null ? week52HighValue.doubleValue() : null
+      );
+
+      BigDecimal week52LowValue = result.getValue(0, DSL.field(
+          "week52low", BigDecimal.class)
+      );
+      companyOverview.setWeek52Low(
+          week52LowValue != null ? week52LowValue.doubleValue() : null
+      );
+
+      BigDecimal movingAverage50Value = result.getValue(0, DSL.field(
+          "day50movingaverage", BigDecimal.class)
+      );
+      companyOverview.setMovingAverage50(
+          movingAverage50Value != null ? movingAverage50Value.doubleValue() : null
+      );
+
+      BigDecimal movingAverage200Value = result.getValue(0, DSL.field(
+          "day200movingaverage", BigDecimal.class)
+      );
+      companyOverview.setMovingAverage200(
+          movingAverage200Value != null ? movingAverage200Value.doubleValue() : null
+      );
+
       companyOverview.setSharesOutstanding(result.getValue(0, DSL.field(
           "sharesoutstanding", Long.class))
       );
-      companyOverview.setDividendDate(result.getValue(0, DSL.field(
-          "dividenddate", Date.class)).toString()
+
+      Date dividendDateValue = result.getValue(0, DSL.field(
+          "dividenddate", Date.class)
       );
-      companyOverview.setExDividendDate(result.getValue(0, DSL.field(
-          "exdividenddate", Date.class)).toString()
+      companyOverview.setDividendDate(
+          dividendDateValue != null ? dividendDateValue.toString() : null
+      );
+
+      Date exDividendDateValue = result.getValue(0, DSL.field(
+          "exdividenddate", Date.class)
+      );
+      companyOverview.setExDividendDate(
+          exDividendDateValue != null ? exDividendDateValue.toString() : null
       );
 
       return companyOverview;

@@ -15,7 +15,7 @@ public class Test {
     StockDataFetcher stockDataFetcher = new StockDataFetcher();
     DBConnectionPool dbConnectionPool = new DBConnectionPool();
 
-
+/*
     String[] symbols = {"MSFT", "AMZN", "FB"};
     for (String symbol : symbols) {
       StockInfo stockInfo = searchList.getStockInfo(symbol);
@@ -49,6 +49,8 @@ public class Test {
       }
     }
 
+ */
+
     //Sample code for testing individual components
     //TimeSeriesDaily timeSeriesDaily = stockDataFetcher.fetchStockData("GOOGL").getTimeSeriesDaily();
     //TimeSeriesDailyDAO timeSeriesDailyDAO = new TimeSeriesDailyDAO(dbConnectionPool.getConnection());
@@ -56,8 +58,8 @@ public class Test {
     //timeSeriesDailyDAO.getDailyDataQuery("GOOGL");
 
     //CompanyOverview companyOverview = client.getFullStockOverview("AAPL");
-    //CompanyOverviewDAO companyOverviewDAO = new CompanyOverviewDAO(dbConnectionPool.getConnection());
+    CompanyOverviewDAO companyOverviewDAO = new CompanyOverviewDAO(dbConnectionPool.getConnection());
     //companyOverviewDAO.insertFundamentalData(companyOverview);
-    //System.out.println(companyOverviewDAO.getCompanyOverviewQuery("AAPL").toString());
+    System.out.println(companyOverviewDAO.getCompanyOverviewQuery("AAPL").toString());
   }
 }
