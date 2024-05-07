@@ -2,26 +2,28 @@ package analysis.regression;
 
 public class PricePrediction {
 
-  private final String symbol;
-  private final String variable;
+  private final String variableName;
+  private final String predictionDate;
   private final double currentPrice;
   private final double predictedPrice;
   private final String description;
 
-  public PricePrediction(String symbol, String variable, double currentPrice, double predictedPrice, String description) {
-    this.symbol = symbol;
-    this.variable = variable;
+  public PricePrediction(String variableName, String predictionDate, double currentPrice,
+      double predictedPrice, String description) {
+
+    this.variableName = variableName;
+    this.predictionDate = predictionDate;
     this.currentPrice = currentPrice;
     this.predictedPrice = predictedPrice;
     this.description = description;
   }
 
-  public String getSymbol() {
-    return symbol;
+  public String getVariableName() {
+    return variableName;
   }
 
-  public String getVariable() {
-    return variable;
+  public String getPredictionDate() {
+    return predictionDate;
   }
 
   public double getCurrentPrice() {
