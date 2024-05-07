@@ -12,14 +12,14 @@ public class Test {
     AlphaVantageClient client = new AlphaVantageClient("YKB1S8EYZ61LDH9B");
     DBConnectionPool dbConnectionPool = new DBConnectionPool();
 
-    //TimeSeriesDaily timeSeriesDaily = client.getTimeSeriesDaily("AAPL");
-    TimeSeriesDailyDAO timeSeriesDailyDAO = new TimeSeriesDailyDAO(dbConnectionPool.getConnection());
+    //TimeSeriesDaily timeSeriesDaily = client.getTimeSeriesDaily("GOOGL");
+    //TimeSeriesDailyDAO timeSeriesDailyDAO = new TimeSeriesDailyDAO(dbConnectionPool.getConnection());
     //timeSeriesDailyDAO.batchInsertTimeSeriesDailyQuery(timeSeriesDaily);
     //timeSeriesDailyDAO.getDailyDataQuery("AAPL");
 
-    CompanyOverview companyOverview = client.getFullStockOverview("AAPL");
+    //CompanyOverview companyOverview = client.getFullStockOverview("GOOGL");
     CompanyOverviewDAO companyOverviewDAO = new CompanyOverviewDAO(dbConnectionPool.getConnection());
-    companyOverviewDAO.insertFundamentalData(companyOverview);
-    //System.out.println(companyOverviewDAO.getCompanyOverviewQuery("AAPL").toString());
+    //companyOverviewDAO.insertFundamentalData(companyOverview);
+    System.out.println(companyOverviewDAO.getCompanyOverviewQuery("AAPL").toString());
   }
 }

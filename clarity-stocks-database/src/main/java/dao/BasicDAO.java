@@ -30,12 +30,11 @@ public class BasicDAO {
   public void insertStockDataQuery(StockInfo stockInfo) {
     try {
       connectionContext.insertInto(DSL.table("stock"),
-              DSL.field("symbol"), DSL.field("companyname"), DSL.field("marketsymbol"))
-          .values(stockInfo.symbol(), stockInfo.name(),
-              stockInfo.exchange())
-          .onConflict(DSL.field("symbol"))
-          .doNothing()
-          .execute();
+        DSL.field("symbol"), DSL.field("companyname"), DSL.field("marketsymbol"))
+        .values(stockInfo.symbol(), stockInfo.name(), stockInfo.exchange())
+        .onConflict(DSL.field("symbol"))
+        .doNothing()
+        .execute();
 
     } catch (DataAccessException e) {
       System.err.println("Error in insertStockDataQuery: " + e.getMessage());
@@ -47,11 +46,11 @@ public class BasicDAO {
   public void insertExchangeDataQuery(String symbol, String name, String country) {
     try {
       connectionContext.insertInto(DSL.table("market"),
-              DSL.field("symbol"), DSL.field("name"), DSL.field("country"))
-          .values(symbol, name, country)
-          .onConflict(DSL.field("symbol"))
-          .doNothing()
-          .execute();
+         DSL.field("symbol"), DSL.field("name"), DSL.field("country"))
+        .values(symbol, name, country)
+        .onConflict(DSL.field("symbol"))
+        .doNothing()
+        .execute();
 
     } catch (DataAccessException e) {
       System.err.println("Error in insertStockDataQuery: " + e.getMessage());

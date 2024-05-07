@@ -151,28 +151,28 @@ public class CompanyOverviewDAO {
       CompanyOverview companyOverview = new CompanyOverview();
 
       Result<Record> result = connectionContext.fetch(
-          "SELECT * " +
-              "FROM fundamentaldata where stockSymbol = ?",
-          symbol
+        "SELECT * " +
+            "FROM fundamentaldata where stockSymbol = ?",
+        symbol
       );
 
       companyOverview.setSymbol(result.getValue(0, DSL.field(
-          "stocksymbol", String.class))
+        "stocksymbol", String.class))
       );
       companyOverview.setAssetType(result.getValue(0, DSL.field(
-          "assettype", String.class))
+        "assettype", String.class))
       );
       companyOverview.setName(result.getValue(0, DSL.field(
-          "name", String.class))
+        "name", String.class))
       );
       companyOverview.setDescription(result.getValue(0, DSL.field(
-          "description", String.class))
+        "description", String.class))
       );
       companyOverview.setCIK(result.getValue(0, DSL.field(
-          "cik", String.class))
+        "cik", String.class))
       );
       companyOverview.setExchange(result.getValue(0, DSL.field(
-          "marketsymbol", String.class))
+        "marketsymbol", String.class))
       );
       companyOverview.setCurrency(result.getValue(0, DSL.field(
           "currency", String.class))
@@ -226,7 +226,7 @@ public class CompanyOverviewDAO {
           "profitmargin", Double.class))
       );
       companyOverview.setOperatingMarginTTM(result.getValue(0, DSL.field(
-          "opera  tingmarginttm", Double.class))
+          "operatingmarginttm", Double.class))
       );
       companyOverview.setReturnOnAssetsTTM(result.getValue(0, DSL.field(
           "returnonassetsttm", Double.class))

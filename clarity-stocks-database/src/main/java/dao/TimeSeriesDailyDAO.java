@@ -9,6 +9,7 @@ import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 import org.jooq.Record;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
