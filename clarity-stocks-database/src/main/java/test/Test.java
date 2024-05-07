@@ -4,15 +4,11 @@ import dao.BasicDAO;
 import dao.CompanyOverviewDAO;
 import dao.DBConnectionPool;
 import dao.TimeSeriesDailyDAO;
-import model.search.SearchList;
-import model.stock.StockData;
-import model.stock.StockDataFetcher;
-import model.stock.StockInfo;
+
 
 public class Test {
   public static void main(String[] args) {
-    SearchList searchList = new SearchList();
-    StockDataFetcher stockDataFetcher = new StockDataFetcher();
+
     DBConnectionPool dbConnectionPool = new DBConnectionPool();
 
 /*

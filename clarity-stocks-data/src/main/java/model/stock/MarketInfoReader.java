@@ -46,4 +46,8 @@ public class MarketInfoReader {
 
     return new Market(identifier, name, marketType, region, city, timezone, utcOffset, localOpenTime, localCloseTime);
   }
+
+  public List<Market> getMarkets() {
+    return markets;
+  }
 }

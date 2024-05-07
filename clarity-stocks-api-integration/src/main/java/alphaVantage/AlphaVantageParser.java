@@ -283,7 +283,7 @@ public class AlphaVantageParser {
             "totalRevenue").asLong());
         incomeStatement.setCostOfRevenue(incomeStatementNode.path(
             "costOfRevenue").asLong());
-        incomeStatement.setCostofGoodsAndServicesSold(incomeStatementNode.path(
+        incomeStatement.setCostOfGoodsAndServicesSold(incomeStatementNode.path(
             "costofGoodsAndServicesSold").asLong());
         incomeStatement.setOperatingIncome(incomeStatementNode.path(
             "operatingIncome").asLong());
@@ -319,9 +319,9 @@ public class AlphaVantageParser {
             "netIncomeFromContinuingOperations").asLong());
         incomeStatement.setComprehensiveIncomeNetOfTax(incomeStatementNode.path(
             "comprehensiveIncomeNetOfTax").asLong());
-        incomeStatement.setEbit(incomeStatementNode.path(
+        incomeStatement.setEBIT(incomeStatementNode.path(
             "ebit").asLong());
-        incomeStatement.setEbitda(incomeStatementNode.path(
+        incomeStatement.setEBITDA(incomeStatementNode.path(
             "ebitda").asLong());
         incomeStatement.setNetIncome(incomeStatementNode.path(
             "netIncome").asLong());
