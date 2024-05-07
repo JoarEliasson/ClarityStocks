@@ -44,7 +44,7 @@ public class HighAndLow implements Evaluation {
    */
   @Override
   public String getTitle() {
-    return "";
+    return "52-Week High and Low";
   }
 
   /**
@@ -56,7 +56,18 @@ public class HighAndLow implements Evaluation {
    */
   @Override
   public String getSubtitle() {
-    return "";
+    return "The High and Low evaluates the 52-week high and the 52-week low of a stock’s price."
+        + " The 52-week high is the highest price at which a stock has been traded over the"
+        + " previous 52 weeks. The 52-week low is the lowest price at which a stock has been"
+        + " traded over the previous 52 weeks. This information is important to some investors,"
+        + " who might see it as an indicator that they use as part of their investment strategy."
+        + " The investor can compare the two values with the current price of the stock to judge"
+        + " if the price of the stock is considered high or low. If the price is considered low,"
+        + " then the investor might consider it a buying opportunity. These metrics however are"
+        + " not only to be considered, as many things could happen to a company in 52 weeks."
+        + " Just because a stock has traded high before, or low, doesn’t mean that it will"
+        + " necessarily do so again. There could be factors which makes the stock worth more or"
+        + " less than before, so solely judging a stock’s performance on its price is not wise.";
   }
 
   /**
@@ -68,7 +79,12 @@ public class HighAndLow implements Evaluation {
    */
   @Override
   public String getEvaluationMethod() {
-    return "";
+    return "The evaluation simply returns the two values for the 52-week high and low of the price"
+        + " of the stock. The investor can make judgements about the current stock price based on"
+        + " these metrics, however it is not wise to solely base the judgements on these as many"
+        + " other factors are to be considered as well. Just because a stock has historically"
+        + " traded high, doesn't mean that it will do so again. Historical prices does not"
+        + " guarantee future prices corresponding to these.";
   }
 
   @Override
