@@ -158,8 +158,7 @@ public class AnalystPrediction implements Evaluation {
    */
   @Override
   public String getSubtitle() {
-    return "\n"
-        + "The analyst prediction analysis is based on analysts’ ratings of the stock."
+    return "The analyst prediction analysis is based on analysts’ ratings of the stock."
         + " The analysts have research public financial statements of the stock company, listen"
         + " in on conference calls, as well as talk to managers and customers of the company."
         + " Through this investigation into company’s performance, the analyst decides whether the"
