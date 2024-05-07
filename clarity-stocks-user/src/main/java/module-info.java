@@ -3,7 +3,6 @@ module clarity.stocks.user {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;
-    exports user.controller;
     exports user.model;
     opens user.model to com.google.gson;
 }

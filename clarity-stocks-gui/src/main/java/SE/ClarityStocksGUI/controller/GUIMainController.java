@@ -83,8 +83,16 @@ public class GUIMainController {
     this.favoriteListController = favoriteListController;
   }
 
-  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol){
-    System.out.println(stockSymbol + " favorite status: " + stockIsFavorite);
+  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol) {
+    if (favoriteListController == null) {
+      System.out.println("FavoriteListController is not initialized.");
+      return;
+    }
+    if (stockIsFavorite) {
+      favoriteListController.addFavoriteStock(stockSymbol);
+    } else {
+      favoriteListController.removeFavoriteStock(stockSymbol);
+    }
   }
 
   public ReadOnlyDoubleProperty getWidthProperty() {
