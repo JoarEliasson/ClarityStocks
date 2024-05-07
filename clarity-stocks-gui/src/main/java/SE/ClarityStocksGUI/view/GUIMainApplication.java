@@ -1,5 +1,6 @@
 package SE.ClarityStocksGUI.view;
 
+import SE.ClarityStocksGUI.controller.FavoriteListController;
 import SE.ClarityStocksGUI.controller.GUIMainController;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
@@ -9,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -28,8 +30,7 @@ public class GUIMainApplication extends Application {
   public void start(Stage newStage) throws IOException {
     this.stage = newStage;
     stage.getIcons().add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png")
-            .toExternalForm()));
+        getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png").toExternalForm()));
 
     setUpMainView();
     setUpMaterialsFX();
@@ -44,6 +45,13 @@ public class GUIMainApplication extends Application {
     mainView.getStylesheets().add(css);
     mainController = mainLoader.getController();
     mainController.setApplication(this);
+
+    FXMLLoader favoriteLoader = new FXMLLoader(
+        GUIMainApplication.class.getResource("FavoriteListView.fxml"));
+    Parent favoriteRoot = favoriteLoader.load();
+    FavoriteListController favoriteListController = favoriteLoader.getController();
+
+    mainController.setFavoriteListController(favoriteListController);
   }
 
   private void setUpMaterialsFX(){
