@@ -1,6 +1,7 @@
 package model.stock;
 
 import alphaVantage.AlphaVantageClient;
+import common.data.global.GlobalMarketInfo;
 import java.io.FileInputStream;
 import java.util.Properties;
 
@@ -31,4 +32,9 @@ public class StockDataFetcher {
     stockData.runAnalyses();
     return stockData;
   }
+
+  public GlobalMarketInfo fetchGlobalMarketInfo() {
+    return alphaVantageClient.getGlobalMarketInfo();
+  }
+
 }
