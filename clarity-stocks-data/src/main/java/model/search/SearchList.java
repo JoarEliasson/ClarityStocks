@@ -32,6 +32,23 @@ public class SearchList {
     }
   }
 
+  private void addToList(StockInfo listing) {
+    searchList.add(listing);
+  }
+
+  public ArrayList<StockInfo> getSearchList() {
+    return searchList;
+  }
+
+  public StockInfo getStockInfo(String symbol) {
+    for (StockInfo stockInfo : searchList) {
+      if (stockInfo.symbol().equals(symbol)) {
+        return stockInfo;
+      }
+    }
+    return null;
+  }
+
   public static void main(String[] args) {
     SearchList searchList = new SearchList();
     ArrayList<StockInfo> searchList1 = searchList.getSearchList();
@@ -42,13 +59,4 @@ public class SearchList {
       System.out.println();
     }
   }
-
-  private void addToList(StockInfo listing) {
-    searchList.add(listing);
-  }
-
-  public ArrayList<StockInfo> getSearchList() {
-    return searchList;
-  }
-
 }

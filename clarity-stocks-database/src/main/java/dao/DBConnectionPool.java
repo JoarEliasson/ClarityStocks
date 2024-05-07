@@ -54,7 +54,6 @@ public class DBConnectionPool {
       System.out.println("Error creating HikariCP data source");
       e.printStackTrace();
     }
-
   }
 
   public DSLContext getConnection(){
