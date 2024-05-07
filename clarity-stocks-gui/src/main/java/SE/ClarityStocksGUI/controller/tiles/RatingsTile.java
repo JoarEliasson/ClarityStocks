@@ -122,23 +122,22 @@ public class RatingsTile {
     tooltip.setWrapText(true);
     label.setTooltip(tooltip);
   }
-  //TODO TODO TODO TODO TODO TODO
-  public void setCurrentPrice(double todayPrice, double yesterdayPrice){
+  public void setCurrentPrice(double todayPrice, double comparePrice){
     currentPrice.setText("$" +  todayPrice);
 
-    if(todayPrice > yesterdayPrice){
+    if(todayPrice > comparePrice){
       upOrDownChange.setImage(upOrDownImage.get(1));
       percentageChange.setStyle("-fx-text-fill: #33c481");
     }else {
       upOrDownChange.setImage(upOrDownImage.get(0));
       percentageChange.setStyle("-fx-text-fill: #e05757");
     }
-    percentageChange.setText(getPercentage(todayPrice, yesterdayPrice));
+    percentageChange.setText(getPercentage(todayPrice, comparePrice));
   }
 
-  private String getPercentage(double todayPrice, double yesterdayPrice){
-    double percentage = ((todayPrice-yesterdayPrice)/yesterdayPrice)*100;
-    if(todayPrice < yesterdayPrice){
+  private String getPercentage(double todayPrice, double comparePrice){
+    double percentage = ((todayPrice-comparePrice)/comparePrice)*100;
+    if(todayPrice < comparePrice){
       percentage = Math.abs(percentage);
     }
 
