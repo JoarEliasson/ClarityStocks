@@ -14,17 +14,6 @@ public class TimeSeriesMonthly {
     this.symbol = symbol;
   }
 
-  public List<DailyDataPoint> getMonthlyClosePrices(String month, int numberOfYears) {
-    List<DailyDataPoint> monthlyData = getMonthlyData();
-    List<DailyDataPoint> closePrices = new ArrayList<>();
-    for (DailyDataPoint dataPoint : monthlyData) {
-      if (dataPoint.getDate().split("-")[1].equals(month)) {
-        closePrices.add(dataPoint);
-      }
-    }
-    return closePrices.subList(0, numberOfYears).reversed();
-  }
-
   /**
    * This method returns monthly price data filtered to retrieve the {@code DailyDataPoint} that
    * match the fiscal year-end date and the number of years specified.

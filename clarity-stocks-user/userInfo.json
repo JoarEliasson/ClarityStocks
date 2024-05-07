@@ -1,0 +1,14 @@
+{
+  "userName": "Anton",
+  "favoriteStocks": [
+    "AACT-U",
+    "ACCD",
+    "ACHL",
+    "NCDL",
+    "ABEV",
+    "AMD",
+    "KWE",
+    "AACIU"
+  ],
+  "isLoggedIn": true
+}

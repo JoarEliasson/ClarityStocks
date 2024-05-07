@@ -246,6 +246,7 @@ public class GUIStockViewController {
                 resetAnalysisSelector();
                 setInfoTile();
                 setRatingsTile();
+                infoTileController.updateFavoriteStatus(stockData.getCompanyOverview().getSymbol());
                 progress.setVisible(false);
               }catch (NoSuchElementException e){
                 errorLoadingStock();

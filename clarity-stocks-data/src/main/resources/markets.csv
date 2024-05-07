@@ -1,0 +1,7 @@
+symbol,goog_symbol,name,region,city,currency,time_zone,utc_offset,open,close
+AMEX,AMEX,American Stock Exchange,United States,New York City,USD,EST,-5,09:30:00,16:00:00
+BATS,BATS,BATS Global Markets,United States,"Lenexa, Kansas",USD,CST,-6,09:30:00,16:00:00
+LSE,LON,London Stock Exchange,United Kingdom,London,GBP,GMT,0,08:00:00,16:30:00
+NASDAQ,NASDAQ,NASDAQ Stock Exchange,United States,New York City,USD,EST,-5,09:30:00,16:00:00
+NYSE,NYSE,New York Stock Exchange,United States,New York City,USD,EST,-5,09:30:00,16:00:00
+SEK,STO,NASDAQ OMX Stockholm,Sweden,Stockholm,SEK,CET,1,09:00:00,17:30:00

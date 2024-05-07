@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="SE.ClarityStocksGUI.controller.TopListsController">
+  <HBox alignment="CENTER" prefHeight="247.0" prefWidth="1110.0" style="-fx-padding: 10;">
+    <VBox alignment="CENTER" prefHeight="170.0" prefWidth="305.0">
+      <HBox.margin>
+        <Insets top="70.0"/>
+      </HBox.margin>
+      <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-header"
+        text="Top Gainers"/>
+      <StackPane minHeight="110.0" minWidth="280.0" style="-fx-padding: 20;">
+        <Rectangle fx:id="topGainRectangle" height="111.0" styleClass="backgroundPanelStockView"
+          width="305.0"/>
+        <ListView fx:id="topGainList" maxHeight="131.0" maxWidth="350.0" minHeight="105.0"
+          minWidth="300.0" prefHeight="105.0" prefWidth="300.0"/>
+      </StackPane>
+    </VBox>
+    <VBox alignment="CENTER" prefHeight="170.0" prefWidth="305.0">
+      <HBox.margin>
+        <Insets left="70.0" top="70.0"/>
+      </HBox.margin>
+      <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-header"
+        text="Top Losers"/>
+      <StackPane minHeight="110.0" minWidth="280.0" style="-fx-padding: 20;">
+        <Rectangle fx:id="topLooserRectangle" height="111.0" styleClass="backgroundPanelStockView"
+          width="305.0"/>
+        <ListView fx:id="topLooserList" maxHeight="131.0" maxWidth="350.0" minHeight="105.0"
+          minWidth="300.0" prefHeight="105.0" prefWidth="300.0"/>
+      </StackPane>
+    </VBox>
+    <VBox alignment="CENTER_RIGHT" minWidth="-Infinity" prefHeight="150.0" prefWidth="305.0">
+      <HBox.margin>
+        <Insets left="70.0" top="70.0"/>
+      </HBox.margin>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="320.0"
+        styleClass="section-header" text="Volume" textAlignment="CENTER"/>
+      <StackPane minHeight="110.0" minWidth="280.0" style="-fx-padding: 20;">
+        <Rectangle fx:id="volumeRectangle" height="111.0" styleClass="backgroundPanelStockView"
+          width="305.0"/>
+        <ListView fx:id="volumeList" maxHeight="131.0" maxWidth="350.0" minHeight="105.0"
+          minWidth="300.0" prefHeight="105.0" prefWidth="300.0"/>
+      </StackPane>
+    </VBox>
+  </HBox>
+</VBox>
+
