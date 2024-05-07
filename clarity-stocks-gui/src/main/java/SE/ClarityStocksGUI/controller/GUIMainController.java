@@ -35,6 +35,8 @@ public class GUIMainController {
   private GUIStockViewController stockViewController;
   @FXML
   private GUIHomeController homeViewController;
+  @FXML
+  private FavoriteListController favoriteListController;
 
   public void initialize() {
     homeViewController.setController(this);
@@ -77,8 +79,20 @@ public class GUIMainController {
     menuBarController.resetSearchBar();
   }
 
-  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol){
-    System.out.println(stockSymbol + " favorite status: " + stockIsFavorite);
+  public void setFavoriteListController(FavoriteListController favoriteListController) {
+    this.favoriteListController = favoriteListController;
+  }
+
+  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol) {
+    if (favoriteListController == null) {
+      System.out.println("FavoriteListController is not initialized.");
+      return;
+    }
+    if (stockIsFavorite) {
+      favoriteListController.addFavoriteStock(stockSymbol);
+    } else {
+      favoriteListController.removeFavoriteStock(stockSymbol);
+    }
   }
 
   public ReadOnlyDoubleProperty getWidthProperty() {

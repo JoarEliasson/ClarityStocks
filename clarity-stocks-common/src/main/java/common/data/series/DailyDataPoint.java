@@ -157,4 +157,5 @@ public class DailyDataPoint {
   private String formatDouble(double value) {
       return String.format(Locale.US, "%.4E", value);
   }
+
 }

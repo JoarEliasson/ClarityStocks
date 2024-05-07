@@ -8,6 +8,7 @@ public enum IncomeStatementVariable {
   grossProfit,
   totalRevenue,
   costOfRevenue,
+
   costofGoodsAndServicesSold,
   operatingIncome,
   sellingGeneralAndAdministrative,
