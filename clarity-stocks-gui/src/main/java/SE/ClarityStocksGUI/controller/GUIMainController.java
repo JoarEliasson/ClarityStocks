@@ -1,8 +1,12 @@
 package SE.ClarityStocksGUI.controller;
 
+import SE.ClarityStocksGUI.controller.tiles.ExplanationTile;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -28,6 +32,8 @@ public class GUIMainController {
   @FXML
   private VBox homeView;
   @FXML
+  private VBox explanationTile;
+  @FXML
   private BorderPane mainBorderPane;
   @FXML
   private MenuBarController menuBarController;
@@ -35,6 +41,10 @@ public class GUIMainController {
   private GUIStockViewController stockViewController;
   @FXML
   private GUIHomeController homeViewController;
+  @FXML
+  private ExplanationTile explanationTileController;
+  @FXML
+  private Dialog<String> stockNotLoadedError;
 
   public void initialize() {
     homeViewController.setController(this);
@@ -46,6 +56,10 @@ public class GUIMainController {
 
     homeView.setVisible(true);
     stockView.setVisible(false);
+    explanationTile.setVisible(false);
+
+
+    setUpStockNotLoadedError();
   }
 
   public void setApplication(GUIMainApplication application) {
@@ -77,8 +91,21 @@ public class GUIMainController {
     menuBarController.resetSearchBar();
   }
 
+  public void showStockNotLoaded(){
+    stockNotLoadedError.showAndWait();
+  }
+
   public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol){
     System.out.println(stockSymbol + " favorite status: " + stockIsFavorite);
+  }
+
+  private void setUpStockNotLoadedError(){
+    stockNotLoadedError = new Dialog<>();
+    stockNotLoadedError.setTitle("You haven't selected a stock!");
+    stockNotLoadedError.setContentText("You haven't selected a stock.\n"
+        + "Please search for a stock in the search bar.");
+    ButtonType button = new ButtonType("Ok", ButtonData.OK_DONE);
+    stockNotLoadedError.getDialogPane().getButtonTypes().add(button);
   }
 
   public ReadOnlyDoubleProperty getWidthProperty() {
