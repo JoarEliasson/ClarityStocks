@@ -29,12 +29,13 @@ public class RegressionAnalysis {
         incomeStatements,
         fetchAdjustedData(priceData)
     );
-    System.out.println("Income Statements Size: " + incomeStatements.size());
-    System.out.println("Date First" + incomeStatements.getFirst().getFiscalDateEnding());
-    System.out.println("Date Last" + incomeStatements.getLast().getFiscalDateEnding());
-    System.out.println("Price Data Size: " + priceData.size());
-    System.out.println("Date First" + priceData.getFirst().getDate());
-    System.out.println("Date Last" + priceData.getLast().getDate());
+    //Preserved for debugging purposes
+    //System.out.println("Income Statements Size: " + incomeStatements.size());
+    //System.out.println("Date First" + incomeStatements.getFirst().getFiscalDateEnding());
+    //System.out.println("Date Last" + incomeStatements.getLast().getFiscalDateEnding());
+    //System.out.println("Price Data Size: " + priceData.size());
+    //System.out.println("Date First" + priceData.getFirst().getDate());
+    //System.out.println("Date Last" + priceData.getLast().getDate());
     runRegressionAnalysis();
     fetchResults();
   }
@@ -55,6 +56,27 @@ public class RegressionAnalysis {
   private void runRegressionAnalysis() {
     for (IncomeStatementVariable variable : variables) {
       regressionResults.add(regressionCalculator.runAnalysis(variable));
+    }
+    if (!regressionResults.isEmpty()) {
+      System.out.println();
+      System.out.println("Regression Results for (" + symbol + "):");
+      for (int i = 0; i < 3; i++) {
+        System.out.println();
+        System.out.println("[Correlation between " + regressionResults.get(i).getVariable() + " and the stock price]");
+        String info = String.format("\tR = %.2f, R^2 = %.2f",
+            regressionResults.get(i).getSimpleRegression().getR(),
+            regressionResults.get(i).getSimpleRegression().getRSquare()
+        );
+        String prediction = String.format("\tPrice (%s) = %.2f%n\tPredicted price based on %s = %.2f%n",
+            regressionResults.get(i).getPricePrediction().getPredictionDate(),
+            regressionResults.get(i).getPricePrediction().getCurrentPrice(),
+            regressionResults.get(i).getVariable(),
+            regressionResults.get(i).getPricePrediction().getPredictedPrice()
+        );
+        System.out.println(info);
+        System.out.println(prediction);
+      }
+      System.out.println();
     }
   }
 
