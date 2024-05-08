@@ -35,6 +35,7 @@ public class MenuBarController {
   private SearchableComboBox<StockInfo> searchField;
   private StockInfo currentStock;
   private static Views currentView;
+  private boolean stockIsLoaded = false;
 
   public void initialize() {
     homeButton.setStyle("-fx-background-color: #c6daff");
@@ -48,7 +49,11 @@ public class MenuBarController {
   @FXML
   public void goToStockView() {
     if (currentView != Views.STOCK) {
-      controller.goToStockView();
+      if(stockIsLoaded){
+        controller.goToStockView();
+      }else {
+        controller.showStockNotLoaded();
+      }
     }
   }
 
@@ -78,6 +83,7 @@ public class MenuBarController {
       currentView = Views.STOCK;
       homeButton.setStyle("-fx-background-color: #ffffff");
       stockButton.setStyle("-fx-background-color: #c6daff");
+      stockIsLoaded = true;
       controller.goToStockView(currentStock.symbol());
     }
   }

@@ -7,9 +7,11 @@
   xmlns:fx="http://javafx.com/fxml"
   fx:controller="SE.ClarityStocksGUI.controller.tiles.RatingsTile"
   maxHeight="350" maxWidth="375">
-    <VBox alignment="CENTER">
+    <HBox alignment="CENTER">
+        <ImageView fx:id="upOrDownChange"/>
+        <Label fx:id="percentageChange" styleClass="percentageChange"/>
         <Label fx:id="currentPrice" styleClass="currentPrice"/>
-    </VBox>
+    </HBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
         <ImageView fx:id="peRatingImg" styleClass="ratingsImage"/>
         <Label styleClass="statLabel" fx:id="peEvaluation" wrapText="true"/>
