@@ -20,7 +20,12 @@ import javafx.util.Duration;
 import user.model.UserProfile;
 import user.model.UserProfileManager;
 
-
+/**
+ * The GUIHomeController handles the home view. The class is a controller for the Home-view.fxml
+ * file.
+ *
+ * @author Douglas Almö Thorsell
+ */
 public class GUIHomeController {
 
   @FXML

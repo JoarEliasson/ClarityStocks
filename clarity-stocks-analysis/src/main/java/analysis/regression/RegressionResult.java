@@ -1,6 +1,5 @@
 package analysis.regression;
 
-import common.enums.IncomeStatementVariable;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 /**
@@ -8,12 +7,12 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
  */
 public class RegressionResult {
 
-  private final IncomeStatementVariable variable;
+  private final String variable;
   private final SimpleRegression simpleRegression;
   private final String description;
   private final PricePrediction pricePrediction;
 
-  public RegressionResult(IncomeStatementVariable variable, SimpleRegression simpleRegression,
+  public RegressionResult(String variable, SimpleRegression simpleRegression,
       String description, PricePrediction pricePrediction) {
     this.variable = variable;
     this.simpleRegression = simpleRegression;
@@ -21,7 +20,7 @@ public class RegressionResult {
     this.pricePrediction = pricePrediction;
   }
 
-  public IncomeStatementVariable getVariable() {
+  public String getVariable() {
     return variable;
   }
 

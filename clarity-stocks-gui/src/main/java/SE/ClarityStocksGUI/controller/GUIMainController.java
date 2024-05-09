@@ -3,6 +3,9 @@ package SE.ClarityStocksGUI.controller;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -37,7 +40,8 @@ public class GUIMainController {
   private GUIHomeController homeViewController;
   @FXML
   private FavoriteListController favoriteListController;
-
+  @FXML
+  private Dialog<String> stockNotLoadedError;
   public void initialize() {
     homeViewController.setController(this);
     stockViewController.setController(this);
@@ -48,6 +52,8 @@ public class GUIMainController {
 
     homeView.setVisible(true);
     stockView.setVisible(false);
+
+    setUpStockNotLoadedError();
   }
 
   public void setApplication(GUIMainApplication application) {
@@ -82,6 +88,9 @@ public class GUIMainController {
   public void setFavoriteListController(FavoriteListController favoriteListController) {
     this.favoriteListController = favoriteListController;
   }
+  public void showStockNotLoaded(){
+    stockNotLoadedError.showAndWait();
+  }
 
   public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol) {
     if (favoriteListController == null) {
@@ -95,6 +104,14 @@ public class GUIMainController {
     }
   }
 
+  private void setUpStockNotLoadedError(){
+    stockNotLoadedError = new Dialog<>();
+    stockNotLoadedError.setTitle("You haven't selected a stock!");
+    stockNotLoadedError.setContentText("You haven't selected a stock.\n"
+        + "Please search for a stock in the search bar.");
+    ButtonType button = new ButtonType("Ok", ButtonData.OK_DONE);
+    stockNotLoadedError.getDialogPane().getButtonTypes().add(button);
+  }
   public ReadOnlyDoubleProperty getWidthProperty() {
     return mainBorderPane.widthProperty();
   }

@@ -45,13 +45,13 @@ public class InfoTile {
   public void favoritePressed(){
     stockIsFavorite = !stockIsFavorite;
     favoriteIcon.setImage(favoriteImages.get(stockIsFavorite ? 1 : 0));  //Update the image
-    controller.stockFavoritePressed(stockIsFavorite);  }
+    controller.stockFavoritePressed(stockIsFavorite);
+  }
 
 
   public void updateFavoriteStatus(String stockSymbol) {
-    if (userProfile == null) {
-      userProfile = UserProfileManager.loadUserInformation("ClarityStocksUser/userInfo.json");
-    }
+    userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
+
     assert userProfile != null;
     boolean isFavorite = userProfile.isFavorite(stockSymbol);
     favoriteIcon.setImage(favoriteImages.get(isFavorite ? 1 : 0));
@@ -69,6 +69,7 @@ public class InfoTile {
       System.err.println("Error loading images: " + e.getMessage());
     }
   }
+
 
   public void setCompanyName(String text) {
     nameLabel.setText(text);

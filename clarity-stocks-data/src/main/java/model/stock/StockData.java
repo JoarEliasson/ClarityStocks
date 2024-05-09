@@ -15,6 +15,7 @@ import common.data.fundamental.EarningsData;
 import common.data.fundamental.IncomeStatement;
 import common.data.series.TimeSeriesDaily;
 import common.data.series.TimeSeriesMonthly;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -163,8 +164,11 @@ public class StockData {
   private void runRegressionAnalysis() {
     regressionAnalysis = new RegressionAnalysis(
         companyOverview.getSymbol(),
-        incomeStatements,
-        timeSeriesMonthly
+        getOrderedIncomeStatementData(),
+        timeSeriesMonthly.getPriceDataMatching(
+            incomeStatements.getFirst().getFiscalDateEnding(),
+            incomeStatements.size()
+        )
     );
   }
 
@@ -207,6 +211,19 @@ public class StockData {
   public void setIncomeStatements(
       List<IncomeStatement> incomeStatements) {
     this.incomeStatements = incomeStatements;
+  }
+
+  /**
+   * This method returns a list of {@code IncomeStatement} objects sorted in chronological order.
+   * @return A {@code List} of {@code IncomeStatement} objects.
+   * @see IncomeStatement
+   *
+   * @author Joar Eliasson
+   */
+  public List<IncomeStatement> getOrderedIncomeStatementData() {
+    List<IncomeStatement> chronologicalIncomeStatements = incomeStatements;
+    chronologicalIncomeStatements.sort(Comparator.comparing(IncomeStatement::getFiscalDateEnding));
+    return chronologicalIncomeStatements;
   }
 
   public List<BalanceSheet> getBalanceSheets() {

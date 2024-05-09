@@ -14,15 +14,28 @@ public class TimeSeriesMonthly {
     this.symbol = symbol;
   }
 
-  public List<DailyDataPoint> getMonthlyClosePrices(String month, int numberOfYears) {
-    List<DailyDataPoint> monthlyData = getMonthlyData();
-    List<DailyDataPoint> closePrices = new ArrayList<>();
-    for (DailyDataPoint dataPoint : monthlyData) {
+  /**
+   * This method returns monthly price data filtered to retrieve the {@code DailyDataPoint} that
+   * match the fiscal year-end date and the number of years specified.
+   * <p>
+   * The price data is reversed to display the data in chronological order.
+   * @param fiscalYearEnd The fiscal year-end date used to filter the {@code DailyDataPoint}
+   * @param numberOfYears The number of years to retrieve data points for.
+   * @return A list of {@code DailyDataPoint} objects matching the specified parameters.
+   * @see DailyDataPoint
+   *
+   * @author Joar Eliasson
+   */
+  public List<DailyDataPoint> getPriceDataMatching(String fiscalYearEnd, int numberOfYears) {
+    String month = fiscalYearEnd.split("-")[1];
+    List<DailyDataPoint> monthlyPriceData = getMonthlyData();
+    List<DailyDataPoint> matchingPriceData = new ArrayList<>();
+    for (DailyDataPoint dataPoint : monthlyPriceData) {
       if (dataPoint.getDate().split("-")[1].equals(month)) {
-        closePrices.add(dataPoint);
+        matchingPriceData.add(dataPoint);
       }
     }
-    return closePrices.subList(0, numberOfYears).reversed();
+    return matchingPriceData.subList(0, numberOfYears).reversed();
   }
 
   public String getInformation() {
