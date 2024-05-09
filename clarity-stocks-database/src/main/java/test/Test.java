@@ -56,6 +56,6 @@ public class Test {
     //CompanyOverview companyOverview = client.getFullStockOverview("AAPL");
     CompanyOverviewDAO companyOverviewDAO = new CompanyOverviewDAO(dbConnectionPool.getConnection());
     //companyOverviewDAO.insertFundamentalData(companyOverview);
-    System.out.println(companyOverviewDAO.getCompanyOverviewQuery("AAPL").toString());
+    //System.out.println(companyOverviewDAO.getCompanyOverview("AAPL").toString());
   }
 }

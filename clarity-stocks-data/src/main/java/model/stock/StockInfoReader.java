@@ -27,15 +27,15 @@ public class StockInfoReader {
   }
 
   private static StockInfo createStockInfo(String[] attributes) {
-    String exchange = attributes[0];
-    String symbol = attributes[1];
-    String name = attributes[2];
-    String fullName = attributes[3];
-    String sector = attributes[4];
-    String industry = attributes[5];
-    String city = attributes[6];
-    String state = attributes[7];
-    String country = attributes[8];
+    String exchange = attributes[8];
+    String symbol = attributes[0];
+    String name = attributes[1];
+    String fullName = attributes[2];
+    String sector = attributes[3];
+    String industry = attributes[4];
+    String city = attributes[5];
+    String state = attributes[6];
+    String country = attributes[7];
 
     return new StockInfo(exchange, symbol, name, fullName, sector, industry, city, state, country);
   }

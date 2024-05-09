@@ -63,7 +63,7 @@ public class BasicDAO {
 
       for (int i = 0; i < identifiers.size(); i++) {
         var query = connectionContext.insertInto(DSL.table("market"),
-          DSL.field("symbol"), DSL.field("name"), DSL.field("market_type"),
+          DSL.field("identifier"), DSL.field("name"), DSL.field("market_type"),
           DSL.field("region"), DSL.field("city"), DSL.field("timezone"),
           DSL.field("utc_offset"), DSL.field("local_open_time"),
           DSL.field("local_close_time"))
@@ -71,7 +71,7 @@ public class BasicDAO {
               cities.get(i), timezones.get(i), utcOffsets.get(i),
               Time.valueOf(localOpenTimes.get(i)),
               Time.valueOf(localCloseTimes.get(i)))
-          .onConflict(DSL.field("symbol"))
+          .onConflict(DSL.field("identifier"))
           .doNothing();
         batchQueries.add(query);
       }

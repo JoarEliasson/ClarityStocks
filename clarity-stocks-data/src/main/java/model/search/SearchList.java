@@ -6,7 +6,7 @@ import model.stock.StockInfoReader;
 
 public class SearchList {
 
-  private static final String FILE_PATH = "clarity-stocks-data/src/main/resources/companies.csv";
+  private static final String FILE_PATH = "clarity-stocks-data/src/main/resources/companies_v2.csv";
   private final ArrayList<StockInfo> searchList;
 
   public SearchList() {
