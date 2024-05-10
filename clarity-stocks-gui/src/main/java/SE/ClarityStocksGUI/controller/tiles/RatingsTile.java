@@ -1,5 +1,6 @@
 package SE.ClarityStocksGUI.controller.tiles;
 
+import SE.ClarityStocksGUI.controller.GUIStockViewController;
 import java.util.ArrayList;
 import java.util.Locale;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.util.Duration;
  */
 public class RatingsTile {
 
+  private GUIStockViewController controller;
   @FXML
   private Label currentPrice;
   @FXML
@@ -142,5 +144,14 @@ public class RatingsTile {
     }
 
     return String.format(Locale.US, "%.2f", percentage) + "%";
+  }
+
+  @FXML
+  public void showExplanationPage(){
+    controller.showExplanationPage();
+  }
+
+  public void setController(GUIStockViewController controller){
+    this.controller = controller;
   }
 }

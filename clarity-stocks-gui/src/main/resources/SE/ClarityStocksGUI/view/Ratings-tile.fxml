@@ -11,6 +11,7 @@
         <ImageView fx:id="upOrDownChange"/>
         <Label fx:id="percentageChange" styleClass="percentageChange"/>
         <Label fx:id="currentPrice" styleClass="currentPrice"/>
+        <Button onAction="#showExplanationPage" styleClass="explanationButton">?</Button>
     </HBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
         <ImageView fx:id="peRatingImg" styleClass="ratingsImage"/>

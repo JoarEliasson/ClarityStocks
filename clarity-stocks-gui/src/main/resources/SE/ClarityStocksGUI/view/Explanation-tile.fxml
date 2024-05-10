@@ -6,9 +6,24 @@
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
   xmlns:fx="http://javafx.com/fxml"
-  fx:controller="SE.ClarityStocksGUI.controller.tiles.ExplanationTile"
-  maxWidth="1050">
-    <Label fx:id="mainTitle" wrapText="true"/>
-    <Label fx:id="generalText" wrapText="true"/>
+  fx:controller="SE.ClarityStocksGUI.controller.tiles.ExplanationTile">
+    <BorderPane fx:id="layout" HBox.hgrow="ALWAYS">
+        <center>
+            <HBox>
+                <VBox  styleClass="explanationTile" fx:id="explanationTile">
+                    <HBox>
+                        <Label fx:id="mainTitle" wrapText="true" styleClass="explanationTitle"/>
+                        <Region prefWidth="200" HBox.hgrow="ALWAYS"/>
+                        <HBox onMouseClicked="#closeButtonPressed" styleClass="explanationCloseButton">
+                            <ImageView fx:id="closeButton"/>
+                        </HBox>
+                    </HBox>
+                    <Label fx:id="generalText" wrapText="true" styleClass="explanationBody"/>
+                </VBox>
+            </HBox>
+        </center>
+    </BorderPane>
+
+
 
 </VBox>

@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -50,6 +51,7 @@ public class GUIMainController {
     homeViewController.setController(this);
     stockViewController.setController(this);
     menuBarController.setController(this);
+    explanationTileController.setController(this);
 
     menuBarController.setWidthAndHeightProperty();
     stockViewController.setupScrollbar();
@@ -89,6 +91,14 @@ public class GUIMainController {
     goToHomeView();
     menuBarController.setCurrentStock(null);
     menuBarController.resetSearchBar();
+  }
+
+  public void showExplanationPage(){
+    explanationTile.setVisible(true);
+  }
+
+  public void closeExplanationPage(){
+    explanationTile.setVisible(false);
   }
 
   public void showStockNotLoaded(){

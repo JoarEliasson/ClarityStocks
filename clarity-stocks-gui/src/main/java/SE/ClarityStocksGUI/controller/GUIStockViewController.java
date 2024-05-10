@@ -94,6 +94,8 @@ public class GUIStockViewController {
     statBackground.setEffect(Effects.getDropShadow());
     graphBackground.setEffect(Effects.getDropShadow());
     dialTileBackground.setEffect(Effects.getDropShadow());
+
+    ratingsTileController.setController(this);
   }
 
   private void setUpControllers(){
@@ -353,5 +355,10 @@ public class GUIStockViewController {
     ratingsTileController.setCurrentPrice(
         stockData.getTimeSeriesDaily().getDailyData().getLast().getClose(),
         comparePrice);
+  }
+
+  @FXML
+  public void showExplanationPage(){
+    controller.showExplanationPage();
   }
 }

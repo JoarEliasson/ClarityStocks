@@ -191,3 +191,34 @@ ToggleButton:selected{
   -fx-background-color : #c4c4c4;
   -fx-text-fill: #000000;
 }
+
+.explanationTile{
+  -fx-background-color: white;
+}
+
+.explanationTitle{
+  -fx-font-weight: bold;
+  -fx-font-size: 20;
+  -fx-padding: 20 20 0 20;
+}
+
+.explanationBody{
+  -fx-padding: 10 20 20 20;
+}
+
+.explanationCloseButton{
+  -fx-padding: 10 10 0 10;
+}
+
+.explanationButton{
+  -fx-font-family: "Arial", sans-serif;
+  -fx-font-weight: 200;
+  -fx-text-fill: #3b3b3b;
+  -fx-background-color: #c4c4c4;
+  -fx-padding: 5 10 5 10;
+  -fx-background-radius: 100;
+}
+
+.explanationButton:hover{
+  -fx-background-color: #a2a2a2;
+}
