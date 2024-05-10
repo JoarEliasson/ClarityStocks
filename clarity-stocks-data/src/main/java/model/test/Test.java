@@ -27,6 +27,6 @@ public class Test {
 
     IncomeStatementDAO incomeStatementDAO = new IncomeStatementDAO(dbConnectionPool.getConnection());
     incomeStatementDAO.insertIncomeStatement(stockDataFetcher.fetchStockData("MSFT").getIncomeStatements());
-    //incomeStatementDAO.getIncomeStatement("MSFT");
+    //incomeStatementDAO.getIncomeStatement("MSFT"); //works
   }
 }

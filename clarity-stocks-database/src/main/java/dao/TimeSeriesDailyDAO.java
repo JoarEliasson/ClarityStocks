@@ -68,11 +68,14 @@ public class TimeSeriesDailyDAO {
       timeSeriesDaily.setLastRefreshed(fetchLatestUpdateQuery(symbol));
 
       Result<Record> result = connectionContext.select()
-          .from("time_series_daily")
-          .where("stock_Symbol = ?", symbol)
-          .orderBy(DSL.field("date").asc())
-          .fetch();
+        .from("time_series_daily")
+        .where("stock_Symbol = ?", symbol)
+        .orderBy(DSL.field("date").asc())
+      .fetch();
 
+      if (result.isEmpty()) {
+        return null;
+      }
 
       List<DailyDataPoint> dailyData = new ArrayList<>();
       for (Record record : result) {

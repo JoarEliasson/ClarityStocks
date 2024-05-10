@@ -165,6 +165,10 @@ public class CompanyOverviewDAO {
         symbol
       );
 
+      if (result.isEmpty()) {
+        return null;
+      }
+
       companyOverview.setSymbol(result.getValue(0, DSL.field(
           "symbol", String.class))
       );
