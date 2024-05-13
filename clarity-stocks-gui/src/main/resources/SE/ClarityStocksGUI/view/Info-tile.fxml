@@ -16,6 +16,8 @@
             <ImageView fx:id="favoriteIcon"/>
         </VBox>
         <Label fx:id="nameLabel" styleClass="stockName" wrapText="true"/>
+        <Region prefWidth="200" HBox.hgrow="ALWAYS"/>
+        <Label fx:id="exchangeLabel" styleClass="exchangeLabel" wrapText="true"/>
     </HBox>
     <Label fx:id="sectorLabel" styleClass="sectorLabel" wrapText="true"/>
     <Label fx:id="descriptionLabel" styleClass="descriptionLabel" wrapText="true"/>

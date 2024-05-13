@@ -19,6 +19,10 @@ public class ExplanationTile {
   @FXML
   private Label generalText;
   @FXML
+  private Label companyTitle;
+  @FXML
+  private Label companyText;
+  @FXML
   private ImageView closeButton;
   @FXML
   private BorderPane layout;
@@ -29,14 +33,13 @@ public class ExplanationTile {
   public void initialize(){
     VBox.setVgrow(layout, javafx.scene.layout.Priority.ALWAYS);
     explanationTile.prefWidthProperty().bind(layout.widthProperty().multiply(0.5));
-    mainTitle.setText("This is the title");
 
-    //This is for testing purposes only
-    generalText.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Tincidunt vitae semper quis lectus nulla at volutpat diam ut. Pellentesque sit amet porttitor eget. Donec ultrices tincidunt arcu non sodales. Eget lorem dolor sed viverra ipsum nunc. Faucibus vitae aliquet nec ullamcorper sit. Nunc eget lorem dolor sed viverra ipsum. Vivamus at augue eget arcu dictum varius duis at. Nibh praesent tristique magna sit amet purus. Sapien pellentesque habitant morbi tristique senectus et netus. Adipiscing elit ut aliquam purus sit amet luctus. Tempor id eu nisl nunc mi ipsum faucibus. Sit amet facilisis magna etiam tempor orci eu. Sed tempus urna et pharetra. Nulla aliquet porttitor lacus luctus accumsan tortor. Fames ac turpis egestas maecenas pharetra convallis posuere morbi leo. Eu mi bibendum neque egestas congue quisque egestas diam in.\n"
+    //FOR TESTING PURPOSES ONLY
+    generalText.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor. Vel fringilla est ullamcorper eget nulla facilisi. Eget dolor morbi non arcu risus. Diam vel quam elementum pulvinar. Suscipit adipiscing bibendum est ultricies. Tortor aliquam nulla facilisi cras fermentum odio eu feugiat. Potenti nullam ac tortor vitae purus faucibus ornare suspendisse. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Tristique sollicitudin nibh sit amet commodo nulla. Est ultricies integer quis auctor elit sed. Gravida neque convallis a cras semper auctor neque vitae. Quis viverra nibh cras pulvinar mattis nunc sed blandit. Tortor aliquam nulla facilisi cras fermentum odio. Ultricies leo integer malesuada nunc vel risus commodo viverra maecenas. Sem fringilla ut morbi tincidunt augue.\n"
         + "\n"
-        + "Convallis convallis tellus id interdum. At in tellus integer feugiat scelerisque varius. Scelerisque in dictum non consectetur a erat nam at lectus. Mauris nunc congue nisi vitae suscipit. Id consectetur purus ut faucibus pulvinar. Libero justo laoreet sit amet. Sed vulputate odio ut enim. Porttitor eget dolor morbi non arcu. Diam volutpat commodo sed egestas. Lacinia quis vel eros donec ac odio tempor. Augue eget arcu dictum varius. Augue mauris augue neque gravida in fermentum. Turpis massa sed elementum tempus egestas sed. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Donec et odio pellentesque diam volutpat commodo. Vitae suscipit tellus mauris a diam maecenas sed enim ut.\n"
+        + "Aenean et tortor at risus viverra adipiscing at in. Nibh venenatis cras sed felis eget. Lorem ipsum dolor sit amet consectetur adipiscing elit. Ultricies mi quis hendrerit dolor magna eget. Eget magna fermentum iaculis eu non diam phasellus vestibulum. Dignissim suspendisse in est ante in. Amet est placerat in egestas. Id aliquet risus feugiat in ante metus dictum. Amet consectetur adipiscing elit pellentesque. Faucibus interdum posuere lorem ipsum dolor. Eu nisl nunc mi ipsum faucibus vitae. Nulla facilisi morbi tempus iaculis urna id. Non nisi est sit amet facilisis. Libero nunc consequat interdum varius sit amet mattis vulputate.\n"
         + "\n"
-        + "Tortor condimentum lacinia quis vel eros donec ac odio tempor. Augue lacus viverra vitae congue eu consequat ac felis. In nisl nisi scelerisque eu ultrices. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing. Mauris ultrices eros in cursus turpis massa tincidunt dui ut. Consequat interdum varius sit amet mattis vulputate enim. Arcu non sodales neque sodales ut etiam sit amet nisl. At urna condimentum mattis pellentesque id nibh tortor id aliquet. Rhoncus mattis rhoncus urna neque viverra justo. Arcu ac tortor dignissim convallis aenean et tortor at.");
+        + "Sagittis vitae et leo duis. Sodales neque sodales ut etiam sit amet nisl purus in. Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque. Eu mi bibendum neque egestas congue quisque egestas diam in. Pellentesque massa placerat duis ultricies. Molestie a iaculis at erat pellentesque adipiscing commodo. Vitae suscipit tellus mauris a diam maecenas. Aliquet risus feugiat in ante metus. Et malesuada fames ac turpis egestas maecenas pharetra convallis posuere. Orci sagittis eu volutpat odio facilisis mauris sit. Morbi quis commodo odio aenean sed adipiscing. Amet nisl purus in mollis nunc sed id semper risus. At imperdiet dui accumsan sit amet nulla facilisi morbi tempus. Lorem sed risus ultricies tristique nulla aliquet. Netus et malesuada fames ac turpis. Eget nullam non nisi est sit amet facilisis magna. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.");
     setUpCloseButton();
   }
 
@@ -64,6 +67,12 @@ public class ExplanationTile {
 
   public void setGeneralText(String text){
     generalText.setText(text);
+  }
+  public void setCompanyTitle(String text){
+    companyTitle.setText(text);
+  }
+  public void setCompanyText(String text){
+    companyText.setText(text);
   }
 
 }

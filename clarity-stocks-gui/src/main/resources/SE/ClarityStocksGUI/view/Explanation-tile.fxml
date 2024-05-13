@@ -19,6 +19,9 @@
                         </HBox>
                     </HBox>
                     <Label fx:id="generalText" wrapText="true" styleClass="explanationBody"/>
+                    <Label fx:id="companyTitle" wrapText="true" styleClass="companyTitle"/>
+                    <Label fx:id="companyText" wrapText="true" styleClass="explanationBody"/>
+
                 </VBox>
             </HBox>
         </center>

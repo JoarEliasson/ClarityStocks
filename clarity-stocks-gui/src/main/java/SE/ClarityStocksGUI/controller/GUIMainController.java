@@ -93,7 +93,12 @@ public class GUIMainController {
     menuBarController.resetSearchBar();
   }
 
-  public void showExplanationPage(){
+  public void showExplanationPage(String mainTitle, String generalText, String companyTitle,
+      String companyText){
+    explanationTileController.setMainTitle(mainTitle);
+    explanationTileController.setGeneralText(generalText);
+    explanationTileController.setCompanyTitle(companyTitle);
+    explanationTileController.setCompanyText(companyText);
     explanationTile.setVisible(true);
   }
 

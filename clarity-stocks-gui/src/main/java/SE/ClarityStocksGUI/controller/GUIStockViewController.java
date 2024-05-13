@@ -280,6 +280,8 @@ public class GUIStockViewController {
   private void setInfoTile() {
     infoTileController.setCompanyName(
         stockData.getCompanyOverview().getName() + " (" + stockData.getCompanyOverview().getSymbol() + ")");
+    infoTileController.setExchange(stockData.getCompanyOverview().getExchange());
+    System.out.println(stockData.getCompanyOverview().getExchange());
 
     infoTileController.setSector(
         stockData.getCompanyOverview().getSector() + " - " + stockData.getCompanyOverview().getIndustry());
@@ -358,7 +360,40 @@ public class GUIStockViewController {
   }
 
   @FXML
-  public void showExplanationPage(){
-    controller.showExplanationPage();
+  public void showExplanationPage(String element){
+    String mainTitle = "";
+    String generalText = "";
+    String companyTitle = stockData.getCompanyOverview().getName();
+    String companyText = "";
+    switch (element){
+      case "PE":
+        mainTitle = "P/E (Price-earnings ratio)";
+        generalText = "";
+        companyText = stockData.getPeRatioEvaluation().getDescription();
+        break;
+
+      case "busPer":
+        mainTitle = "Business Performance";
+        generalText = "";
+        companyText = stockData.getBusinessPerformanceEvaluation().getDescription();
+        break;
+
+      case "compGrowth":
+        mainTitle = "Company Growth";
+        generalText = "";
+        companyText = stockData.getCompanyGrowthEvaluation().getDescription();
+
+        break;
+
+      case "compSize":
+        mainTitle = "Company Size";
+        generalText = "";
+        companyText = stockData.getCompanySizeEvaluation().getDescription();
+        break;
+
+      default:
+        break;
+    }
+    controller.showExplanationPage(mainTitle, generalText, companyTitle, companyText);
   }
 }

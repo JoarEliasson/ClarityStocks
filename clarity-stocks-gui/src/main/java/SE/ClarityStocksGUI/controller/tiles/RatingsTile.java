@@ -4,6 +4,7 @@ import SE.ClarityStocksGUI.controller.GUIStockViewController;
 import java.util.ArrayList;
 import java.util.Locale;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -31,6 +32,8 @@ public class RatingsTile {
   private Label peEvaluation;
   @FXML
   private ImageView peRatingImg;
+  @FXML
+  private Button peExplanationBtn;
   @FXML
   private Label businessPerformance;
   @FXML
@@ -147,8 +150,20 @@ public class RatingsTile {
   }
 
   @FXML
-  public void showExplanationPage(){
-    controller.showExplanationPage();
+  public void peExplanation(){
+    controller.showExplanationPage("PE");
+  }
+  @FXML
+  public void businessPerformanceExplanation(){
+    controller.showExplanationPage("busPer");
+  }
+  @FXML
+  public void companyGrowthExplanation(){
+    controller.showExplanationPage("compGrowth");
+  }
+  @FXML
+  public void companySizeExplanation(){
+    controller.showExplanationPage("compSize");
   }
 
   public void setController(GUIStockViewController controller){

@@ -25,7 +25,6 @@
     <center>
       <VBox alignment="CENTER" spacing="20">
         <Label fx:id="welcomeText" styleClass="welcomeText"/>
-        <Button styleClass="explanationButton">?</Button>
       </VBox>
     </center>
 
