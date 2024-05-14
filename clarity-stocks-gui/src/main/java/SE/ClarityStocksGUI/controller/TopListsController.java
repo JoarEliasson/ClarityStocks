@@ -43,13 +43,13 @@ public class TopListsController {
   private void updateTopLists() {
     DailyTopLists dailyTopLists = marketInfo.getDailyTopLists();
 
-    updateListWithData(topGainList, dailyTopLists.getTopGainers());
-    updateListWithData(topLooserList, dailyTopLists.getTopLosers());
-    updateListWithData(volumeList, dailyTopLists.getMostTraded());
+    updateListWithData(topGainList, dailyTopLists.getTopGainers(), "PriceChange");
+    updateListWithData(topLooserList, dailyTopLists.getTopLosers(), "PriceChange");
+    updateListWithData(volumeList, dailyTopLists.getMostTraded(), "Volume");
   }
 
   private void updateListWithData(ListView<String> list,
-      java.util.List<TopListDataPoint> dataPoints) {
+      java.util.List<TopListDataPoint> dataPoints, String listType) {
     list.getItems().clear();
     int count = 0;
 
@@ -58,12 +58,10 @@ public class TopListsController {
     SearchList searchList = new SearchList();
     boolean notUnknown = true;
     for (TopListDataPoint point : dataPoints) {
-      if (count >= 3 && notUnknown) {
-        break;
-      }
+      if (count >= 3 && notUnknown) break;
       notUnknown = true;
       try {
-        symbol = dataPoints.get(count).getSymbol();
+        symbol = point.getSymbol();
         String finalSymbol = symbol;
         stockName = searchList.getSearchList().stream()
             .filter(stock -> stock.symbol().equals(finalSymbol))
@@ -77,8 +75,9 @@ public class TopListsController {
         if (stockName.equals("Unknown")) {
           notUnknown = false;
         } else {
-
-          String displayText = formatStockDisplay(stockName, point);
+          String displayText =(listType.equals("Volume")) ?
+              formatVolumeDisplay(stockName, point) :
+              formatPriceChangeDisplay(stockName, point);
           list.getItems().add(displayText);
         }
 
@@ -89,14 +88,21 @@ public class TopListsController {
     }
   }
 
-  private String formatStockDisplay(String stockName, TopListDataPoint point) {
-    return String.format("%s (%s) | $ %.2f | Change: %s | Volume: %d",
+  private String formatPriceChangeDisplay(String stockName, TopListDataPoint point) {
+    return String.format("%s (%s) | $ %.2f | %.2f%%",
         stockName,
         point.getSymbol(),
         point.getCurrentPrice(),
-        point.getChangePercentage(),
-        point.getTradingVolume()
+        point.getChangePercentage()
     );
   }
 
+  private String formatVolumeDisplay(String stockName, TopListDataPoint point) {
+    return String.format("%s (%s) | $ %.2f | Volume: %d",
+        stockName,
+        point.getSymbol(),
+        point.getCurrentPrice(),
+        point.getTradingVolume()
+    );
+  }
 }

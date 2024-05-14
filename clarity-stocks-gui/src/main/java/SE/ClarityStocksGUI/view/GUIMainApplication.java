@@ -1,6 +1,7 @@
 package SE.ClarityStocksGUI.view;
 
 import SE.ClarityStocksGUI.controller.FavoriteListController;
+import SE.ClarityStocksGUI.controller.GUIHomeController;
 import SE.ClarityStocksGUI.controller.GUIMainController;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -50,7 +52,6 @@ public class GUIMainApplication extends Application {
         GUIMainApplication.class.getResource("FavoriteListView.fxml"));
     Parent favoriteRoot = favoriteLoader.load();
     FavoriteListController favoriteListController = favoriteLoader.getController();
-
     mainController.setFavoriteListController(favoriteListController);
   }
 

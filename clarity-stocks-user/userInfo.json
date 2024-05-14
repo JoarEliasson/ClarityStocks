@@ -1,5 +1,5 @@
 {
-  "userName": "Anton",
+  "userName": "Fra",
   "favoriteStocks": [
     "AACT-U",
     "ACCD",
@@ -10,7 +10,7 @@
     "KWE",
     "AACIU",
     "AVGO",
-    "MSFT"
-  ],
-  "isLoggedIn": true
+    "MSFT",
+    "AAPL"
+  ]
 }

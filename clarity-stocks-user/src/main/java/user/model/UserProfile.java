@@ -8,7 +8,6 @@ import java.util.Set;
 public class UserProfile {
     private String userName;
     private List<String> favoriteStocks;
-    private boolean isLoggedIn = false;
 
 
     public UserProfile() {
@@ -44,12 +43,4 @@ public class UserProfile {
         }
         return favoriteStocks;
     }
-    public boolean isLoggedIn() {
-        return isLoggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        isLoggedIn = loggedIn;
-    }
-
 }

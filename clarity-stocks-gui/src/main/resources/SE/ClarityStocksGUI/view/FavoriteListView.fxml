@@ -15,19 +15,18 @@
   <Label styleClass="section-header" text="Favorite Stocks" />
   <StackPane prefHeight="318.0" prefWidth="490.0" style="-fx-padding: 20;">
     <Rectangle fx:id="favorite" height="300" styleClass="backgroundPanelStockView" width="450" />
-    <ListView fx:id="favoritesListView" maxHeight="295" maxWidth="445" />
-    <AnchorPane>
-      <Button layoutX="409.0" layoutY="7.0" onAction="#handleLoadFavorites" prefHeight="25.0"
-        prefWidth="22.0">
-        <opaqueInsets>
-          <Insets/>
-        </opaqueInsets>
-        <graphic>
-          <ImageView accessibleRole="BUTTON" fitHeight="19.0" fitWidth="19.0">
-            <Image url="@refresh.png"/>
-          </ImageView>
-        </graphic>
-      </Button>
+    <ListView fx:id="favoritesListView" onMouseClicked="#handleListViewClick" maxHeight="295" maxWidth="445" />
+    <AnchorPane maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="25.0" prefWidth="37.0">
+         <Button onAction="#handleLoadFavorites" prefHeight="25.0" prefWidth="22.0">
+           <graphic>
+             <ImageView fitHeight="19.0" fitWidth="19.0">
+               <Image url="@refresh.png" />
+             </ImageView>
+           </graphic>
+         </Button>
+         <StackPane.margin>
+            <Insets bottom="260.0" left="400.0" />
+         </StackPane.margin>
     </AnchorPane>
   </StackPane>
 </VBox>

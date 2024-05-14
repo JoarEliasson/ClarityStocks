@@ -39,8 +39,7 @@ public class UserInterfaceApp extends Application {
         saveButton.setOnAction(e ->{
             String userName= userNameField.getText();
             UserProfile userProfile = new UserProfile(userName);
-            UserProfileManager userProfileManager = new UserProfileManager();
-            userProfileManager.saveUserInformation(userProfile, "ClarityStocksUser/userInfo.json");
+            UserProfileManager.saveUserInformation(userProfile, "ClarityStocksUser/userInfo.json");
 
             Alert welcomeAlert = new Alert(Alert.AlertType.INFORMATION);
             welcomeAlert.initOwner(primaryStage);

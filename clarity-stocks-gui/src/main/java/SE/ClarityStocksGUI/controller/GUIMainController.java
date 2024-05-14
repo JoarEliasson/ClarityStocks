@@ -40,12 +40,14 @@ public class GUIMainController {
   private GUIHomeController homeViewController;
   @FXML
   private FavoriteListController favoriteListController;
+  private static GUIMainController guiMainController;
   @FXML
   private Dialog<String> stockNotLoadedError;
   public void initialize() {
     homeViewController.setController(this);
     stockViewController.setController(this);
     menuBarController.setController(this);
+    guiMainController = this;
 
     menuBarController.setWidthAndHeightProperty();
     stockViewController.setupScrollbar();
@@ -118,5 +120,9 @@ public class GUIMainController {
 
   public ReadOnlyDoubleProperty getHeightProperty() {
     return mainBorderPane.heightProperty();
+  }
+
+  public static GUIMainController getInstance(){
+    return guiMainController;
   }
 }
