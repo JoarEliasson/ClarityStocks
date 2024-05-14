@@ -18,14 +18,14 @@ public class UserProfileManager {
     public static void saveUserInformation(UserProfile userProfile, String filePath){
         try(FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(userProfile, writer);
-            System.out.println("User profile saved successfully.");
+            //System.out.println("User profile saved successfully.");
         } catch ( IOException e){
             e.printStackTrace();
         }
     }
     public static UserProfile loadUserInformation(String filePath){
         try(FileReader reader = new FileReader(filePath)){
-            System.out.println("User profile loaded successfully.");
+            //System.out.println("User profile loaded successfully.");
             return gson.fromJson(reader, UserProfile.class);
         } catch (IOException e) {
             e.printStackTrace();
