@@ -58,7 +58,7 @@ public class TopListsController {
     SearchList searchList = new SearchList();
     boolean notUnknown = true;
     for (TopListDataPoint point : dataPoints) {
-      if (count >= 3 && notUnknown) {
+      if (count >= 10 && notUnknown) {
         break;
       }
       notUnknown = true;
@@ -70,7 +70,7 @@ public class TopListsController {
             .findFirst()
             .map(StockInfo::name)
             .orElse("Unknown");
-        System.out.println("Name retrieved from searchlist " + stockName);
+        //System.out.println("Name retrieved from searchlist " + stockName);
         if (stockName.length() > 20) {
           stockName = stockName.substring(0, 20) + "...";
         }
