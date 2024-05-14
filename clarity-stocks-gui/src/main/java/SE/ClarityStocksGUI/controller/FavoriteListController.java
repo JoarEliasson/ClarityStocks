@@ -28,6 +28,7 @@ public class FavoriteListController {
         favorite.setEffect(Effects.getDropShadow());
         favoritesListView.setItems(favoriteItems);
         mainController = GUIMainController.getInstance();
+        System.out.println(mainController);
         loadFavorites();
     }
 
@@ -78,12 +79,11 @@ public class FavoriteListController {
             return;
         }
         System.out.println("Selected stock: " + selectedStock);
-        if (mainController != null) {
+        if (mainController == null) {
+            mainController = GUIMainController.getInstance();
+        }
             //menuBarController.goToStockView();
             mainController.goToStockView(selectedStock);
-        } else {
-            System.out.println("mainController is null");
-        }
     }
 
     public void setController(GUIMainController controller){
