@@ -234,3 +234,8 @@ ToggleButton:selected{
 .explanationButton:hover{
   -fx-background-color: #d3d3d3;
 }
+
+.graphCategoryLabel{
+ -fx-border-width: 1;
+ -fx-border-color: #949494;
+}

@@ -150,6 +150,7 @@ public class GUIStockLineGraphController {
         @Override
         public void run() {
           chart.getData().addAll(shortTermSeries, longTermSeries);
+          controller.setCategoryLabelsVisibility(true);
           goldenCrossActive = true;
         }
       });
@@ -158,6 +159,7 @@ public class GUIStockLineGraphController {
         @Override
         public void run() {
           chart.getData().removeAll(shortTermSeries, longTermSeries);
+          controller.setCategoryLabelsVisibility(false);
           goldenCrossActive = false;
         }
       });

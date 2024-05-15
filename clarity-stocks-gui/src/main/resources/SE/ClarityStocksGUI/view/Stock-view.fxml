@@ -41,7 +41,18 @@
                       <ToggleButton>1Y</ToggleButton>
                       <ToggleButton styleClass="historyLastButton">MAX</ToggleButton>
                     </HBox>
-                    <VBox prefWidth="340" alignment="CENTER_RIGHT">
+                    <Region prefWidth="60"/>
+                    <VBox spacing="5" fx:id="categoryLabels">
+                      <HBox spacing="7">
+                        <Rectangle fill="gold" height="15" width="15" styleClass="graphCategoryLabel"/>
+                        <Label>MA50</Label>
+                      </HBox>
+                      <HBox spacing="7">
+                        <Rectangle fill="darkgrey" height="15" width="15"  styleClass="graphCategoryLabel"/>
+                        <Label>MA200</Label>
+                      </HBox>
+                    </VBox>
+                    <VBox prefWidth="220" alignment="CENTER_RIGHT">
                       <ComboBox styleClass="analysisSelector" fx:id="analysisSelector" onAction="#analysisSelected"/>
                     </VBox>
                   </HBox>

@@ -74,6 +74,8 @@ public class GUIStockViewController {
   private InfoTile infoTileController;
   @FXML
   private ScrollPane scrollPane;
+  @FXML
+  private VBox categoryLabels;
   private Dialog<String> errorDialog;
   private StockData stockData;
   private HashMap<Integer, Boolean> selectedAnalysis;
@@ -94,6 +96,7 @@ public class GUIStockViewController {
     statBackground.setEffect(Effects.getDropShadow());
     graphBackground.setEffect(Effects.getDropShadow());
     dialTileBackground.setEffect(Effects.getDropShadow());
+    categoryLabels.setVisible(false);
 
     ratingsTileController.setController(this);
   }
@@ -148,6 +151,8 @@ public class GUIStockViewController {
       ToggleButton button1 = (ToggleButton) button;
       if(!(buttonText.equals(button1.getText()))){
         button1.setSelected(false);
+      }else {
+        button1.setSelected(true);
       }
     }
   }
@@ -312,7 +317,25 @@ public class GUIStockViewController {
 
   @FXML
   public void showGoldenCross(){
+    if(!(buttonIsSelected("1Y"))){
+      graphController.changeDate("1Y");
+      unselectHistoryButtons("1Y");
+    }
     graphController.showGoldenCross();
+  }
+
+  public void setCategoryLabelsVisibility(boolean value){
+    categoryLabels.setVisible(value);
+  }
+
+  private boolean buttonIsSelected(String text){
+    for(Node button : historyButtonGroup.getChildren()){
+      ToggleButton button1 = (ToggleButton) button;
+      if(button1.getText().equals(text) && button1.isSelected()){
+        return true;
+      }
+    }
+    return false;
   }
 
   public void stockFavoritePressed(boolean stockIsFavorite){
