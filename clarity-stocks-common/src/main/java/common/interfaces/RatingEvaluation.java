@@ -7,7 +7,7 @@ public interface RatingEvaluation extends Evaluation {
    *
    * @return the rating of the evaluation.
    */
-  int getRating();
+  double getRating();
 
   /**
    * Method for getting the value of the variable that is being evaluated.

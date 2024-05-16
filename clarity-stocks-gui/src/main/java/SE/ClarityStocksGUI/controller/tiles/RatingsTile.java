@@ -80,27 +80,27 @@ public class RatingsTile {
         getClass().getResource("/SE/ClarityStocksGUI/view/stockUp.png").toExternalForm()));
   }
 
-  public void setPeEvaluationText(int rating, double peRatio, String description) {
+  public void setPeEvaluationText(double rating, double peRatio, String description) {
     //peRatingImg.setImage(ratingImages.get(rating));
     peRatingGauge.setValue(peRatio);
     peEvaluation.setText("P/E Ratio " + peRatio + "\n" + description);
     installLabelTooltip(peEvaluation, description);
   }
-  public void setBusinessPerformance(int rating, String description){
-    businessPerformanceImg.setImage(ratingImages.get(rating));
+  public void setBusinessPerformance(double rating, String description){
+    //businessPerformanceImg.setImage(ratingImages.get(rating));
     businessPerformance.setText("Business performance: " + description);
     installLabelTooltip(businessPerformance, description);
 
   }
 
-  public void setCompanyGrowth(int rating, String description){
-    companyGrowthImg.setImage(ratingImages.get(rating));
+  public void setCompanyGrowth(double rating, String description){
+    //companyGrowthImg.setImage(ratingImages.get(rating));
     companyGrowth.setText("Company growth: " + description);
     installLabelTooltip(companyGrowth, description);
   }
 
-  public void setCompanySize(int rating, String description){
-    companySizeImg.setImage(ratingImages.get(rating));
+  public void setCompanySize(double rating, String description){
+    //companySizeImg.setImage(ratingImages.get(rating));
     companySize.setText("Company size: " + description);
     installLabelTooltip(companySize, description);
   }
