@@ -16,17 +16,21 @@ public class Test {
 
     //Works
     //TimeSeriesDailyDAO timeSeriesDailyDAO = new TimeSeriesDailyDAO(dbConnectionPool.getConnection());
-    //TimeSeriesDaily timeSeriesDaily = stockDataFetcher.fetchStockData("MSFT").getTimeSeriesDaily();
+    //TimeSeriesDaily timeSeriesDaily = stockDataFetcher.fetchStockData("AAPL").getTimeSeriesDaily();
     //timeSeriesDailyDAO.batchInsertTimeSeriesDailyQuery(timeSeriesDaily);
     //timeSeriesDailyDAO.getDailyDataQuery("GOOGL");
 
     //Works
     //CompanyOverviewDAO companyOverviewDAO = new CompanyOverviewDAO(dbConnectionPool.getConnection());
     //companyOverviewDAO.insertCompanyOverview(stockDataFetcher.fetchStockData("MSFT").getCompanyOverview());
-    //companyOverviewDAO.getCompanyOverview("MSFT");
+    //if (companyOverviewDAO.getCompanyOverview("TSLA") == null) {
+   //   System.out.println("Company not found");
+    //} else {
+    //  System.out.println("Company found");
+   // }
 
     IncomeStatementDAO incomeStatementDAO = new IncomeStatementDAO(dbConnectionPool.getConnection());
-    incomeStatementDAO.insertIncomeStatement(stockDataFetcher.fetchStockData("MSFT").getIncomeStatements());
-    //incomeStatementDAO.getIncomeStatement("MSFT"); //works
+    //incomeStatementDAO.insertIncomeStatement(stockDataFetcher.fetchStockData("MSFT").getIncomeStatements());
+    incomeStatementDAO.getIncomeStatement("MSFT"); //works
   }
 }

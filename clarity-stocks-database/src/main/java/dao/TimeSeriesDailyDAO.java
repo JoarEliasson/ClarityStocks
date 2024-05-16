@@ -56,7 +56,6 @@ public class TimeSeriesDailyDAO {
       connectionContext.batch(batchQueries).execute();
     } catch (DataAccessException e) {
       System.err.println("Error executing batch insert: " + e.getMessage());
-      e.printStackTrace();
     } catch (Exception e) {
       System.err.println("Error in batchInsertTimeSeriesDailyQuery " + e.getMessage());
     }
@@ -93,13 +92,16 @@ public class TimeSeriesDailyDAO {
       timeSeriesDaily.setDailyData(dailyData);
 
       return timeSeriesDaily;
+    } catch (DataAccessException e) {
+      System.err.println("Error retrieving daily data: " + e.getMessage());
+      return null;
     } catch (Exception e) {
-      e.printStackTrace();
+      System.err.println("Error in getDailyDataQuery: " + e.getMessage());
       return null;
     }
   }
 
-  public String fetchLatestUpdateQuery(String symbol) throws SQLException {
+  public String fetchLatestUpdateQuery(String symbol)  {
     try {
       Result<Record> result = connectionContext.fetch(
           "select max(date) "
@@ -108,10 +110,17 @@ public class TimeSeriesDailyDAO {
           symbol
       );
 
+      if (result.isEmpty()) {
+        return null;
+      }
+
       Date lastUpdated = result.getValue(0, DSL.field("max", Date.class));
       return lastUpdated.toString();
+    } catch (DataAccessException e) {
+      System.err.println("Error fetching latest update: " + e.getMessage());
+      return null;
     } catch (Exception e) {
-      e.printStackTrace();
+      System.err.println("Error in fetchLatestUpdateQuery: " + e.getMessage());
       return null;
     }
   }
