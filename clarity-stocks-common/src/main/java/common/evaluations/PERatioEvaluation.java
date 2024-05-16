@@ -21,6 +21,7 @@ public class PERatioEvaluation implements RatingEvaluation {
   private final String symbol;
   private final double peRatio;
   private double rating;
+  private String ratingDescription;
   private String description;
 
   public PERatioEvaluation(String symbol, double peRatio) {
@@ -29,9 +30,36 @@ public class PERatioEvaluation implements RatingEvaluation {
     evaluate();
   }
 
+  private double calculateRating() {
+    return peRatio / MARKET_AVERAGE_PE;
+  }
+
+  private String generateRatingDescription() {
+    if (rating < 0.25) {
+      return "Very Low";
+    } else if (rating < 0.5) {
+      return "Low";
+    } else if (rating < 0.75) {
+      return "Below Average";
+    } else if (rating < 1.0) {
+      return "Average";
+    } else if (rating < 1.25) {
+      return "Above Average";
+    } else if (rating < 1.5) {
+      return "High";
+    } else if (rating < 1.75) {
+      return "Very High";
+    } else if (rating < 2.0) {
+      return "Extremely High";
+    } else {
+      return "Sky High";
+    }
+  }
+
   @Override
   public void evaluate() {
-    rating = peRatio / MARKET_AVERAGE_PE;
+    rating = calculateRating();
+    ratingDescription = generateRatingDescription();
   }
 
   @Override
@@ -103,33 +131,26 @@ public class PERatioEvaluation implements RatingEvaluation {
         + "expectations for its growth.%n%n"
 
         + "This method provides a clear and objective measure to compare individual stocks against "
-        + "a broad market benchmark, thereby facilitating informed investment decisions.%n%n" +
+        + "a broad market benchmark, thereby facilitating informed investment decisions.%n%n"
 
-        "Rating Interpretation:%n" +
-        "1. **Very Low (Rating < 0.25)**: "
-        + "Significantly undervalued, potential buy if fundamentals are strong.%n" +
-        "2. **Low (Rating 0.25 - 0.5)**: "
-        + "Lower valuation, further investigation needed.%n" +
-        "3. **Below Average (Rating 0.5 - 0.75)**: "
-        + "Valued below market, could be a bargain or facing challenges.%n" +
-        "4. **Average (Rating 0.75 - 1.0)**: "
-        + "Valuation aligns with market average, neutral outlook.%n" +
-        "5. **Above Average (Rating 1.0 - 1.25)**: "
-        + "Slightly overvalued, moderate growth expected.%n" +
-        "6. **High (Rating 1.25 - 1.5)**: "
-        + "Higher valuation expectations, strong growth potential.%n" +
-        "7. **Very High (Rating 1.5 - 1.75)**: "
-        + "Considerably overvalued, high growth expectations.%n" +
-        "8. **Extremely High (Rating 1.75 - 2.0)**: "
-        + "Very high market expectations, ensure growth justifies valuation.%n" +
-        "9. **Sky High (Rating > 2.0)**: "
-        + "Highly overvalued, strong growth or speculative trading."
     );
   }
 
   @Override
   public String getDescription() {
-    return description;
+    return String.format(
+        "P/E Ratio: %.2f%n" +
+        "Market Comparison: %s%n%n" +
+        "The current Price-to-Earnings (P/E) ratio for %s stands at %.2f, which corresponds to a market comparison " +
+        "rating of '%s'. This indicates that the stock's valuation is %s relative to the average P/E ratio of the US " +
+        "stock market, which is %.2f.%n%n" +
+        "In summary, %s's P/E ratio of %.2f results in a '%s' rating, suggesting that the stock is %s relative to market " +
+        "expectations. Investors should consider this rating alongside other financial metrics and the company's overall " +
+        "financial health when making investment decisions.",
+        peRatio, ratingDescription, symbol, peRatio, ratingDescription,
+        ratingDescription.toLowerCase(), MARKET_AVERAGE_PE,
+        symbol, peRatio, ratingDescription, ratingDescription.toLowerCase()
+    );
   }
 
   @Override
