@@ -54,6 +54,7 @@ public class GUIMainController {
     explanationTileController.setController(this);
 
     menuBarController.setWidthAndHeightProperty();
+    explanationTileController.setupScrollbar();
     stockViewController.setupScrollbar();
 
     homeView.setVisible(true);

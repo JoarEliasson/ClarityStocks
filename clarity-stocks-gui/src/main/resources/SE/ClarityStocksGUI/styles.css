@@ -199,7 +199,7 @@ ToggleButton:selected{
 }
 
 .explanationTile{
-  -fx-background-color: white;
+  -fx-background-color: #f4f4f4;
 }
 
 .explanationTitle{
@@ -238,4 +238,8 @@ ToggleButton:selected{
 .graphCategoryLabel{
  -fx-border-width: 1;
  -fx-border-color: #949494;
+}
+
+.explanationBackground{
+  -fx-background-color: white;
 }

@@ -1,6 +1,8 @@
 package SE.ClarityStocksGUI.controller.tiles;
 
 import SE.ClarityStocksGUI.controller.GUIStockViewController;
+import eu.hansolo.medusa.Gauge;
+import eu.hansolo.medusa.Gauge.SkinType;
 import java.util.ArrayList;
 import java.util.Locale;
 import javafx.fxml.FXML;
@@ -9,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -31,7 +34,8 @@ public class RatingsTile {
   @FXML
   private Label peEvaluation;
   @FXML
-  private ImageView peRatingImg;
+  private Gauge peRatingGauge;
+  //private ImageView peRatingImg;
   @FXML
   private Button peExplanationBtn;
   @FXML
@@ -77,7 +81,8 @@ public class RatingsTile {
   }
 
   public void setPeEvaluationText(int rating, double peRatio, String description) {
-    peRatingImg.setImage(ratingImages.get(rating));
+    //peRatingImg.setImage(ratingImages.get(rating));
+    peRatingGauge.setValue(peRatio);
     peEvaluation.setText("P/E Ratio " + peRatio + "\n" + description);
     installLabelTooltip(peEvaluation, description);
   }
@@ -100,9 +105,21 @@ public class RatingsTile {
     installLabelTooltip(companySize, description);
   }
 
+
   private void setImageSize(){
+    /*
     peRatingImg.setFitHeight(50);
     peRatingImg.setFitWidth(50);
+
+     */
+
+    peRatingGauge.setSkinType(SkinType.INDICATOR);
+    peRatingGauge.setBarBackgroundColor(Color.LIGHTGRAY);
+    peRatingGauge.setBarColor(Color.rgb(51, 154, 204));
+    peRatingGauge.setMinSize(60, 60);
+    peRatingGauge.setMaxValue(40);
+    peRatingGauge.setAreaTextVisible(false);
+
 
     businessPerformanceImg.setFitHeight(50);
     businessPerformanceImg.setFitWidth(50);

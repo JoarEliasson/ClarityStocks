@@ -7,26 +7,28 @@
 <VBox xmlns="http://javafx.com/javafx"
   xmlns:fx="http://javafx.com/fxml"
   fx:controller="SE.ClarityStocksGUI.controller.tiles.ExplanationTile">
-    <BorderPane fx:id="layout" HBox.hgrow="ALWAYS">
-        <center>
-            <HBox>
-                <VBox  styleClass="explanationTile" fx:id="explanationTile">
-                    <HBox>
-                        <Label fx:id="mainTitle" wrapText="true" styleClass="explanationTitle"/>
-                        <Region prefWidth="200" HBox.hgrow="ALWAYS"/>
-                        <HBox onMouseClicked="#closeButtonPressed" styleClass="explanationCloseButton">
-                            <ImageView fx:id="closeButton"/>
-                        </HBox>
-                    </HBox>
-                    <Label fx:id="generalText" wrapText="true" styleClass="explanationBody"/>
-                    <Label fx:id="companyTitle" wrapText="true" styleClass="companyTitle"/>
-                    <Label fx:id="companyText" wrapText="true" styleClass="explanationBody"/>
 
-                </VBox>
-            </HBox>
-        </center>
-    </BorderPane>
+        <BorderPane fx:id="layout" HBox.hgrow="ALWAYS">
+            <center>
+                <HBox>
+                    <ScrollPane fx:id="scrollPane">
+                        <VBox styleClass="explanationTile" fx:id="explanationTile">
 
+                                <HBox>
+                                    <Label fx:id="mainTitle" wrapText="true" styleClass="explanationTitle"/>
+                                    <Region prefWidth="200" HBox.hgrow="ALWAYS"/>
+                                    <HBox onMouseClicked="#closeButtonPressed" styleClass="explanationCloseButton">
+                                        <ImageView fx:id="closeButton"/>
+                                    </HBox>
+                                </HBox>
+                                <Label fx:id="generalText" wrapText="true" styleClass="explanationBody"/>
+                                <Label fx:id="companyTitle" wrapText="true" styleClass="companyTitle"/>
+                                <Label fx:id="companyText" wrapText="true" styleClass="explanationBody"/>
+                                <Region prefHeight="100"/>
 
-
+                        </VBox>
+                </ScrollPane>
+                </HBox>
+            </center>
+        </BorderPane>
 </VBox>
