@@ -2,11 +2,15 @@ package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.model.Effects;
 import SE.ClarityStocksGUI.view.UserInterfaceApp;
+import java.io.IOException;
 import java.util.Objects;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.GaussianBlur;
@@ -42,32 +46,29 @@ public class GUIHomeController {
 
   @FXML
   public BorderPane layout;
-  @FXML
-  public ListView<String> recentlyViewedListView;
-  @FXML
-  public Rectangle recentView;
-  @FXML
-  private FavoriteListController favoriteListController;
+  public VBox favoriteList;
+
 
   private GUIMainController controller;
   private UserProfile userProfile;
   private final String userFilePath = "clarity-stocks-user/userInfo.json";
-  private UserInterfaceApp userInterfaceApp = new UserInterfaceApp();
+
 
 
   public void initialize() {
     userProfile = UserProfileManager.loadUserInformation(userFilePath);
-    usernameText.getText();
     VBox.setVgrow(layout, Priority.ALWAYS);
     layout.setEffect(new GaussianBlur(20));
 
     Platform.runLater(() -> {
       animateWelcomeTextVisibility();
-      setupViewBasedOnUser();
     });
   }
 
-
+  public void updateUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
+    updateView();
+  }
   public void updateView() {
     if (userProfile != null ) {
       usernameText.setText(userProfile.getUserName());
@@ -79,21 +80,6 @@ public class GUIHomeController {
   public void setController(GUIMainController controller) {
     this.controller = controller;
   }
-  private void setupViewBasedOnUser() {
-    recentView.setEffect(Effects.getDropShadow());
-
-    if (userProfile == null) {
-      usernameText.setText(" ");
-      showElements(false);
-    } else {
-      updateView();
-    }
-  }
-
-  private void showElements(boolean b) {
-    updateView();
-  }
-
   private void animateWelcomeTextVisibility() {
     welcomeToText.setVisible(true);
     clarityStocksText.setVisible(true);
@@ -138,4 +124,25 @@ public class GUIHomeController {
     SequentialTransition seqTransitionIn = new SequentialTransition(ftWelcomeIn, ftClarityIn);
     return seqTransitionIn;
   }
+  @FXML
+  private void handleUserInfo() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/se/ClarityStocksGUI/view/ChangeUserNameDialog.fxml"));
+      Parent root = loader.load();
+
+      ChangeUserNameDialogController dialogController = loader.getController();
+      dialogController.setUserProfile(userProfile);
+      dialogController.setMainController(controller);
+
+      Stage stage = new Stage();
+      dialogController.setStage(stage);
+
+      stage.setScene(new Scene(root));
+      stage.setTitle("Change UserName");
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

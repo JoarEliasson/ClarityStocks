@@ -15,7 +15,7 @@
   <Label styleClass="section-header" text="Favorite Stocks" />
   <StackPane prefHeight="318.0" prefWidth="490.0" style="-fx-padding: 20;">
     <Rectangle fx:id="favorite" height="300" styleClass="backgroundPanelStockView" width="450" />
-    <ListView fx:id="favoritesListView" onMouseClicked="#handleListViewClick" maxHeight="295" maxWidth="445" />
+    <ListView fx:id="favoritesListView" maxHeight="295" maxWidth="445" onMouseClicked="#handleListViewClick" />
     <AnchorPane maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="25.0" prefWidth="37.0">
          <Button onAction="#handleLoadFavorites" prefHeight="25.0" prefWidth="22.0">
            <graphic>
@@ -29,4 +29,7 @@
          </StackPane.margin>
     </AnchorPane>
   </StackPane>
+   <padding>
+      <Insets left="150.0" />
+   </padding>
 </VBox>

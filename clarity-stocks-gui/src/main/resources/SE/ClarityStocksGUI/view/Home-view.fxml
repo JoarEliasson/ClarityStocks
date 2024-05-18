@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
 <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
@@ -17,7 +16,8 @@
       <Text text="Welcome ">
             <HBox.margin>
                <Insets left="20.0" />
-            </HBox.margin></Text>
+            </HBox.margin>
+      </Text>
       <Text fx:id="usernameText" styleClass="profile-text" text="User1234" />
     </HBox>
     <VBox alignment="TOP_CENTER" spacing="20">
@@ -26,22 +26,25 @@
     </VBox>
     <BorderPane fx:id="layout">
       <top>
-        <HBox alignment="CENTER" prefHeight="247.0" prefWidth="1110.0" style="-fx-padding: 10;">
+        <HBox alignment="CENTER" minWidth="1150.0" prefHeight="247.0" prefWidth="1200.0" style="-fx-padding: 10;">
           <fx:include source="TopListsView.fxml" />
         </HBox>
       </top>
       <bottom>
-        <HBox alignment="CENTER" minHeight="400.0" minWidth="1110.0" prefHeight="455.0" prefWidth="1110.0" spacing="50" style="-fx-padding: 20;">
-          <fx:include source="FavoriteListView.fxml" fx:id="favoriteList"/>
-          <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 10;">
-            <Label styleClass="section-header" text="Recently Viewed" />
-            <StackPane style="-fx-padding: 20;">
-              <Rectangle fx:id="recentView" height="300" styleClass="backgroundPanelStockView" width="450" />
-              <ListView fx:id="recentlyViewedListView" maxHeight="295" maxWidth="445" />
-            </StackPane>
-          </VBox>
-        </HBox>
+         <HBox alignment="CENTER" minHeight="0.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;">
+               <children>
+               <Button alignment="CENTER" onAction="#handleUserInfo" text="Change name">
+                     <HBox.margin>
+                        <Insets bottom="25.0" left="1075.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
       </bottom>
+         <center>
+       <fx:include fx:id="favoriteList" source="FavoriteListView.fxml" BorderPane.alignment="CENTER" />
+         </center>
     </BorderPane>
   </StackPane>
+   <HBox alignment="CENTER" minHeight="50.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;" />
 </VBox>

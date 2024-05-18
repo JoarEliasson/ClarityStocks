@@ -16,6 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import user.model.UserProfile;
+import user.model.UserProfileManager;
 
 /**
  * This is the main application for the GUI. This class starts the program and loads in the
@@ -34,9 +36,14 @@ public class GUIMainApplication extends Application {
     stage.getIcons().add(new Image(
         getClass().getResource("/SE/ClarityStocksGUI/view/claritystocksIcon.png").toExternalForm()));
 
-    setUpMainView();
-    setUpMaterialsFX();
-    setScene();
+    UserProfile userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
+    if (userProfile == null || userProfile.getUserName() == null || userProfile.getUserName().isEmpty()) {
+      new UserInterfaceApp().start(newStage);
+    } else {
+      setUpMainView();
+      setUpMaterialsFX();
+      setScene();
+    }
   }
 
   private void setUpMainView() throws IOException{
@@ -47,6 +54,7 @@ public class GUIMainApplication extends Application {
     mainView.getStylesheets().add(css);
     mainController = mainLoader.getController();
     mainController.setApplication(this);
+
 
     FXMLLoader favoriteLoader = new FXMLLoader(
         GUIMainApplication.class.getResource("FavoriteListView.fxml"));
