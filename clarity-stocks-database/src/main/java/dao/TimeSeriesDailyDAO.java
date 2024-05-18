@@ -9,6 +9,7 @@ import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 import org.jooq.Record;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +41,15 @@ public class TimeSeriesDailyDAO {
 
       var batchQueries = new ArrayList<org.jooq.Query>();
       for (DailyDataPoint dailyDataPoint : dailyDataPoints) {
-        var query = connectionContext.insertInto(DSL.table("timeSeriesDaily"),
-                DSL.field("stocksymbol"), DSL.field("date"), DSL.field("dailyopen"),
-                DSL.field("dailyhigh"), DSL.field("dailylow"), DSL.field("dailyclose"),
-                DSL.field("dailyvolume"))
+        var query = connectionContext.insertInto(DSL.table("time_series_daily"),
+                DSL.field("stock_symbol"), DSL.field("date"), DSL.field("daily_open"),
+                DSL.field("daily_high"), DSL.field("daily_low"),
+                DSL.field("daily_close"), DSL.field("daily_volume"))
             .values(symbol, java.sql.Date.valueOf(dailyDataPoint.getDate()),
                 dailyDataPoint.getOpenFormatted(), dailyDataPoint.getHighFormatted(),
                 dailyDataPoint.getLowFormatted(), dailyDataPoint.getCloseFormatted(),
                 dailyDataPoint.getVolume())
-            .onConflict(DSL.field("stocksymbol"), DSL.field("date")).doNothing();
+            .onConflict(DSL.field("stock_symbol"), DSL.field("date")).doNothing();
         batchQueries.add(query);
       }
 
@@ -67,22 +68,25 @@ public class TimeSeriesDailyDAO {
       timeSeriesDaily.setLastRefreshed(fetchLatestUpdateQuery(symbol));
 
       Result<Record> result = connectionContext.select()
-          .from("timeSeriesDaily")
-          .where("stockSymbol = ?", symbol)
-          .orderBy(DSL.field("date").asc())
-          .fetch();
+        .from("time_series_daily")
+        .where("stock_Symbol = ?", symbol)
+        .orderBy(DSL.field("date").asc())
+      .fetch();
 
+      if (result.isEmpty()) {
+        return null;
+      }
 
       List<DailyDataPoint> dailyData = new ArrayList<>();
       for (Record record : result) {
         record.getValue("date", String.class);
         DailyDataPoint dataPoint = new DailyDataPoint(
             record.getValue("date", String.class),
-            record.getValue("dailyopen", Double.class),
-            record.getValue("dailyhigh", Double.class),
-            record.getValue("dailylow", Double.class),
-            record.getValue("dailyclose", Double.class),
-            record.getValue("dailyvolume", Long.class)
+            record.getValue("daily_open", Double.class),
+            record.getValue("daily_high", Double.class),
+            record.getValue("daily_low", Double.class),
+            record.getValue("daily_close", Double.class),
+            record.getValue("daily_volume", Long.class)
         );
         dailyData.add(dataPoint);
       }
@@ -99,8 +103,8 @@ public class TimeSeriesDailyDAO {
     try {
       Result<Record> result = connectionContext.fetch(
           "select max(date) "
-              + "from timeSeriesDaily "
-              + "where stockSymbol = ?",
+              + "from time_series_daily "
+              + "where stock_symbol = ?",
           symbol
       );
 

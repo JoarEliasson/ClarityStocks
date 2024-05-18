@@ -8,10 +8,11 @@ import java.util.List;
 
 public class MarketInfoReader {
 
-  private static final String FILE_PATH = "clarity-stocks-data/src/main/resources/markets.csv/";
+  private static final String FILE_PATH = "clarity-stocks-data/src/main/resources/markets_v2.csv/";
   private List<Market> markets;
 
   public MarketInfoReader() {
+    this.markets = new ArrayList<>();
     this.markets = loadMarkets(FILE_PATH);
   }
 
@@ -22,7 +23,7 @@ public class MarketInfoReader {
 
       while ((line = br.readLine()) != null) {
         String[] attributes = line.split(",");
-        if (attributes.length >= 9) {
+        if (attributes.length >= 8) {
           Market market = createMarket(attributes);
           markets.add(market);
         }
@@ -36,14 +37,18 @@ public class MarketInfoReader {
   private Market createMarket(String[] attributes) {
     String identifier = attributes[0];
     String name = attributes[1];
-    String marketType = attributes[2];
-    String region = attributes[3];
-    String city = attributes[4];
-    String timezone = attributes[5];
-    int utcOffset = Integer.parseInt(attributes[6]);
-    String localOpenTime = attributes[7];
-    String localCloseTime = attributes[8];
+    String region = attributes[2];
+    String city = attributes[3];
+    String timezone = attributes[4];
+    int utcOffset = Integer.parseInt(attributes[5]);
+    String localOpenTime = attributes[6];
+    String localCloseTime = attributes[7];
 
-    return new Market(identifier, name, marketType, region, city, timezone, utcOffset, localOpenTime, localCloseTime);
+    return new Market(identifier, name, null, region, city, timezone, utcOffset,
+        localOpenTime, localCloseTime);
+  }
+
+  public List<Market> getMarkets() {
+    return markets;
   }
 }

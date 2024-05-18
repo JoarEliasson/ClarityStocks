@@ -1,6 +1,7 @@
 package dao;
 
 import common.data.fundamental.CompanyOverview;
+import java.math.BigDecimal;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -30,56 +31,60 @@ public class CompanyOverviewDAO {
     this.connectionContext = connection;
   }
 
-  public void insertFundamentalData(CompanyOverview companyOverview) {
+  public void insertCompanyOverview(CompanyOverview companyOverview) {
     try {
-      connectionContext.insertInto(DSL.table("fundamentaldata"),
-              DSL.field("stockSymbol"),
-              DSL.field("assetType"),
+      connectionContext.insertInto(DSL.table("company_overview"),
+              DSL.field("symbol"),
+              DSL.field("asset_type"),
               DSL.field("name"),
               DSL.field("description"),
               DSL.field("cik"),
-              DSL.field("marketSymbol"),
+              DSL.field("exchange"),
               DSL.field("currency"),
               DSL.field("country"),
               DSL.field("sector"),
               DSL.field("industry"),
               DSL.field("address"),
-              DSL.field("fiscalYearEnd"),
-              DSL.field("latestQuarter"),
-              DSL.field("marketCapitalization"),
+              DSL.field("fiscal_year_end"),
+              DSL.field("latest_quarter"),
+              DSL.field("market_capitalization"),
               DSL.field("ebitda"),
-              DSL.field("peRatio"),
-              DSL.field("pegRatio"),
-              DSL.field("bookValue"),
-              DSL.field("dividendPerShare"),
-              DSL.field("dividendYield"),
+              DSL.field("pe_ratio"),
+              DSL.field("peg_ratio"),
+              DSL.field("book_value"),
+              DSL.field("dividend_per_share"),
+              DSL.field("dividend_yield"),
               DSL.field("eps"),
-              DSL.field("revenuePerShareTTM"),
-              DSL.field("profitMargin"),
-              DSL.field("operationMarginTTM"),
-              DSL.field("returnOnAssetsTTM"),
-              DSL.field("returnOnEquityTTM"),
-              DSL.field("revenueTTM"),
-              DSL.field("grossProfitTTM"),
-              DSL.field("dilutedEPSTTM"),
-              DSL.field("quarterlyEarningsGrowthYOY"),
-              DSL.field("quarterlyRevenueGrowthYOY"),
-              DSL.field("analystTargetPrice"),
-              DSL.field("trailingPE"),
-              DSL.field("forwardPE"),
-              DSL.field("priceToSalesRatioTTM"),
-              DSL.field("priceToBookRatio"),
-              DSL.field("evToRevenue"),
-              DSL.field("evToEBITDA"),
+              DSL.field("revenue_per_share_ttm"),
+              DSL.field("profit_margin"),
+              DSL.field("operating_margin_ttm"),
+              DSL.field("return_on_assets_ttm"),
+              DSL.field("return_on_equity_ttm"),
+              DSL.field("revenue_ttm"),
+              DSL.field("gross_profit_ttm"),
+              DSL.field("diluted_eps_ttm"),
+              DSL.field("quarterly_earnings_growth_yoy"),
+              DSL.field("quarterly_revenue_growth_yoy"),
+              DSL.field("analyst_target_price"),
+              DSL.field("analyst_rating_strong_buy"),
+              DSL.field("analyst_rating_buy"),
+              DSL.field("analyst_rating_hold"),
+              DSL.field("analyst_rating_sell"),
+              DSL.field("analyst_rating_strong_sell"), //
+              DSL.field("trailing_pe"),
+              DSL.field("forward_pe"),
+              DSL.field("price_to_sales_ratio_ttm"),
+              DSL.field("price_to_book_ratio"),
+              DSL.field("ev_to_revenue"),
+              DSL.field("ev_to_ebitda"),
               DSL.field("beta"),
-              DSL.field("week52High"),
-              DSL.field("week52Low"),
-              DSL.field("day50movingaverage"),
-              DSL.field("day200movingaverage"),
-              DSL.field("sharesOutstanding"),
-              DSL.field("dividendDate"),
-              DSL.field("exDividendDate"),
-              DSL.field("dateRetrieved"))
+              DSL.field("week_52_high"),
+              DSL.field("week_52_low"),
+              DSL.field("moving_average_50"),
+              DSL.field("moving_average_200"),
+              DSL.field("shares_outstanding"),
+              DSL.field("dividend_date"),
+              DSL.field("ex_dividend_date"))
           .values(
               companyOverview.getSymbol(),
               companyOverview.getAssetType(),
@@ -113,6 +118,11 @@ public class CompanyOverviewDAO {
               companyOverview.getQuarterlyEarningsGrowthYOY(),
               companyOverview.getQuarterlyRevenueGrowthYOY(),
               companyOverview.getAnalystTargetPrice(),
+              companyOverview.getAnalystRatingStrongBuy(), //
+              companyOverview.getAnalystRatingBuy(),
+              companyOverview.getAnalystRatingHold(),
+              companyOverview.getAnalystRatingSell(),
+              companyOverview.getAnalystRatingStrongSell(),
               companyOverview.getTrailingPE(),
               companyOverview.getForwardPE(),
               companyOverview.getPriceToSalesRatioTTM(),
@@ -126,10 +136,9 @@ public class CompanyOverviewDAO {
               companyOverview.getMovingAverage200(),
               companyOverview.getSharesOutstanding(),
               Date.valueOf(companyOverview.getDividendDate()),
-              Date.valueOf(companyOverview.getExDividendDate()),
-              DSL.currentDate()
+              Date.valueOf(companyOverview.getExDividendDate())
           )
-          .onConflict(DSL.field("stockSymbol"))
+          .onConflict(DSL.field("symbol"))
           .doNothing()
           .execute();
     } catch (DataAccessException e) {
@@ -146,21 +155,25 @@ public class CompanyOverviewDAO {
 
   }
 
-  public CompanyOverview getCompanyOverviewQuery(String symbol) {
+  public CompanyOverview getCompanyOverview(String symbol) {
     try {
       CompanyOverview companyOverview = new CompanyOverview();
 
       Result<Record> result = connectionContext.fetch(
-          "SELECT * " +
-              "FROM fundamentaldata where stockSymbol = ?",
-          symbol
+        "SELECT * " +
+            "FROM company_overview where symbol = ?",
+        symbol
       );
 
+      if (result.isEmpty()) {
+        return null;
+      }
+
       companyOverview.setSymbol(result.getValue(0, DSL.field(
-          "stocksymbol", String.class))
+          "symbol", String.class))
       );
       companyOverview.setAssetType(result.getValue(0, DSL.field(
-          "assettype", String.class))
+          "asset_type", String.class))
       );
       companyOverview.setName(result.getValue(0, DSL.field(
           "name", String.class))
@@ -172,7 +185,7 @@ public class CompanyOverviewDAO {
           "cik", String.class))
       );
       companyOverview.setExchange(result.getValue(0, DSL.field(
-          "marketsymbol", String.class))
+          "exchange", String.class))
       );
       companyOverview.setCurrency(result.getValue(0, DSL.field(
           "currency", String.class))
@@ -190,110 +203,126 @@ public class CompanyOverviewDAO {
           "address", String.class))
       );
       companyOverview.setFiscalYearEnd(result.getValue(0, DSL.field(
-          "fiscalyearend", String.class))
+          "fiscal_year_end", String.class))
       );
       companyOverview.setLatestQuarter(result.getValue(0, DSL.field(
-          "latestquarter", Date.class)).toString()
+          "latest_quarter", Date.class)).toString()
       );
       companyOverview.setMarketCapitalization(result.getValue(0, DSL.field(
-          "marketcapitalization", Long.class))
+          "market_capitalization", Long.class))
       );
       companyOverview.setEBITDA(result.getValue(0, DSL.field(
-          "ebitda", Double.class))
+          "ebitda", BigDecimal.class)).doubleValue()
       );
       companyOverview.setPERatio(result.getValue(0, DSL.field(
-          "peratio", Double.class))
+          "pe_ratio", BigDecimal.class)).doubleValue()
       );
       companyOverview.setPEGRatio(result.getValue(0, DSL.field(
-          "pegratio", Double.class))
+          "peg_ratio", BigDecimal.class)).doubleValue()
       );
       companyOverview.setBookValue(result.getValue(0, DSL.field(
-          "bookvalue", Double.class))
+          "book_value", BigDecimal.class)).doubleValue()
       );
       companyOverview.setDividendPerShare(result.getValue(0, DSL.field(
-          "dividendpershare", Double.class))
+          "dividend_per_share", BigDecimal.class)).doubleValue()
       );
       companyOverview.setDividendYield(result.getValue(0, DSL.field(
-          "dividendyield", Double.class))
+          "dividend_yield", BigDecimal.class)).doubleValue()
       );
       companyOverview.setEPS(result.getValue(0, DSL.field(
-          "eps", Double.class))
+          "eps", BigDecimal.class)).doubleValue()
       );
       companyOverview.setRevenuePerShareTTM(result.getValue(0, DSL.field(
-          "revenuepersharettm", Double.class))
+          "revenue_per_share_ttm", BigDecimal.class)).doubleValue()
       );
       companyOverview.setProfitMargin(result.getValue(0, DSL.field(
-          "profitmargin", Double.class))
+          "profit_margin", BigDecimal.class)).doubleValue()
       );
       companyOverview.setOperatingMarginTTM(result.getValue(0, DSL.field(
-          "opera  tingmarginttm", Double.class))
+          "operating_margin_ttm", BigDecimal.class)).doubleValue()
       );
       companyOverview.setReturnOnAssetsTTM(result.getValue(0, DSL.field(
-          "returnonassetsttm", Double.class))
+          "return_on_assets_ttm", BigDecimal.class)).doubleValue()
       );
       companyOverview.setReturnOnEquityTTM(result.getValue(0, DSL.field(
-          "returnonequityttm", Double.class))
+          "return_on_equity_ttm", BigDecimal.class)).doubleValue()
       );
       companyOverview.setRevenueTTM(result.getValue(0, DSL.field(
-          "revenuettm", Long.class))
+          "revenue_ttm", Long.class))
       );
       companyOverview.setGrossProfitTTM(result.getValue(0, DSL.field(
-          "grossprofitttm", Long.class))
+          "gross_profit_ttm", Long.class))
       );
       companyOverview.setDilutedEPSTTM(result.getValue(0, DSL.field(
-          "dilutedepsttm", Double.class))
+          "diluted_eps_ttm", BigDecimal.class)).doubleValue()
       );
       companyOverview.setQuarterlyEarningsGrowthYOY(result.getValue(0, DSL.field(
-          "quarterlyearningsgrowthyoy", Double.class))
+          "quarterly_earnings_growth_yoy", BigDecimal.class)).doubleValue()
       );
       companyOverview.setQuarterlyRevenueGrowthYOY(result.getValue(0, DSL.field(
-          "quarterlyrevenuegrowthyoy", Double.class))
+          "quarterly_revenue_growth_yoy", BigDecimal.class)).doubleValue()
       );
       companyOverview.setAnalystTargetPrice(result.getValue(0, DSL.field(
-          "analysttargetprice", Double.class))
+          "analyst_target_price", BigDecimal.class)).doubleValue()
+      );
+      companyOverview.setAnalystRatingStrongBuy(result.getValue(0, DSL.field(
+          "analyst_rating_strong_buy", Integer.class))
+      );
+      companyOverview.setAnalystRatingBuy(result.getValue(0, DSL.field(
+          "analyst_rating_buy", Integer.class))
+      );
+      companyOverview.setAnalystRatingHold(result.getValue(0, DSL.field(
+          "analyst_rating_hold", Integer.class))
+      );
+      companyOverview.setAnalystRatingSell(result.getValue(0, DSL.field(
+          "analyst_rating_sell", Integer.class))
+      );
+      companyOverview.setAnalystRatingStrongSell(result.getValue(0, DSL.field(
+          "analyst_rating_strong_sell", Integer.class))
       );
       companyOverview.setTrailingPE(result.getValue(0, DSL.field(
-          "trailingpe", Double.class))
+          "trailing_pe", BigDecimal.class)).doubleValue()
       );
       companyOverview.setForwardPE(result.getValue(0, DSL.field(
-          "forwardpe", Double.class))
+          "forward_pe", BigDecimal.class)).doubleValue()
       );
       companyOverview.setPriceToSalesRatioTTM(result.getValue(0, DSL.field(
-          "pricetosalesratiottm", Double.class))
+          "price_to_sales_ratio_ttm", BigDecimal.class)).doubleValue()
       );
       companyOverview.setPriceToBookRatio(result.getValue(0, DSL.field(
-          "pricetobookratio", Double.class))
+          "price_to_book_ratio", BigDecimal.class)).doubleValue()
       );
       companyOverview.setEVToRevenue(result.getValue(0, DSL.field(
-          "evtorevenue", Double.class))
+          "ev_to_revenue", BigDecimal.class)).doubleValue()
       );
       companyOverview.setEVToEBITDA(result.getValue(0, DSL.field(
-          "evtoebitda", Double.class))
+          "ev_to_ebitda", BigDecimal.class)).doubleValue()
       );
       companyOverview.setBeta(result.getValue(0, DSL.field(
-          "beta", Double.class))
+          "beta", BigDecimal.class)).doubleValue()
       );
       companyOverview.setWeek52High(result.getValue(0, DSL.field(
-          "week52high", Double.class))
+          "week_52_high", BigDecimal.class)).doubleValue()
       );
       companyOverview.setWeek52Low(result.getValue(0, DSL.field(
-          "week52low", Double.class))
+          "week_52_low", BigDecimal.class)).doubleValue()
       );
       companyOverview.setMovingAverage50(result.getValue(0, DSL.field(
-          "movingaverage50", Double.class))
+          "moving_average_50", BigDecimal.class)).doubleValue()
       );
       companyOverview.setMovingAverage200(result.getValue(0, DSL.field(
-          "movingaverage200", Double.class))
+          "moving_average_200", BigDecimal.class)).doubleValue()
       );
       companyOverview.setSharesOutstanding(result.getValue(0, DSL.field(
-          "sharesoutstanding", Long.class))
+          "shares_outstanding", Long.class))
       );
       companyOverview.setDividendDate(result.getValue(0, DSL.field(
-          "dividenddate", Date.class)).toString()
+          "dividend_date", Date.class)).toString()
       );
       companyOverview.setExDividendDate(result.getValue(0, DSL.field(
-          "exdividenddate", Date.class)).toString()
+          "ex_dividend_date", Date.class)).toString()
       );
+
 
       return companyOverview;
     } catch (Exception e) {
