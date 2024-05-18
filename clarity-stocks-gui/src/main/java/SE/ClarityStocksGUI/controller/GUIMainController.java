@@ -1,13 +1,20 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.view.GUIMainApplication;
+import java.io.IOException;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import user.model.UserProfile;
+import user.model.UserProfileManager;
 
 /**
  * This is the main controller class for the GUI. It's the main container of all the different views
@@ -40,12 +47,15 @@ public class GUIMainController {
   private GUIHomeController homeViewController;
   @FXML
   private FavoriteListController favoriteListController;
+  private static GUIMainController guiMainController;
   @FXML
   private Dialog<String> stockNotLoadedError;
+  private UserProfile userProfile;
   public void initialize() {
     homeViewController.setController(this);
     stockViewController.setController(this);
     menuBarController.setController(this);
+    guiMainController = this;
 
     menuBarController.setWidthAndHeightProperty();
     stockViewController.setupScrollbar();
@@ -54,6 +64,10 @@ public class GUIMainController {
     stockView.setVisible(false);
 
     setUpStockNotLoadedError();
+    userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
+    if (userProfile != null && userProfile.getUserName() != null && !userProfile.getUserName().isEmpty()) {
+      updateView();
+    }
   }
 
   public void setApplication(GUIMainApplication application) {
@@ -78,6 +92,8 @@ public class GUIMainController {
     stockView.setVisible(false);
     homeView.setVisible(true);
   }
+
+
 
   public void errorLoadingStock(){
     goToHomeView();
@@ -118,5 +134,14 @@ public class GUIMainController {
 
   public ReadOnlyDoubleProperty getHeightProperty() {
     return mainBorderPane.heightProperty();
+  }
+
+  public static GUIMainController getInstance(){
+    return guiMainController;
+  }
+  public void updateView() {
+    if (userProfile != null) {
+      homeViewController.updateUserProfile(userProfile);
+    }
   }
 }

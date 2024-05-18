@@ -14,16 +14,20 @@ import user.model.UserProfileManager;
 
 
 public class UserInterfaceApp extends Application {
+    private static Stage primaryStage;
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
+        UserInterfaceApp.primaryStage = primaryStage;
+
         TextField userNameField = new TextField();
         userNameField.setPromptText("User Name");
 
-        Button saveButton = getButton(userNameField, primaryStage);
+        Button saveButton = getButton(userNameField);
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
@@ -34,24 +38,44 @@ public class UserInterfaceApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    private static Button getButton(TextField userNameField, Stage primaryStage) {
+    private static Button getButton(TextField userNameField) {
         Button saveButton = new Button("Save");
         saveButton.setOnAction(e ->{
-            String userName= userNameField.getText();
-            UserProfile userProfile = new UserProfile(userName);
-            UserProfileManager userProfileManager = new UserProfileManager();
-            userProfileManager.saveUserInformation(userProfile, "ClarityStocksUser/userInfo.json");
+            String userName= userNameField.getText().trim();
+            if (userName.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("User name cannot be empty.");
+                alert.showAndWait();
+                return;
+            }
+            UserProfile userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
+            if (userProfile == null) {
+                userProfile = new UserProfile();
+            }
+            userProfile.setUserName(userName);
+            UserProfileManager.saveUserInformation(userProfile, "clarity-stocks-user/userInfo.json");
 
             Alert welcomeAlert = new Alert(Alert.AlertType.INFORMATION);
-            welcomeAlert.initOwner(primaryStage);
             welcomeAlert.setTitle("Welcome");
             welcomeAlert.setHeaderText(null);
-            welcomeAlert.setContentText("Welcome " + userNameField.getText());
+            welcomeAlert.setContentText("Welcome " + userName);
             welcomeAlert.showAndWait();
 
-            Platform.exit();
-
+            primaryStage.close();
+            startMainApplication();
         });
         return saveButton;
+    }
+    private static void startMainApplication() {
+        Platform.runLater(() -> {
+            GUIMainApplication mainApp = new GUIMainApplication();
+            try {
+                mainApp.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
