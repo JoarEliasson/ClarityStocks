@@ -82,7 +82,6 @@ public class FavoriteListController {
         if (mainController == null) {
             mainController = GUIMainController.getInstance();
         }
-            //menuBarController.goToStockView();
             mainController.goToStockView(selectedStock);
     }
 
