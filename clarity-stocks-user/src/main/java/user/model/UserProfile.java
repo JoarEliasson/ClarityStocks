@@ -7,8 +7,7 @@ import java.util.Set;
 
 public class UserProfile {
     private String userName;
-    private List<String> favoriteStocks;
-    private boolean isLoggedIn = false;
+    private HashSet<String> favoriteStocks;
 
 
     public UserProfile() {
@@ -17,7 +16,7 @@ public class UserProfile {
 
     public UserProfile(String userName) {
         this.userName = userName;
-        this.favoriteStocks = new ArrayList<>();
+        this.favoriteStocks = new HashSet<>();
 
     }
     public void addFavoriteStock(String stockSymbol) {
@@ -38,18 +37,10 @@ public class UserProfile {
         this.userName = userName;
     }
 
-    public List<String> getFavoriteStocks() {
+    public HashSet<String> getFavoriteStocks() {
         if (favoriteStocks == null) {
-            favoriteStocks = new ArrayList<>();
+            favoriteStocks = new HashSet<>();
         }
         return favoriteStocks;
     }
-    public boolean isLoggedIn() {
-        return isLoggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        isLoggedIn = loggedIn;
-    }
-
 }

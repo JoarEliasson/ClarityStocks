@@ -1,11 +1,16 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.model.Effects;
+import SE.ClarityStocksGUI.view.UserInterfaceApp;
+import java.io.IOException;
 import java.util.Objects;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.GaussianBlur;
@@ -16,6 +21,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import user.model.UserProfile;
 import user.model.UserProfileManager;
@@ -40,37 +46,32 @@ public class GUIHomeController {
 
   @FXML
   public BorderPane layout;
-  @FXML
-  public ImageView userImage;
+  public VBox favoriteList;
 
-  @FXML
-  public ListView<String> recentlyViewedListView;
-  @FXML
-  public Rectangle recentView;
 
   private GUIMainController controller;
   private UserProfile userProfile;
   private final String userFilePath = "clarity-stocks-user/userInfo.json";
 
-  public void initialize() {
 
+
+  public void initialize() {
     userProfile = UserProfileManager.loadUserInformation(userFilePath);
     VBox.setVgrow(layout, Priority.ALWAYS);
     layout.setEffect(new GaussianBlur(20));
 
     Platform.runLater(() -> {
       animateWelcomeTextVisibility();
-      setupViewBasedOnUser();
     });
   }
 
-
+  public void updateUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
+    updateView();
+  }
   public void updateView() {
-    if (userProfile != null && userProfile.isLoggedIn()) {
-      String userImagePath = "/SE/ClarityStocksGUI/view/user.png";
-      Image image = new Image(
-          Objects.requireNonNull(getClass().getResourceAsStream(userImagePath)));
-      userImage.setImage(image);
+    if (userProfile != null ) {
+      usernameText.setText(userProfile.getUserName());
     } else {
       usernameText.setText("Not logged in");
     }
@@ -79,22 +80,6 @@ public class GUIHomeController {
   public void setController(GUIMainController controller) {
     this.controller = controller;
   }
-  private void setupViewBasedOnUser() {
-    recentView.setEffect(Effects.getDropShadow());
-
-    if (userProfile == null || !userProfile.isLoggedIn()) {
-      messageLabel.setText("Log in to show favorite stocks");
-      showElements(false);
-    } else {
-      updateView();
-    }
-  }
-
-  private void showElements(boolean b) {
-    messageLabel.setVisible(true);
-    updateView();
-  }
-
   private void animateWelcomeTextVisibility() {
     welcomeToText.setVisible(true);
     clarityStocksText.setVisible(true);
@@ -139,4 +124,25 @@ public class GUIHomeController {
     SequentialTransition seqTransitionIn = new SequentialTransition(ftWelcomeIn, ftClarityIn);
     return seqTransitionIn;
   }
+  @FXML
+  private void handleUserInfo() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/se/ClarityStocksGUI/view/ChangeUserNameDialog.fxml"));
+      Parent root = loader.load();
+
+      ChangeUserNameDialogController dialogController = loader.getController();
+      dialogController.setUserProfile(userProfile);
+      dialogController.setMainController(controller);
+
+      Stage stage = new Stage();
+      dialogController.setStage(stage);
+
+      stage.setScene(new Scene(root));
+      stage.setTitle("Change UserName");
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

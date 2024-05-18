@@ -1,11 +1,13 @@
 package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.model.Effects;
-import java.util.List;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import user.model.UserProfile;
@@ -19,12 +21,14 @@ public class FavoriteListController {
     private UserProfile userProfile;
     private final String userFilePath = "clarity-stocks-user/userInfo.json";
     private ObservableList<String> favoriteItems = FXCollections.observableArrayList();
-
+    private GUIMainController mainController;
     @FXML
     public void initialize() {
         userProfile = UserProfileManager.loadUserInformation(userFilePath);
         favorite.setEffect(Effects.getDropShadow());
         favoritesListView.setItems(favoriteItems);
+        mainController = GUIMainController.getInstance();
+        System.out.println(mainController);
         loadFavorites();
     }
 
@@ -65,4 +69,24 @@ public class FavoriteListController {
             loadFavorites();
         }
     }
+
+    @FXML
+    public void handleListViewClick(MouseEvent mouseEvent) {
+        System.out.println("ListView clicked");
+        String selectedStock = favoritesListView.getSelectionModel().getSelectedItem();
+        if (selectedStock == null) {
+            System.out.println("No stock selected.");
+            return;
+        }
+        System.out.println("Selected stock: " + selectedStock);
+        if (mainController == null) {
+            mainController = GUIMainController.getInstance();
+        }
+            mainController.goToStockView(selectedStock);
+    }
+
+    public void setController(GUIMainController controller){
+        this.mainController = controller;
+    }
+
 }
