@@ -3,15 +3,24 @@ package common.evaluations;
 import common.interfaces.RatingEvaluation;
 
 /**
- * Class for evaluating the Price Earnings ratio of a company.
- * The Price Earnings ratio is calculated by dividing the current stock price by the earnings per
- * share.
- * <p>
- *   The class evaluates the Price Earnings ratio and returns a rating and a description of the
- *   evaluation.
- * <p>
- *   As of december 2023 the average Price Earnings ratio for the S&P 500 was 24.79 and will serve
- *   as a reference point for the evaluation.
+ * Class for evaluating the Price Earnings (P/E) ratio of a company.
+ *
+ * <p>The Price Earnings ratio is calculated by dividing the current stock price by the earnings per
+ * share. This class evaluates the P/E ratio and returns a rating and a description of the
+ * evaluation.
+ *
+ * <p>As of December 2023, the average Price Earnings ratio for the S&P 500 was 24.79 and will serve
+ * as a reference point for the evaluation.
+ *
+ * <p>This class provides methods to evaluate, describe, and get details of the P/E ratio evaluation.
+ *
+ * <ul>
+ *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
+ *   <li>{@code peRatio} - The Price Earnings ratio of the company's stock.</li>
+ *   <li>{@code rating} - The calculated rating based on the P/E ratio comparison with the market average.</li>
+ *   <li>{@code ratingDescription} - A textual description of the rating.</li>
+ *   <li>{@code description} - A detailed description of the evaluation.</li>
+ * </ul>
  *
  * @author Joar Eliasson
  */
@@ -24,70 +33,109 @@ public class PERatioEvaluation implements RatingEvaluation {
   private String ratingDescription;
   private String description;
 
+  /**
+   * Constructs a new {@code PERatioEvaluation} instance.
+   *
+   * @param symbol the unique identifier for the company's stock
+   * @param peRatio the Price Earnings ratio of the company's stock
+   */
   public PERatioEvaluation(String symbol, double peRatio) {
     this.symbol = symbol;
     this.peRatio = peRatio;
     evaluate();
   }
 
+  /**
+   * Calculates the rating by comparing the company's P/E ratio to the market average P/E ratio.
+   *
+   * @return the calculated rating
+   */
   private double calculateRating() {
     return peRatio / MARKET_AVERAGE_PE;
   }
 
-  private String generateRatingDescription() {
+
+  /**
+   * Method for getting the description of the rating.
+   * <p>
+   * The description provides a textual representation of the rating.
+   *
+   * @return the description of the rating.
+   */
+  @Override
+  public String getRatingDescription() {
+    return generateRatingDescription(rating);
+  }
+
+  /**
+   * Generates a textual description of the rating based on predefined ranges.
+   *
+   * @return the rating description
+   */
+  public String generateRatingDescription(double rating) {
     if (rating < 0.25) {
       return "Very Low";
     } else if (rating < 0.5) {
       return "Low";
     } else if (rating < 0.75) {
       return "Below Average";
-    } else if (rating < 1.0) {
+    } else if (rating < 0.9) {
+      return "Slightly Below Average";
+    } else if (rating <= 1.1) {
       return "Average";
     } else if (rating < 1.25) {
-      return "Above Average";
+      return "Slightly Above Average";
     } else if (rating < 1.5) {
-      return "High";
+      return "Above Average";
     } else if (rating < 1.75) {
-      return "Very High";
+      return "High";
     } else if (rating < 2.0) {
-      return "Extremely High";
+      return "Very High";
     } else {
-      return "Sky High";
+      return "Extremely High";
     }
   }
 
+  /**
+   * Evaluates the company's P/E ratio by calculating the rating and generating its description.
+   */
   @Override
   public void evaluate() {
     rating = calculateRating();
-    ratingDescription = generateRatingDescription();
+    ratingDescription = generateRatingDescription(rating);
   }
 
+  /**
+   * Gets the stock symbol.
+   *
+   * @return the stock symbol
+   */
   @Override
   public String getSymbol() {
     return symbol;
   }
 
   /**
-   * Method for getting the title of the evaluation.
-   * <p>
-   * The title corresponds to the type of evaluation that is performed.
+   * Gets the title of the evaluation.
    *
-   * @return the title of the evaluation.
+   * <p>The title corresponds to the type of evaluation that is performed.
+   *
+   * @return the title of the evaluation
    */
   @Override
-  public String getTitle() {
+  public String getEvaluationTitle() {
     return "Price-to-Earnings Ratio";
   }
 
   /**
-   * Method for getting the subtitle of the evaluation.
-   * <p>
-   * The subtitle is a short description of the data that the evaluation is based on.
+   * Gets the subtitle of the evaluation.
    *
-   * @return the subtitle of the evaluation.
+   * <p>The subtitle is a short description of the data that the evaluation is based on.
+   *
+   * @return the subtitle of the evaluation
    */
   @Override
-  public String getSubtitle() {
+  public String getGeneralEvaluationInfo() {
     return String.format(
         "Understanding P/E Ratio:%n%n"
 
@@ -106,14 +154,14 @@ public class PERatioEvaluation implements RatingEvaluation {
   }
 
   /**
-   * Method for getting the evaluation method.
-   * <p>
-   * The evaluation method is a short description of how the evaluation is performed.
+   * Gets the evaluation method.
    *
-   * @return the evaluation method.
+   * <p>The evaluation method is a short description of how the evaluation is performed.
+   *
+   * @return the evaluation method
    */
   @Override
-  public String getEvaluationMethod() {
+  public String getEvaluationMethodInfo() {
     return String.format(
         "Evaluation Method Explained:%n%n"
         + "The evaluation method for determining a stock's rating based on its Price-to-Earnings "
@@ -136,8 +184,13 @@ public class PERatioEvaluation implements RatingEvaluation {
     );
   }
 
+  /**
+   * Gets the detailed description of the evaluation.
+   *
+   * @return the detailed description of the evaluation
+   */
   @Override
-  public String getDescription() {
+  public String getResultDescription() {
     return String.format(
         "P/E Ratio: %.2f%n" +
         "Market Comparison: %s%n%n" +
@@ -153,11 +206,21 @@ public class PERatioEvaluation implements RatingEvaluation {
     );
   }
 
+  /**
+   * Gets the calculated rating of the company's P/E ratio.
+   *
+   * @return the calculated rating
+   */
   @Override
   public double getRating() {
     return rating;
   }
 
+  /**
+   * Gets the P/E ratio value of the company's stock.
+   *
+   * @return the P/E ratio value
+   */
   @Override
   public String getValue() {
     return String.valueOf(peRatio);

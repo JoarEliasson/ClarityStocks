@@ -4,7 +4,16 @@ import SE.ClarityStocksGUI.controller.graph.GUIStockLineGraphController;
 import SE.ClarityStocksGUI.controller.tiles.InfoTile;
 import SE.ClarityStocksGUI.controller.tiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
+import analysis.graph.GoldenCrossAnalysis;
 import common.data.series.DailyDataPoint;
+import common.evaluations.AnalystPredictionEvaluation;
+import common.evaluations.BusinessPerformanceEvaluation;
+import common.evaluations.CompanyGrowthEvaluation;
+import common.evaluations.CompanySizeEvaluation;
+import common.evaluations.DividendEvaluation;
+import common.evaluations.HighAndLowEvaluation;
+import common.evaluations.PERatioEvaluation;
+import common.evaluations.PriceToPerformance;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -257,6 +266,7 @@ public class GUIStockViewController {
                 setInfoTile();
                 setRatingsTile();
                 progress.setVisible(false);
+                printAllEvaluationTexts();
               }catch (NoSuchElementException e){
                 errorLoadingStock();
                 e.printStackTrace();
@@ -276,6 +286,89 @@ public class GUIStockViewController {
 
       }
     }).start();
+  }
+
+  private void printAllEvaluationTexts(){
+    HighAndLowEvaluation hle = stockData.getHighAndLowEvaluation();
+    System.out.println(hle.getEvaluationTitle());
+    System.out.println(hle.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + hle.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + hle.getEvaluationMethodInfo());
+    System.out.println("Results: " + hle.getResultDescription());
+    System.out.println();
+
+    PERatioEvaluation pe = stockData.getPeRatioEvaluation();
+    System.out.println(pe.getEvaluationTitle());
+    System.out.println(pe.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + pe.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + pe.getEvaluationMethodInfo());
+    System.out.println("Results: " + pe.getResultDescription());
+    System.out.println();
+
+    AnalystPredictionEvaluation ape = stockData.getAnalystPredictionEvaluation();
+    System.out.println(ape.getEvaluationTitle());
+    System.out.println(ape.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + ape.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + ape.getEvaluationMethodInfo());
+    System.out.println("Results: " + ape.getResultDescription());
+    System.out.println();
+
+    BusinessPerformanceEvaluation bpe = stockData.getBusinessPerformanceEvaluation();
+    System.out.println(bpe.getEvaluationTitle());
+    System.out.println(bpe.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + bpe.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + bpe.getEvaluationMethodInfo());
+    System.out.println("Results: " + bpe.getResultDescription());
+    System.out.println();
+
+    PriceToPerformance ptpe = stockData.getPriceToPerformance();
+    System.out.println(ptpe.getEvaluationTitle());
+    System.out.println(ptpe.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + ptpe.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + ptpe.getEvaluationMethodInfo());
+    System.out.println("Results: " + ptpe.getResultDescription());
+    System.out.println();
+
+    CompanySizeEvaluation cse = stockData.getCompanySizeEvaluation();
+    System.out.println(cse.getEvaluationTitle());
+    System.out.println(cse.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + cse.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + cse.getEvaluationMethodInfo());
+    System.out.println("Results: " + cse.getResultDescription());
+    System.out.println();
+
+
+    CompanyGrowthEvaluation cge = stockData.getCompanyGrowthEvaluation();
+    System.out.println(cge.getEvaluationTitle());
+    System.out.println(cge.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + cge.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + cge.getEvaluationMethodInfo());
+    System.out.println("Results: " + cge.getResultDescription());
+    System.out.println();
+
+    DividendEvaluation getDividendEvaluation = stockData.getDividendEvaluation();
+    System.out.println(getDividendEvaluation.getEvaluationTitle());
+    System.out.println();
+    System.out.println("General Info: " + getDividendEvaluation.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + getDividendEvaluation.getEvaluationMethodInfo());
+    System.out.println("Results: " + getDividendEvaluation.getResultDescription());
+    System.out.println();
+
+
+    GoldenCrossAnalysis getGoldenCrossAnalysis = stockData.getGoldenCrossAnalysis();
+    System.out.println(getGoldenCrossAnalysis.getAnalysisTitle());
+    System.out.println();
+    System.out.println("General Info: " + getGoldenCrossAnalysis.getGeneralAnalysisInfo());
+    System.out.println("Method Info: " + getGoldenCrossAnalysis.getAnalysisMethodInfo());
+    System.out.println("Results: " + getGoldenCrossAnalysis.getResultDescription());
+    System.out.println();
   }
 
   public void errorLoadingStock(){
@@ -300,19 +393,19 @@ public class GUIStockViewController {
     ratingsTileController.setPeEvaluationText(
         stockData.getPeRatioEvaluation().getRating(),
         stockData.getCompanyOverview().getPERatio(),
-        stockData.getPeRatioEvaluation().getDescription());
+        stockData.getPeRatioEvaluation().getResultDescription());
 
     ratingsTileController.setBusinessPerformance(
         stockData.getBusinessPerformanceEvaluation().getRating(),
-        stockData.getBusinessPerformanceEvaluation().getDescription());
+        stockData.getBusinessPerformanceEvaluation().getResultDescription());
 
     ratingsTileController.setCompanyGrowth(
         stockData.getCompanyGrowthEvaluation().getRating(),
-        stockData.getCompanyGrowthEvaluation().getDescription());
+        stockData.getCompanyGrowthEvaluation().getResultDescription());
 
     ratingsTileController.setCompanySize(
         stockData.getCompanySizeEvaluation().getRating(),
-        stockData.getCompanySizeEvaluation().getDescription());
+        stockData.getCompanySizeEvaluation().getResultDescription());
   }
 
   @FXML
@@ -392,26 +485,26 @@ public class GUIStockViewController {
       case "PE":
         mainTitle = "P/E (Price-earnings ratio)";
         generalText = "";
-        companyText = stockData.getPeRatioEvaluation().getDescription();
+        companyText = stockData.getPeRatioEvaluation().getResultDescription();
         break;
 
       case "busPer":
         mainTitle = "Business Performance";
         generalText = "";
-        companyText = stockData.getBusinessPerformanceEvaluation().getDescription();
+        companyText = stockData.getBusinessPerformanceEvaluation().getResultDescription();
         break;
 
       case "compGrowth":
         mainTitle = "Company Growth";
         generalText = "";
-        companyText = stockData.getCompanyGrowthEvaluation().getDescription();
+        companyText = stockData.getCompanyGrowthEvaluation().getResultDescription();
 
         break;
 
       case "compSize":
         mainTitle = "Company Size";
         generalText = "";
-        companyText = stockData.getCompanySizeEvaluation().getDescription();
+        companyText = stockData.getCompanySizeEvaluation().getResultDescription();
         break;
 
       default:

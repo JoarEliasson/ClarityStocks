@@ -5,156 +5,183 @@ import common.interfaces.RatingEvaluation;
 /**
  * This class evaluates the company's growth based on the quarterly revenue growth year over year.
  *
- * @author Olivia Svensson
+ * <p>The evaluation is based on the increase in the company's sales from one quarter to the next,
+ * compared on a year-over-year basis.
+ *
+ * <ul>
+ *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
+ *   <li>{@code quarterlyRevenueGrowthYOY} - The percentage increase in the company's revenue
+ *       from one quarter to the same quarter the previous year.</li>
+ *   <li>{@code rating} - The calculated rating based on the quarterly revenue growth.</li>
+ *   <li>{@code ratingDescription} - A textual description of the rating.</li>
+ *   <li>{@code description} - A detailed description of the evaluation.</li>
+ * </ul>
+ *
+ * @see common.interfaces.RatingEvaluation
+ * @see java.lang.String
+ * @see java.lang.Math
+ *
+ * @author Olivia Svensson, Joar Eliasson
  */
 public class CompanyGrowthEvaluation implements RatingEvaluation {
 
   private final String symbol;
   private final double quarterlyRevenueGrowthYOY;
-  private int rating;
-  private String description;
+  private double rating;
+  private String ratingDescription;
 
+  /**
+   * Constructs a new {@code CompanyGrowthEvaluation} instance.
+   *
+   * @param symbol the unique identifier for the company's stock
+   * @param quarterlyRevenueGrowthYOY the percentage increase in the company's revenue from one
+   *        quarter to the same quarter the previous year
+   */
   public CompanyGrowthEvaluation(String symbol, double quarterlyRevenueGrowthYOY) {
     this.symbol = symbol;
     this.quarterlyRevenueGrowthYOY = quarterlyRevenueGrowthYOY;
     evaluate();
   }
 
+  /**
+   * Generates a rating description based on predefined ranges.
+   *
+   * @return the rating description
+   */
   @Override
-  public void evaluate() {
+  public String getRatingDescription() {
     if (quarterlyRevenueGrowthYOY < 0) {
-      description = String.format(
-          "The company (%s) is experiencing a decline in growth (%s).%n"
-          + "This is a warning signal for any stock and company.",
-          symbol, quarterlyRevenueGrowthYOY
-      );
-      rating = 0;
-    } else if (quarterlyRevenueGrowthYOY < 5 && quarterlyRevenueGrowthYOY > 0) {
-        description = String.format(
-            "The company (%s) is experiencing a small growth (%s).%nThis is a sign for caution"
-                + " depending on sector, industry and company size.",
-            symbol, quarterlyRevenueGrowthYOY
-        );
-        rating = 1;
-    } else if (quarterlyRevenueGrowthYOY < 15 && quarterlyRevenueGrowthYOY > 5) {
-        description = String.format(
-            "The company (%s) is experiencing stable growth (%s).%nThis is a neutral or positive"
-                + " sign depending on sector, industry and company size.",
-            symbol, quarterlyRevenueGrowthYOY
-        );
-        rating = 2;
-    } else if (quarterlyRevenueGrowthYOY < 25 && quarterlyRevenueGrowthYOY > 15) {
-        description = String.format(
-            "The company (%s) is experiencing rapid growth (%s).%nThis is a positive sign for "
-            + "the company and its stock. A company with strong growth is likely to be a good "
-            + "investment.",
-            symbol, quarterlyRevenueGrowthYOY
-        );
-        rating = 3;
-    }
-    else if (quarterlyRevenueGrowthYOY < 50 && quarterlyRevenueGrowthYOY > 25) {
-        description = String.format(
-            "The company (%s) is experiencing very rapid growth (%s).%nThis is a very positive sign"
-            + " for the company and its stock. A company with strong growth is likely to be a good"
-            + " investment.",
-            symbol, quarterlyRevenueGrowthYOY
-        );
-        rating = 4;
+      return "Decline in Growth";
+    } else if (quarterlyRevenueGrowthYOY < 5) {
+      return "Small Growth";
+    } else if (quarterlyRevenueGrowthYOY < 15) {
+      return "Stable Growth";
+    } else if (quarterlyRevenueGrowthYOY < 25) {
+      return "Rapid Growth";
+    } else if (quarterlyRevenueGrowthYOY < 50) {
+      return "Very Rapid Growth";
     } else {
-        description = String.format(
-            "The company (%s) is experiencing extremely rapid growth (%s).%nThis is an extremely "
-            + "high growth rate and is should be considered carefully. A company with strong growth"
-            + " is likely to be a good investment. Depending on the price of the stock, it might be"
-            + " wise to consider if the growth is sustainable in the long run.",
-            symbol, quarterlyRevenueGrowthYOY
-        );
-        rating = 5;
+      return "Extremely Rapid Growth";
     }
   }
 
+  /**
+   * Evaluates the company's growth by calculating the rating and generating its description.
+   */
+  @Override
+  public void evaluate() {
+    rating = quarterlyRevenueGrowthYOY / 100.0;
+    ratingDescription = getRatingDescription();
+  }
+
+  /**
+   * Gets the stock symbol.
+   *
+   * @return the stock symbol
+   */
   @Override
   public String getSymbol() {
     return symbol;
   }
 
   /**
-   * Method for getting the title of the evaluation.
-   * <p>
-   * The title corresponds to the type of evaluation that is performed.
+   * Gets the title of the evaluation.
    *
-   * @return the title of the evaluation.
+   * <p>The title corresponds to the type of evaluation that is performed.
+   *
+   * @return the title of the evaluation
    */
   @Override
-  public String getTitle() {
+  public String getEvaluationTitle() {
     return "Company Growth";
   }
 
   /**
-   * Method for getting the subtitle of the evaluation.
-   * <p>
-   * The subtitle is a short description of the data that the evaluation is based on.
+   * Gets the subtitle of the evaluation.
    *
-   * @return the subtitle of the evaluation.
+   * <p>The subtitle is a short description of the data that the evaluation is based on.
+   *
+   * @return the subtitle of the evaluation
    */
   @Override
-  public String getSubtitle() {
-    return "The company growth evaluation is based on the stock company’s growth, which is based on"
-        + " the quarterly revenue growth year over year. Quarterly revenue growth refers to an"
-        + " increase in the company’s sales from one quarter to the next. The year over year basis"
-        + " is when the sales figures for Q4 (fourth quarter of the year) for year 1 is compares to"
-        + " the Q4 of year 2. The quarterly revenue growth provides a percentage rate of the"
-        + " increase in a company’s sales over a fixed period. If the growth rate continues for"
-        + " the company, it is an indicator of a good investment. Companies are required to report"
-        + " earnings every quarter, which contributes to transparency and integrity of public"
-        + " markets. If companies were to report less frequent such as annually, there would be a"
-        + " greater scope for earnings management as the management can pick and choose certain"
-        + " values to portray financial well-being. The quarterly revenue growth is not to only be"
-        + " looked at, as this is only a short-term indication of success. Having a few quarters of"
-        + " good company growth doesn’t necessarily mean that the company is going to continue"
-        + " having success in the long run. Fluctuation is common as there might be short-term"
-        + " changes in the company, as well as the economy. Some companies are seasonal businesses,"
-        + " such as retail, which might experience high quarterly growth during certain times of"
-        + " the year. It is important to not only look at the quarterly revenue growth, but to"
-        + " combine it with other growth metrics.";
+  public String getGeneralEvaluationInfo() {
+    return String.format(
+        "Understanding Company Growth:%n%n"
+            + "The company growth evaluation is based on the company's growth, measured by the quarterly "
+            + "revenue growth year over year. Quarterly revenue growth refers to the increase in the company's "
+            + "sales from one quarter to the next, compared on a year-over-year basis. For example, the revenue "
+            + "for Q4 (fourth quarter of the fiscal year) of year 1 is compared to Q4 of year 2.%n%n"
+            + "This growth metric provides a percentage rate of the increase in a company's sales over a fixed period. "
+            + "Consistent growth is an indicator of a potentially good investment. Companies report earnings every quarter, "
+            + "which contributes to the transparency and integrity of public markets. However, it's important to combine this "
+            + "metric with other growth indicators to get a comprehensive view of the company's performance."
+    );
   }
 
   /**
-   * Method for getting the evaluation method.
-   * <p>
-   * The evaluation method is a short description of how the evaluation is performed.
+   * Gets the evaluation method.
    *
-   * @return the evaluation method.
+   * <p>The evaluation method is a short description of how the evaluation is performed.
+   *
+   * @return the evaluation method
    */
   @Override
-  public String getEvaluationMethod() {
-    return "The evaluation of the company growth is based on the value of the quarterly revenue"
-        + " year over year. The grading has been divided into six categories. If the growth is less"
-        + " than 0, it means that the company is experiencing a decline in growth."
-        + " If the growth is less than 5%, the company is experiencing a small growth."
-        + " If the growth is less than 15%, it is an indication that the company is experiencing"
-        + " a stable growth."
-        + " If the growth is less than 25%, the company is experiencing rapid growth."
-        + " If the growth is less than 50%, the company is experiencing very rapid growth."
-        + " If the growth is more than 50%, the company is experiencing extremely rapid growth."
-        + " It is important to note that the higher the value of the growth is, does not correlate"
-        + " with how well the company is performing historically or how it will perform in the"
-        + " future. If the company has a very high growth rate, it is very unlikely that it will"
-        + " continue in the future. The company growth is only evaluated on quarters, meaning that"
-        + " it is not a long term measurement of the company’s performance. ";
+  public String getEvaluationMethodInfo() {
+    return String.format(
+        "Evaluation Method Explained:%n%n"
+            + "The evaluation of the company growth is based on the value of the quarterly revenue year over year. "
+            + "The growth is categorized into six levels:%n"
+            + "Less than 0%%: Decline in growth%n"
+            + "Less than 5%%: Small growth%n"
+            + "Less than 15%%: Stable growth%n"
+            + "Less than 25%%: Rapid growth%n"
+            + "Less than 50%%: Very rapid growth%n"
+            + "More than 50%%: Extremely rapid growth%n%n"
+            + "While a high growth rate is positive, it does not guarantee long-term success. Seasonal fluctuations and "
+            + "short-term economic changes can affect quarterly growth. It is important to consider the sustainability of the growth rate "
+            + "and other financial metrics when evaluating a company's long-term performance."
+    );
   }
 
+  /**
+   * Gets the detailed description of the evaluation.
+   *
+   * @return the detailed description of the evaluation
+   */
   @Override
-  public String getDescription() {
-    return description;
+  public String getResultDescription() {
+    return String.format(
+        "Quarterly Revenue Growth YOY: %.2f%%%n"
+            + "Market Comparison: %s%n%n"
+            + "The current quarterly revenue growth year over year for %s stands at %.2f%%, which corresponds to a "
+            + "market comparison rating of '%s'. This indicates that the company's growth rate is %s relative to "
+            + "industry standards.%n%n"
+            + "In summary, %s's quarterly revenue growth of %.2f%% results in a '%s' rating, suggesting that the company is %s "
+            + "relative to market expectations. Investors should consider this rating alongside other financial metrics and "
+            + "the company's overall financial health when making investment decisions.",
+        quarterlyRevenueGrowthYOY, ratingDescription, symbol, quarterlyRevenueGrowthYOY,
+        ratingDescription, ratingDescription.toLowerCase(),
+        symbol, quarterlyRevenueGrowthYOY, ratingDescription, ratingDescription.toLowerCase()
+    );
   }
 
+  /**
+   * Gets the calculated rating of the company's quarterly revenue growth.
+   *
+   * @return the calculated rating
+   */
   @Override
   public double getRating() {
     return rating;
   }
 
+  /**
+   * Gets the quarterly revenue growth year over year of the company's stock.
+   *
+   * @return the quarterly revenue growth year over year
+   */
   @Override
   public String getValue() {
-    return String.format("%.2f %s", quarterlyRevenueGrowthYOY, "%");
+    return String.format("%.2f%%", quarterlyRevenueGrowthYOY);
   }
 }

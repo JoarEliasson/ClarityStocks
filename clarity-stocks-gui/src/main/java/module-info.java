@@ -14,6 +14,7 @@ module SE.ClarityStocksGUI {
   requires java.logging;
   requires clarity.stocks.common;
   requires eu.hansolo.medusa;
+  requires clarity.stocks.analysis;
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
 

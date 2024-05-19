@@ -3,16 +3,31 @@ package common.evaluations;
 import common.interfaces.RatingEvaluation;
 
 /**
- * Class for calculating the business performance of a company. Returns an EBITDA margin.
+ * Class for calculating the business performance of a company.
  * <p>
- * EBITDA margin is calculated by EBITDA divided by the companies total revenue.
+ * The business performance evaluation is based on the company's EBITDA (Earnings Before Interest,
+ * Taxes, Depreciation, and Amortization) and total revenue. The EBITDA margin is used as a measure
+ * of the company's operating profitability as a percentage of its total revenue.
+ * </p>
  * <p>
- *   EBITDA stands for Earnings Before Interest, Taxes, Depreciation, and Amortization.
- *   The EBITDA margin is a measure of a company's operating profitability as a percentage of its
- *   total revenue.
+ * This class evaluates the EBITDA margin and returns a rating and a description of the evaluation.
  * </p>
  *
- * @author Olivia Svensson
+ * <ul>
+ *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
+ *   <li>{@code EBITDA} - The earnings of the company before interest, taxes, depreciation, and amortization.</li>
+ *   <li>{@code revenueTTM} - The total revenue of the company for the past twelve months.</li>
+ *   <li>{@code EBITDAMargin} - The calculated EBITDA margin, representing the company's operating profitability.</li>
+ *   <li>{@code rating} - The calculated rating based on the EBITDA margin.</li>
+ *   <li>{@code description} - A textual description of the company's performance.</li>
+ * </ul>
+ *
+ * @see common.interfaces.RatingEvaluation
+ * @see java.lang.String
+ * @see java.lang.Math
+ *
+ * @author Olivia Svensson, Joar Eliasson
+ *
  */
 public class BusinessPerformanceEvaluation implements RatingEvaluation {
 
@@ -20,12 +35,16 @@ public class BusinessPerformanceEvaluation implements RatingEvaluation {
   private final double EBITDA;
   private final double revenueTTM;
   private double EBITDAMargin;
-  private int rating;
-  private String description;
+  private double rating;
+  private String ratingDescription;
 
-  /*
-  * Constructor for BusinessPerformanceEvaluation. Calls the method evaluate.
-  * */
+  /**
+   * Constructs a new {@code BusinessPerformanceEvaluation} instance.
+   *
+   * @param symbol the unique identifier for the company's stock
+   * @param EBITDA the earnings of the company before interest, taxes, depreciation, and amortization
+   * @param revenueTTM the total revenue of the company for the past twelve months
+   */
   public BusinessPerformanceEvaluation(String symbol, double EBITDA, double revenueTTM) {
     this.symbol = symbol;
     this.EBITDA = EBITDA;
@@ -33,117 +52,156 @@ public class BusinessPerformanceEvaluation implements RatingEvaluation {
     evaluate();
   }
 
-  /*
-  * Method for evaluating the EBITDA to the revenue for the past twelve months, which is the EBITDA margin.
-  * */
+  /**
+   * Calculates the EBITDA margin by dividing the company's EBITDA by its total revenue.
+   */
   private void evaluateEBITDAMargin() {
     EBITDAMargin = EBITDA / revenueTTM;
   }
 
-  /*
-  * Method for evaluating the EBITDA margin which sets the description variable to a fitting one depending on
-  * the performance of the stock.
-  * */
+  /**
+   * Generates a rating description based on predefined ranges.
+   *
+   * @return the rating description
+   */
   @Override
-  public void evaluate() {
-    evaluateEBITDAMargin();
+  public String getRatingDescription() {
     if (EBITDAMargin > 0.20) {
-      rating = 5;
-      description = "There is an indication that " + symbol + " has a great performance";
-    } else if (EBITDAMargin > 0.15 && EBITDAMargin < 0.20) {
-      rating = 4;
-      description = "There is an indication that " + symbol + " has a good performance";
-    } else if (EBITDAMargin > 0.10  && EBITDAMargin < 0.15) {
-      rating = 3;
-      description = "There is an indication that " + symbol + " has an average performance";
-    } else if (EBITDAMargin > 0.05  && EBITDAMargin < 0.10) {
-      rating = 2;
-      description = "There is an indication that " + symbol + " has an average performance";
-    } else if (EBITDAMargin > 0.025  && EBITDAMargin < 0.10) {
-      rating = 1;
-      description = "There is an indication that " + symbol + " has a weak performance";
+      return "Great Performance";
+    } else if (EBITDAMargin > 0.15) {
+      return "Good Performance";
+    } else if (EBITDAMargin > 0.10) {
+      return "Average Performance";
+    } else if (EBITDAMargin > 0.05) {
+      return "Below Average Performance";
+    } else if (EBITDAMargin > 0.025) {
+      return "Weak Performance";
     } else {
-      rating = 0;
-      description = "There is an indication that " + symbol + " has a very weak performance";
+      return "Very Weak Performance";
     }
   }
 
+  /**
+   * Evaluates the company's performance by calculating the EBITDA margin and generating its description.
+   */
+  @Override
+  public void evaluate() {
+    evaluateEBITDAMargin();
+    rating = EBITDAMargin;
+    ratingDescription = getRatingDescription();
+  }
+
+  /**
+   * Gets the stock symbol.
+   *
+   * @return the stock symbol
+   */
   @Override
   public String getSymbol() {
     return symbol;
   }
 
   /**
-   * Method for getting the title of the evaluation.
-   * <p>
-   * The title corresponds to the type of evaluation that is performed.
+   * Gets the title of the evaluation.
    *
-   * @return the title of the evaluation.
+   * <p>The title corresponds to the type of evaluation that is performed.
+   *
+   * @return the title of the evaluation
    */
   @Override
-  public String getTitle() {
+  public String getEvaluationTitle() {
     return "Business Performance";
   }
 
   /**
-   * Method for getting the subtitle of the evaluation.
-   * <p>
-   * The subtitle is a short description of the data that the evaluation is based on.
+   * Gets the subtitle of the evaluation.
    *
-   * @return the subtitle of the evaluation.
+   * <p>The subtitle is a short description of the data that the evaluation is based on.
+   *
+   * @return the subtitle of the evaluation
    */
   @Override
-  public String getSubtitle() {
-    return "The business performance evaluation is based on the company’s performance. The"
-        + " performance of the company is evaluated based on the EBITDA and the company’s total"
-        + " revenue. EBITDA is the earnings of the company before interest, taxes, depreciation,"
-        + " and amortization. EBITDA is an alternate measure of profitability to net income."
-        + " EBITDA attempts to represent the cash profit generated by the company’s operations."
-        + " What is meant by total revenue is how much revenue the company has from recurring"
-        + " and non-recurring revenue streams. It is the total amount of income the company brings"
-        + " in from selling products and/or services. ";
+  public String getGeneralEvaluationInfo() {
+    return String.format(
+        "Understanding Business Performance:%n%n"
+            + "The business performance evaluation is based on the company's performance. The performance of the "
+            + "company is evaluated based on the EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) "
+            + "and the company's total revenue. EBITDA is a financial metric used to evaluate the company's operating "
+            + "performance and profitability. Total revenue refers to the total amount of income the company brings in "
+            + "from selling products and/or services, encompassing both recurring and non-recurring revenue streams.%n%n"
+            + "EBITDA attempts to represent the cash profit generated by the company's operations, making it an alternate "
+            + "measure of profitability to net income. Comparing EBITDA with total revenue helps in assessing the efficiency "
+            + "and profitability of the company's core operations."
+    );
   }
 
   /**
-   * Method for getting the evaluation method.
-   * <p>
-   * The evaluation method is a short description of how the evaluation is performed.
+   * Gets the evaluation method.
    *
-   * @return the evaluation method.
+   * <p>The evaluation method is a short description of how the evaluation is performed.
+   *
+   * @return the evaluation method
    */
   @Override
-  public String getEvaluationMethod() {
-    return "The business performance of the company is evaluated by calculating the EBITDA margin,"
-        + " which is a measure of a company’s operating profitability as a percentage of its total"
-        + " revenue. The EBITDA margin is a good indicator for the company’s financial performance."
-        + " However, it is not a good indicator for all companies. For companies with high levels"
-        + " of debt or companies that consistently purchase expensive equipment for their"
-        + " operations, it is not as effective of a measure. The EBITDA margin is calculated by"
-        + " dividing the EBITDA with the revenue of the company for the past twelve months."
-        + " The EBITDA margin is then graded by how many percentages it is, the higher, the better."
-        + " What is considered a good EBITDA margin is industry specific, however it can be"
-        + " generalized, which is what we have done. A high EBITDA means that the operating"
-        + " expenses are lower in relation to total revenue, meaning that the company’s earnings"
-        + " are stable. A low EBITDA margin indicates that the company has issues with its"
-        + " profitability as well as cash flow.  We have graded the EBITDA margin as following:"
-        + " more than 20% indicates great performance, more than 15% indicates good performance,"
-        + " more than 10% indicates an average performance, more than 5% indicates average"
-        + " performance, more than 2.5% indicates a weak performance, and less than that indicates"
-        + " a very weak performance.";
+  public String getEvaluationMethodInfo() {
+    return String.format(
+        "Evaluation Method Explained:%n%n"
+            + "The business performance of the company is evaluated by calculating the EBITDA margin, "
+            + "which is a measure of a company's operating profitability as a percentage of its total "
+            + "revenue. The EBITDA margin is calculated by dividing the EBITDA by the revenue of the "
+            + "company for the past twelve months.%n%n"
+            + "A high EBITDA margin indicates that the company has lower operating expenses relative to "
+            + "its total revenue, signifying stable earnings and strong financial performance. Conversely, "
+            + "a low EBITDA margin suggests issues with profitability and cash flow. The EBITDA margin is "
+            + "graded as follows: more than 20%% indicates great performance, more than 15%% indicates good "
+            + "performance, more than 10%% indicates average performance, more than 5%% indicates below average "
+            + "performance, more than 2.5%% indicates weak performance, and less than 2.5%% indicates very weak "
+            + "performance.%n%n"
+            + "It is important to note that while the EBITDA margin is a useful indicator of financial performance, "
+            + "it may not be as effective for companies with high levels of debt, complex business models, or high leverage. "
+            + "Investors should consider the EBITDA margin in conjunction with other financial metrics and the company's overall "
+            + "business context."
+    );
   }
 
+  /**
+   * Gets the detailed description of the evaluation.
+   *
+   * @return the detailed description of the evaluation
+   */
   @Override
-  public String getDescription() {
-    return description;
+  public String getResultDescription() {
+    return String.format(
+        "EBITDA Margin: %.2f%n"
+            + "Market Comparison: %s%n%n"
+            + "The current EBITDA margin for %s stands at %.2f, which corresponds to a market comparison "
+            + "rating of '%s'. This indicates that the company's operating profitability is %s relative to the industry standard.%n%n"
+            + "In summary, %s's EBITDA margin of %.2f results in a '%s' rating, suggesting that the company is %s relative to market "
+            + "expectations. Investors should consider this rating alongside other financial metrics and the company's overall "
+            + "financial health when making investment decisions.",
+        EBITDAMargin, ratingDescription, symbol, EBITDAMargin, ratingDescription,
+        ratingDescription.toLowerCase(),
+        symbol, EBITDAMargin, ratingDescription, ratingDescription.toLowerCase()
+    );
   }
 
+  /**
+   * Gets the calculated rating of the company's EBITDA margin.
+   *
+   * @return the calculated rating
+   */
   @Override
   public double getRating() {
     return rating;
   }
 
+  /**
+   * Gets the EBITDA and EBITDA margin values of the company's stock.
+   *
+   * @return the EBITDA and EBITDA margin values
+   */
   @Override
   public String getValue() {
-    return String.format("EBITDA: %.2f EBITDA Margin: %.2f", EBITDA, EBITDAMargin);
+    return String.format("EBITDA: %.2f, EBITDA Margin: %.2f", EBITDA, EBITDAMargin);
   }
 }

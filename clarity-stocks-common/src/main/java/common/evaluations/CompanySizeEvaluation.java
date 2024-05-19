@@ -3,8 +3,24 @@ package common.evaluations;
 import common.interfaces.RatingEvaluation;
 
 /**
- * Class for evaluating the size of the company. Company size evaluations are based on the revenue
- * for the past twelve months and their market capitalization.
+ * Class for evaluating the size of the company.
+ * <p>
+ * Company size evaluations are based on the revenue for the past twelve months and their market
+ * capitalization.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
+ *   <li>{@code revenueTTM} - The total revenue of the company for the past twelve months.</li>
+ *   <li>{@code marketCap} - The market capitalization of the company.</li>
+ *   <li>{@code rating} - The calculated rating based on the company's size.</li>
+ *   <li>{@code ratingDescription} - A textual description of the rating.</li>
+ *   <li>{@code description} - A detailed description of the evaluation.</li>
+ * </ul>
+ *
+ * @see common.interfaces.RatingEvaluation
+ * @see java.lang.String
+ * @see java.lang.Math
  *
  * @author Olivia Svensson, Joar Eliasson
  */
@@ -12,176 +28,174 @@ public class CompanySizeEvaluation implements RatingEvaluation {
 
   private final String symbol;
   private final long revenueTTM;
-  private int rating;
-  private String description;
+  private final long marketCap;
+  private double rating;
+  private String ratingDescription;
 
-  public CompanySizeEvaluation(String symbol, long revenueTTM) {
+  /**
+   * Constructs a new {@code CompanySizeEvaluation} instance.
+   *
+   * @param symbol the unique identifier for the company's stock
+   * @param revenueTTM the total revenue of the company for the past twelve months
+   * @param marketCap the market capitalization of the company
+   */
+  public CompanySizeEvaluation(String symbol, long revenueTTM, long marketCap) {
     this.symbol = symbol;
     this.revenueTTM = revenueTTM;
+    this.marketCap = marketCap;
     evaluate();
   }
 
   /**
-   * Evaluates the company size based on the revenue for the past twelve months. The evaluation is
-   * based on the following thresholds:
-   * <p>
-   * Nano-cap: Below 50 million $
-   * <p>
-   * Micro-cap: Between 50 million $ and 250 million $
-   * <p>
-   * Mid-cap: Between 250 million $ and 2 billion $
-   * <p>
-   * Big-cap: Between 2 billion $ and 10 billion $
-   * <p>
-   * Mega-cap: Between 10 billion $ and 200 billion $
+   * Generates a rating description based on predefined ranges.
+   *
+   * @return the rating description
    */
   @Override
-  public void evaluate() {
-    long nanoCapThreshold = 50000000L;
-    long microCapThreshold = 250000000L;
-    long midCapThreshold = 2000000000L;
-    long bigCapThreshold = 10000000000L;
-    long megaCapThreshold = 200000000000L;
-
-    if (revenueTTM < nanoCapThreshold) {
-      description = String.format(
-          "The Company (%s) is considered a very small company, a Nano-cap company "
-          + "(below 50 million $) , judging by the revenue for the past twelve months "
-          + "(%s $). A small company is often considered riskier than larger companies, but "
-          + "it also has the potential for high growth.",
-          symbol, revenueTTM
-      );
-      rating = 0;
-    } else if (revenueTTM < microCapThreshold && revenueTTM > nanoCapThreshold) {
-      description = String.format(
-          "The Company (%s) is considered a small company, a Micro-cap company "
-          + "(between 50 million $ and 250 million $) , judging by the revenue for the past "
-          + "twelve months (%s $). A small company is often considered riskier than a large "
-          + "company, but it also has the potential for high growth.",
-          symbol, revenueTTM
-      );
-      rating = 1;
-    } else if (revenueTTM < midCapThreshold && revenueTTM > microCapThreshold) {
-      description = String.format(
-          "The Company (%s) is considered a medium-sized company, a Mid-cap company "
-          + "(between 250 million $ and 2 billion $) , judging by the revenue for the past "
-          + "twelve months (%s $). A medium-sized company is often considered less risky "
-          + "than a small company, but it also has less growth potential. This is due to "
-          + "the company's size and market position.",
-          symbol, revenueTTM
-      );
-      rating = 2;
-    } else if (revenueTTM < bigCapThreshold && revenueTTM > midCapThreshold) {
-      description = String.format(
-          "The Company (%s) is considered a large company, a Big-cap company "
-          + "(between 2 billion $ and 10 billion $) , judging by the revenue for the past "
-          + "twelve months (%s $). A large company often brings less risk and more stability "
-          + "than smaller companies. It is also less likely to experience high growth. This "
-          + "is due to the company's size and market position.",
-          symbol, revenueTTM
-      );
-      rating = 3;
-    } else if (revenueTTM < megaCapThreshold && revenueTTM > bigCapThreshold) {
-      description = String.format(
-          "The Company (%s) is considered a very large company, a Mega-cap company "
-          + "(between 10 billion $ and 200 billion $) , judging by the revenue for the past"
-          + " twelve months (%s $). Companies of this size are often big players in their "
-          + "market and are considered less risky than smaller companies.",
-          symbol, revenueTTM
-      );
-      rating = 4;
+  public String getRatingDescription() {
+    if (marketCap < 50000000L) {
+      return "Nano-Cap (Very Small Company)";
+    } else if (marketCap < 250000000L) {
+      return "Micro-Cap (Small Company)";
+    } else if (marketCap < 2000000000L) {
+      return "Mid-Cap (Medium-Sized Company)";
+    } else if (marketCap < 10000000000L) {
+      return "Big-Cap (Large Company)";
+    } else if (marketCap < 200000000000L) {
+      return "Mega-Cap (Very Large Company)";
     } else {
-      description = String.format(
-          "The Company (%s) is considered an extremely large company, a Mega-cap company "
-          + "(above 200 billion $) , judging by the revenue for the past twelve months "
-          + "(%s $). Few companies are this large, and they are often considered less risky"
-          + " than smaller companies, since they most likely hold a dominant position in"
-          + "their market.",
-          symbol, revenueTTM
-      );
-      rating = 5;
+      return "Ultra-Cap (Extremely Large Company)";
     }
   }
 
+  /**
+   * Evaluates the company's size by calculating the rating and generating its description.
+   */
+  @Override
+  public void evaluate() {
+    if (marketCap < 50000000L) {
+      rating = 0.0;
+    } else if (marketCap < 250000000L) {
+      rating = 1.0;
+    } else if (marketCap < 2000000000L) {
+      rating = 2.0;
+    } else if (marketCap < 10000000000L) {
+      rating = 3.0;
+    } else if (marketCap < 200000000000L) {
+      rating = 4.0;
+    } else {
+      rating = 5.0;
+    }
+    ratingDescription = getRatingDescription();
+  }
+
+  /**
+   * Gets the stock symbol.
+   *
+   * @return the stock symbol
+   */
   @Override
   public String getSymbol() {
     return symbol;
   }
 
   /**
-   * Method for getting the title of the evaluation.
-   * <p>
-   * The title corresponds to the type of evaluation that is performed.
+   * Gets the title of the evaluation.
    *
-   * @return the title of the evaluation.
+   * <p>The title corresponds to the type of evaluation that is performed.
+   *
+   * @return the title of the evaluation
    */
   @Override
-  public String getTitle() {
+  public String getEvaluationTitle() {
     return "Company Size";
   }
 
   /**
-   * Method for getting the subtitle of the evaluation.
-   * <p>
-   * The subtitle is a short description of the data that the evaluation is based on.
+   * Gets the subtitle of the evaluation.
    *
-   * @return the subtitle of the evaluation.
+   * <p>The subtitle is a short description of the data that the evaluation is based on.
+   *
+   * @return the subtitle of the evaluation
    */
   @Override
-  public String getSubtitle() {
-    return "The company size evaluation is based on the revenue of the company for the past twelve"
-        + " months, as well as their market capitalization. Revenue is the total amount of money"
-        + " generated from a business’s primary operations. It is also known as gross sales."
-        + " The revenue is calculated by multiplying a company’s average sales price by the"
-        + " number of units sold. Revenue differs from the company’s income as the income is the"
-        + " company’s total earnings after all expenses, and earnings not counted as revenue are"
-        + " deducted. Revenue is in other words the total amount of money generated by the"
-        + " company’s sale of goods and services related to the company’s primary operations."
-        + " Expenses are not counted in the revenue. The revenue of the company only indicates"
-        + " how effective the company is at generating sales. It does not take into consideration"
-        + " operating efficiencies, which could have a big impact on the company’s bottom line"
-        + " (earnings, profit, net income, or earnings per share). Revenue can come from a variety"
-        + " of sources such as the sale of goods, services and assets, advertising, licensing"
-        + " agreements, fees and service charges, subscriptions, and rental income."
-        + " Companies recognize and record revenue differently, and it is not the same even"
-        + " if they are part of the same sector. ";
+  public String getGeneralEvaluationInfo() {
+    return String.format(
+        "Understanding Company Size:%n%n"
+            + "The company size evaluation is based on the revenue of the company for the past twelve "
+            + "months (TTM - trailing twelve months) and their market capitalization. Revenue is the "
+            + "total amount of money generated from a business’s primary operations, also known as "
+            + "gross sales. Revenue is calculated by multiplying a company’s average sales price by the "
+            + "number of units sold. It differs from the company’s income as it does not include expenses. "
+            + "Revenue provides insight into how effective the company is at generating sales.%n%n"
+            + "Market capitalization is the total market value of a company’s outstanding shares of stock. "
+            + "It is calculated by multiplying the company’s share price by its total number of outstanding shares."
+    );
   }
 
   /**
-   * Method for getting the evaluation method.
-   * <p>
-   * The evaluation method is a short description of how the evaluation is performed.
+   * Gets the evaluation method.
    *
-   * @return the evaluation method.
+   * <p>The evaluation method is a short description of how the evaluation is performed.
+   *
+   * @return the evaluation method
    */
   @Override
-  public String getEvaluationMethod() {
-    return "The evaluation of the company’s size is done by comparing the revenue of the past"
-        + " twelve months with the different thresholds for market capitalization categories."
-        + " There are six categories: nano-cap (below 50 million dollars), micro-cap (between 50"
-        + " million dollars and 250 million dollars), mid-cap (between 250 million dollars and 2"
-        + " billion dollars), big-cap (between 2 billion dollars and 10 billion dollars), as well"
-        + " as mega-cap (between 10 billion dollars and 200 billion dollars). The order of the"
-        + " categories goes from smaller companies to bigger. Nano-cap = very small company,"
-        + " micro-cap = small company, mid-cap = medium-sized company, big-cap = larger company,"
-        + " and mega-cap = extremely large company. Note that these statistics are for the American"
-        + " stock exchanges, as the American companies are much bigger than many other countries."
-        + " What is considered big-cap or small-cap is largely dependent on which market you are"
-        + " in. ";
+  public String getEvaluationMethodInfo() {
+    return String.format(
+        "Evaluation Method Explained:%n%n"
+            + "The evaluation of the company’s size is done by comparing the revenue of the past twelve months "
+            + "with different thresholds for market capitalization categories. There are six categories: %n"
+            + "Nano-Cap: Below $50 million%n"
+            + "Micro-Cap: $50 million to $250 million%n"
+            + "Mid-Cap: $250 million to $2 billion%n"
+            + "Big-Cap: $2 billion to $10 billion%n"
+            + "Mega-Cap: $10 billion to $200 billion%n"
+            + "Ultra-Cap: Above $200 billion%n%n"
+            + "These categories help investors understand the company's size and relative market position. "
+            + "Company size can affect the level of risk and growth potential. Smaller companies may have higher "
+            + "growth potential but also higher risk, while larger companies often provide more stability but less "
+            + "growth potential."
+    );
   }
 
+  /**
+   * Gets the detailed description of the evaluation.
+   *
+   * @return the detailed description of the evaluation
+   */
   @Override
-  public String getDescription() {
-    return description;
+  public String getResultDescription() {
+    return String.format(
+        "Revenue (TTM): $%,d%n"
+            + "Market Capitalization: $%,d%n%n"
+            + "The company (%s) is considered a %s company, judging by the revenue for the past twelve "
+            + "months and its market capitalization. This indicates that the company is %s relative to industry standards.%n%n"
+            + "In summary, %s's revenue of $%,d and market capitalization of $%,d result in a '%s' rating, suggesting that the "
+            + "company is %s relative to market expectations. Investors should consider this rating alongside other financial "
+            + "metrics and the company's overall financial health when making investment decisions.",
+        revenueTTM, marketCap, symbol, ratingDescription, ratingDescription.toLowerCase(),
+        symbol, revenueTTM, marketCap, ratingDescription, ratingDescription.toLowerCase()
+    );
   }
 
+  /**
+   * Gets the calculated rating of the company's size.
+   *
+   * @return the calculated rating
+   */
   @Override
   public double getRating() {
     return rating;
   }
 
+  /**
+   * Gets the revenue and market capitalization values of the company's stock.
+   *
+   * @return the revenue and market capitalization values
+   */
   @Override
   public String getValue() {
-    return String.valueOf(revenueTTM);
+    return String.format("Revenue (TTM): $%,d, Market Cap: $%,d", revenueTTM, marketCap);
   }
 }

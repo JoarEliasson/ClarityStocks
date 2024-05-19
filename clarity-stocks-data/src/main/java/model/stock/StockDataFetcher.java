@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class StockDataFetcher {
 
-  private AlphaVantageClient alphaVantageClient;
+  private final AlphaVantageClient alphaVantageClient;
 
   private String apiKey;
 
@@ -27,6 +27,7 @@ public class StockDataFetcher {
     stockData.setTimeSeriesDaily(alphaVantageClient.getTimeSeriesDaily(symbol));
     stockData.setTimeSeriesMonthly(alphaVantageClient.getTimeSeriesMonthly(symbol));
     stockData.setIncomeStatements(alphaVantageClient.getIncomeStatements(symbol));
+    stockData.setCashFlowReports(alphaVantageClient.getCashFlowReports(symbol));
     stockData.runEvaluations();
     stockData.runAnalyses();
     return stockData;
