@@ -8,15 +8,15 @@ import common.data.fundamental.EarningsData;
 import common.data.fundamental.IncomeStatement;
 import common.data.series.TimeSeriesDaily;
 import common.data.series.TimeSeriesMonthly;
-import common.evaluations.AnalystPredictionEvaluation;
-import common.evaluations.BusinessPerformanceEvaluation;
-import common.evaluations.CompanyGrowthEvaluation;
-import common.evaluations.CompanySizeEvaluation;
+import common.evaluations.rating.AnalystPredictionEvaluation;
+import common.evaluations.rating.BusinessPerformanceEvaluation;
+import common.evaluations.rating.CompanyGrowthEvaluation;
+import common.evaluations.rating.CompanySizeEvaluation;
 import common.evaluations.DividendEvaluation;
 import analysis.graph.GoldenCrossAnalysis;
-import common.evaluations.HighAndLowEvaluation;
-import common.evaluations.PERatioEvaluation;
-import common.evaluations.PriceToPerformance;
+import common.evaluations.rating.HighAndLowEvaluation;
+import common.evaluations.rating.PERatioEvaluation;
+import common.evaluations.rating.PriceToPerformance;
 import java.util.List;
 
 

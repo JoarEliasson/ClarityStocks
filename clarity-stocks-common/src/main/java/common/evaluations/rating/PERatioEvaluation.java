@@ -1,4 +1,4 @@
-package common.evaluations;
+package common.evaluations.rating;
 
 import common.interfaces.RatingEvaluation;
 
@@ -93,6 +93,30 @@ public class PERatioEvaluation implements RatingEvaluation {
       return "Very High";
     } else {
       return "Extremely High";
+    }
+  }
+
+  public double getGaugeValue() {
+    if (rating < 0.25) {
+      return 2.5;
+    } else if (rating < 0.5) {
+      return 2.25;
+    } else if (rating < 0.75) {
+      return 2.0;
+    } else if (rating < 0.9) {
+      return 1.75;
+    } else if (rating <= 1.1) {
+      return 1.5;
+    } else if (rating < 1.25) {
+      return 1.25;
+    } else if (rating < 1.5) {
+      return 1.0;
+    } else if (rating < 1.75) {
+      return 0.75;
+    } else if (rating < 2.0) {
+      return 0.5;
+    } else {
+      return 0.25;
     }
   }
 

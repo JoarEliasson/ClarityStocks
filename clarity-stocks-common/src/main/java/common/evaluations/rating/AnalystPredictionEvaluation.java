@@ -1,4 +1,4 @@
-package common.evaluations;
+package common.evaluations.rating;
 
 import common.interfaces.RatingEvaluation;
 
@@ -106,10 +106,36 @@ public class AnalystPredictionEvaluation implements RatingEvaluation {
       return "Moderately Overvalued";
     } else if (percentage < 115.0) {
       return "Overvalued";
-    } else if (percentage < 120.0) {
+    } else if (percentage < 125.0) {
       return "Highly Overvalued";
     } else {
       return "Extremely Overvalued";
+    }
+  }
+
+  public double getGaugeValue() {
+    if (percentage < 75.0) {
+      return 2.5;
+    } else if (percentage < 90.0) {
+      return 2.25;
+    } else if (percentage < 95.0) {
+      return 2.0;
+    } else if (percentage < 97.5) {
+      return 1.75;
+    } else if (percentage < 100.0) {
+      return 1.5;
+    } else if (percentage < 102.5) {
+      return 1.25;
+    } else if (percentage < 105.0) {
+      return 1.0;
+    } else if (percentage < 110.0) {
+      return 0.75;
+    } else if (percentage < 115.0) {
+      return 0.5;
+    } else if (percentage < 125.0) {
+      return 0.25;
+    } else {
+      return 0.0;
     }
   }
 

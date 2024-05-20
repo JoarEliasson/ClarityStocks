@@ -1,4 +1,4 @@
-package common.evaluations;
+package common.evaluations.rating;
 
 import common.interfaces.RatingEvaluation;
 
