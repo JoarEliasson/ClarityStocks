@@ -35,32 +35,41 @@ public class RatingsTile {
   private Label peEvaluation;
   @FXML
   private Gauge peRatingGauge;
-  //private ImageView peRatingImg;
   @FXML
-  private Button peExplanationBtn;
+  private Gauge businessPerformanceGauge;
+  @FXML
+  private Gauge companyGrowthGauge;
+  @FXML
+  private Gauge companySizeGauge;
   @FXML
   private Label businessPerformance;
   @FXML
-  private ImageView businessPerformanceImg;
-  @FXML
   private Label companyGrowth;
   @FXML
-  private ImageView companyGrowthImg;
-  @FXML
   private Label companySize;
-  @FXML
-  private ImageView companySizeImg;
-  private ArrayList<Image> ratingImages;
+
+  //private ArrayList<Image> ratingImages; TODO MAYBE REMOVE?
   private ArrayList<Image> upOrDownImage;
 
   public void initialize() {
     loadImages();
-    setImageSize();
+    initialGaugesSetup();
   }
 
   private void loadImages() {
-    ratingImages = new ArrayList<>();
+    upOrDownChange.setFitHeight(25);
+    upOrDownChange.setFitWidth(25);
+
     upOrDownImage = new ArrayList<>();
+
+    upOrDownImage.add(new Image(
+        getClass().getResource("/SE/ClarityStocksGUI/view/stockDown.png").toExternalForm()));
+    upOrDownImage.add(new Image(
+        getClass().getResource("/SE/ClarityStocksGUI/view/stockUp.png").toExternalForm()));
+
+    /*ratingImages = new ArrayList<>();
+
+
     ratingImages.add(new Image(
         getClass().getResource("/SE/ClarityStocksGUI/view/0rating.png").toExternalForm()));
     ratingImages.add(new Image(
@@ -73,65 +82,52 @@ public class RatingsTile {
         getClass().getResource("/SE/ClarityStocksGUI/view/4rating.png").toExternalForm()));
     ratingImages.add(new Image(
         getClass().getResource("/SE/ClarityStocksGUI/view/5rating.png").toExternalForm()));
+     */
 
-    upOrDownImage.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/stockDown.png").toExternalForm()));
-    upOrDownImage.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/stockUp.png").toExternalForm()));
   }
 
   public void setPeEvaluationText(double rating, double peRatio, String description) {
     //peRatingImg.setImage(ratingImages.get(rating));
     peRatingGauge.setValue(peRatio);
-    peEvaluation.setText("P/E Ratio " + peRatio + "\n" + description);
+    peEvaluation.setText(description);
     installLabelTooltip(peEvaluation, description);
   }
   public void setBusinessPerformance(double rating, String description){
     //businessPerformanceImg.setImage(ratingImages.get(rating));
-    businessPerformance.setText("Business performance: " + description);
+    businessPerformanceGauge.setValue(rating);
+    businessPerformance.setText(description);
     installLabelTooltip(businessPerformance, description);
 
   }
 
   public void setCompanyGrowth(double rating, String description){
     //companyGrowthImg.setImage(ratingImages.get(rating));
-    companyGrowth.setText("Company growth: " + description);
+    companyGrowthGauge.setValue(rating);
+    companyGrowth.setText(description);
     installLabelTooltip(companyGrowth, description);
   }
 
   public void setCompanySize(double rating, String description){
     //companySizeImg.setImage(ratingImages.get(rating));
-    companySize.setText("Company size: " + description);
+    companyGrowthGauge.setValue(rating);
+    companySize.setText(description);
     installLabelTooltip(companySize, description);
   }
 
-
-  private void setImageSize(){
-    /*
-    peRatingImg.setFitHeight(50);
-    peRatingImg.setFitWidth(50);
-
-     */
-
-    peRatingGauge.setSkinType(SkinType.INDICATOR);
-    peRatingGauge.setBarBackgroundColor(Color.LIGHTGRAY);
-    peRatingGauge.setBarColor(Color.rgb(51, 154, 204));
-    peRatingGauge.setMinSize(60, 60);
-    peRatingGauge.setMaxValue(40);
-    peRatingGauge.setAreaTextVisible(false);
+  private void initialGaugesSetup(){
+    setupGauge(peRatingGauge, 40);
+    setupGauge(businessPerformanceGauge, 5);
+    setupGauge(companyGrowthGauge, 5);
+    setupGauge(companySizeGauge, 5);
+  }
 
 
-    businessPerformanceImg.setFitHeight(50);
-    businessPerformanceImg.setFitWidth(50);
-
-    companyGrowthImg.setFitHeight(50);
-    companyGrowthImg.setFitWidth(50);
-
-    companySizeImg.setFitHeight(50);
-    companySizeImg.setFitWidth(50);
-
-    upOrDownChange.setFitHeight(25);
-    upOrDownChange.setFitWidth(25);
+  private void setupGauge(Gauge gauge, int maxValue){
+    gauge.setSkinType(SkinType.INDICATOR);
+    gauge.setBarColor(Color.rgb(51, 154, 204));
+    gauge.setMinSize(60, 60);
+    gauge.setMaxValue(maxValue);
+    gauge.setAreaTextVisible(false);
   }
 
   private void installLabelTooltip(Label label, String text){
@@ -186,4 +182,22 @@ public class RatingsTile {
   public void setController(GUIStockViewController controller){
     this.controller = controller;
   }
+
+  // Will be removed after the gauges has been shown to the team.
+    /*private void setImageSize(){
+
+    peRatingImg.setFitHeight(50);
+    peRatingImg.setFitWidth(50);
+
+    companyGrowthImg.setFitHeight(50);
+    companyGrowthImg.setFitWidth(50);
+
+    companySizeImg.setFitHeight(50);
+    companySizeImg.setFitWidth(50);
+
+    upOrDownChange.setFitHeight(25);
+    upOrDownChange.setFitWidth(25);
+  }
+      */
+
 }

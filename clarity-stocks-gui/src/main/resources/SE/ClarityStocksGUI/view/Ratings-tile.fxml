@@ -19,17 +19,17 @@
         <Button onAction="#peExplanation" styleClass="explanationButton">?</Button>
     </HBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
-        <ImageView fx:id="businessPerformanceImg" styleClass="ratingsImage"/>
+        <Gauge fx:id="businessPerformanceGauge" styleClass="ratingsImage"/>
         <Label styleClass="statLabel" fx:id="businessPerformance" wrapText="true"/>
         <Button onAction="#businessPerformanceExplanation" styleClass="explanationButton">?</Button>
     </HBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
-        <ImageView fx:id="companyGrowthImg" styleClass="ratingsImage"/>
+        <Gauge fx:id="companyGrowthGauge" styleClass="ratingsImage"/>
         <Label styleClass="statLabel" fx:id="companyGrowth" wrapText="true"/>
         <Button onAction="#companyGrowthExplanation" styleClass="explanationButton">?</Button>
     </HBox>
     <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
-        <ImageView fx:id="companySizeImg" styleClass="ratingsImage"/>
+        <Gauge fx:id="companySizeGauge" styleClass="ratingsImage"/>
         <Label styleClass="statLabel" fx:id="companySize" wrapText="true"/>
         <Button onAction="#companySizeExplanation" styleClass="explanationButton">?</Button>
     </HBox>

@@ -210,6 +210,7 @@ public class GUIStockViewController {
   }
 
   private void resetAnalysisSelector(){
+    setCategoryLabelsVisibility(false);
     for(int i : selectedAnalysis.keySet()){
       analysisSelector.getItems().get(i).
           setStyle("-fx-background-color: transparent; -fx-padding: 3; -fx-background-radius: 10");
@@ -412,6 +413,7 @@ public class GUIStockViewController {
   public void showGoldenCross(){
     if(!(buttonIsSelected("1Y"))){
       graphController.changeDate("1Y");
+      setStockPrice("1Y");
       unselectHistoryButtons("1Y");
     }
     graphController.showGoldenCross();
@@ -483,27 +485,35 @@ public class GUIStockViewController {
     String companyText = "";
     switch (element){
       case "PE":
-        mainTitle = "P/E (Price-earnings ratio)";
-        generalText = "";
+        mainTitle   = stockData.getPeRatioEvaluation().getEvaluationTitle();
+        generalText = stockData.getPeRatioEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getPeRatioEvaluation().getEvaluationMethodInfo();
         companyText = stockData.getPeRatioEvaluation().getResultDescription();
         break;
 
       case "busPer":
-        mainTitle = "Business Performance";
-        generalText = "";
+        mainTitle   = stockData.getBusinessPerformanceEvaluation().getEvaluationTitle();
+        generalText = stockData.getBusinessPerformanceEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getBusinessPerformanceEvaluation().getEvaluationMethodInfo();
         companyText = stockData.getBusinessPerformanceEvaluation().getResultDescription();
         break;
 
       case "compGrowth":
-        mainTitle = "Company Growth";
-        generalText = "";
+        mainTitle   = stockData.getCompanyGrowthEvaluation().getEvaluationTitle();
+        generalText = stockData.getCompanyGrowthEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getCompanyGrowthEvaluation().getEvaluationMethodInfo();
         companyText = stockData.getCompanyGrowthEvaluation().getResultDescription();
 
         break;
 
       case "compSize":
-        mainTitle = "Company Size";
-        generalText = "";
+        mainTitle   = stockData.getCompanySizeEvaluation().getEvaluationTitle();
+        generalText = stockData.getCompanySizeEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getCompanySizeEvaluation().getEvaluationMethodInfo();
         companyText = stockData.getCompanySizeEvaluation().getResultDescription();
         break;
 
