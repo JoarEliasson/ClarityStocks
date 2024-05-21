@@ -2,6 +2,10 @@ package dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -22,10 +26,11 @@ import java.util.Properties;
  * @author Kasper Schröder
  */
 public class DBConnectionPool {
-  private static HikariDataSource dataSource;
-  private static final String databasePropertiesPath = "ClarityStocksAPI/src/main/resources/database.properties";
+  private HikariDataSource dataSource;
+  private final String databasePropertiesPath =
+      "clarity-stocks-database/src/main/resources/database.properties";
 
-  static{
+  public DBConnectionPool() {
     Properties properties = new Properties();
     try (FileInputStream inputStream = new FileInputStream(databasePropertiesPath)) {
       properties.load(inputStream);
@@ -34,22 +39,25 @@ public class DBConnectionPool {
       e.printStackTrace();
     }
 
-    HikariConfig config = new HikariConfig();
-    config.setJdbcUrl("jdbc:postgresql://claritystocksdatabase.postgres.database.azure.com:5432/postgres?sslmode=require");
-    config.setUsername("ClarityStocks");
-    config.setPassword("ProjectGroup25");
-    config.addDataSourceProperty( "cachePrepStmts" , "true" );
-    config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
-    config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
-    config.setMaximumPoolSize(10);
-    dataSource = new HikariDataSource(config);
+    try {
+      HikariConfig config = new HikariConfig();
+      config.setJdbcUrl(properties.getProperty("url"));
+      config.setUsername(properties.getProperty("username"));
+      config.setPassword(properties.getProperty("password"));
+      config.addDataSourceProperty( "cachePrepStmts" , "true" );
+      config.addDataSourceProperty( "prepStmtCacheSize" , "2500" );
+      config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+      config.addDataSourceProperty("sslmode", "require");
+      config.setMaximumPoolSize(10);
+      dataSource = new HikariDataSource(config);
+    } catch (Exception e) {
+      System.out.println("Error creating HikariCP data source");
+      e.printStackTrace();
+    }
   }
-/*
-  public static DSLContext getConnection(){
+
+  public DSLContext getConnection(){
     return DSL.using(dataSource, SQLDialect.POSTGRES);
-
   }
-
- */
 
 }

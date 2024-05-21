@@ -2,14 +2,21 @@ package SE.ClarityStocksGUI.controller;
 
 import SE.ClarityStocksGUI.controller.tiles.ExplanationTile;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
+import java.io.IOException;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import user.model.UserProfile;
+import user.model.UserProfileManager;
 
 /**
  * This is the main controller class for the GUI. It's the main container of all the different views
@@ -44,14 +51,17 @@ public class GUIMainController {
   private GUIHomeController homeViewController;
   @FXML
   private ExplanationTile explanationTileController;
+  private FavoriteListController favoriteListController;
+  private static GUIMainController guiMainController;
   @FXML
   private Dialog<String> stockNotLoadedError;
-
+  private UserProfile userProfile;
   public void initialize() {
     homeViewController.setController(this);
     stockViewController.setController(this);
     menuBarController.setController(this);
     explanationTileController.setController(this);
+    guiMainController = this;
 
     menuBarController.setWidthAndHeightProperty();
     explanationTileController.setupScrollbar();
@@ -63,6 +73,10 @@ public class GUIMainController {
 
 
     setUpStockNotLoadedError();
+    userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
+    if (userProfile != null && userProfile.getUserName() != null && !userProfile.getUserName().isEmpty()) {
+      updateView();
+    }
   }
 
   public void setApplication(GUIMainApplication application) {
@@ -102,6 +116,9 @@ public class GUIMainController {
     explanationTileController.setCompanyText(companyText);
     explanationTile.setVisible(true);
   }
+  public void setFavoriteListController(FavoriteListController favoriteListController) {
+    this.favoriteListController = favoriteListController;
+  }
 
   public void closeExplanationPage(){
     explanationTile.setVisible(false);
@@ -111,8 +128,16 @@ public class GUIMainController {
     stockNotLoadedError.showAndWait();
   }
 
-  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol){
-    System.out.println(stockSymbol + " favorite status: " + stockIsFavorite);
+  public void stockFavoritePressed(boolean stockIsFavorite, String stockSymbol) {
+    if (favoriteListController == null) {
+      System.out.println("FavoriteListController is not initialized.");
+      return;
+    }
+    if (stockIsFavorite) {
+      favoriteListController.addFavoriteStock(stockSymbol);
+    } else {
+      favoriteListController.removeFavoriteStock(stockSymbol);
+    }
   }
 
   private void setUpStockNotLoadedError(){
@@ -130,5 +155,14 @@ public class GUIMainController {
 
   public ReadOnlyDoubleProperty getHeightProperty() {
     return mainBorderPane.heightProperty();
+  }
+
+  public static GUIMainController getInstance(){
+    return guiMainController;
+  }
+  public void updateView() {
+    if (userProfile != null) {
+      homeViewController.updateUserProfile(userProfile);
+    }
   }
 }

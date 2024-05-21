@@ -3,8 +3,6 @@ package analysis.regression;
 import analysis.interfaces.LinearRegressions;
 import common.enums.IncomeStatementVariable;
 import common.data.fundamental.IncomeStatement;
-import common.data.series.DailyDataPoint;
-import common.data.series.TimeSeriesMonthly;
 import java.util.List;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
@@ -17,58 +15,27 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
  */
 public class RegressionCalculator implements LinearRegressions {
 
-  private final TimeSeriesMonthly timeSeriesMonthly;
+
   private final List<IncomeStatement> incomeStatements;
-  private double[] adjustedPrices;
+  private final double[] priceData;
+  private double[] indexedVariableData;
 
   /**
    * Constructor for the regression.RegressionCalculator class. Takes in an AlphaVantage Client and a stock
    * symbol.
    */
-  public RegressionCalculator(List<IncomeStatement> incomeStatements,
-      TimeSeriesMonthly timeSeriesMonthly) {
-
-    this.incomeStatements = incomeStatements.reversed();
-    //Preserved for debugging purposes
-    //System.out.println(incomeStatements.getFirst().getFiscalDateEnding());
-    //System.out.println(incomeStatements.getLast().getFiscalDateEnding());
-    this.timeSeriesMonthly = timeSeriesMonthly;
-    //Preserved for debugging purposes
-    //System.out.println(timeSeriesMonthly.getMonthlyData().getFirst().getDate());
-    //System.out.println(timeSeriesMonthly.getMonthlyData().getLast().getDate());
-    fetchAdjustedData(getFiscalDateEndingMonth());
+  public RegressionCalculator(List<IncomeStatement> incomeStatements, double[] priceData) {
+    this.incomeStatements = incomeStatements;
+    this.priceData = priceData;
   }
 
   @Override
-  public RegressionResult runRegression(IncomeStatementVariable variable) {
-    double[] indexedVariableData = getIndexedVariableData(getVariableData(variable));
-    SimpleRegression regression = getRegression(variable.name(), indexedVariableData);
-    return new RegressionResult(
-        variable,
-        regression,
-        fetchDescription(regression, variable.name()),
-        fetchPricePrediction(variable, indexedVariableData[indexedVariableData.length - 1], regression)
-    );
-  }
-
-  /**
-   * Method for setting the closing prices of a stock. Has a for-loop which loops through all the
-   * close prices and sets the double array with the closing prices  at that particular index to the
-   * adjusted closing price of the stock. The adjusted stock price is necessary as there could be
-   * stock-splits which means that a company divides their stocks so that more shares are created,
-   * making the price of the stock lower. If this is not considered, the analysis will be incorrect.
-   * The adjusted close means that the historical prices are compared to the current prices and
-   * takes into consideration stock-splits.
-   */
-  @Override
-  public void fetchAdjustedData(String fiscalDateEndingMonth) {
-    List<DailyDataPoint> closePrices = timeSeriesMonthly.getMonthlyClosePrices(
-        fiscalDateEndingMonth,
-        incomeStatements.size());
-    adjustedPrices = new double[closePrices.size()];
-    for (int i = 0; i < closePrices.size(); i++) {
-      adjustedPrices[i] = closePrices.get(i).getAdjustedClose();
+  public long[] fetchVariableData(IncomeStatementVariable variable) {
+    long[] variableData = new long[incomeStatements.size()];
+    for (int i = 0; i < incomeStatements.size(); i ++) {
+      variableData[i] = incomeStatements.get(i).getVariable(variable.name());
     }
+    return variableData;
   }
 
   /**
@@ -80,7 +47,7 @@ public class RegressionCalculator implements LinearRegressions {
    * with two decimal places. The index income is then set to the rounded value in the array.
    */
   @Override
-  public double[] getIndexedVariableData(long[] variableData) {
+  public double[] indexVariableData(long[] variableData) {
     double[] indexedVariableData = new double[variableData.length];
     for (int i = 0; i < indexedVariableData.length; i++) {
       double indexValue = (double) variableData[i] / variableData[0];
@@ -91,50 +58,18 @@ public class RegressionCalculator implements LinearRegressions {
   }
 
   @Override
-  public SimpleRegression getRegression(String variableName, double[] indexedVariableData) {
+  public SimpleRegression createRegressionModel(String variableName, double[] indexedVariableData) {
     SimpleRegression regression = new SimpleRegression();
-    for (int i = 0; i < adjustedPrices.length; i++) {
-      regression.addData(indexedVariableData[i], adjustedPrices[i]);
+    for (int i = 0; i < indexedVariableData.length; i++) {
+      regression.addData(indexedVariableData[i], priceData[i]);
     }
-    fetchDescription(regression, variableName);
     return regression;
   }
 
-  @Override
-  public long[] getVariableData(IncomeStatementVariable variable) {
-    long[] variableData = new long[incomeStatements.size()];
-    for (int i = 0; i < incomeStatements.size(); i ++) {
-      variableData[i] = incomeStatements.get(i).getVariable(variable.name());
-    }
-    return variableData;
-  }
-
-  private String getFiscalDateEndingMonth() {
-    return incomeStatements.getLast().getFiscalDateEnding().split("-")[1];
-  }
-
-  /**
-   * Method for predicting the price of the stock.
-   *
-   * @return the predicted y-value associated with the supplied x-value, based on data that has
-   * been added to the model when the method is activated.
-   */
-  @Override
-  public PricePrediction fetchPricePrediction(IncomeStatementVariable variable, double indexedVariableData,
-      SimpleRegression regression) {
-    double prediction = regression.predict(indexedVariableData);
-    String description =  String.format("Price prediction for %s: %.2f$ R^2: %.2f", variable.name(),
-        prediction, regression.getRSquare()
+  private String generateSimpleDescription(SimpleRegression regression, String variableName) {
+    return String.format("Variable: %s%nR: %.2f%nR-square: %.2f%n",
+        variableName, regression.getR(), regression.getRSquare()
     );
-
-    return new PricePrediction(
-        timeSeriesMonthly.getSymbol(),
-        variable.name(),
-        adjustedPrices[adjustedPrices.length - 1],
-        prediction,
-        description
-    );
-
   }
 
   /**
@@ -143,7 +78,7 @@ public class RegressionCalculator implements LinearRegressions {
    * @return a string with the description of the linear regression analysis.
    */
   @Override
-  public String fetchDescription(SimpleRegression linearRegression, String variableName) {
+  public String generateDescription(SimpleRegression linearRegression, String variableName) {
     String percentCharacter = "%";
     return String.format("The R value for the variable %s is: %.2f.%n"
         + "R is the Pearson's product moment correlation coefficient. It measures the linear"
@@ -166,6 +101,37 @@ public class RegressionCalculator implements LinearRegressions {
         + "coefficient is equal to 0.",
         variableName, linearRegression.getR(), linearRegression.getRSquare(),
         linearRegression.getSlope(), linearRegression.getSignificance(), percentCharacter
+    );
+  }
+
+  @Override
+  public PricePrediction generatePrediction(SimpleRegression regression, String variableName, double variableData) {
+    double predictedPrice = regression.predict(variableData);
+    return new PricePrediction(
+        variableName,
+        incomeStatements.getLast().getFiscalDateEnding(),
+        priceData[priceData.length - 1],
+        predictedPrice,
+      "The predicted price is calculated by the linear regression model. The model uses the"
+          + "historical data of the stock to predict the future price of the stock. The prediction"
+          + "is based on the relationship between the independent variable and the dependent"
+          + "variable. The model uses the slope of the regression line to predict the future price"
+          + "of the stock."
+    );
+  }
+
+  @Override
+  public RegressionResult runAnalysis(IncomeStatementVariable variable) {
+    double[] indexedVariableData = indexVariableData(fetchVariableData(variable));
+    SimpleRegression regression = createRegressionModel(variable.name(), indexedVariableData);
+    return new RegressionResult(
+        variable.name(),
+        regression,
+        generateSimpleDescription(regression, variable.name()),
+        //generateDescription(regression, variable.name()),
+        generatePrediction(regression, variable.name(),
+            indexedVariableData[indexedVariableData.length - 1]
+        )
     );
   }
 }

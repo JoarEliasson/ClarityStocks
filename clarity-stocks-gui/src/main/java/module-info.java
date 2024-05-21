@@ -12,9 +12,11 @@ module SE.ClarityStocksGUI {
   requires clarity.stocks.api.integration;
   requires clarity.stocks.data;
   requires java.logging;
+  requires clarity.stocks.analysis;
   requires clarity.stocks.common;
   requires eu.hansolo.medusa;
-  requires clarity.stocks.analysis;
+
+  requires clarity.stocks.user;
 
   opens SE.ClarityStocksGUI.view to javafx.fxml;
 

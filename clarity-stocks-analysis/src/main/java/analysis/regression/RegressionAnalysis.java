@@ -1,9 +1,9 @@
 package analysis.regression;
 
 
-import common.enums.IncomeStatementVariable;
 import common.data.fundamental.IncomeStatement;
-import common.data.series.TimeSeriesMonthly;
+import common.data.series.DailyDataPoint;
+import common.enums.IncomeStatementVariable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -23,11 +23,29 @@ public class RegressionAnalysis {
   private String result;
 
   public RegressionAnalysis(String symbol, List<IncomeStatement> incomeStatements,
-      TimeSeriesMonthly timeSeriesMonthly) {
+      List<DailyDataPoint> priceData) {
     this.symbol = symbol;
-    this.regressionCalculator = new RegressionCalculator(incomeStatements, timeSeriesMonthly);
-    calculateRegressions();
+    this.regressionCalculator = new RegressionCalculator(
+        incomeStatements,
+        fetchAdjustedData(priceData)
+    );
+    //Preserved for debugging purposes
+    //System.out.println("Income Statements Size: " + incomeStatements.size());
+    //System.out.println("Date First" + incomeStatements.getFirst().getFiscalDateEnding());
+    //System.out.println("Date Last" + incomeStatements.getLast().getFiscalDateEnding());
+    //System.out.println("Price Data Size: " + priceData.size());
+    //System.out.println("Date First" + priceData.getFirst().getDate());
+    //System.out.println("Date Last" + priceData.getLast().getDate());
+    runRegressionAnalysis();
     fetchResults();
+  }
+
+  private double[] fetchAdjustedData(List<DailyDataPoint> priceData) {
+    double[] priceDataArray = new double[priceData.size()];
+    for (int i = 0; i < priceData.size(); i++) {
+      priceDataArray[i] = priceData.get(i).getAdjustedClose();
+    }
+    return priceDataArray;
   }
 
   /**
@@ -35,9 +53,30 @@ public class RegressionAnalysis {
    * The method has a for-loop which loops through all the elements of the linear regression array. For each element
    * the method assigns the element in the array to a new linear regression made.
    * */
-  private void calculateRegressions() {
+  private void runRegressionAnalysis() {
     for (IncomeStatementVariable variable : variables) {
-      regressionResults.add(regressionCalculator.runRegression(variable));
+      regressionResults.add(regressionCalculator.runAnalysis(variable));
+    }
+    if (!regressionResults.isEmpty()) {
+      System.out.println();
+      System.out.println("Regression Results for (" + symbol + "):");
+      for (int i = 0; i < 3; i++) {
+        System.out.println();
+        System.out.println("[Correlation between " + regressionResults.get(i).getVariable() + " and the stock price]");
+        String info = String.format("\tR = %.2f, R^2 = %.2f",
+            regressionResults.get(i).getSimpleRegression().getR(),
+            regressionResults.get(i).getSimpleRegression().getRSquare()
+        );
+        String prediction = String.format("\tPrice (%s) = %.2f%n\tPredicted price based on %s = %.2f%n",
+            regressionResults.get(i).getPricePrediction().getPredictionDate(),
+            regressionResults.get(i).getPricePrediction().getCurrentPrice(),
+            regressionResults.get(i).getVariable(),
+            regressionResults.get(i).getPricePrediction().getPredictedPrice()
+        );
+        System.out.println(info);
+        System.out.println(prediction);
+      }
+      System.out.println();
     }
   }
 

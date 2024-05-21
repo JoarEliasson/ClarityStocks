@@ -1,0 +1,7 @@
+market_symbol,name,region,city,timezone,utc_offset,open_time,closing_time
+BATS,BATS Global Markets,United States,Kansas,CST,-6,09:30:00,16:00:00
+NASDAQ_SE,NASDAQ Stock Exchange,United States,New York City,EST,-5,09:30:00,16:00:00
+NASDAQ_CM,Nasdaq Capital Market,United States,New York City,EST,-5,09:30:00,16:00:00
+NASDAQ_GM,Nasdaq Global Market,United States,New York City,EST,-5,09:30:00,16:00:00
+NASDAQ_GS,Nasdaq Global Select,United States,New York City,EST,-5,09:30:00,16:00:00
+NYSE,New York Stock Exchange,United States,New York City,EST,-5,09:30:00,16:00:00

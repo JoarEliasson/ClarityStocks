@@ -1,12 +1,13 @@
 package model.stock;
 
 import alphaVantage.AlphaVantageClient;
+import common.data.global.GlobalMarketInfo;
 import java.io.FileInputStream;
 import java.util.Properties;
 
 public class StockDataFetcher {
 
-  private final AlphaVantageClient alphaVantageClient;
+  private AlphaVantageClient alphaVantageClient;
 
   private String apiKey;
 
@@ -27,10 +28,13 @@ public class StockDataFetcher {
     stockData.setTimeSeriesDaily(alphaVantageClient.getTimeSeriesDaily(symbol));
     stockData.setTimeSeriesMonthly(alphaVantageClient.getTimeSeriesMonthly(symbol));
     stockData.setIncomeStatements(alphaVantageClient.getIncomeStatements(symbol));
-    stockData.setCashFlowReports(alphaVantageClient.getCashFlowReports(symbol));
     stockData.runEvaluations();
     stockData.runAnalyses();
     return stockData;
+  }
+
+  public GlobalMarketInfo fetchGlobalMarketInfo() {
+    return alphaVantageClient.getGlobalMarketInfo();
   }
 
 }

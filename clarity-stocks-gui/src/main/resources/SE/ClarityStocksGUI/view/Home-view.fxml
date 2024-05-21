@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ComboBox?>
-<?import org.controlsfx.control.SearchableComboBox?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.Button?>
-<VBox fx:id="mainVBox" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21"
-  xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
+<?import javafx.scene.text.Text?>
 
-
-  <BorderPane fx:id="layout">
-    <center>
-      <VBox alignment="CENTER" spacing="20">
-        <Label fx:id="welcomeText" styleClass="welcomeText"/>
-      </VBox>
-    </center>
-
-
-  </BorderPane>
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
+  <Label fx:id="messageLabel" styleClass="message-label" />
+  <StackPane VBox.vgrow="ALWAYS">
+    <HBox prefHeight="100.0" prefWidth="200.0">
+      <Text text="Welcome ">
+            <HBox.margin>
+               <Insets left="20.0" />
+            </HBox.margin>
+      </Text>
+      <Text fx:id="usernameText" styleClass="profile-text" text="User1234" />
+    </HBox>
+    <VBox alignment="TOP_CENTER" spacing="20">
+      <Text fx:id="welcomeToText" styleClass="welcome-text" text="Welcome to" />
+      <Text fx:id="clarityStocksText" styleClass="title-text" text="Clarity Stocks" />
+    </VBox>
+    <BorderPane fx:id="layout">
+      <top>
+        <HBox alignment="CENTER" minWidth="1150.0" prefHeight="247.0" prefWidth="1200.0" style="-fx-padding: 10;">
+          <fx:include source="TopListsView.fxml" />
+        </HBox>
+      </top>
+      <bottom>
+         <HBox alignment="CENTER" minHeight="0.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;">
+               <children>
+               <Button alignment="CENTER" onAction="#handleUserInfo" text="Change name">
+                     <HBox.margin>
+                        <Insets bottom="25.0" left="1075.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+      </bottom>
+         <center>
+       <fx:include fx:id="favoriteList" source="FavoriteListView.fxml" BorderPane.alignment="CENTER" />
+         </center>
+    </BorderPane>
+  </StackPane>
+   <HBox alignment="CENTER" minHeight="50.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;" />
 </VBox>

@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import user.model.UserProfile;
+import user.model.UserProfileManager;
 
 /**
  * This class handles the info tile which displays general information about the stock in the
@@ -27,11 +29,13 @@ public class InfoTile {
   @FXML
   private ImageView favoriteIcon;
   private ArrayList<Image> favoriteImages;
-  private boolean stockIsFavorite = false;
+  private boolean stockIsFavorite;
   private GUIStockViewController controller;
+  private UserProfile userProfile;
   public void initialize(){
     loadFavoriteImages();
     setUpFavoriteIcon();
+    userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
   }
 
   public void setUpFavoriteIcon(){
@@ -42,17 +46,31 @@ public class InfoTile {
 
   @FXML
   public void favoritePressed(){
+    stockIsFavorite = !stockIsFavorite;
+    favoriteIcon.setImage(favoriteImages.get(stockIsFavorite ? 1 : 0));  //Update the image
     controller.stockFavoritePressed(stockIsFavorite);
+  }
+
+
+  public void updateFavoriteStatus(String stockSymbol) {
+    userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
+
+    assert userProfile != null;
+    boolean isFavorite = userProfile.isFavorite(stockSymbol);
+    favoriteIcon.setImage(favoriteImages.get(isFavorite ? 1 : 0));
+    stockIsFavorite = isFavorite;
   }
 
   private void loadFavoriteImages(){
     favoriteImages = new ArrayList<>();
-    favoriteImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-not-selected.png")
-            .toExternalForm()));
-    favoriteImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-selected.png")
-            .toExternalForm()));
+    try {
+      Image notSelected = new Image(getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-not-selected.png").toExternalForm());
+      Image selected = new Image(getClass().getResource("/SE/ClarityStocksGUI/view/favorite-star-selected.png").toExternalForm());
+      favoriteImages.add(notSelected);
+      favoriteImages.add(selected);
+    } catch (Exception e) {
+      System.err.println("Error loading images: " + e.getMessage());
+    }
   }
   public void setCompanyName(String text) {
     nameLabel.setText(text);

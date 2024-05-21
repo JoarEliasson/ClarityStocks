@@ -4,4 +4,5 @@ module clarity.stocks.data {
   requires clarity.stocks.analysis;
   requires clarity.stocks.common;
   requires clarity.stocks.api.integration;
+  requires clarity.stocks.database;
 }
