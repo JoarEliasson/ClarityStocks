@@ -22,7 +22,7 @@
 }
 
 .statLabel {
-
+  -fx-min-width: 270;
 }
 
 .welcomeText {
@@ -125,8 +125,8 @@
 }
 
 .ratingsTile{
-  -fx-spacing: 15px;
-  -fx-padding: 7;
+  -fx-spacing: 10px;
+  -fx-padding: 3;
   -fx-max-height: 60px;
 }
 

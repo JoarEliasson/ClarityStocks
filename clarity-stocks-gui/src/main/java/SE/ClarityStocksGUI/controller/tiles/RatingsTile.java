@@ -3,6 +3,8 @@ package SE.ClarityStocksGUI.controller.tiles;
 import SE.ClarityStocksGUI.controller.GUIStockViewController;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.Gauge.SkinType;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import javafx.fxml.FXML;
@@ -32,8 +34,6 @@ public class RatingsTile {
   @FXML
   private ImageView upOrDownChange;
   @FXML
-  private Label peEvaluation;
-  @FXML
   private Gauge peRatingGauge;
   @FXML
   private Gauge businessPerformanceGauge;
@@ -42,13 +42,21 @@ public class RatingsTile {
   @FXML
   private Gauge companySizeGauge;
   @FXML
+  private Gauge highAndLowGauge;
+  @FXML
+  private Gauge analystPredictionGauge;
+  @FXML
+  private Label peEvaluation;
+  @FXML
   private Label businessPerformance;
   @FXML
   private Label companyGrowth;
   @FXML
   private Label companySize;
-
-  //private ArrayList<Image> ratingImages; TODO MAYBE REMOVE?
+  @FXML
+  private Label highAndLow;
+  @FXML
+  private Label analystPrediction;
   private ArrayList<Image> upOrDownImage;
 
   public void initialize() {
@@ -66,66 +74,59 @@ public class RatingsTile {
         getClass().getResource("/SE/ClarityStocksGUI/view/stockDown.png").toExternalForm()));
     upOrDownImage.add(new Image(
         getClass().getResource("/SE/ClarityStocksGUI/view/stockUp.png").toExternalForm()));
-
-    /*ratingImages = new ArrayList<>();
-
-
-    ratingImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/0rating.png").toExternalForm()));
-    ratingImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/1rating.png").toExternalForm()));
-    ratingImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/2rating.png").toExternalForm()));
-    ratingImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/3rating.png").toExternalForm()));
-    ratingImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/4rating.png").toExternalForm()));
-    ratingImages.add(new Image(
-        getClass().getResource("/SE/ClarityStocksGUI/view/5rating.png").toExternalForm()));
-     */
-
   }
 
-  public void setPeEvaluationText(double rating, double peRatio, String description) {
-    //peRatingImg.setImage(ratingImages.get(rating));
-    peRatingGauge.setValue(peRatio);
-    peEvaluation.setText(description);
+  public void setPeEvaluationText(double rating, String description, String name) {
+    peRatingGauge.setValue(rating);
+    peEvaluation.setText(name + "\nMarket comparison: " + description);
     installLabelTooltip(peEvaluation, description);
   }
-  public void setBusinessPerformance(double rating, String description){
-    //businessPerformanceImg.setImage(ratingImages.get(rating));
+  public void setBusinessPerformance(double rating, String description, String name){
     businessPerformanceGauge.setValue(rating);
-    businessPerformance.setText(description);
+    businessPerformance.setText(name + "\nMarket comparison: " + description);
     installLabelTooltip(businessPerformance, description);
 
   }
 
-  public void setCompanyGrowth(double rating, String description){
-    //companyGrowthImg.setImage(ratingImages.get(rating));
+  public void setCompanyGrowth(double rating, String description, String name){
     companyGrowthGauge.setValue(rating);
-    companyGrowth.setText(description);
+    companyGrowth.setText(name + "\nMarket comparison: " + description);
     installLabelTooltip(companyGrowth, description);
   }
 
-  public void setCompanySize(double rating, String description){
-    //companySizeImg.setImage(ratingImages.get(rating));
-    companyGrowthGauge.setValue(rating);
-    companySize.setText(description);
+  public void setCompanySize(double rating, String description, String name){
+    companySizeGauge.setValue(rating);
+    companySize.setText(name + "\nMarket comparison: " + description);
     installLabelTooltip(companySize, description);
+  }
+  public void setHighAndLow(double rating, String description, String name){
+    highAndLowGauge.setValue(rating);
+    highAndLow.setText(name + "\nMarket comparison: " + description);
+    installLabelTooltip(highAndLow, description);
+  }
+
+  public void setAnalystPrediction(double rating, String description, String name){
+    analystPredictionGauge.setValue(rating);
+    analystPrediction.setText(name + "\nMarket comparison: " + description);
+    installLabelTooltip(analystPrediction, description);
   }
 
   private void initialGaugesSetup(){
-    setupGauge(peRatingGauge, 40);
-    setupGauge(businessPerformanceGauge, 5);
-    setupGauge(companyGrowthGauge, 5);
-    setupGauge(companySizeGauge, 5);
+    setupGauge(peRatingGauge, 0.0,2.5);
+    setupGauge(businessPerformanceGauge, 0.0, 0.3);
+    setupGauge(companyGrowthGauge, 0.0, 60.0);
+    setupGauge(companySizeGauge, 0.0, 5.0);
+    setupGauge(highAndLowGauge, 0.0, 1.0);
+    setupGauge(analystPredictionGauge, 0.0, 2.5);
   }
 
 
-  private void setupGauge(Gauge gauge, int maxValue){
+  private void setupGauge(Gauge gauge, double minValue, double maxValue){
     gauge.setSkinType(SkinType.INDICATOR);
     gauge.setBarColor(Color.rgb(51, 154, 204));
     gauge.setMinSize(60, 60);
+    gauge.setMaxSize(60, 60);
+    gauge.setMinValue(minValue);
     gauge.setMaxValue(maxValue);
     gauge.setAreaTextVisible(false);
   }
@@ -178,26 +179,15 @@ public class RatingsTile {
   public void companySizeExplanation(){
     controller.showExplanationPage("compSize");
   }
+  public void highAndLowExplanation(){
+    controller.showExplanationPage("highAndLow");
+  }
+  public void analystPredictionExplanation(){
+    controller.showExplanationPage("analystPred");
+  }
+
 
   public void setController(GUIStockViewController controller){
     this.controller = controller;
   }
-
-  // Will be removed after the gauges has been shown to the team.
-    /*private void setImageSize(){
-
-    peRatingImg.setFitHeight(50);
-    peRatingImg.setFitWidth(50);
-
-    companyGrowthImg.setFitHeight(50);
-    companyGrowthImg.setFitWidth(50);
-
-    companySizeImg.setFitHeight(50);
-    companySizeImg.setFitWidth(50);
-
-    upOrDownChange.setFitHeight(25);
-    upOrDownChange.setFitWidth(25);
-  }
-      */
-
 }

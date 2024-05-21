@@ -392,21 +392,34 @@ public class GUIStockViewController {
     setStockPrice("YTD");
 
     ratingsTileController.setPeEvaluationText(
-        stockData.getPeRatioEvaluation().getRating(),
-        stockData.getCompanyOverview().getPERatio(),
-        stockData.getPeRatioEvaluation().getResultDescription());
+        stockData.getPeRatioEvaluation().getGaugeValue(),
+        stockData.getPeRatioEvaluation().getRatingDescription(),
+        stockData.getPeRatioEvaluation().getEvaluationTitle());
 
     ratingsTileController.setBusinessPerformance(
         stockData.getBusinessPerformanceEvaluation().getRating(),
-        stockData.getBusinessPerformanceEvaluation().getResultDescription());
+        stockData.getBusinessPerformanceEvaluation().getRatingDescription(),
+        stockData.getBusinessPerformanceEvaluation().getEvaluationTitle());
 
     ratingsTileController.setCompanyGrowth(
         stockData.getCompanyGrowthEvaluation().getRating(),
-        stockData.getCompanyGrowthEvaluation().getResultDescription());
+        stockData.getCompanyGrowthEvaluation().getRatingDescription(),
+        stockData.getCompanyGrowthEvaluation().getEvaluationTitle());
 
     ratingsTileController.setCompanySize(
         stockData.getCompanySizeEvaluation().getRating(),
-        stockData.getCompanySizeEvaluation().getResultDescription());
+        stockData.getCompanySizeEvaluation().getRatingDescription(),
+        stockData.getCompanySizeEvaluation().getEvaluationTitle());
+
+    ratingsTileController.setHighAndLow(
+        stockData.getHighAndLowEvaluation().getRating(),
+        stockData.getHighAndLowEvaluation().getRatingDescription(),
+        stockData.getHighAndLowEvaluation().getEvaluationTitle());
+
+    ratingsTileController.setAnalystPrediction(
+        stockData.getAnalystPredictionEvaluation().getRating(),
+        stockData.getAnalystPredictionEvaluation().getRatingDescription(),
+        stockData.getAnalystPredictionEvaluation().getEvaluationTitle());
   }
 
   @FXML
@@ -515,6 +528,22 @@ public class GUIStockViewController {
                     + "\n\n"
                     + stockData.getCompanySizeEvaluation().getEvaluationMethodInfo();
         companyText = stockData.getCompanySizeEvaluation().getResultDescription();
+        break;
+
+      case "highAndLow":
+        mainTitle   = stockData.getHighAndLowEvaluation().getEvaluationTitle();
+        generalText = stockData.getHighAndLowEvaluation().getGeneralEvaluationInfo()
+            + "\n\n"
+            + stockData.getHighAndLowEvaluation().getEvaluationMethodInfo();
+        companyText = stockData.getHighAndLowEvaluation().getResultDescription();
+        break;
+
+      case "analystPred":
+        mainTitle   = stockData.getAnalystPredictionEvaluation().getEvaluationTitle();
+        generalText = stockData.getAnalystPredictionEvaluation().getGeneralEvaluationInfo()
+            + "\n\n"
+            + stockData.getAnalystPredictionEvaluation().getEvaluationMethodInfo();
+        companyText = stockData.getAnalystPredictionEvaluation().getResultDescription();
         break;
 
       default:

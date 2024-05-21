@@ -7,7 +7,7 @@
 <VBox xmlns="http://javafx.com/javafx"
   xmlns:fx="http://javafx.com/fxml"
   fx:controller="SE.ClarityStocksGUI.controller.tiles.RatingsTile"
-  maxHeight="350" maxWidth="375">
+  maxHeight="425" maxWidth="375">
     <HBox alignment="CENTER">
         <ImageView fx:id="upOrDownChange"/>
         <Label fx:id="percentageChange" styleClass="percentageChange"/>
@@ -32,5 +32,15 @@
         <Gauge fx:id="companySizeGauge" styleClass="ratingsImage"/>
         <Label styleClass="statLabel" fx:id="companySize" wrapText="true"/>
         <Button onAction="#companySizeExplanation" styleClass="explanationButton">?</Button>
+    </HBox>
+    <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
+        <Gauge fx:id="highAndLowGauge" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="highAndLow" wrapText="true"/>
+        <Button onAction="#highAndLowExplanation" styleClass="explanationButton">?</Button>
+    </HBox>
+    <HBox styleClass="ratingsTile" alignment="CENTER_LEFT">
+        <Gauge fx:id="analystPredictionGauge" styleClass="ratingsImage"/>
+        <Label styleClass="statLabel" fx:id="analystPrediction" wrapText="true"/>
+        <Button onAction="#analystPredictionExplanation" styleClass="explanationButton">?</Button>
     </HBox>
 </VBox>
