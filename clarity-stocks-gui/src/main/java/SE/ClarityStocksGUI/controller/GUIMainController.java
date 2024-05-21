@@ -1,5 +1,6 @@
 package SE.ClarityStocksGUI.controller;
 
+import SE.ClarityStocksGUI.controller.tiles.ExplanationTile;
 import SE.ClarityStocksGUI.view.GUIMainApplication;
 import java.io.IOException;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -11,6 +12,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import user.model.UserProfile;
@@ -38,6 +40,8 @@ public class GUIMainController {
   @FXML
   private VBox homeView;
   @FXML
+  private VBox explanationTile;
+  @FXML
   private BorderPane mainBorderPane;
   @FXML
   private MenuBarController menuBarController;
@@ -46,6 +50,7 @@ public class GUIMainController {
   @FXML
   private GUIHomeController homeViewController;
   @FXML
+  private ExplanationTile explanationTileController;
   private FavoriteListController favoriteListController;
   private static GUIMainController guiMainController;
   @FXML
@@ -55,13 +60,17 @@ public class GUIMainController {
     homeViewController.setController(this);
     stockViewController.setController(this);
     menuBarController.setController(this);
+    explanationTileController.setController(this);
     guiMainController = this;
 
     menuBarController.setWidthAndHeightProperty();
+    explanationTileController.setupScrollbar();
     stockViewController.setupScrollbar();
 
     homeView.setVisible(true);
     stockView.setVisible(false);
+    explanationTile.setVisible(false);
+
 
     setUpStockNotLoadedError();
     userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
@@ -93,17 +102,28 @@ public class GUIMainController {
     homeView.setVisible(true);
   }
 
-
-
   public void errorLoadingStock(){
     goToHomeView();
     menuBarController.setCurrentStock(null);
     menuBarController.resetSearchBar();
   }
 
+  public void showExplanationPage(String mainTitle, String generalText, String companyTitle,
+      String companyText){
+    explanationTileController.setMainTitle(mainTitle);
+    explanationTileController.setGeneralText(generalText);
+    explanationTileController.setCompanyTitle(companyTitle);
+    explanationTileController.setCompanyText(companyText);
+    explanationTile.setVisible(true);
+  }
   public void setFavoriteListController(FavoriteListController favoriteListController) {
     this.favoriteListController = favoriteListController;
   }
+
+  public void closeExplanationPage(){
+    explanationTile.setVisible(false);
+  }
+
   public void showStockNotLoaded(){
     stockNotLoadedError.showAndWait();
   }
@@ -128,6 +148,7 @@ public class GUIMainController {
     ButtonType button = new ButtonType("Ok", ButtonData.OK_DONE);
     stockNotLoadedError.getDialogPane().getButtonTypes().add(button);
   }
+
   public ReadOnlyDoubleProperty getWidthProperty() {
     return mainBorderPane.widthProperty();
   }

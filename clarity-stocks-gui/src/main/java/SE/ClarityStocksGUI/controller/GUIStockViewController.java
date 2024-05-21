@@ -5,6 +5,15 @@ import SE.ClarityStocksGUI.controller.tiles.InfoTile;
 import SE.ClarityStocksGUI.controller.tiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
 import common.data.series.DailyDataPoint;
+import common.evaluations.GoldenCrossEvaluation;
+import common.evaluations.rating.AnalystPredictionEvaluation;
+import common.evaluations.rating.BusinessPerformanceEvaluation;
+import common.evaluations.rating.CompanyGrowthEvaluation;
+import common.evaluations.rating.CompanySizeEvaluation;
+import common.evaluations.DividendEvaluation;
+import common.evaluations.rating.HighAndLowEvaluation;
+import common.evaluations.rating.PERatioEvaluation;
+import common.evaluations.rating.PriceToPerformance;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +83,8 @@ public class GUIStockViewController {
   private InfoTile infoTileController;
   @FXML
   private ScrollPane scrollPane;
+  @FXML
+  private VBox categoryLabels;
   private Dialog<String> errorDialog;
   private StockData stockData;
   private HashMap<Integer, Boolean> selectedAnalysis;
@@ -94,6 +105,9 @@ public class GUIStockViewController {
     statBackground.setEffect(Effects.getDropShadow());
     graphBackground.setEffect(Effects.getDropShadow());
     dialTileBackground.setEffect(Effects.getDropShadow());
+    categoryLabels.setVisible(false);
+
+    ratingsTileController.setController(this);
   }
 
   private void setUpControllers(){
@@ -146,6 +160,8 @@ public class GUIStockViewController {
       ToggleButton button1 = (ToggleButton) button;
       if(!(buttonText.equals(button1.getText()))){
         button1.setSelected(false);
+      }else {
+        button1.setSelected(true);
       }
     }
   }
@@ -194,6 +210,7 @@ public class GUIStockViewController {
   }
 
   private void resetAnalysisSelector(){
+    setCategoryLabelsVisibility(false);
     for(int i : selectedAnalysis.keySet()){
       analysisSelector.getItems().get(i).
           setStyle("-fx-background-color: transparent; -fx-padding: 3; -fx-background-radius: 10");
@@ -251,6 +268,7 @@ public class GUIStockViewController {
                 setRatingsTile();
                 infoTileController.updateFavoriteStatus(stockData.getCompanyOverview().getSymbol());
                 progress.setVisible(false);
+                printAllEvaluationTexts();
               }catch (NoSuchElementException e){
                 errorLoadingStock();
                 e.printStackTrace();
@@ -272,6 +290,89 @@ public class GUIStockViewController {
     }).start();
   }
 
+  private void printAllEvaluationTexts(){
+    HighAndLowEvaluation hle = stockData.getHighAndLow();
+    System.out.println(hle.getEvaluationTitle());
+    System.out.println(hle.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + hle.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + hle.getEvaluationMethodInfo());
+    System.out.println("Results: " + hle.getResultDescription());
+    System.out.println();
+
+    PERatioEvaluation pe = stockData.getPeRatioEvaluation();
+    System.out.println(pe.getEvaluationTitle());
+    System.out.println(pe.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + pe.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + pe.getEvaluationMethodInfo());
+    System.out.println("Results: " + pe.getResultDescription());
+    System.out.println();
+
+    AnalystPredictionEvaluation ape = stockData.getAnalystPredictionEvaluation();
+    System.out.println(ape.getEvaluationTitle());
+    System.out.println(ape.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + ape.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + ape.getEvaluationMethodInfo());
+    System.out.println("Results: " + ape.getResultDescription());
+    System.out.println();
+
+    BusinessPerformanceEvaluation bpe = stockData.getBusinessPerformanceEvaluation();
+    System.out.println(bpe.getEvaluationTitle());
+    System.out.println(bpe.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + bpe.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + bpe.getEvaluationMethodInfo());
+    System.out.println("Results: " + bpe.getResultDescription());
+    System.out.println();
+
+    PriceToPerformance ptpe = stockData.getPriceToPerformance();
+    System.out.println(ptpe.getEvaluationTitle());
+    System.out.println(ptpe.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + ptpe.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + ptpe.getEvaluationMethodInfo());
+    System.out.println("Results: " + ptpe.getResultDescription());
+    System.out.println();
+
+    CompanySizeEvaluation cse = stockData.getCompanySizeEvaluation();
+    System.out.println(cse.getEvaluationTitle());
+    System.out.println(cse.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + cse.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + cse.getEvaluationMethodInfo());
+    System.out.println("Results: " + cse.getResultDescription());
+    System.out.println();
+
+
+    CompanyGrowthEvaluation cge = stockData.getCompanyGrowthEvaluation();
+    System.out.println(cge.getEvaluationTitle());
+    System.out.println(cge.getRatingDescription());
+    System.out.println();
+    System.out.println("General Info: " + cge.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + cge.getEvaluationMethodInfo());
+    System.out.println("Results: " + cge.getResultDescription());
+    System.out.println();
+
+    DividendEvaluation getDividendEvaluation = stockData.getDividendEvaluation();
+    System.out.println(getDividendEvaluation.getEvaluationTitle());
+    System.out.println();
+    System.out.println("General Info: " + getDividendEvaluation.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + getDividendEvaluation.getEvaluationMethodInfo());
+    System.out.println("Results: " + getDividendEvaluation.getResultDescription());
+    System.out.println();
+
+
+    GoldenCrossEvaluation getGoldenCrossAnalysis = stockData.getGoldenCrossEvaluation();
+    System.out.println(getGoldenCrossAnalysis.getEvaluationTitle());
+    System.out.println();
+    System.out.println("General Info: " + getGoldenCrossAnalysis.getGeneralEvaluationInfo());
+    System.out.println("Method Info: " + getGoldenCrossAnalysis.getEvaluationMethodInfo());
+    System.out.println("Results: " + getGoldenCrossAnalysis.getResultDescription());
+    System.out.println();
+  }
+
   public void errorLoadingStock(){
     errorDialog.showAndWait();
     controller.errorLoadingStock();
@@ -279,6 +380,8 @@ public class GUIStockViewController {
   private void setInfoTile() {
     infoTileController.setCompanyName(
         stockData.getCompanyOverview().getName() + " (" + stockData.getCompanyOverview().getSymbol() + ")");
+    infoTileController.setExchange(stockData.getCompanyOverview().getExchange());
+    System.out.println(stockData.getCompanyOverview().getExchange());
 
     infoTileController.setSector(
         stockData.getCompanyOverview().getSector() + " - " + stockData.getCompanyOverview().getIndustry());
@@ -290,26 +393,58 @@ public class GUIStockViewController {
     setStockPrice("YTD");
 
     ratingsTileController.setPeEvaluationText(
-        stockData.getPeRatioEvaluation().getRating(),
-        stockData.getCompanyOverview().getPERatio(),
-        stockData.getPeRatioEvaluation().getDescription());
+        stockData.getPeRatioEvaluation().getGaugeValue(),
+        stockData.getPeRatioEvaluation().getRatingDescription(),
+        stockData.getPeRatioEvaluation().getEvaluationTitle());
 
     ratingsTileController.setBusinessPerformance(
         stockData.getBusinessPerformanceEvaluation().getRating(),
-        stockData.getBusinessPerformanceEvaluation().getDescription());
+        stockData.getBusinessPerformanceEvaluation().getRatingDescription(),
+        stockData.getBusinessPerformanceEvaluation().getEvaluationTitle());
 
     ratingsTileController.setCompanyGrowth(
         stockData.getCompanyGrowthEvaluation().getRating(),
-        stockData.getCompanyGrowthEvaluation().getDescription());
+        stockData.getCompanyGrowthEvaluation().getRatingDescription(),
+        stockData.getCompanyGrowthEvaluation().getEvaluationTitle());
 
     ratingsTileController.setCompanySize(
         stockData.getCompanySizeEvaluation().getRating(),
-        stockData.getCompanySizeEvaluation().getDescription());
+        stockData.getCompanySizeEvaluation().getRatingDescription(),
+        stockData.getCompanySizeEvaluation().getEvaluationTitle());
+
+    ratingsTileController.setHighAndLow(
+        stockData.getHighAndLow().getRating(),
+        stockData.getHighAndLow().getRatingDescription(),
+        stockData.getHighAndLow().getEvaluationTitle());
+
+    ratingsTileController.setAnalystPrediction(
+        stockData.getAnalystPredictionEvaluation().getRating(),
+        stockData.getAnalystPredictionEvaluation().getRatingDescription(),
+        stockData.getAnalystPredictionEvaluation().getEvaluationTitle());
   }
 
   @FXML
   public void showGoldenCross(){
+    if(!(buttonIsSelected("1Y"))){
+      graphController.changeDate("1Y");
+      setStockPrice("1Y");
+      unselectHistoryButtons("1Y");
+    }
     graphController.showGoldenCross();
+  }
+
+  public void setCategoryLabelsVisibility(boolean value){
+    categoryLabels.setVisible(value);
+  }
+
+  private boolean buttonIsSelected(String text){
+    for(Node button : historyButtonGroup.getChildren()){
+      ToggleButton button1 = (ToggleButton) button;
+      if(button1.getText().equals(text) && button1.isSelected()){
+        return true;
+      }
+    }
+    return false;
   }
 
   public void stockFavoritePressed(boolean stockIsFavorite){
@@ -354,5 +489,67 @@ public class GUIStockViewController {
     ratingsTileController.setCurrentPrice(
         stockData.getTimeSeriesDaily().getDailyData().getLast().getClose(),
         comparePrice);
+  }
+
+  @FXML
+  public void showExplanationPage(String element){
+    String mainTitle = "";
+    String generalText = "";
+    String companyTitle = stockData.getCompanyOverview().getName();
+    String companyText = "";
+    switch (element){
+      case "PE":
+        mainTitle   = stockData.getPeRatioEvaluation().getEvaluationTitle();
+        generalText = stockData.getPeRatioEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getPeRatioEvaluation().getEvaluationMethodInfo();
+        companyText = stockData.getPeRatioEvaluation().getResultDescription();
+        break;
+
+      case "busPer":
+        mainTitle   = stockData.getBusinessPerformanceEvaluation().getEvaluationTitle();
+        generalText = stockData.getBusinessPerformanceEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getBusinessPerformanceEvaluation().getEvaluationMethodInfo();
+        companyText = stockData.getBusinessPerformanceEvaluation().getResultDescription();
+        break;
+
+      case "compGrowth":
+        mainTitle   = stockData.getCompanyGrowthEvaluation().getEvaluationTitle();
+        generalText = stockData.getCompanyGrowthEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getCompanyGrowthEvaluation().getEvaluationMethodInfo();
+        companyText = stockData.getCompanyGrowthEvaluation().getResultDescription();
+
+        break;
+
+      case "compSize":
+        mainTitle   = stockData.getCompanySizeEvaluation().getEvaluationTitle();
+        generalText = stockData.getCompanySizeEvaluation().getGeneralEvaluationInfo()
+                    + "\n\n"
+                    + stockData.getCompanySizeEvaluation().getEvaluationMethodInfo();
+        companyText = stockData.getCompanySizeEvaluation().getResultDescription();
+        break;
+
+      case "highAndLow":
+        mainTitle   = stockData.getHighAndLow().getEvaluationTitle();
+        generalText = stockData.getHighAndLow().getGeneralEvaluationInfo()
+            + "\n\n"
+            + stockData.getHighAndLow().getEvaluationMethodInfo();
+        companyText = stockData.getHighAndLow().getResultDescription();
+        break;
+
+      case "analystPred":
+        mainTitle   = stockData.getAnalystPredictionEvaluation().getEvaluationTitle();
+        generalText = stockData.getAnalystPredictionEvaluation().getGeneralEvaluationInfo()
+            + "\n\n"
+            + stockData.getAnalystPredictionEvaluation().getEvaluationMethodInfo();
+        companyText = stockData.getAnalystPredictionEvaluation().getResultDescription();
+        break;
+
+      default:
+        break;
+    }
+    controller.showExplanationPage(mainTitle, generalText, companyTitle, companyText);
   }
 }

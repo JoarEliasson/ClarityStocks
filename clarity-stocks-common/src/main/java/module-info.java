@@ -5,4 +5,5 @@ module clarity.stocks.common {
   exports common.enums;
   exports common.evaluations;
   exports common.data.global;
+  exports common.evaluations.rating;
 }

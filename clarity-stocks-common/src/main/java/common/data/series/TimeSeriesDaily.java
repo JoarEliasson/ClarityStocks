@@ -112,6 +112,10 @@ public class TimeSeriesDaily {
     return movingAverages;
   }
 
+  public double getLatestClose() {
+    return dailyData.getLast().getClose();
+  }
+
   public List<DailyDataPoint> calculateTrailingMovingAverage(List<DailyDataPoint> dataPoints,
       int days) {
     List<DailyDataPoint> movingAverages = new ArrayList<>();

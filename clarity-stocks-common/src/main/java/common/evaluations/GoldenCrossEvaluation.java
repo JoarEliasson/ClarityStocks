@@ -77,7 +77,7 @@ public class GoldenCrossEvaluation implements Evaluation {
    * @return the title of the evaluation.
    */
   @Override
-  public String getTitle() {
+  public String getEvaluationTitle() {
     return "Golden Cross";
   }
 
@@ -89,7 +89,7 @@ public class GoldenCrossEvaluation implements Evaluation {
    * @return the subtitle of the evaluation.
    */
   @Override
-  public String getSubtitle() {
+  public String getGeneralEvaluationInfo() {
     return "The golden cross evaluates the current stock price as to how the stock has been traded"
         + " historically. A golden cross is a chart pattern in which a relatively short-term moving"
         + " average crosses above a long-term moving average. The golden cross is a bullish"
@@ -119,7 +119,7 @@ public class GoldenCrossEvaluation implements Evaluation {
    * @return the evaluation method.
    */
   @Override
-  public String getEvaluationMethod() {
+  public String getEvaluationMethodInfo() {
     return "\n"
         + "The evaluation is based on the two moving averages MA50 and MA200"
         + " (50-day moving average and 200-day moving average)."
@@ -134,7 +134,7 @@ public class GoldenCrossEvaluation implements Evaluation {
   }
 
   @Override
-  public String getDescription() {
+  public String getResultDescription() {
     return description;
   }
 }

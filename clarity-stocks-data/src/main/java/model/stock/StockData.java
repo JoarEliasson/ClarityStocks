@@ -1,12 +1,8 @@
 package model.stock;
 
-import common.evaluations.BusinessPerformanceEvaluation;
-import common.evaluations.CompanyGrowthEvaluation;
-import common.evaluations.CompanySizeEvaluation;
+import common.evaluations.rating.*;
 import common.evaluations.DividendEvaluation;
 import common.evaluations.GoldenCrossEvaluation;
-import common.evaluations.HighAndLow;
-import common.evaluations.PERatioEvaluation;
 import analysis.regression.RegressionAnalysis;
 import common.data.fundamental.BalanceSheet;
 import common.data.fundamental.CashFlowReport;
@@ -42,13 +38,16 @@ public class StockData {
   /**
    * Evaluation variables.
    */
-  private HighAndLow highAndLow;
+  private HighAndLowEvaluation highAndLow;
   private PERatioEvaluation peRatioEvaluation;
   private CompanySizeEvaluation companySizeEvaluation;
   private CompanyGrowthEvaluation companyGrowthEvaluation;
   private BusinessPerformanceEvaluation businessPerformanceEvaluation;
   private DividendEvaluation dividendEvaluation;
   private GoldenCrossEvaluation goldenCrossEvaluation;
+  private AnalystPredictionEvaluation analystPredictionEvaluation;
+  private PriceToPerformance priceToPerformance;
+  private GoldenCrossEvaluation goldenCrossAnalysis;
 
   /**
    * Analysis variables.
@@ -67,6 +66,9 @@ public class StockData {
     evaluateDividend();
     evaluateGoldenCross();
     evaluateHighAndLow();
+    evaluatePriceToPerformance();
+    runGoldenCrossAnalysis();
+    evaluateAnalystsPredictions();
   }
 
   public void runAnalyses() {
@@ -117,7 +119,20 @@ public class StockData {
   private void evaluateCompanySize() {
     companySizeEvaluation = new CompanySizeEvaluation(
           companyOverview.getSymbol(),
-          companyOverview.getRevenueTTM()
+          companyOverview.getRevenueTTM(),
+          companyOverview.getMarketCapitalization()
+    );
+  }
+
+  /**
+   * This method creates a new instance of {@code PriceToPerformance} representing the evaluation.
+   * The result is stored as an instance variable.
+   * @see PriceToPerformance
+   *
+   */
+  private void evaluatePriceToPerformance() {
+    priceToPerformance = new PriceToPerformance(
+            peRatioEvaluation, companyOverview.getSector()
     );
   }
 
@@ -131,7 +146,8 @@ public class StockData {
         companyOverview.getSymbol(),
         companyOverview.getDividendPerShare(),
         companyOverview.getDividendYield(),
-        companyOverview.getFiscalYearEnd()
+        companyOverview.getFiscalYearEnd(),
+          cashFlowReports
     );
   }
 
@@ -151,15 +167,49 @@ public class StockData {
   /**
    * This method creates a new instance of {@code HighAndLow} representing the evaluation. The result
    * is stored as an instance variable.
-   * @see HighAndLow for the evaluation details.
+   * @see HighAndLowEvaluation for the evaluation details.
    */
   private void evaluateHighAndLow() {
-    highAndLow = new HighAndLow(
+    highAndLow = new HighAndLowEvaluation(
         companyOverview.getSymbol(),
         companyOverview.getWeek52High(),
-        companyOverview.getWeek52Low()
+        companyOverview.getWeek52Low(),
+        timeSeriesDaily.getLatestClose()
+
     );
   }
+
+  /**
+   * This method creates a new instance of {@code GoldenCrossEvaluation} representing the evaluation.
+   * The result is stored as an instance variable.
+   * @see GoldenCrossEvaluation for the evaluation details.
+   */
+  private void runGoldenCrossAnalysis() {
+    goldenCrossAnalysis = new GoldenCrossEvaluation(
+            companyOverview.getSymbol(),
+            companyOverview.getMovingAverage50(),
+            companyOverview.getMovingAverage200()
+    );
+  }
+
+  private void evaluateAnalystsPredictions() {
+    analystPredictionEvaluation = new AnalystPredictionEvaluation(
+            companyOverview.getSymbol(),
+            timeSeriesDaily.getLatestClose(),
+            companyOverview.getAnalystTargetPrice(),
+            companyOverview.getAnalystRatingStrongBuy(),
+            companyOverview.getAnalystRatingBuy(),
+            companyOverview.getAnalystRatingHold(),
+            companyOverview.getAnalystRatingSell(),
+            companyOverview.getAnalystRatingStrongSell()
+    );
+  }
+
+  public AnalystPredictionEvaluation getAnalystPredictionEvaluation() {
+    return analystPredictionEvaluation;
+  }
+
+
 
   private void runRegressionAnalysis() {
     regressionAnalysis = new RegressionAnalysis(
@@ -244,8 +294,11 @@ public class StockData {
     this.cashFlowReports = cashFlowReports;
   }
 
-  public HighAndLow getHighAndLow() {
+  public HighAndLowEvaluation getHighAndLow() {
     return highAndLow;
+  }
+  public PriceToPerformance getPriceToPerformance() {
+    return priceToPerformance;
   }
 
   public PERatioEvaluation getPeRatioEvaluation() {
