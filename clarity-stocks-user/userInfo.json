@@ -1,7 +1,8 @@
 {
-  "userName": "Test123",
+  "userName": "UserName",
   "favoriteStocks": [
     "MSFT",
+    "AAPL",
     "TSLA"
   ]
 }

@@ -15,6 +15,7 @@ module SE.ClarityStocksGUI {
   requires clarity.stocks.analysis;
   requires clarity.stocks.common;
   requires eu.hansolo.medusa;
+  requires eu.hansolo.tilesfx;
 
   requires clarity.stocks.user;
 
