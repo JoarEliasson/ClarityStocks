@@ -1,50 +1,37 @@
 package dao;
 
-import common.data.series.TimeSeriesDaily;
 import common.data.series.DailyDataPoint;
+import common.data.series.TimeSeriesDaily;
+import common.data.series.TimeSeriesMonthly;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import org.jooq.DSLContext;
+import org.jooq.Query;
+import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
-import org.jooq.Record;
 
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * The class manages the database interactions related to daily financial time series data.
- * <p>
- * This class is designed to handle operations for storing and retrieving daily data points of
- * stock prices through stored PostgreSQL procedures and functions using the jOOQ framework.
- * </p>
- * <p>The main functionalities include:</p>
- * <ul>
- *  <li>Inserting daily data points of a stock into the database.</li>
- *  <li>Retrieving daily data points of a stock from the database.</li>
- * </ul>
- * @author Kasper Schröder
- */
-public class TimeSeriesDailyDAO {
+public class TimeSeriesMonthlyDAO {
   private final DSLContext connectionContext;
 
-  public TimeSeriesDailyDAO(DSLContext connection) {
+  public TimeSeriesMonthlyDAO(DSLContext connection) {
     this.connectionContext = connection;
   }
 
-  public void batchInsertTimeSeriesDailyQuery(TimeSeriesDaily timeSeriesDaily) {
+  public void batchInsertTimeSeriesMonthlyQuery(TimeSeriesMonthly timeSeriesMonthly) {
     try {
-      String symbol = timeSeriesDaily.getSymbol();
-      List<DailyDataPoint> dailyDataPoints = timeSeriesDaily.getDailyData();
+      String symbol = timeSeriesMonthly.getSymbol();
+      List<DailyDataPoint> dailyDataPoints = timeSeriesMonthly.getMonthlyData();
 
-      var batchQueries = new ArrayList<org.jooq.Query>();
+      var batchQueries = new ArrayList<Query>();
       for (DailyDataPoint dailyDataPoint : dailyDataPoints) {
-        var query = connectionContext.insertInto(DSL.table("time_series_daily"),
-                DSL.field("stock_symbol"), DSL.field("date"), DSL.field("daily_open"),
-                DSL.field("daily_high"), DSL.field("daily_low"),
-                DSL.field("daily_close"), DSL.field("daily_volume"))
+        var query = connectionContext.insertInto(DSL.table("time_series_monthly"),
+                DSL.field("stock_symbol"), DSL.field("date"),
+                DSL.field("monthly_open"), DSL.field("monthly_high"),
+                DSL.field("monthly_low"), DSL.field("monthly_close"),
+                DSL.field("monthly_volume"))
             .values(symbol, java.sql.Date.valueOf(dailyDataPoint.getDate()),
                 dailyDataPoint.getOpenFormatted(), dailyDataPoint.getHighFormatted(),
                 dailyDataPoint.getLowFormatted(), dailyDataPoint.getCloseFormatted(),
@@ -61,16 +48,16 @@ public class TimeSeriesDailyDAO {
     }
   }
 
-  public TimeSeriesDaily getDailyDataQuery(String symbol) {
+  public TimeSeriesMonthly getMonthlyDataQuery(String symbol) {
     try {
-      TimeSeriesDaily timeSeriesDaily = new TimeSeriesDaily(symbol);
-      timeSeriesDaily.setLastRefreshed(fetchLatestUpdateQuery(symbol));
+      TimeSeriesMonthly timeSeriesMonthly = new TimeSeriesMonthly(symbol);
+      timeSeriesMonthly.setLastRefreshed(fetchLatestUpdateQuery(symbol));
 
       Result<Record> result = connectionContext.select()
-        .from("time_series_daily")
-        .where("stock_Symbol = ?", symbol)
-        .orderBy(DSL.field("date").asc())
-      .fetch();
+          .from("time_series_monthly")
+          .where("stock_Symbol = ?", symbol)
+          .orderBy(DSL.field("date").asc())
+          .fetch();
 
       if (result.isEmpty()) {
         return null;
@@ -81,17 +68,17 @@ public class TimeSeriesDailyDAO {
         record.getValue("date", String.class);
         DailyDataPoint dataPoint = new DailyDataPoint(
             record.getValue("date", String.class),
-            record.getValue("daily_open", Double.class),
-            record.getValue("daily_high", Double.class),
-            record.getValue("daily_low", Double.class),
-            record.getValue("daily_close", Double.class),
-            record.getValue("daily_volume", Long.class)
+            record.getValue("monthly_open", Double.class),
+            record.getValue("monthly_high", Double.class),
+            record.getValue("monthly_low", Double.class),
+            record.getValue("monthly_close", Double.class),
+            record.getValue("monthly_volume", Long.class)
         );
         dailyData.add(dataPoint);
       }
-      timeSeriesDaily.setDailyData(dailyData);
+      timeSeriesMonthly.setMonthlyData(dailyData);
 
-      return timeSeriesDaily;
+      return timeSeriesMonthly;
     } catch (DataAccessException e) {
       System.err.println("Error retrieving daily data: " + e.getMessage());
       return null;
@@ -105,7 +92,7 @@ public class TimeSeriesDailyDAO {
     try {
       Result<Record> result = connectionContext.fetch(
           "select max(date) "
-              + "from time_series_daily "
+              + "from time_series_monthly "
               + "where stock_symbol = ?",
           symbol
       );
@@ -128,7 +115,5 @@ public class TimeSeriesDailyDAO {
       return null;
     }
   }
-
-
 
 }

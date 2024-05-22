@@ -51,13 +51,20 @@ public class DBConnectionPool {
       config.setMaximumPoolSize(10);
       dataSource = new HikariDataSource(config);
     } catch (Exception e) {
-      System.out.println("Error creating HikariCP data source");
-      e.printStackTrace();
+      System.out.println("Error creating HikariCP data source: " + e.getCause().getMessage());
     }
   }
 
   public DSLContext getConnection(){
     return DSL.using(dataSource, SQLDialect.POSTGRES);
+  }
+
+  public boolean isConnectionValid() {
+    try {
+      return dataSource.getConnection().isValid(5);
+    } catch (Exception e) {
+      return false;
+    }
   }
 
 }
