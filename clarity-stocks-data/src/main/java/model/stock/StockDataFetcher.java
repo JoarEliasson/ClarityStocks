@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class StockDataFetcher {
 
-  private AlphaVantageClient alphaVantageClient;
+  private final AlphaVantageClient alphaVantageClient;
 
   private String apiKey;
 

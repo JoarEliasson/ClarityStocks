@@ -63,9 +63,10 @@ public class RegressionAnalysis {
       for (int i = 0; i < 3; i++) {
         System.out.println();
         System.out.println("[Correlation between " + regressionResults.get(i).getVariable() + " and the stock price]");
-        String info = String.format("\tR = %.2f, R^2 = %.2f",
-            regressionResults.get(i).getSimpleRegression().getR(),
-            regressionResults.get(i).getSimpleRegression().getRSquare()
+
+        String info = String.format("\tIntercept = %.2f, Slope = %.2f",
+            regressionResults.get(i).getCoefficients()[0],
+            regressionResults.get(i).getCoefficients()[1]
         );
         String prediction = String.format("\tPrice (%s) = %.2f%n\tPredicted price based on %s = %.2f%n",
             regressionResults.get(i).getPricePrediction().getPredictionDate(),
@@ -95,7 +96,7 @@ public class RegressionAnalysis {
     RegressionResult temp;
     for(int i = 0; i < n; i++) {
       for(int j = 1; j < (n - i); j++) {
-        if(regressionArray[j-1].getSimpleRegression().getRSquare() < regressionArray[j].getSimpleRegression().getRSquare()) {
+        if (regressionArray[j-1].getRSquare() < regressionArray[j].getRSquare()) {
           temp = regressionArray[j-1];
           regressionArray[j-1] = regressionArray[j];
           regressionArray[j] = temp;
@@ -106,21 +107,21 @@ public class RegressionAnalysis {
   }
 
   private List<RegressionResult> listSort() {
-    regressionResults.sort(Comparator.comparingDouble(r -> r.getSimpleRegression().getRSquare()));
+    regressionResults.sort(Comparator.comparingDouble(RegressionResult::getRSquare).reversed());
     System.out.println("List sort");
     for (RegressionResult result : regressionResults) {
-      System.out.println(result.getVariable() + " R^2 = " + result.getSimpleRegression().getRSquare());
+      System.out.println(result.getVariable() + " R^2 = " + result.getRSquare());
     }
     return regressionResults;
   }
 
   public void fetchResults() {
     RegressionResult[] sortedArray = bubbleSort();
-    result =  String.format(
-        "The highest r-square values for (%s) are: \n" + sortedArray[0].getSimpleRegression().getRSquare() + " from " +
+    result = String.format(
+        "The highest r-square values for (%s) are: \n" + sortedArray[0].getRSquare() + " from " +
             sortedArray[0].getVariable() +  ". \n" +
-            sortedArray[1].getSimpleRegression().getRSquare() + " from " + sortedArray[1].getVariable() +  ". \n" +
-            sortedArray[2].getSimpleRegression().getRSquare() + " from " + sortedArray[2].getVariable() +  ".",
+            sortedArray[1].getRSquare() + " from " + sortedArray[1].getVariable() +  ". \n" +
+            sortedArray[2].getRSquare() + " from " + sortedArray[2].getVariable() +  ".",
         symbol
     );
     //Preliminary result printing for later GUI implementation
