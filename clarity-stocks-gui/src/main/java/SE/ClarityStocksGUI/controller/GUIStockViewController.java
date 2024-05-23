@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -88,6 +89,8 @@ public class GUIStockViewController {
   private Dialog<String> errorDialog;
   private StockData stockData;
   private HashMap<Integer, Boolean> selectedAnalysis;
+  @FXML
+  private Button goldenCrossExplain;
 
   @FXML
   private ProgressBar progress;
@@ -108,6 +111,7 @@ public class GUIStockViewController {
     categoryLabels.setVisible(false);
 
     ratingsTileController.setController(this);
+    goldenCrossExplain.setVisible(false);
   }
 
   private void setUpControllers(){
@@ -139,6 +143,7 @@ public class GUIStockViewController {
         @Override
         public void handle(ActionEvent event) {
           unselectHistoryButtons(button1.getText());
+          hideGoldenCrossExplanation(button1.getText());
           resetAnalysisSelector();
           setStockPrice(button1.getText());
           graphController.changeDate(button1.getText());
@@ -163,6 +168,12 @@ public class GUIStockViewController {
       }else {
         button1.setSelected(true);
       }
+    }
+  }
+
+  private void hideGoldenCrossExplanation(String buttonText){
+    if(!(graphController.getGoldenCrossActive() && buttonText.equals("1Y"))){
+      goldenCrossExplain.setVisible(false);
     }
   }
 
@@ -430,6 +441,7 @@ public class GUIStockViewController {
       setStockPrice("1Y");
       unselectHistoryButtons("1Y");
     }
+    goldenCrossExplain.setVisible(!graphController.getGoldenCrossActive());
     graphController.showGoldenCross();
   }
 

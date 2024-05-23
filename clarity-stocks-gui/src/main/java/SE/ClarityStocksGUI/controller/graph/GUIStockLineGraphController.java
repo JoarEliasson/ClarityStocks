@@ -144,6 +144,10 @@ public class GUIStockLineGraphController {
 
   }
 
+  public boolean getGoldenCrossActive(){
+    return goldenCrossActive;
+  }
+
   public void showGoldenCross(){
     if(!goldenCrossActive){
       Platform.runLater(new Runnable() {
