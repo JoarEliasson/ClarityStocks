@@ -4,8 +4,8 @@ import SE.ClarityStocksGUI.controller.graph.GUIStockLineGraphController;
 import SE.ClarityStocksGUI.controller.tiles.InfoTile;
 import SE.ClarityStocksGUI.controller.tiles.RatingsTile;
 import SE.ClarityStocksGUI.model.Effects;
+import analysis.graph.GoldenCrossAnalysis;
 import common.data.series.DailyDataPoint;
-import common.evaluations.GoldenCrossEvaluation;
 import common.evaluations.rating.AnalystPredictionEvaluation;
 import common.evaluations.rating.BusinessPerformanceEvaluation;
 import common.evaluations.rating.CompanyGrowthEvaluation;
@@ -268,7 +268,6 @@ public class GUIStockViewController {
                 setRatingsTile();
                 infoTileController.updateFavoriteStatus(stockData.getCompanyOverview().getSymbol());
                 progress.setVisible(false);
-                printAllEvaluationTexts();
               }catch (NoSuchElementException e){
                 errorLoadingStock();
                 e.printStackTrace();
@@ -364,11 +363,11 @@ public class GUIStockViewController {
     System.out.println();
 
 
-    GoldenCrossEvaluation getGoldenCrossAnalysis = stockData.getGoldenCrossEvaluation();
-    System.out.println(getGoldenCrossAnalysis.getEvaluationTitle());
+    GoldenCrossAnalysis getGoldenCrossAnalysis = stockData.getGoldenCrossAnalysis();
+    System.out.println(getGoldenCrossAnalysis.getAnalysisTitle());
     System.out.println();
-    System.out.println("General Info: " + getGoldenCrossAnalysis.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + getGoldenCrossAnalysis.getEvaluationMethodInfo());
+    System.out.println("General Info: " + getGoldenCrossAnalysis.getGeneralAnalysisInfo());
+    System.out.println("Method Info: " + getGoldenCrossAnalysis.getAnalysisMethodInfo());
     System.out.println("Results: " + getGoldenCrossAnalysis.getResultDescription());
     System.out.println();
   }
