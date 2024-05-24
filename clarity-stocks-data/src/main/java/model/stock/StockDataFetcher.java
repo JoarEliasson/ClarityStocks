@@ -6,11 +6,6 @@ import common.data.fundamental.IncomeStatement;
 import common.data.global.GlobalMarketInfo;
 import common.data.series.TimeSeriesDaily;
 import common.data.series.TimeSeriesMonthly;
-import dao.CompanyOverviewDAO;
-import dao.DBConnectionPool;
-import dao.IncomeStatementDAO;
-import dao.TimeSeriesDailyDAO;
-import dao.TimeSeriesMonthlyDAO;
 import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.List;
@@ -141,5 +136,4 @@ public class StockDataFetcher {
   public GlobalMarketInfo fetchGlobalMarketInfo() {
     return alphaVantageClient.getGlobalMarketInfo();
   }
-
 }

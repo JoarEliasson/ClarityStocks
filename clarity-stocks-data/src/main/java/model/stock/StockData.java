@@ -162,13 +162,14 @@ public class StockData {
    * @see HighAndLowEvaluation for the evaluation details.
    */
   private void evaluateHighAndLow() {
-    highAndLow = new HighAndLowEvaluation(
-        companyOverview.getSymbol(),
-        companyOverview.getWeek52High(),
-        companyOverview.getWeek52Low(),
-        timeSeriesDaily.getLatestClose()
-
-    );
+    if (timeSeriesDaily != null) {
+      highAndLow = new HighAndLowEvaluation(
+          companyOverview.getSymbol(),
+          companyOverview.getWeek52High(),
+          companyOverview.getWeek52Low(),
+          timeSeriesDaily.getLatestClose()
+      );
+    }
   }
 
   /**

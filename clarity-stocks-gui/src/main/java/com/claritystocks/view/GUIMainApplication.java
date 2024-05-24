@@ -1,0 +1,84 @@
+package com.claritystocks.view;
+
+import com.claritystocks.controller.FavoriteListController;
+import com.claritystocks.controller.GUIMainController;
+import com.claritystocks.model.ClarityResourceManager;
+import io.github.palexdev.materialfx.theming.JavaFXThemes;
+import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
+import io.github.palexdev.materialfx.theming.UserAgentBuilder;
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import user.model.UserProfile;
+import user.model.UserProfileManager;
+
+/**
+ * This is the main application for the GUI. This class starts the program and loads in the
+ * necessary files for the program to run.
+ * @author Douglas Almö Thorsell
+ */
+public class GUIMainApplication extends Application {
+
+  private Scene mainView;
+  private Stage stage;
+  private GUIMainController mainController;
+
+  @Override
+  public void start(Stage newStage) throws IOException {
+    this.stage = newStage;
+    stage.getIcons().add(new Image(
+        getClass().getResource("/com/claritystocks/view/claritystocksIcon.png").toExternalForm()));
+
+    UserProfile userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
+    if (userProfile == null || userProfile.getUserName() == null || userProfile.getUserName().isEmpty()) {
+      new UserInterfaceApp().start(newStage);
+    } else {
+      setUpMainView();
+      setUpMaterialsFX();
+      setScene();
+    }
+  }
+
+  private void setUpMainView() throws IOException{
+    String css = ClarityResourceManager.getCssResource("/com/claritystocks/styles.css");
+    //String css = this.getClass().getResource("/com/claritystocks/styles.css").toExternalForm();
+
+    FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
+    mainView = new Scene(mainLoader.load(), 1280, 720);
+    mainView.getStylesheets().add(css);
+    mainController = mainLoader.getController();
+    mainController.setApplication(this);
+
+
+    FXMLLoader favoriteLoader = new FXMLLoader(
+        GUIMainApplication.class.getResource("FavoriteListView.fxml"));
+    Parent favoriteRoot = favoriteLoader.load();
+    FavoriteListController favoriteListController = favoriteLoader.getController();
+    mainController.setFavoriteListController(favoriteListController);
+  }
+
+  private void setUpMaterialsFX(){
+    UserAgentBuilder.builder()
+        .themes(JavaFXThemes.MODENA)
+        .themes(MaterialFXStylesheets.forAssemble(true))
+        .setDeploy(true)
+        .setResolveAssets(true)
+        .build()
+        .setGlobal();
+  }
+
+  private void setScene(){
+    stage.setTitle("Clarity Stocks");
+    stage.setScene(mainView);
+    stage.show();
+  }
+
+
+  public static void main(String[] args) {
+    launch(args);
+  }
+}

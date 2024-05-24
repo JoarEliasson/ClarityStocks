@@ -163,7 +163,7 @@ public class GoldenCrossAnalysis implements TechnicalAnalysis {
         movingAverage50, movingAverage200, percentageDifference
     ));
     if (!goldenCrossEvents.isEmpty()) {
-      detailedDescription.append("Golden Cross Events:%n");
+      detailedDescription.append(String.format("Golden Cross Events:%n"));
       for (String event : goldenCrossEvents) {
         String eventString = String.format(" %s,", event);
         detailedDescription.append(eventString);

@@ -1,4 +1,4 @@
-module SE.ClarityStocksGUI {
+module clarity.stocks.gui {
 
   requires org.controlsfx.controls;
   requires org.kordamp.bootstrapfx.core;
@@ -16,20 +16,19 @@ module SE.ClarityStocksGUI {
   requires clarity.stocks.common;
   requires eu.hansolo.medusa;
   requires eu.hansolo.tilesfx;
-
   requires clarity.stocks.user;
 
-  opens SE.ClarityStocksGUI.view to javafx.fxml;
+  opens com.claritystocks.view to javafx.fxml;
 
-  exports SE.ClarityStocksGUI.controller;
-  exports SE.ClarityStocksGUI.controller.tiles;
-  opens SE.ClarityStocksGUI.controller.tiles;
-  opens SE.ClarityStocksGUI.controller to javafx.fxml;
-  opens SE.ClarityStocksGUI to javafx.fxml;
-  exports SE.ClarityStocksGUI.controller.graph;
-  opens SE.ClarityStocksGUI.controller.graph to javafx.fxml;
-  exports SE.ClarityStocksGUI.model;
-  opens SE.ClarityStocksGUI.model to javafx.fxml;
-  exports SE.ClarityStocksGUI.view;
+  exports com.claritystocks.controller;
+  exports com.claritystocks.controller.tiles;
+  opens com.claritystocks.controller.tiles;
+  opens com.claritystocks.controller to javafx.fxml;
+  opens com.claritystocks to javafx.fxml;
+  exports com.claritystocks.controller.graph;
+  opens com.claritystocks.controller.graph to javafx.fxml;
+  exports com.claritystocks.model;
+  opens com.claritystocks.model to javafx.fxml;
+  exports com.claritystocks.view;
 
 }

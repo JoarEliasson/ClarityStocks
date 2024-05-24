@@ -4,6 +4,8 @@ module clarity.stocks.data {
   requires clarity.stocks.analysis;
   requires clarity.stocks.common;
   requires clarity.stocks.api.integration;
-  requires clarity.stocks.database;
   requires java.sql;
+  requires org.jooq;
+  requires org.postgresql.jdbc;
+  requires com.zaxxer.hikari;
 }

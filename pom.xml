@@ -10,6 +10,7 @@
 
   <name>ClarityStocks</name>
   <url>https://maven.apache.org</url>
+
   <modules>
     <module>clarity-stocks-api-integration</module>
     <module>clarity-stocks-gui</module>
@@ -18,40 +19,21 @@
     <module>clarity-stocks-user</module>
     <module>clarity-stocks-database</module>
     <module>clarity-stocks-common</module>
+    <module>clarity-stocks-launcher</module>
   </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-fxml</artifactId>
-      <version>21</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.10.1</version>
-    </dependency>
-
-  </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
-          <source>21</source>
-          <target>21</target>
+          <release>21</release>
         </configuration>
       </plugin>
     </plugins>

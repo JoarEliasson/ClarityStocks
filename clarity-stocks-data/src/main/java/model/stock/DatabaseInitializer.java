@@ -1,7 +1,5 @@
 package model.stock;
 
-import dao.BasicDAO;
-import dao.DBConnectionPool;
 import java.util.ArrayList;
 import java.util.List;
 import model.search.SearchList;
