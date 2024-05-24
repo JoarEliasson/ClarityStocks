@@ -15,6 +15,7 @@ module SE.ClarityStocksGUI {
   requires clarity.stocks.analysis;
   requires clarity.stocks.common;
   requires eu.hansolo.medusa;
+  requires eu.hansolo.tilesfx;
 
   requires clarity.stocks.user;
 
@@ -29,8 +30,6 @@ module SE.ClarityStocksGUI {
   opens SE.ClarityStocksGUI.controller.graph to javafx.fxml;
   exports SE.ClarityStocksGUI.model;
   opens SE.ClarityStocksGUI.model to javafx.fxml;
-  exports SE.ClarityStocksGUI.controller.tiles.test;
-  opens SE.ClarityStocksGUI.controller.tiles.test;
   exports SE.ClarityStocksGUI.view;
 
 }

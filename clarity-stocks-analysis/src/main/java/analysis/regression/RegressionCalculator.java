@@ -1,50 +1,69 @@
 package analysis.regression;
 
 import analysis.interfaces.LinearRegressions;
-import common.enums.IncomeStatementVariable;
 import common.data.fundamental.IncomeStatement;
+import common.enums.IncomeStatementVariable;
 import java.util.List;
-import org.apache.commons.math3.stat.regression.SimpleRegression;
+import org.jfree.data.statistics.Regression;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 
 /**
- * Class for implementing a linear regression. Linear regression is used for predicting the future
- * price of the stock by analyzing historical data. Uses an X and Y value which are data pairs.
- * Model implements Pearson's linear regression.
+ * Class for implementing linear regression analysis.
+ * <p>
+ * Linear regression is used for predicting the future price of the stock by analyzing historical data.
+ * This class uses Pearson's linear regression model to determine the relationship between stock price
+ * and various financial variables.
+ * </p>
  *
- * @author Olivia Svensson, Joar Eliasson
+ * <ul>
+ *   <li>{@code incomeStatements} - List of income statements for the stock.</li>
+ *   <li>{@code priceData} - Array of historical stock prices.</li>
+ * </ul>
+ *
+ * @see analysis.interfaces.LinearRegressions
+ * @see common.data.fundamental.IncomeStatement
+ * @see common.enums.IncomeStatementVariable
+ * @author Joar Eliasson
+ * @author Olivia Svensson
  */
 public class RegressionCalculator implements LinearRegressions {
 
-
   private final List<IncomeStatement> incomeStatements;
   private final double[] priceData;
-  private double[] indexedVariableData;
 
   /**
-   * Constructor for the regression.RegressionCalculator class. Takes in an AlphaVantage Client and a stock
-   * symbol.
+   * Constructs a RegressionCalculator object.
+   *
+   * @param incomeStatements the list of income statements
+   * @param priceData the array of historical stock prices
    */
   public RegressionCalculator(List<IncomeStatement> incomeStatements, double[] priceData) {
     this.incomeStatements = incomeStatements;
     this.priceData = priceData;
   }
 
+  /**
+   * Fetches the data for a specific income statement variable.
+   *
+   * @param variable the income statement variable
+   * @return an array of data for the specified variable
+   */
   @Override
   public long[] fetchVariableData(IncomeStatementVariable variable) {
     long[] variableData = new long[incomeStatements.size()];
-    for (int i = 0; i < incomeStatements.size(); i ++) {
+    for (int i = 0; i < incomeStatements.size(); i++) {
       variableData[i] = incomeStatements.get(i).getVariable(variable.name());
     }
     return variableData;
   }
 
   /**
-   * Method for indexing the net income of a stock. Loops through a double array and calculates the
-   * index value by dividing each net income value by the first net income value. This indexes each
-   * net income value to the first value in the array. For each iteration the index value gets
-   * rounded to two decimal places, which is done by multiplying the index value by 100, which
-   * rounds it to the nearest integer, then it divides it back by 100 to obtain the rounded value
-   * with two decimal places. The index income is then set to the rounded value in the array.
+   * Indexes the variable data to create a consistent dataset for analysis.
+   *
+   * @param variableData the array of variable data
+   * @return an array of indexed variable data
    */
   @Override
   public double[] indexVariableData(long[] variableData) {
@@ -57,81 +76,115 @@ public class RegressionCalculator implements LinearRegressions {
     return indexedVariableData;
   }
 
-  @Override
-  public SimpleRegression createRegressionModel(String variableName, double[] indexedVariableData) {
-    SimpleRegression regression = new SimpleRegression();
+  /**
+   * Creates a regression model using the indexed variable data.
+   *
+   * @param indexedVariableData the array of indexed variable data
+   * @return an array of regression coefficients
+   */
+  public double[] createRegressionModel(double[] indexedVariableData) {
+    XYSeries series = new XYSeries("Regression Data");
     for (int i = 0; i < indexedVariableData.length; i++) {
-      regression.addData(indexedVariableData[i], priceData[i]);
+      series.add(indexedVariableData[i], priceData[i]);
     }
-    return regression;
-  }
+    XYSeriesCollection dataset = new XYSeriesCollection(series);
+    double[] coefficients = Regression.getOLSRegression(dataset, 0);
 
-  private String generateSimpleDescription(SimpleRegression regression, String variableName) {
-    return String.format("Variable: %s%nR: %.2f%nR-square: %.2f%n",
-        variableName, regression.getR(), regression.getRSquare()
-    );
+    return coefficients;
   }
 
   /**
-   * Method for getting a simple description of the linear regression analysis of a specific stock.
+   * Generates a simple description of the regression analysis.
    *
-   * @return a string with the description of the linear regression analysis.
+   * @param coefficients the regression coefficients
+   * @param variableName the name of the variable
+   * @return a string description of the regression analysis
    */
-  @Override
-  public String generateDescription(SimpleRegression linearRegression, String variableName) {
-    String percentCharacter = "%";
-    return String.format("The R value for the variable %s is: %.2f.%n"
-        + "R is the Pearson's product moment correlation coefficient. It measures the linear"
-        + "relationship between two variables. %nThe coefficient ranges from -1 to 1, where: %n -1"
-        + "indicates a perfect negative linear relationship.%n 1 indicates a perfect positive"
-        + "linear relationship.%n 0 indicates no linear relationship.%n The R-square is: %.2f.%n"
-        + "R-square is the coefficient of determination. It represents the proportion of the"
-        + "variance in the dependent variable that is predictable from the independent variables."
-        + "It indicates how well the independent variables explain the variability of the dependent"
-        + "variable.%n R-square values range from 0 to 1, where: %n 0 indicates that the "
-        + "independent variables do not explain any of the variability of the dependent variable.%n"
-        + "1 indicates that the independent variables perfectly explain all the variability of the"
-        + "dependent variable.%n The slope is: %.2f.%n The slope represents the rate of change in"
-        + "the dependent variable for a one-unit change in the independent variable. It quantifies"
-        + "the effect of the independent variable on the dependent variable.%n The significance is:"
-        + "%.2f.%n Significance is the statistical significance of the estimated coefficients. It"
-        + "indicated whether these coefficients are reliably different from 0.%n A significance"
-        + "level less than 0.05 / 5%s indicates that the coefficient is statistically significant,"
-        + "suggesting that there is sufficient evidence to reject the null hypothesis that the"
-        + "coefficient is equal to 0.",
-        variableName, linearRegression.getR(), linearRegression.getRSquare(),
-        linearRegression.getSlope(), linearRegression.getSignificance(), percentCharacter
-    );
+  private String generateSimpleDescription(double[] coefficients, String variableName) {
+    double slope = coefficients[1];
+    double intercept = coefficients[0];
+    return String.format("Variable: %s%nIntercept: %.2f%nSlope: %.2f%n",
+        variableName, intercept, slope);
   }
 
+  /**
+   * Generates a detailed description of the regression analysis.
+   *
+   * @param coefficients the regression coefficients
+   * @param variableName the name of the variable
+   * @return a string description of the regression analysis
+   */
   @Override
-  public PricePrediction generatePrediction(SimpleRegression regression, String variableName, double variableData) {
-    double predictedPrice = regression.predict(variableData);
+  public String generateDescription(double[] coefficients, String variableName) {
+    double slope = coefficients[1];
+    double intercept = coefficients[0];
+    return String.format("The slope for the variable %s is: %.2f.%n"
+            + "The intercept is: %.2f.%n The slope represents the rate of change in"
+            + "the dependent variable for a one-unit change in the independent variable. It quantifies"
+            + "the effect of the independent variable on the dependent variable.%n",
+        variableName, slope, intercept);
+  }
+
+  /**
+   * Generates a price prediction based on the regression analysis.
+   *
+   * @param coefficients the regression coefficients
+   * @param variableName the name of the variable
+   * @param variableData the data for the variable
+   * @return a PricePrediction object containing the prediction
+   */
+  @Override
+  public PricePrediction generatePrediction(double[] coefficients, String variableName, double variableData) {
+    double intercept = coefficients[0];
+    double slope = coefficients[1];
+    double predictedPrice = intercept + slope * variableData;
     return new PricePrediction(
         variableName,
         incomeStatements.getLast().getFiscalDateEnding(),
         priceData[priceData.length - 1],
         predictedPrice,
-      "The predicted price is calculated by the linear regression model. The model uses the"
-          + "historical data of the stock to predict the future price of the stock. The prediction"
-          + "is based on the relationship between the independent variable and the dependent"
-          + "variable. The model uses the slope of the regression line to predict the future price"
-          + "of the stock."
+        "The predicted price is calculated by the linear regression model. The model uses the"
+            + "historical data of the stock to predict the future price of the stock. The prediction"
+            + "is based on the relationship between the independent variable and the dependent"
+            + "variable. The model uses the slope of the regression line to predict the future price"
+            + "of the stock."
     );
   }
 
+  /**
+   * Runs the regression analysis for a specific variable.
+   *
+   * @param variable the income statement variable
+   * @return a RegressionResult object containing the analysis results
+   */
   @Override
   public RegressionResult runAnalysis(IncomeStatementVariable variable) {
     double[] indexedVariableData = indexVariableData(fetchVariableData(variable));
-    SimpleRegression regression = createRegressionModel(variable.name(), indexedVariableData);
+    double[] coefficients = createRegressionModel(indexedVariableData);
     return new RegressionResult(
         variable.name(),
-        regression,
-        generateSimpleDescription(regression, variable.name()),
-        //generateDescription(regression, variable.name()),
-        generatePrediction(regression, variable.name(),
-            indexedVariableData[indexedVariableData.length - 1]
-        )
+        coefficients,
+        generateSimpleDescription(coefficients, variable.name()),
+        generatePrediction(coefficients, variable.name(), indexedVariableData[indexedVariableData.length - 1]),
+        priceData,
+        calculatePredictedValues(coefficients, indexedVariableData)
     );
+  }
+
+  /**
+   * Calculates the predicted values based on the regression coefficients.
+   *
+   * @param coefficients the regression coefficients
+   * @param indexedVariableData the indexed variable data
+   * @return an array of predicted values
+   */
+  private double[] calculatePredictedValues(double[] coefficients, double[] indexedVariableData) {
+    double intercept = coefficients[0];
+    double slope = coefficients[1];
+    double[] predictedValues = new double[indexedVariableData.length];
+    for (int i = 0; i < indexedVariableData.length; i++) {
+      predictedValues[i] = intercept + slope * indexedVariableData[i];
+    }
+    return predictedValues;
   }
 }

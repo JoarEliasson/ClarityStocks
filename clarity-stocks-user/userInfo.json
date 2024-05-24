@@ -1,15 +1,8 @@
 {
-  "userName": "Anton",
+  "userName": "UserName",
   "favoriteStocks": [
-    "AACT-U",
-    "ACCD",
-    "ACHL",
-    "NCDL",
-    "ABEV",
-    "AMD",
-    "KWE",
-    "AACIU",
-    "AVGO"
-  ],
-  "isLoggedIn": true
+    "MSFT",
+    "AAPL",
+    "TSLA"
+  ]
 }

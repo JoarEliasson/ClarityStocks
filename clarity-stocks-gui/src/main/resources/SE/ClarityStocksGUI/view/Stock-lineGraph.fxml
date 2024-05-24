@@ -7,7 +7,7 @@
   xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="SE.ClarityStocksGUI.controller.graph.GUIStockLineGraphController"
 
-  prefHeight="350.0" prefWidth="600.0">
+  prefHeight="375.0" prefWidth="600.0">
   <xAxis>
     <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
   </xAxis>

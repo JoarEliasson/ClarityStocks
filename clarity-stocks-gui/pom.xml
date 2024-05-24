@@ -78,22 +78,16 @@
       <artifactId>virtualizedfx</artifactId>
       <version>11.9.3</version>
     </dependency>
-    <dependency>
-      <groupId>eu.hansolo</groupId>
-      <artifactId>toolbox</artifactId>
-      <version>21.0.5</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>eu.hansolo</groupId>
-      <artifactId>toolboxfx</artifactId>
-      <version>21.0.3</version>
-      <scope>runtime</scope>
-    </dependency>
+
     <dependency>
       <groupId>eu.hansolo</groupId>
       <artifactId>Medusa</artifactId>
       <version>11.7</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.hansolo</groupId>
+      <artifactId>tilesfx</artifactId>
+      <version>21.0.3</version>
     </dependency>
     <dependency>
       <groupId>com.claritystocks</groupId>

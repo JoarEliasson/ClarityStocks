@@ -14,6 +14,10 @@ public class TimeSeriesDaily {
     this.symbol = symbol;
   }
 
+  public double getLatestClose() {
+    return dailyData.getLast().getClose();
+  }
+
   public List<DailyDataPoint> getDailyDataInRange(String startDate, String endDate) {
     if (startDate == null || endDate == null) {
       return dailyData;
@@ -66,6 +70,20 @@ public class TimeSeriesDaily {
       dataLastWeek.add(reversedData.get(i));
     }
     return dataLastWeek.reversed();
+  }
+
+  public List<String> getGoldenCrossEvents() {
+    List<DailyDataPoint> dailyDataPointsInRange = getDailyDataLastYear();
+    List<DailyDataPoint> ma50 = calculateCenteredMovingAverage(dailyDataPointsInRange, 50);
+    List<DailyDataPoint> ma200 = calculateTrailingMovingAverage(dailyDataPointsInRange, 200);
+    List<String> goldenCrossEvents = new ArrayList<>();
+    for (int i = 0; i < dailyDataPointsInRange.size(); i++) {
+      if (i > 0 && ma50.get(i).getClose() > ma200.get(i).getClose() &&
+          ma50.get(i - 1).getClose() < ma200.get(i - 1).getClose()) {
+        goldenCrossEvents.add(dailyDataPointsInRange.get(i).getDate());
+      }
+    }
+    return goldenCrossEvents;
   }
 
   public List<String> getGoldenCrossEvents(String startDate, String endDate) {

@@ -26,7 +26,7 @@
             <VBox spacing="10">
               <StackPane>
                 <VBox alignment="CENTER">
-                  <Rectangle fill="#d9d9d9" height="400" width="650" fx:id="graphBackground"
+                  <Rectangle fill="#d9d9d9" height="475" width="650" fx:id="graphBackground"
                     styleClass="backgroundPanelStockView"/>
                 </VBox>
                 <VBox alignment="CENTER">
@@ -41,7 +41,24 @@
                       <ToggleButton>1Y</ToggleButton>
                       <ToggleButton styleClass="historyLastButton">MAX</ToggleButton>
                     </HBox>
-                    <VBox prefWidth="340" alignment="CENTER_RIGHT">
+                    <Region prefWidth="60"/>
+                    <VBox spacing="5" fx:id="categoryLabels">
+                      <HBox spacing="7">
+                        <Rectangle fill="gold" height="15" width="15" styleClass="graphCategoryLabel"/>
+                        <Label>MA50</Label>
+                      </HBox>
+                      <HBox spacing="7">
+                        <Rectangle fill="darkgrey" height="15" width="15"  styleClass="graphCategoryLabel"/>
+                        <Label>MA200</Label>
+                      </HBox>
+                    </VBox>
+                    <VBox>
+                      <padding>
+                        <Insets left="10" top="5"/>
+                      </padding>
+                      <Button styleClass="explanationButton" fx:id="goldenCrossExplain" onAction="#goldenCrossExplain">?</Button>
+                    </VBox>
+                    <VBox prefWidth="180" alignment="CENTER_RIGHT">
                       <ComboBox styleClass="analysisSelector" fx:id="analysisSelector" onAction="#analysisSelected"/>
                     </VBox>
                   </HBox>
@@ -55,7 +72,7 @@
 
             <VBox alignment="CENTER" spacing="10">
               <StackPane>
-                <Rectangle fill="#d9d9d9" height="400" width="425" fx:id="statBackground"
+                <Rectangle fill="#d9d9d9" height="475" width="425" fx:id="statBackground"
                   styleClass="backgroundPanelStockView"/>
                 <fx:include source="Ratings-tile.fxml" fx:id="ratingsTile"/>
               </StackPane>
@@ -70,11 +87,13 @@
               <fx:include source="Info-tile.fxml" fx:id="infoTile"/>
             </StackPane>
           </VBox>
+
+          <!-- regressionTile -->
           <HBox alignment="CENTER">
             <StackPane>
-              <Rectangle fill="#d9d9d9" height="250" width="250" fx:id="dialTileBackground"
+              <Rectangle fill="#d9d9d9" height="600" width="600" fx:id="regressionTileBackground"
                 styleClass="backgroundPanelStockView"/>
-              <fx:include source="DialTileTEST.fxml"/>
+              <fx:include source="Regression-tile.fxml" fx:id="regressionTile"/>
             </StackPane>
 
 

@@ -1,12 +1,6 @@
 package model.stock;
 
-import common.evaluations.BusinessPerformanceEvaluation;
-import common.evaluations.CompanyGrowthEvaluation;
-import common.evaluations.CompanySizeEvaluation;
-import common.evaluations.DividendEvaluation;
-import common.evaluations.GoldenCrossEvaluation;
-import common.evaluations.HighAndLow;
-import common.evaluations.PERatioEvaluation;
+import analysis.graph.GoldenCrossAnalysis;
 import analysis.regression.RegressionAnalysis;
 import common.data.fundamental.BalanceSheet;
 import common.data.fundamental.CashFlowReport;
@@ -15,6 +9,14 @@ import common.data.fundamental.EarningsData;
 import common.data.fundamental.IncomeStatement;
 import common.data.series.TimeSeriesDaily;
 import common.data.series.TimeSeriesMonthly;
+import common.evaluations.DividendEvaluation;
+import common.evaluations.rating.AnalystPredictionEvaluation;
+import common.evaluations.rating.BusinessPerformanceEvaluation;
+import common.evaluations.rating.CompanyGrowthEvaluation;
+import common.evaluations.rating.CompanySizeEvaluation;
+import common.evaluations.rating.HighAndLowEvaluation;
+import common.evaluations.rating.PERatioEvaluation;
+import common.evaluations.rating.PriceToPerformance;
 import java.util.Comparator;
 import java.util.List;
 
@@ -42,17 +44,19 @@ public class StockData {
   /**
    * Evaluation variables.
    */
-  private HighAndLow highAndLow;
+  private HighAndLowEvaluation highAndLow;
   private PERatioEvaluation peRatioEvaluation;
+  private PriceToPerformance priceToPerformance;
   private CompanySizeEvaluation companySizeEvaluation;
   private CompanyGrowthEvaluation companyGrowthEvaluation;
   private BusinessPerformanceEvaluation businessPerformanceEvaluation;
   private DividendEvaluation dividendEvaluation;
-  private GoldenCrossEvaluation goldenCrossEvaluation;
+  private AnalystPredictionEvaluation analystPredictionEvaluation;
 
   /**
    * Analysis variables.
    */
+  private GoldenCrossAnalysis goldenCrossAnalysis;
   private RegressionAnalysis regressionAnalysis;
 
   /**
@@ -61,15 +65,19 @@ public class StockData {
    */
   public void runEvaluations() {
     evaluatePERatio();
+    evaluatePriceToPerformance();
     evaluateCompanySize();
     evaluateCompanyGrowth();
     evaluateBusinessPerformance();
     evaluateDividend();
-    evaluateGoldenCross();
     evaluateHighAndLow();
+    evaluatePriceToPerformance();
+    runGoldenCrossAnalysis();
+    evaluateAnalystsPredictions();
   }
 
   public void runAnalyses() {
+    runGoldenCrossAnalysis();
     runRegressionAnalysis();
   }
 
@@ -81,6 +89,17 @@ public class StockData {
   private void evaluatePERatio() {
     peRatioEvaluation = new PERatioEvaluation(
         companyOverview.getSymbol(), companyOverview.getPERatio()
+    );
+  }
+
+  /**
+   * This method creates a new instance of {@code PriceToPerformance} representing the evaluation.
+   * The result is stored as an instance variable.
+   * @see PriceToPerformance for the evaluation details.
+   */
+  private void evaluatePriceToPerformance() {
+    priceToPerformance = new PriceToPerformance(
+        peRatioEvaluation, companyOverview.getSector()
     );
   }
 
@@ -117,7 +136,8 @@ public class StockData {
   private void evaluateCompanySize() {
     companySizeEvaluation = new CompanySizeEvaluation(
           companyOverview.getSymbol(),
-          companyOverview.getRevenueTTM()
+          companyOverview.getRevenueTTM(),
+          companyOverview.getMarketCapitalization()
     );
   }
 
@@ -131,36 +151,63 @@ public class StockData {
         companyOverview.getSymbol(),
         companyOverview.getDividendPerShare(),
         companyOverview.getDividendYield(),
-        companyOverview.getFiscalYearEnd()
-    );
-  }
-
-  /**
-   * This method creates a new instance of {@code GoldenCrossEvaluation} representing the evaluation.
-   * The result is stored as an instance variable.
-   * @see GoldenCrossEvaluation for the evaluation details.
-   */
-  private void evaluateGoldenCross() {
-    goldenCrossEvaluation = new GoldenCrossEvaluation(
-        companyOverview.getSymbol(),
-        companyOverview.getMovingAverage50(),
-        companyOverview.getMovingAverage200()
+        companyOverview.getFiscalYearEnd(),
+        cashFlowReports
     );
   }
 
   /**
    * This method creates a new instance of {@code HighAndLow} representing the evaluation. The result
    * is stored as an instance variable.
-   * @see HighAndLow for the evaluation details.
+   * @see HighAndLowEvaluation for the evaluation details.
    */
   private void evaluateHighAndLow() {
-    highAndLow = new HighAndLow(
+    highAndLow = new HighAndLowEvaluation(
         companyOverview.getSymbol(),
         companyOverview.getWeek52High(),
-        companyOverview.getWeek52Low()
+        companyOverview.getWeek52Low(),
+        timeSeriesDaily.getLatestClose()
+
     );
   }
 
+  /**
+   * This method creates a new instance of {@code AnalystPredictionEvaluation} representing the
+   * evaluation. The result is stored as an instance variable.
+   * @see AnalystPredictionEvaluation for the evaluation details.
+   */
+  private void evaluateAnalystsPredictions() {
+    analystPredictionEvaluation = new AnalystPredictionEvaluation(
+        companyOverview.getSymbol(),
+        timeSeriesDaily.getLatestClose(),
+        companyOverview.getAnalystTargetPrice(),
+        companyOverview.getAnalystRatingStrongBuy(),
+        companyOverview.getAnalystRatingBuy(),
+        companyOverview.getAnalystRatingHold(),
+        companyOverview.getAnalystRatingSell(),
+        companyOverview.getAnalystRatingStrongSell()
+    );
+  }
+
+  /**
+   * This method creates a new instance of {@code GoldenCrossEvaluation} representing the evaluation.
+   * The result is stored as an instance variable.
+   * @see GoldenCrossAnalysis for the evaluation details.
+   */
+  private void runGoldenCrossAnalysis() {
+    goldenCrossAnalysis = new GoldenCrossAnalysis(
+        companyOverview.getSymbol(),
+        companyOverview.getMovingAverage50(),
+        companyOverview.getMovingAverage200(),
+        timeSeriesDaily.getGoldenCrossEvents()
+    );
+  }
+
+  /**
+   * This method creates a new instance of {@code RegressionAnalysis} representing the analysis.
+   * The result is stored as an instance variable.
+   * @see RegressionAnalysis for the analysis details.
+   */
   private void runRegressionAnalysis() {
     regressionAnalysis = new RegressionAnalysis(
         companyOverview.getSymbol(),
@@ -244,12 +291,16 @@ public class StockData {
     this.cashFlowReports = cashFlowReports;
   }
 
-  public HighAndLow getHighAndLow() {
+  public HighAndLowEvaluation getHighAndLow() {
     return highAndLow;
   }
 
   public PERatioEvaluation getPeRatioEvaluation() {
     return peRatioEvaluation;
+  }
+
+  public PriceToPerformance getPriceToPerformance() {
+    return priceToPerformance;
   }
 
   public CompanySizeEvaluation getCompanySizeEvaluation() {
@@ -268,8 +319,16 @@ public class StockData {
     return dividendEvaluation;
   }
 
-  public GoldenCrossEvaluation getGoldenCrossEvaluation() {
-    return goldenCrossEvaluation;
+  public AnalystPredictionEvaluation getAnalystPredictionEvaluation() {
+    return analystPredictionEvaluation;
+  }
+
+  public GoldenCrossAnalysis getGoldenCrossAnalysis() {
+    return goldenCrossAnalysis;
+  }
+
+  public RegressionAnalysis getRegressionAnalysis() {
+    return regressionAnalysis;
   }
 
   @Override
@@ -280,7 +339,7 @@ public class StockData {
         + "Golden Cross Evaluation: %s%nHigh and Low: %s%nEarnings Data: %s%n"
         + "Cash Flow Reports: %s%nBalance Sheets: %s%nIncome Statements: %s%n",
         companyOverview, timeSeriesDaily, peRatioEvaluation, businessPerformanceEvaluation,
-        dividendEvaluation, goldenCrossEvaluation, highAndLow, earningsData, cashFlowReports,
+        dividendEvaluation, goldenCrossAnalysis, highAndLow, earningsData, cashFlowReports,
         balanceSheets, incomeStatements
     );
   }

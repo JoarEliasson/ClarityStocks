@@ -23,6 +23,8 @@ public class InfoTile {
   @FXML
   private Label sectorLabel;
   @FXML
+  private Label exchangeLabel;
+  @FXML
   private Label descriptionLabel;
   @FXML
   private ImageView favoriteIcon;
@@ -77,6 +79,9 @@ public class InfoTile {
 
   public void setSector(String text) {
     sectorLabel.setText(text);
+  }
+  public void setExchange(String text){
+    exchangeLabel.setText(text);
   }
 
   public void setDescription(String text) {

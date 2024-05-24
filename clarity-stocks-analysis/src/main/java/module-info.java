@@ -1,5 +1,6 @@
 module clarity.stocks.analysis {
   requires clarity.stocks.common;
-  requires commons.math3;
+  requires org.jfree.jfreechart;
   exports analysis.regression;
+  exports analysis.graph;
 }

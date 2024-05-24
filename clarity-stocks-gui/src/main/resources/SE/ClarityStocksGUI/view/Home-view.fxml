@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.Region?>
 <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SE.ClarityStocksGUI.controller.GUIHomeController">
   <Label fx:id="messageLabel" styleClass="message-label" />
   <StackPane VBox.vgrow="ALWAYS">
@@ -25,25 +26,32 @@
       <Text fx:id="clarityStocksText" styleClass="title-text" text="Clarity Stocks" />
     </VBox>
     <BorderPane fx:id="layout">
-      <top>
-        <HBox alignment="CENTER" minWidth="1150.0" prefHeight="247.0" prefWidth="1200.0" style="-fx-padding: 10;">
-          <fx:include source="TopListsView.fxml" />
-        </HBox>
-      </top>
+
+       <center>
+         <HBox alignment="CENTER">
+           <HBox alignment="BASELINE_LEFT" minHeight="400.0" minWidth="540.0" prefHeight="455.0"
+             prefWidth="540.0" spacing="50" style="-fx-padding: 20;">
+             <fx:include source="FavoriteListView.fxml"/>
+           </HBox>
+           <Region minWidth="200"/>
+           <HBox alignment="BASELINE_RIGHT" prefHeight="540.0" prefWidth="510.0" style="-fx-padding: 10;">
+             <fx:include source="TopListsView.fxml"/>
+           </HBox>
+         </HBox>
+       </center>
+
       <bottom>
-         <HBox alignment="CENTER" minHeight="0.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;">
-               <children>
-               <Button alignment="CENTER" onAction="#handleUserInfo" text="Change name">
-                     <HBox.margin>
-                        <Insets bottom="25.0" left="1075.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+        <HBox alignment="CENTER" minHeight="0.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;">
+          <children>
+            <Button alignment="CENTER" onAction="#handleUserInfo" text="Change name">
+              <HBox.margin>
+                <Insets bottom="25.0" left="1075.0" />
+              </HBox.margin>
+            </Button>
+          </children>
+        </HBox>
       </bottom>
-         <center>
-       <fx:include fx:id="favoriteList" source="FavoriteListView.fxml" BorderPane.alignment="CENTER" />
-         </center>
+
     </BorderPane>
   </StackPane>
    <HBox alignment="CENTER" minHeight="50.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;" />

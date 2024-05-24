@@ -10,7 +10,7 @@ public class TopListDataPoint {
   private String symbol;
   private double currentPrice;
   private double changeAmount;
-  private String changePercentage;
+  private double changePercentage;
   private long tradingVolume;
 
   public TopListDataPoint(String symbol) {
@@ -41,12 +41,19 @@ public class TopListDataPoint {
     this.changeAmount = changeAmount;
   }
 
-  public String getChangePercentage() {
+  public double getChangePercentage() {
     return changePercentage;
   }
 
-  public void setChangePercentage(String changePercentage) {
-    this.changePercentage = changePercentage;
+  public void setChangePercentage(String changePercentageString) {
+    changePercentageString = changePercentageString.replace("%", "");
+    try {
+      double percentageDouble = Double.parseDouble(changePercentageString);
+      this.changePercentage = Math.round(percentageDouble * 10.0) / 10.0;
+
+    } catch (NumberFormatException e) {
+      System.err.println("Invalid number format: " + changePercentageString);
+    }
   }
 
   public long getTradingVolume() {

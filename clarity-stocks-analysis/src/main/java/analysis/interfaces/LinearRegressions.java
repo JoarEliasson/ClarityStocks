@@ -3,7 +3,7 @@ package analysis.interfaces;
 import analysis.regression.PricePrediction;
 import analysis.regression.RegressionResult;
 import common.enums.IncomeStatementVariable;
-import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 
 /**
  * Interface which all the linear regression calculator classes implements. The interface contains
@@ -17,11 +17,11 @@ public interface LinearRegressions {
 
   double[] indexVariableData(long[] variableData);
 
-  SimpleRegression createRegressionModel(String variableName, double[] indexedVariableData);
+  double[] createRegressionModel(double[] indexedVariableData);
 
-  String generateDescription(SimpleRegression regression, String variableName);
+  String generateDescription(double[] coefficients, String variableName);
 
-  PricePrediction generatePrediction(SimpleRegression regression, String variableName, double variableData);
+  PricePrediction generatePrediction(double[] coefficients, String variableName, double variableData);
 
   RegressionResult runAnalysis(IncomeStatementVariable variable);
 }

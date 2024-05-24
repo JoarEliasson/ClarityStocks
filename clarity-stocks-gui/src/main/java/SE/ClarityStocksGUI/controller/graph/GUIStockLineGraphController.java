@@ -61,7 +61,7 @@ public class GUIStockLineGraphController {
   private void styleChart() {
     for (XYChart.Series<String, Number> s : chart.getData()) {
       for (XYChart.Data<String, Number> data : s.getData()) {
-        Tooltip tooltip = new Tooltip("Date: " + data.getXValue() + "\nValue: " + data.getYValue());
+        Tooltip tooltip = new Tooltip("Date: " + data.getXValue() + "\nValue: $" + data.getYValue());
         tooltip.setShowDelay(Duration.seconds(0));
         tooltip.setHideDelay(Duration.seconds(0));
         Tooltip.install(data.getNode(), tooltip);
@@ -144,12 +144,17 @@ public class GUIStockLineGraphController {
 
   }
 
+  public boolean getGoldenCrossActive(){
+    return goldenCrossActive;
+  }
+
   public void showGoldenCross(){
     if(!goldenCrossActive){
       Platform.runLater(new Runnable() {
         @Override
         public void run() {
           chart.getData().addAll(shortTermSeries, longTermSeries);
+          controller.setCategoryLabelsVisibility(true);
           goldenCrossActive = true;
         }
       });
@@ -158,6 +163,7 @@ public class GUIStockLineGraphController {
         @Override
         public void run() {
           chart.getData().removeAll(shortTermSeries, longTermSeries);
+          controller.setCategoryLabelsVisibility(false);
           goldenCrossActive = false;
         }
       });
