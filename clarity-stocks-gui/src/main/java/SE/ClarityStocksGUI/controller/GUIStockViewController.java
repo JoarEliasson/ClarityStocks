@@ -69,8 +69,6 @@ public class GUIStockViewController {
   @FXML
   private Rectangle statBackground;
   @FXML
-  private Rectangle dialTileBackground;
-  @FXML
   private Rectangle regressionTileBackground;
   @FXML
   private RegressionTile regressionTileController;
@@ -102,7 +100,6 @@ public class GUIStockViewController {
     descBackground.setEffect(Effects.getDropShadow());
     statBackground.setEffect(Effects.getDropShadow());
     graphBackground.setEffect(Effects.getDropShadow());
-    dialTileBackground.setEffect(Effects.getDropShadow());
     regressionTileBackground.setEffect(Effects.getDropShadow());
     categoryLabels.setVisible(false);
 
@@ -415,6 +412,10 @@ public class GUIStockViewController {
         stockData.getTimeSeriesDaily().getDailyData().getLast().getClose(),
         comparePrice);
   }
+  @FXML
+  public void goldenCrossExplain(){
+    showExplanationPage("goldenCross");
+  }
 
   @FXML
   public void showExplanationPage(String element){
@@ -470,6 +471,13 @@ public class GUIStockViewController {
             + "\n\n"
             + stockData.getAnalystPredictionEvaluation().getEvaluationMethodInfo();
         companyText = stockData.getAnalystPredictionEvaluation().getResultDescription();
+        break;
+      case "goldenCross":
+        mainTitle   = stockData.getGoldenCrossAnalysis().getAnalysisTitle();
+        generalText = stockData.getGoldenCrossAnalysis().getGeneralAnalysisInfo()
+            + "\n\n"
+            + stockData.getGoldenCrossAnalysis().getAnalysisMethodInfo();
+        companyText = stockData.getGoldenCrossAnalysis().getResultDescription();
         break;
 
       default:

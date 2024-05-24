@@ -56,7 +56,7 @@
                       <padding>
                         <Insets left="10" top="5"/>
                       </padding>
-                      <Button styleClass="explanationButton" fx:id="goldenCrossExplain">?</Button>
+                      <Button styleClass="explanationButton" fx:id="goldenCrossExplain" onAction="#goldenCrossExplain">?</Button>
                     </VBox>
                     <VBox prefWidth="180" alignment="CENTER_RIGHT">
                       <ComboBox styleClass="analysisSelector" fx:id="analysisSelector" onAction="#analysisSelected"/>
