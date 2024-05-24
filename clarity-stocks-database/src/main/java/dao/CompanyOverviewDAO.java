@@ -150,7 +150,7 @@ public class CompanyOverviewDAO {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      System.err.println("Error in insertCompanyOverview: " + e.getMessage());
     }
 
   }
@@ -330,24 +330,6 @@ public class CompanyOverviewDAO {
       e.printStackTrace();
       return null;
     }
-  }
-
-  public String fetchLatestUpdate(String symbol) {
-    try {
-      Result<Record> result = connectionContext.fetch(
-          "select dateretrieved "
-              + "from fundamentaldata "
-              + "where stockSymbol = ?",
-          symbol
-      );
-
-      Date dateRetrieved = result.getValue(0, DSL.field("dateretrieved", Date.class));
-      return dateRetrieved.toString();
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-    }
-
   }
 
 

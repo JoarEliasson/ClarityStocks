@@ -119,7 +119,7 @@ public class IncomeStatementDAO {
         return null;
       }
 
-      for (Record record : result) {
+      for (org.jooq.Record record : result) {
         IncomeStatement incomeStatement = new IncomeStatement(symbol);
 
         incomeStatement.setFiscalDateEnding(record.getValue(DSL.field(
@@ -129,76 +129,76 @@ public class IncomeStatementDAO {
             "reported_currency", String.class))
         );
         incomeStatement.setGrossProfit(record.getValue(DSL.field(
-            "gross_profit", BigInteger.class)).longValue()
+            "gross_profit", Long.class))
         );
         incomeStatement.setTotalRevenue(record.getValue(DSL.field(
-            "total_revenue", BigInteger.class)).longValue()
+            "total_revenue", Long.class))
         );
         incomeStatement.setCostOfRevenue(record.getValue(DSL.field(
-            "cost_of_revenue", BigInteger.class)).longValue()
+            "cost_of_revenue", Long.class))
         );
         incomeStatement.setCostOfGoodsAndServicesSold(record.getValue(DSL.field(
-            "cost_of_goods_and_services_sold", BigInteger.class)).longValue()
+            "cost_of_goods_and_services_sold", Long.class))
         );
         incomeStatement.setOperatingIncome(record.getValue(DSL.field(
-            "operating_income", BigInteger.class)).longValue()
+            "operating_income", Long.class))
         );
         incomeStatement.setSellingGeneralAndAdministrative(record.getValue(DSL.field(
-            "selling_general_and_administrative", BigInteger.class)).longValue()
+            "selling_general_and_administrative", Long.class))
         );
         incomeStatement.setResearchAndDevelopment(record.getValue(DSL.field(
-            "research_and_development", BigInteger.class)).longValue()
+            "research_and_development", Long.class))
         );
         incomeStatement.setOperatingExpenses(record.getValue(DSL.field(
-            "operating_expense", BigInteger.class)).longValue()
+            "operating_expenses", Long.class))
         );
         incomeStatement.setInvestmentIncomeNet(record.getValue(DSL.field(
-            "investment_income_net", BigInteger.class)).longValue()
+            "investment_income_net", Long.class))
         );
         incomeStatement.setNetInterestIncome(record.getValue(DSL.field(
-            "net_interest_income", BigInteger.class)).longValue()
+            "net_interest_income", Long.class))
         );
         incomeStatement.setInterestIncome(record.getValue(DSL.field(
-            "interest_income", BigInteger.class)).longValue()
+            "interest_income", Long.class))
         );
         incomeStatement.setInterestExpense(record.getValue(DSL.field(
-            "interest_expense", BigInteger.class)).longValue()
+            "interest_expense", Long.class))
         );
         incomeStatement.setNonInterestIncome(record.getValue(DSL.field(
-            "non_interest_income", BigInteger.class)).longValue()
+            "non_interest_income", Long.class))
         );
         incomeStatement.setOtherNonOperatingIncome(record.getValue(DSL.field(
-            "other_non_operating_income", BigInteger.class)).longValue()
+            "other_non_operating_income", Long.class))
         );
         incomeStatement.setDepreciation(record.getValue(DSL.field(
-            "depreciation", BigInteger.class)).longValue()
+            "depreciation", Long.class))
         );
         incomeStatement.setDepreciationAndAmortization(record.getValue(DSL.field(
-            "depreciation_and_amortization", BigInteger.class)).longValue()
+            "depreciation_and_amortization", Long.class))
         );
         incomeStatement.setIncomeBeforeTax(record.getValue(DSL.field(
-            "income_before_tax", BigInteger.class)).longValue()
+            "income_before_tax", Long.class))
         );
         incomeStatement.setIncomeTaxExpense(record.getValue(DSL.field(
-            "income_tax_expense", BigInteger.class)).longValue()
+            "income_tax_expense", Long.class))
         );
         incomeStatement.setInterestAndDebtExpense(record.getValue(DSL.field(
-            "interest_and_debt_expense", BigInteger.class)).longValue()
+            "interest_and_debt_expense", Long.class))
         );
         incomeStatement.setNetIncomeFromContinuingOperations(record.getValue(DSL.field(
-            "net_income_from_continuing_operations", BigInteger.class)).longValue()
+            "net_income_from_continuing_operations", Long.class))
         );
         incomeStatement.setComprehensiveIncomeNetOfTax(record.getValue(DSL.field(
-            "comprehensive_income_net_of_tax", BigInteger.class)).longValue()
+            "comprehensive_income_net_of_tax", Long.class))
         );
         incomeStatement.setEBIT(record.getValue(DSL.field(
-            "ebit", BigInteger.class)).longValue()
+            "ebit", Long.class))
         );
         incomeStatement.setEBITDA(record.getValue(DSL.field(
-            "ebitda", BigInteger.class)).longValue()
+            "ebitda", Long.class))
         );
         incomeStatement.setNetIncome(record.getValue(DSL.field(
-            "net_income", BigInteger.class)).longValue()
+            "net_income", Long.class))
         );
 
         incomeStatements.add(incomeStatement);
