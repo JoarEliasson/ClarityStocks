@@ -48,7 +48,7 @@ public class DBConnectionPool {
       config.addDataSourceProperty( "prepStmtCacheSize" , "2500" );
       config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
       config.addDataSourceProperty("sslmode", "require");
-      config.setMaximumPoolSize(10);
+      config.setMaximumPoolSize(5);
       dataSource = new HikariDataSource(config);
     } catch (Exception e) {
       System.out.println("Error creating HikariCP data source: " + e.getCause().getMessage());

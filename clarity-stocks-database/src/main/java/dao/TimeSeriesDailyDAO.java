@@ -69,7 +69,7 @@ public class TimeSeriesDailyDAO {
       Result<Record> result = connectionContext.select()
         .from("time_series_daily")
         .where("stock_Symbol = ?", symbol)
-        .orderBy(DSL.field("date").asc())
+        .orderBy(DSL.field("date").desc())
       .fetch();
 
       if (result.isEmpty()) {
