@@ -64,9 +64,9 @@ public class InfoTile {
     favoriteImages = new ArrayList<>();
     try {
       Image notSelected = new Image(getClass().getResource(
-          "/com/claritystocks/view/favorite-star-not-selected.png").toExternalForm());
+          "/com/claritystocks/view/images/favorite-star-not-selected.png").toExternalForm());
       Image selected = new Image(getClass().getResource(
-          "/com/claritystocks/view/favorite-star-selected.png").toExternalForm());
+          "/com/claritystocks/view/images/favorite-star-selected.png").toExternalForm());
       favoriteImages.add(notSelected);
       favoriteImages.add(selected);
     } catch (Exception e) {

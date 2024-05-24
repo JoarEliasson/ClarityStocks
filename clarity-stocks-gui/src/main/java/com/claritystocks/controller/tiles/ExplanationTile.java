@@ -44,7 +44,7 @@ public class ExplanationTile {
 
   private void setUpCloseButton(){
     Image image = new Image(
-        getClass().getResource("/com/claritystocks/view/close.png").toExternalForm());
+        getClass().getResource("/com/claritystocks/view/images/close.png").toExternalForm());
     closeButton.setImage(image);
 
     closeButton.setFitWidth(25);

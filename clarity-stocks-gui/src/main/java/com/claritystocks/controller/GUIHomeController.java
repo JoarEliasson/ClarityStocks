@@ -123,7 +123,7 @@ public class GUIHomeController {
   private void handleUserInfo() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(
-          "/com/claritystocks/view/ChangeUserNameDialog.fxml"));
+          "/com/claritystocks/view/Dialog-name-change.fxml"));
       Parent root = loader.load();
 
       ChangeUserNameDialogController dialogController = loader.getController();

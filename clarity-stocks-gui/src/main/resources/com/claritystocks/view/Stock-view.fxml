@@ -63,7 +63,7 @@
                     </VBox>
                   </HBox>
                   <StackPane>
-                    <fx:include source="Stock-lineGraph.fxml" fx:id="graph"/>
+                    <fx:include source="Stock-graph.fxml" fx:id="graph"/>
                     <ProgressBar fx:id="progress" styleClass="progress-bar-primary"/>
                   </StackPane>
                 </VBox>

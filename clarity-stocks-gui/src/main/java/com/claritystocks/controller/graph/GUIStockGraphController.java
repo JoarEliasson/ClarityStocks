@@ -26,7 +26,7 @@ import model.stock.StockData;
  * @author Douglas Almö Thorsell
  * @see GUIStockViewController
  */
-public class GUIStockLineGraphController {
+public class GUIStockGraphController {
 
   @FXML
   private LineChart<String, Number> chart;
@@ -36,7 +36,7 @@ public class GUIStockLineGraphController {
   private NumberAxis yAxis;
   private StockData stockData;
   private GUIStockViewController controller;
-  private static GUIStockLineGraphController stockLineGraphController;
+  private static GUIStockGraphController stockLineGraphController;
   //private AlphaVantageStock stock;
   private XYChart.Series<String, Number> shortTermSeries;
   private XYChart.Series<String, Number> longTermSeries;
@@ -54,7 +54,7 @@ public class GUIStockLineGraphController {
     yAxis.setForceZeroInRange(false);
   }
 
-  public static GUIStockLineGraphController getInstance() {
+  public static GUIStockGraphController getInstance() {
     return stockLineGraphController;
   }
 

@@ -91,8 +91,8 @@
 
 .searchField {
   -fx-focus-color: #339ACC;
-  -fx-pref-height: 40px; /* Set preferred height */
-  -fx-min-height: 10px; /* Set minimum height */
+  -fx-pref-height: 40px;
+  -fx-min-height: 10px;
   -fx-max-height: 25px;
   -fx-background-color: white;
   -fx-font-size: 12;
@@ -115,10 +115,12 @@
 
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 .custom-text-field:left-node-visible .left-pane {
   -fx-padding: 0 0 0 -2000;
 }
 
+/*noinspection CssInvalidPseudoSelector*/
 .custom-text-field:right-node-visible .right-pane {
   -fx-padding: 0;
   -fx-background-color: transparent;

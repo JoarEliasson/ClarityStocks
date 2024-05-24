@@ -1,7 +1,7 @@
 package com.claritystocks.controller;
 
 import com.claritystocks.model.Effects;
-import com.claritystocks.controller.graph.GUIStockLineGraphController;
+import com.claritystocks.controller.graph.GUIStockGraphController;
 import com.claritystocks.controller.tiles.InfoTile;
 import com.claritystocks.controller.tiles.RatingsTile;
 import com.claritystocks.controller.tiles.RegressionTile;
@@ -49,7 +49,7 @@ import org.kordamp.bootstrapfx.BootstrapFX;
  * @see GUIMainController
  * @see InfoTile
  * @see RatingsTile
- * @see GUIStockLineGraphController
+ * @see GUIStockGraphController
  */
 public class GUIStockViewController {
 
@@ -61,7 +61,7 @@ public class GUIStockViewController {
   @FXML
   private ComboBox<Label> analysisSelector;
   @FXML
-  private GUIStockLineGraphController graphController;
+  private GUIStockGraphController graphController;
   @FXML
   private Rectangle graphBackground;
   @FXML

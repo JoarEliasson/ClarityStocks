@@ -33,11 +33,11 @@
          <HBox alignment="CENTER">
            <HBox alignment="BASELINE_LEFT" minHeight="400.0" minWidth="540.0" prefHeight="455.0"
              prefWidth="540.0" spacing="50" style="-fx-padding: 20;">
-             <fx:include source="FavoriteListView.fxml"/>
+             <fx:include source="Favourites-list-view.fxml"/>
            </HBox>
            <Region minWidth="200"/>
            <HBox alignment="BASELINE_RIGHT" prefHeight="540.0" prefWidth="510.0" style="-fx-padding: 10;">
-             <fx:include source="TopListsView.fxml"/>
+             <fx:include source="Top-list-view.fxml"/>
            </HBox>
          </HBox>
        </center>

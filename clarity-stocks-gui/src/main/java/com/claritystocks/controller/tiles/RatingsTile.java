@@ -68,9 +68,9 @@ public class RatingsTile {
     upOrDownImage = new ArrayList<>();
 
     upOrDownImage.add(new Image(
-        getClass().getResource("/com/claritystocks/view/stockDown.png").toExternalForm()));
+        getClass().getResource("/com/claritystocks/view/images/stockDown.png").toExternalForm()));
     upOrDownImage.add(new Image(
-        getClass().getResource("/com/claritystocks/view/stockUp.png").toExternalForm()));
+        getClass().getResource("/com/claritystocks/view/images/stockUp.png").toExternalForm()));
   }
 
   public void setPeEvaluationText(double rating, String description, String name) {

@@ -20,7 +20,7 @@
          <Button onAction="#handleLoadFavorites" prefHeight="25.0" prefWidth="22.0">
            <graphic>
              <ImageView fitHeight="19.0" fitWidth="19.0">
-               <Image url="@refresh.png" />
+               <Image url="@images/refresh.png" />
              </ImageView>
            </graphic>
          </Button>
