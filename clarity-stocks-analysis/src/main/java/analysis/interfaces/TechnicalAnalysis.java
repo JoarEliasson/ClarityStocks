@@ -36,7 +36,7 @@ public interface TechnicalAnalysis {
   /**
    * Method for getting the subtitle of the analysis.
    * <p>
-   * The subtitle is a short description of the data that the analysis is based on.
+   * The subtitle contains background info needed to understand the analysis.
    *
    * @return the subtitle of the analysis.
    */
@@ -45,7 +45,8 @@ public interface TechnicalAnalysis {
   /**
    * Method for getting the analysis method.
    * <p>
-   * The analysis method is a short description of how the analysis is performed.
+   * The analysis method is a detailed description of how the analysis is performed that is easy to
+   * understand for the user.
    *
    * @return the analysis method.
    */
@@ -54,8 +55,8 @@ public interface TechnicalAnalysis {
   /**
    * Method for getting the description of the analysis results.
    * <p>
-   * The description is a detailed explanation of the analysis, including what the analysis means
-   * for the stock.
+   * The description is a detailed explanation of the analysis, including what the analysis results
+   * mean.
    *
    * @return the description of the analysis.
    */

@@ -87,10 +87,13 @@
               <fx:include source="Info-tile.fxml" fx:id="infoTile"/>
             </StackPane>
           </VBox>
+
+          <!-- regressionTile -->
           <HBox alignment="CENTER">
             <StackPane>
-              <Rectangle fill="#d9d9d9" height="250" width="250" fx:id="dialTileBackground"
+              <Rectangle fill="#d9d9d9" height="600" width="600" fx:id="regressionTileBackground"
                 styleClass="backgroundPanelStockView"/>
+              <fx:include source="Regression-tile.fxml" fx:id="regressionTile"/>
             </StackPane>
 
 

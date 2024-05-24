@@ -3,17 +3,9 @@ package SE.ClarityStocksGUI.controller;
 import SE.ClarityStocksGUI.controller.graph.GUIStockLineGraphController;
 import SE.ClarityStocksGUI.controller.tiles.InfoTile;
 import SE.ClarityStocksGUI.controller.tiles.RatingsTile;
+import SE.ClarityStocksGUI.controller.tiles.RegressionTile;
 import SE.ClarityStocksGUI.model.Effects;
-import analysis.graph.GoldenCrossAnalysis;
 import common.data.series.DailyDataPoint;
-import common.evaluations.rating.AnalystPredictionEvaluation;
-import common.evaluations.rating.BusinessPerformanceEvaluation;
-import common.evaluations.rating.CompanyGrowthEvaluation;
-import common.evaluations.rating.CompanySizeEvaluation;
-import common.evaluations.DividendEvaluation;
-import common.evaluations.rating.HighAndLowEvaluation;
-import common.evaluations.rating.PERatioEvaluation;
-import common.evaluations.rating.PriceToPerformance;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +71,10 @@ public class GUIStockViewController {
   @FXML
   private Rectangle dialTileBackground;
   @FXML
+  private Rectangle regressionTileBackground;
+  @FXML
+  private RegressionTile regressionTileController;
+  @FXML
   private RatingsTile ratingsTileController;
   @FXML
   private InfoTile infoTileController;
@@ -95,7 +91,6 @@ public class GUIStockViewController {
   @FXML
   private ProgressBar progress;
 
-
   public void initialize() {
     setUpControllers();
     progress.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
@@ -108,6 +103,7 @@ public class GUIStockViewController {
     statBackground.setEffect(Effects.getDropShadow());
     graphBackground.setEffect(Effects.getDropShadow());
     dialTileBackground.setEffect(Effects.getDropShadow());
+    regressionTileBackground.setEffect(Effects.getDropShadow());
     categoryLabels.setVisible(false);
 
     ratingsTileController.setController(this);
@@ -278,6 +274,7 @@ public class GUIStockViewController {
                 setInfoTile();
                 setRatingsTile();
                 infoTileController.updateFavoriteStatus(stockData.getCompanyOverview().getSymbol());
+                regressionTileController.setStockData(stockData);
                 progress.setVisible(false);
               }catch (NoSuchElementException e){
                 errorLoadingStock();
@@ -298,89 +295,6 @@ public class GUIStockViewController {
 
       }
     }).start();
-  }
-
-  private void printAllEvaluationTexts(){
-    HighAndLowEvaluation hle = stockData.getHighAndLow();
-    System.out.println(hle.getEvaluationTitle());
-    System.out.println(hle.getRatingDescription());
-    System.out.println();
-    System.out.println("General Info: " + hle.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + hle.getEvaluationMethodInfo());
-    System.out.println("Results: " + hle.getResultDescription());
-    System.out.println();
-
-    PERatioEvaluation pe = stockData.getPeRatioEvaluation();
-    System.out.println(pe.getEvaluationTitle());
-    System.out.println(pe.getRatingDescription());
-    System.out.println();
-    System.out.println("General Info: " + pe.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + pe.getEvaluationMethodInfo());
-    System.out.println("Results: " + pe.getResultDescription());
-    System.out.println();
-
-    AnalystPredictionEvaluation ape = stockData.getAnalystPredictionEvaluation();
-    System.out.println(ape.getEvaluationTitle());
-    System.out.println(ape.getRatingDescription());
-    System.out.println();
-    System.out.println("General Info: " + ape.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + ape.getEvaluationMethodInfo());
-    System.out.println("Results: " + ape.getResultDescription());
-    System.out.println();
-
-    BusinessPerformanceEvaluation bpe = stockData.getBusinessPerformanceEvaluation();
-    System.out.println(bpe.getEvaluationTitle());
-    System.out.println(bpe.getRatingDescription());
-    System.out.println();
-    System.out.println("General Info: " + bpe.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + bpe.getEvaluationMethodInfo());
-    System.out.println("Results: " + bpe.getResultDescription());
-    System.out.println();
-
-    PriceToPerformance ptpe = stockData.getPriceToPerformance();
-    System.out.println(ptpe.getEvaluationTitle());
-    System.out.println(ptpe.getRatingDescription());
-    System.out.println();
-    System.out.println("General Info: " + ptpe.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + ptpe.getEvaluationMethodInfo());
-    System.out.println("Results: " + ptpe.getResultDescription());
-    System.out.println();
-
-    CompanySizeEvaluation cse = stockData.getCompanySizeEvaluation();
-    System.out.println(cse.getEvaluationTitle());
-    System.out.println(cse.getRatingDescription());
-    System.out.println();
-    System.out.println("General Info: " + cse.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + cse.getEvaluationMethodInfo());
-    System.out.println("Results: " + cse.getResultDescription());
-    System.out.println();
-
-
-    CompanyGrowthEvaluation cge = stockData.getCompanyGrowthEvaluation();
-    System.out.println(cge.getEvaluationTitle());
-    System.out.println(cge.getRatingDescription());
-    System.out.println();
-    System.out.println("General Info: " + cge.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + cge.getEvaluationMethodInfo());
-    System.out.println("Results: " + cge.getResultDescription());
-    System.out.println();
-
-    DividendEvaluation getDividendEvaluation = stockData.getDividendEvaluation();
-    System.out.println(getDividendEvaluation.getEvaluationTitle());
-    System.out.println();
-    System.out.println("General Info: " + getDividendEvaluation.getGeneralEvaluationInfo());
-    System.out.println("Method Info: " + getDividendEvaluation.getEvaluationMethodInfo());
-    System.out.println("Results: " + getDividendEvaluation.getResultDescription());
-    System.out.println();
-
-
-    GoldenCrossAnalysis getGoldenCrossAnalysis = stockData.getGoldenCrossAnalysis();
-    System.out.println(getGoldenCrossAnalysis.getAnalysisTitle());
-    System.out.println();
-    System.out.println("General Info: " + getGoldenCrossAnalysis.getGeneralAnalysisInfo());
-    System.out.println("Method Info: " + getGoldenCrossAnalysis.getAnalysisMethodInfo());
-    System.out.println("Results: " + getGoldenCrossAnalysis.getResultDescription());
-    System.out.println();
   }
 
   public void errorLoadingStock(){

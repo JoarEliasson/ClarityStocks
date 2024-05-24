@@ -10,11 +10,23 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 
 /**
- * Class for implementing a linear regression. Linear regression is used for predicting the future
- * price of the stock by analyzing historical data. Uses an X and Y value which are data pairs.
- * Model implements Pearson's linear regression.
+ * Class for implementing linear regression analysis.
+ * <p>
+ * Linear regression is used for predicting the future price of the stock by analyzing historical data.
+ * This class uses Pearson's linear regression model to determine the relationship between stock price
+ * and various financial variables.
+ * </p>
  *
- * @author Olivia Svensson, Joar Eliasson
+ * <ul>
+ *   <li>{@code incomeStatements} - List of income statements for the stock.</li>
+ *   <li>{@code priceData} - Array of historical stock prices.</li>
+ * </ul>
+ *
+ * @see analysis.interfaces.LinearRegressions
+ * @see common.data.fundamental.IncomeStatement
+ * @see common.enums.IncomeStatementVariable
+ * @author Joar Eliasson
+ * @author Olivia Svensson
  */
 public class RegressionCalculator implements LinearRegressions {
 
@@ -22,14 +34,22 @@ public class RegressionCalculator implements LinearRegressions {
   private final double[] priceData;
 
   /**
-   * Constructor for the regression.RegressionCalculator class. Takes in an AlphaVantage Client and a stock
-   * symbol.
+   * Constructs a RegressionCalculator object.
+   *
+   * @param incomeStatements the list of income statements
+   * @param priceData the array of historical stock prices
    */
   public RegressionCalculator(List<IncomeStatement> incomeStatements, double[] priceData) {
     this.incomeStatements = incomeStatements;
     this.priceData = priceData;
   }
 
+  /**
+   * Fetches the data for a specific income statement variable.
+   *
+   * @param variable the income statement variable
+   * @return an array of data for the specified variable
+   */
   @Override
   public long[] fetchVariableData(IncomeStatementVariable variable) {
     long[] variableData = new long[incomeStatements.size()];
@@ -40,12 +60,10 @@ public class RegressionCalculator implements LinearRegressions {
   }
 
   /**
-   * Method for indexing the net income of a stock. Loops through a double array and calculates the
-   * index value by dividing each net income value by the first net income value. This indexes each
-   * net income value to the first value in the array. For each iteration the index value gets
-   * rounded to two decimal places, which is done by multiplying the index value by 100, which
-   * rounds it to the nearest integer, then it divides it back by 100 to obtain the rounded value
-   * with two decimal places. The index income is then set to the rounded value in the array.
+   * Indexes the variable data to create a consistent dataset for analysis.
+   *
+   * @param variableData the array of variable data
+   * @return an array of indexed variable data
    */
   @Override
   public double[] indexVariableData(long[] variableData) {
@@ -58,6 +76,12 @@ public class RegressionCalculator implements LinearRegressions {
     return indexedVariableData;
   }
 
+  /**
+   * Creates a regression model using the indexed variable data.
+   *
+   * @param indexedVariableData the array of indexed variable data
+   * @return an array of regression coefficients
+   */
   public double[] createRegressionModel(double[] indexedVariableData) {
     XYSeries series = new XYSeries("Regression Data");
     for (int i = 0; i < indexedVariableData.length; i++) {
@@ -69,6 +93,13 @@ public class RegressionCalculator implements LinearRegressions {
     return coefficients;
   }
 
+  /**
+   * Generates a simple description of the regression analysis.
+   *
+   * @param coefficients the regression coefficients
+   * @param variableName the name of the variable
+   * @return a string description of the regression analysis
+   */
   private String generateSimpleDescription(double[] coefficients, String variableName) {
     double slope = coefficients[1];
     double intercept = coefficients[0];
@@ -77,15 +108,16 @@ public class RegressionCalculator implements LinearRegressions {
   }
 
   /**
-   * Method for getting a simple description of the linear regression analysis of a specific stock.
+   * Generates a detailed description of the regression analysis.
    *
-   * @return a string with the description of the linear regression analysis.
+   * @param coefficients the regression coefficients
+   * @param variableName the name of the variable
+   * @return a string description of the regression analysis
    */
   @Override
   public String generateDescription(double[] coefficients, String variableName) {
     double slope = coefficients[1];
     double intercept = coefficients[0];
-    String percentCharacter = "%";
     return String.format("The slope for the variable %s is: %.2f.%n"
             + "The intercept is: %.2f.%n The slope represents the rate of change in"
             + "the dependent variable for a one-unit change in the independent variable. It quantifies"
@@ -93,6 +125,14 @@ public class RegressionCalculator implements LinearRegressions {
         variableName, slope, intercept);
   }
 
+  /**
+   * Generates a price prediction based on the regression analysis.
+   *
+   * @param coefficients the regression coefficients
+   * @param variableName the name of the variable
+   * @param variableData the data for the variable
+   * @return a PricePrediction object containing the prediction
+   */
   @Override
   public PricePrediction generatePrediction(double[] coefficients, String variableName, double variableData) {
     double intercept = coefficients[0];
@@ -100,7 +140,7 @@ public class RegressionCalculator implements LinearRegressions {
     double predictedPrice = intercept + slope * variableData;
     return new PricePrediction(
         variableName,
-        incomeStatements.get(incomeStatements.size() - 1).getFiscalDateEnding(),
+        incomeStatements.getLast().getFiscalDateEnding(),
         priceData[priceData.length - 1],
         predictedPrice,
         "The predicted price is calculated by the linear regression model. The model uses the"
@@ -111,6 +151,12 @@ public class RegressionCalculator implements LinearRegressions {
     );
   }
 
+  /**
+   * Runs the regression analysis for a specific variable.
+   *
+   * @param variable the income statement variable
+   * @return a RegressionResult object containing the analysis results
+   */
   @Override
   public RegressionResult runAnalysis(IncomeStatementVariable variable) {
     double[] indexedVariableData = indexVariableData(fetchVariableData(variable));
@@ -125,6 +171,13 @@ public class RegressionCalculator implements LinearRegressions {
     );
   }
 
+  /**
+   * Calculates the predicted values based on the regression coefficients.
+   *
+   * @param coefficients the regression coefficients
+   * @param indexedVariableData the indexed variable data
+   * @return an array of predicted values
+   */
   private double[] calculatePredictedValues(double[] coefficients, double[] indexedVariableData) {
     double intercept = coefficients[0];
     double slope = coefficients[1];

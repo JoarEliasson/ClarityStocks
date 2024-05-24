@@ -6,6 +6,7 @@ public class PricePrediction {
   private final String predictionDate;
   private final double currentPrice;
   private final double predictedPrice;
+  private final double rating;
   private final String description;
 
   public PricePrediction(String variableName, String predictionDate, double currentPrice,
@@ -15,6 +16,7 @@ public class PricePrediction {
     this.predictionDate = predictionDate;
     this.currentPrice = currentPrice;
     this.predictedPrice = predictedPrice;
+    this.rating = currentPrice / predictedPrice;
     this.description = description;
   }
 
@@ -32,6 +34,10 @@ public class PricePrediction {
 
   public double getPredictedPrice() {
     return predictedPrice;
+  }
+
+  public double getRating() {
+    return rating;
   }
 
   public String getDescription() {

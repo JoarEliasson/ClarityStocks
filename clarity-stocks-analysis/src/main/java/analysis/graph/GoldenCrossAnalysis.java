@@ -23,10 +23,9 @@ import java.util.List;
  * </ul>
  *
  * @see common.interfaces.RatingEvaluation
- * @see java.lang.String
- * @see java.util.List
  *
- * @author Olivia Svensson, Joar Eliason
+ * @author Joar Eliason
+ * @author Olivia Svensson
  *
  */
 public class GoldenCrossAnalysis implements TechnicalAnalysis {
@@ -143,8 +142,8 @@ public class GoldenCrossAnalysis implements TechnicalAnalysis {
   @Override
   public String getAnalysisMethodInfo() {
     return String.format(
-        "Evaluation Method Explained:%n%n"
-            + "The evaluation is based on the 50-day (MA50) and 200-day (MA200) moving averages. The percentage difference "
+        "Analysis Method Explained:%n%n"
+            + "The analysis is based on the 50-day (MA50) and 200-day (MA200) moving averages. The percentage difference "
             + "between these averages is calculated by dividing the MA50 by the MA200 and converting it to a percentage. "
             + "A positive percentage indicates an uptrend (bull market), while a negative percentage indicates a downtrend (bear market).%n%n"
             + "This method helps identify potential Golden Cross events, which are significant bullish signals. Additionally, "

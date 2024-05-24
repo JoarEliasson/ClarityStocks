@@ -1,9 +1,6 @@
 package SE.ClarityStocksGUI.controller;
 
-import SE.ClarityStocksGUI.model.Effects;
-import SE.ClarityStocksGUI.view.UserInterfaceApp;
 import java.io.IOException;
-import java.util.Objects;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
@@ -12,14 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -40,10 +33,8 @@ public class GUIHomeController {
   public Text welcomeToText;
   @FXML
   public Text clarityStocksText;
-
   @FXML
   public Label messageLabel;
-
   @FXML
   public BorderPane layout;
   public VBox favoriteList;
@@ -52,8 +43,6 @@ public class GUIHomeController {
   private GUIMainController controller;
   private UserProfile userProfile;
   private final String userFilePath = "clarity-stocks-user/userInfo.json";
-
-
 
   public void initialize() {
     userProfile = UserProfileManager.loadUserInformation(userFilePath);
@@ -124,6 +113,7 @@ public class GUIHomeController {
     SequentialTransition seqTransitionIn = new SequentialTransition(ftWelcomeIn, ftClarityIn);
     return seqTransitionIn;
   }
+
   @FXML
   private void handleUserInfo() {
     try {
@@ -144,5 +134,4 @@ public class GUIHomeController {
       e.printStackTrace();
     }
   }
-
 }
