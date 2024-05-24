@@ -1,5 +1,7 @@
 package analysis.regression;
 
+import java.util.List;
+
 /**
  * Class for storing the results of a regression analysis.
  * <p>
@@ -25,9 +27,11 @@ public class RegressionResult {
   private final String variable;
   private final double[] coefficients;
   private final String description;
-  private final PricePrediction pricePrediction;
+  private final PricePrediction latestPrediction;
+  private final List<PricePrediction> historicalPredictions;
   private final double[] observedValues;
   private final double[] predictedValues;
+  private final String[] dates;
 
   /**
    * Constructs a RegressionResult object.
@@ -35,18 +39,33 @@ public class RegressionResult {
    * @param variable the financial variable being analyzed
    * @param coefficients the regression coefficients
    * @param description the description of the analysis
-   * @param pricePrediction the price prediction based on the regression analysis
+   * @param latestPrediction the price prediction based on the regression analysis
    * @param observedValues the observed stock prices
    * @param predictedValues the predicted stock prices based on the regression model
    */
-  public RegressionResult(String variable, double[] coefficients,
-      String description, PricePrediction pricePrediction, double[] observedValues, double[] predictedValues) {
+  public RegressionResult(String variable, double[] coefficients, String description,
+      PricePrediction latestPrediction, List<PricePrediction> historicalPredictions, double[] observedValues, double[] predictedValues,
+      String[] dates) {
     this.variable = variable;
     this.coefficients = coefficients;
     this.description = description;
-    this.pricePrediction = pricePrediction;
+    this.latestPrediction = latestPrediction;
+    this.historicalPredictions = historicalPredictions;
     this.observedValues = observedValues;
     this.predictedValues = predictedValues;
+    this.dates = dates;
+  }
+
+  public double[] getPredictionVsObserved() {
+    double[] predictionVsObserved = new double[observedValues.length];
+    for (int i = 0; i < observedValues.length; i++) {
+      predictionVsObserved[i] = predictedValues[i] - observedValues[i];
+    }
+    return predictionVsObserved;
+  }
+
+  public String[] getDates() {
+    return dates;
   }
 
   /**
@@ -89,8 +108,8 @@ public class RegressionResult {
    *
    * @return the price prediction
    */
-  public PricePrediction getPricePrediction() {
-    return pricePrediction;
+  public PricePrediction getLatestPrediction() {
+    return latestPrediction;
   }
 
   /**

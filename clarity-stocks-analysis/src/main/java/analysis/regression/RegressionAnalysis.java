@@ -78,10 +78,10 @@ public class RegressionAnalysis implements TechnicalAnalysis {
             regressionResults.get(i).getCoefficients()[1]
         );
         String prediction = String.format("\tPrice (%s) = %.2f%n\tPredicted price based on %s = %.2f%n",
-            regressionResults.get(i).getPricePrediction().getPredictionDate(),
-            regressionResults.get(i).getPricePrediction().getCurrentPrice(),
+            regressionResults.get(i).getLatestPrediction().getPredictionDate(),
+            regressionResults.get(i).getLatestPrediction().getCurrentPrice(),
             regressionResults.get(i).getVariable(),
-            regressionResults.get(i).getPricePrediction().getPredictedPrice()
+            regressionResults.get(i).getLatestPrediction().getPredictedPrice()
         );
         System.out.println(info);
         System.out.println(prediction);
@@ -188,8 +188,8 @@ public class RegressionAnalysis implements TechnicalAnalysis {
           result.getCoefficients()[0],
           result.getCoefficients()[1],
           result.getRSquare(),
-          result.getPricePrediction().getCurrentPrice(),
-          result.getPricePrediction().getPredictedPrice()
+          result.getLatestPrediction().getCurrentPrice(),
+          result.getLatestPrediction().getPredictedPrice()
       ));
     }
     return detailedDescription.toString();

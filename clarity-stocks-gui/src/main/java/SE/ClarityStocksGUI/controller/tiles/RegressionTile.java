@@ -1,6 +1,5 @@
 package SE.ClarityStocksGUI.controller.tiles;
 
-import analysis.regression.PricePrediction;
 import analysis.regression.RegressionAnalysis;
 import analysis.regression.RegressionResult;
 import common.data.series.DailyDataPoint;
@@ -11,6 +10,7 @@ import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.chart.ChartData;
 import java.util.List;
 import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.stock.StockData;
@@ -19,48 +19,35 @@ public class RegressionTile {
 
   @FXML
   private VBox regressionTileBox;
+  @FXML
+  private VBox radialTileContainer;
+  @FXML
+  private HBox gaugeTileContainer;
 
   private Tile radialChartTile;
-
   private StockData stockData;
   private RegressionAnalysis regressionAnalysis;
-  private List<RegressionResult> topResults;
-  private List<DailyDataPoint> monthlyPriceData;
 
   public void setStockData(StockData stockData) {
     this.stockData = stockData;
     this.regressionAnalysis = stockData.getRegressionAnalysis();
     initializeTiles();
-
-  }
-
-  private double getRSquare(RegressionResult result) {
-    return result.getRSquare();
-  }
-
-  private double[] getCoefficients(RegressionResult result) {
-    return result.getCoefficients();
-  }
-
-  private String getVariable(RegressionResult result) {
-    return result.getVariable();
-  }
-
-  private String getDescription(RegressionResult result) {
-    return result.getDescription();
-  }
-
-  private PricePrediction getPricePrediction(RegressionResult result) {
-    return result.getPricePrediction();
-  }
-
-  private double[] getObservedValues(RegressionResult result) {
-    return result.getObservedValues();
   }
 
   private void initializeTiles() {
-    createRadialChart(getTopThreeResults());
-    createGaugeTiles(getTopThreeResults());
+    List<RegressionResult> topResults = getTopThreeResults();
+    clearTiles();
+    createRadialChart(topResults);
+    createGaugeTiles(topResults);
+  }
+
+  private void clearTiles() {
+    radialTileContainer.getChildren().clear();
+    gaugeTileContainer.getChildren().clear();
+  }
+
+  private List<RegressionResult> getTopThreeResults() {
+    return regressionAnalysis.getRegressionTop();
   }
 
   private void createRadialChart(List<RegressionResult> topResults) {
@@ -70,8 +57,16 @@ public class RegressionTile {
         .text("Top 3 R-squared values")
         .chartData(createChartData(topResults.get(0), 0), createChartData(topResults.get(1), 1), createChartData(topResults.get(2), 2))
         .animated(true)
+        .backgroundColor(Color.TRANSPARENT)
+        .titleColor(Color.BLACK)
+        .valueColor(Color.BLACK)
+        .unitColor(Color.BLACK)
+        .descriptionColor(Color.BLACK)
+        .textColor(Color.BLACK)
+        .needleColor(Color.BLACK)
+        .prefSize(400, 400)
         .build();
-    regressionTileBox.getChildren().add(radialChartTile);
+    radialTileContainer.getChildren().add(radialChartTile);
   }
 
   private ChartData createChartData(RegressionResult result, int index) {
@@ -81,36 +76,45 @@ public class RegressionTile {
 
   private Tile.TileColor getTileColor(double index) {
     if (index == 0) {
-      return TileColor.BLUE;
+      return Tile.TileColor.BLUE;
     } else if (index == 1) {
-      return TileColor.GREEN;
+      return Tile.TileColor.GREEN;
     } else {
-      return TileColor.ORANGE;
+      return Tile.TileColor.ORANGE;
     }
   }
 
   private void createGaugeTiles(List<RegressionResult> topResults) {
     for (RegressionResult result : topResults) {
       Tile gaugeTile = createGaugeTile(result);
-      regressionTileBox.getChildren().add(gaugeTile);
+      gaugeTileContainer.getChildren().add(gaugeTile);
     }
   }
 
   private Tile createGaugeTile(RegressionResult result) {
-    double rating = result.getPricePrediction().getRating();
+    double rating = result.getLatestPrediction().getRating();
     String variableName = result.getVariable();
-    String date = result.getPricePrediction().getPredictionDate();
+    String date = result.getLatestPrediction().getPredictionDate();
     Color ratingColor = getRatingColor(rating);
 
     return TileBuilder.create()
-        .skinType(Tile.SkinType.GAUGE)
+        .skinType(SkinType.GAUGE2)
+        .prefSize(200, 200)
         .title(variableName)
-        .text("Rating")
+        .text("Latest Prediction")
         .unit("%")
-        .description(date)
+        .description("Date: " + date)
         .maxValue(200)
+        .minValue(0)
         .value(rating * 100)
         .barColor(ratingColor)
+        .backgroundColor(Color.TRANSPARENT)
+        .titleColor(Color.BLACK)
+        .valueColor(Color.BLACK)
+        .unitColor(Color.BLACK)
+        .descriptionColor(Color.BLACK)
+        .textColor(Color.BLACK)
+        .needleColor(Color.BLACK)
         .animated(true)
         .build();
   }
@@ -125,10 +129,11 @@ public class RegressionTile {
     }
   }
 
-
-  private List<RegressionResult> getTopThreeResults() {
-    return regressionAnalysis.getRegressionTop();
+  private double getRSquare(RegressionResult result) {
+    return result.getRSquare();
   }
 
-
+  private String getVariable(RegressionResult result) {
+    return result.getVariable();
+  }
 }

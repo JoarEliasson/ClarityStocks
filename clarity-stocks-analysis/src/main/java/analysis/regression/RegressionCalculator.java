@@ -3,6 +3,7 @@ package analysis.regression;
 import analysis.interfaces.LinearRegressions;
 import common.data.fundamental.IncomeStatement;
 import common.enums.IncomeStatementVariable;
+import java.util.ArrayList;
 import java.util.List;
 import org.jfree.data.statistics.Regression;
 import org.jfree.data.xy.XYSeries;
@@ -151,6 +152,28 @@ public class RegressionCalculator implements LinearRegressions {
     );
   }
 
+
+  private List<PricePrediction> generateHistoricalPredictions(double[] coefficients, String name, double[] indexedVariableData) {
+    List<PricePrediction> historicalPredictions = new ArrayList<>();
+    for (int i = 0; i < indexedVariableData.length; i++) {
+      double intercept = coefficients[0];
+      double slope = coefficients[1];
+      double predictedPrice = intercept + slope * indexedVariableData[i];
+      historicalPredictions.add(new PricePrediction(
+          name,
+          incomeStatements.get(i).getFiscalDateEnding(),
+          priceData[i],
+          predictedPrice,
+          "The predicted price is calculated by the linear regression model. The model uses the"
+              + "historical data of the stock to predict the future price of the stock. The prediction"
+              + "is based on the relationship between the independent variable and the dependent"
+              + "variable. The model uses the slope of the regression line to predict the future price"
+              + "of the stock."
+      ));
+    }
+    return historicalPredictions;
+  }
+
   /**
    * Runs the regression analysis for a specific variable.
    *
@@ -166,8 +189,11 @@ public class RegressionCalculator implements LinearRegressions {
         coefficients,
         generateSimpleDescription(coefficients, variable.name()),
         generatePrediction(coefficients, variable.name(), indexedVariableData[indexedVariableData.length - 1]),
+        generateHistoricalPredictions(coefficients, variable.name(), indexedVariableData),
         priceData,
-        calculatePredictedValues(coefficients, indexedVariableData)
+        calculatePredictedValues(coefficients, indexedVariableData),
+        extractDates()
+
     );
   }
 
@@ -186,5 +212,13 @@ public class RegressionCalculator implements LinearRegressions {
       predictedValues[i] = intercept + slope * indexedVariableData[i];
     }
     return predictedValues;
+  }
+
+  private String[] extractDates() {
+    String[] dates = new String[incomeStatements.size()];
+    for (int i = 0; i < incomeStatements.size(); i++) {
+      dates[i] = incomeStatements.get(i).getFiscalDateEnding();
+    }
+    return dates;
   }
 }
