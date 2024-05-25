@@ -15,7 +15,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.stock.StockDataFetcher;
-
+/**
+ * Controller for managing the top lists of stocks, including top gainers, top losers, and most traded stocks.
+ * Updates data and the home view with the relevant information.
+ * @author: Ibrahim Tafankaji
+ */
 public class TopListsController {
 
   @FXML

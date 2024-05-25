@@ -6,7 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import user.model.UserProfile;
 import user.model.UserProfileManager;
-
+/**
+ * Controller for the dialog that allows users to change their username.
+ * @author Ibrahim Tafankaji
+ * */
 public class ChangeUserNameDialogController {
 
   @FXML

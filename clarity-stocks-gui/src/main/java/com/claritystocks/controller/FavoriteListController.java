@@ -11,7 +11,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import user.model.UserProfile;
 import user.model.UserProfileManager;
-
+/**
+ * Controller for managing the favorite stocks list.
+ * Handles the loading, adding, and removing of favorite stocks.
+ * Also manages interactions with the favorite stocks list view.
+ * @author: Ibrahim Tafankaji
+ */
 public class FavoriteListController {
     @FXML public Rectangle favorite;
     @FXML public VBox favoriteListVBox;
@@ -21,6 +26,11 @@ public class FavoriteListController {
     private final String userFilePath = "clarity-stocks-user/userInfo.json";
     private ObservableList<String> favoriteItems = FXCollections.observableArrayList();
     private GUIMainController mainController;
+
+    /**
+     * Initializes the controller.
+     * Loads user profile, sets up the drop shadow effect, and initializes the favorite stocks list view.
+     */
     @FXML
     public void initialize() {
         userProfile = UserProfileManager.loadUserInformation(userFilePath);
@@ -30,7 +40,9 @@ public class FavoriteListController {
         System.out.println(mainController);
         loadFavorites();
     }
-
+    /**
+     * Loads the favorite stocks from the user profile into the list view.
+     */
     public void loadFavorites() {
         UserProfile userProfile = UserProfileManager.loadUserInformation(userFilePath);
         if (userProfile != null && userProfile.getFavoriteStocks() != null) {
@@ -39,11 +51,19 @@ public class FavoriteListController {
             favoritesListView.getItems().clear();
         }
     }
+    /**
+     * Handles the action to load favorite stocks.
+     */
     @FXML
     private void handleLoadFavorites() {
         loadFavorites();
     }
 
+    /**
+     * Adds a stock symbol to the user's list of favorite stocks.
+     *
+     * @param stockSymbol the stock symbol to add to the favorites list
+     */
     public void addFavoriteStock(String stockSymbol) {
         if (userProfile != null && stockSymbol != null && !stockSymbol.isEmpty()) {
             System.out.println("Adding stock: " + stockSymbol);
@@ -53,6 +73,12 @@ public class FavoriteListController {
             loadFavorites();
         }
     }
+
+    /**
+     * Removes a stock symbol from the user's list of favorite stocks.
+     *
+     * @param stockSymbol the stock symbol to remove from the favorites list
+     */
 
     public void removeFavoriteStock(String stockSymbol) {
         if (userProfile == null) {
@@ -69,6 +95,13 @@ public class FavoriteListController {
         }
     }
 
+    /**
+     * Handles the click event on the list view.
+     * Navigates to the detailed view of the selected stock.
+     *
+     * @param mouseEvent the mouse event
+     */
+
     @FXML
     public void handleListViewClick(MouseEvent mouseEvent) {
         System.out.println("ListView clicked");
@@ -83,7 +116,11 @@ public class FavoriteListController {
         }
             mainController.goToStockView(selectedStock);
     }
-
+    /**
+     * Sets the main controller.
+     *
+     * @param controller the main controller to set
+     */
     public void setController(GUIMainController controller){
         this.mainController = controller;
     }
