@@ -21,7 +21,7 @@ import user.model.UserProfileManager;
  * <p>
  * The children for this view is the following, Home-view, Stock-view and Menu-bar.
  *
- * @author Douglas Almö Thorsell
+ * @author Douglas Almö Thorsell, Ibrahim Tafankaji
  * @see GUIHomeController
  * @see GUIStockViewController
  * @see MenuBarController

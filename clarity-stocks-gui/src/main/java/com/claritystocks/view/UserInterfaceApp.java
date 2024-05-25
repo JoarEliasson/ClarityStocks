@@ -12,13 +12,30 @@ import javafx.stage.Stage;
 import user.model.UserProfile;
 import user.model.UserProfileManager;
 
+/**
+ * UserInterfaceApp is the entry point for setting the user's name.
+ * It displays a simple interface for entering and saving the user name.
+ * @author  Ibrahim Tafankaji
+ */
 
 public class UserInterfaceApp extends Application {
     private static Stage primaryStage;
 
+    /**
+     * Main method to launch the application.
+     *
+     * @param args command line arguments
+     */
+
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Starts the User Interface Application.
+     *
+     * @param primaryStage the primary stage for this application
+     */
 
     @Override
     public void start(Stage primaryStage) {
@@ -38,6 +55,12 @@ public class UserInterfaceApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    /**
+     * Creates and returns the save button with its action handler.
+     *
+     * @param userNameField the text field for entering the user name
+     * @return the configured save button
+     */
     private static Button getButton(TextField userNameField) {
         Button saveButton = new Button("Save");
         saveButton.setOnAction(e ->{
@@ -68,6 +91,9 @@ public class UserInterfaceApp extends Application {
         });
         return saveButton;
     }
+    /**
+     * Starts the main application after the user name has been set.
+     */
     private static void startMainApplication() {
         Platform.runLater(() -> {
             GUIMainApplication mainApp = new GUIMainApplication();

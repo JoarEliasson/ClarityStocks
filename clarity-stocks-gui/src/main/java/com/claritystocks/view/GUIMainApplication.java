@@ -19,7 +19,7 @@ import user.model.UserProfileManager;
 /**
  * This is the main application for the GUI. This class starts the program and loads in the
  * necessary files for the program to run.
- * @author Douglas Almö Thorsell
+ * @author Douglas Almö Thorsell, Ibrahim Tafankaji
  */
 public class GUIMainApplication extends Application {
 

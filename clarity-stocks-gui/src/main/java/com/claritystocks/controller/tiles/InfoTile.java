@@ -14,7 +14,7 @@ import user.model.UserProfileManager;
  * stock-view.
  * <p>
  * It's parent class is the Main-view.
- * @author Douglas Almö Thorsell
+ * @author Douglas Almö Thorsell, Ibrahinm Tafankaji
  * @see GUIStockViewController
  */
 public class InfoTile {
