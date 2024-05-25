@@ -4,7 +4,6 @@ import analysis.regression.RegressionAnalysis;
 import analysis.regression.RegressionResult;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.Tile.SkinType;
-import eu.hansolo.tilesfx.Tile.TextSize;
 import eu.hansolo.tilesfx.Tile.TileColor;
 import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.chart.ChartData;
@@ -96,11 +95,10 @@ public class RegressionTile {
 
     return TileBuilder.create()
         .skinType(SkinType.GAUGE2)
-        .prefSize(250, 220)
+        .prefSize(250, 240)
         .title(variableName)
-        .unit("% of prediction")
+        .unit("%")
         .textVisible(true)
-        .textSize(TextSize.BIGGER)
         .value(percentageDifference * 100)
         .minValue(0)
         .maxValue(200)
