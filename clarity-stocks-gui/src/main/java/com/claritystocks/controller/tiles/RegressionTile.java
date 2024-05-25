@@ -5,15 +5,17 @@ import analysis.regression.RegressionResult;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.Tile.SkinType;
 import eu.hansolo.tilesfx.Tile.TextSize;
+import eu.hansolo.tilesfx.Tile.TileColor;
 import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.chart.ChartData;
-import eu.hansolo.tilesfx.colors.Medium;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Stop;
+import javafx.scene.text.TextAlignment;
 import model.stock.StockData;
 
 public class RegressionTile {
@@ -25,12 +27,9 @@ public class RegressionTile {
   @FXML
   private HBox gaugeTileContainer;
 
-  private Tile radialChartTile;
-  private StockData stockData;
   private RegressionAnalysis regressionAnalysis;
 
   public void setStockData(StockData stockData) {
-    this.stockData = stockData;
     this.regressionAnalysis = stockData.getRegressionAnalysis();
     initializeTiles();
   }
@@ -53,27 +52,23 @@ public class RegressionTile {
 
   private void createRadialChart(List<RegressionResult> topResults) {
     String date = topResults.getFirst().getLatestPrediction().getPredictionDate();
-    radialChartTile = TileBuilder.create()
+    Tile radialChartTile = TileBuilder.create()
         .skinType(SkinType.RADIAL_CHART)
         .title("Regression Analysis Top 3 R-Squared")
         .text("Actual price vs. Predicted price " + date)
-        .chartData(createChartData(topResults.get(0), 0), createChartData(topResults.get(1), 1), createChartData(topResults.get(2), 2))
+        .textAlignment(TextAlignment.CENTER)
+        .chartData(createChartData(topResults.get(0), 0), createChartData(topResults.get(1), 1),
+            createChartData(topResults.get(2), 2))
         .animated(true)
-        .backgroundColor(Color.TRANSPARENT)
-        .titleColor(Color.BLACK)
-        .valueColor(Color.BLACK)
-        .unitColor(Color.BLACK)
-        .descriptionColor(Color.BLACK)
-        .textColor(Color.BLACK)
-        .needleColor(Color.BLACK)
         .prefSize(300, 300)
         .build();
+    adjustTheme(radialChartTile, false);
     radialTileContainer.getChildren().add(radialChartTile);
   }
 
   private ChartData createChartData(RegressionResult result, int index) {
     Tile.TileColor tileColor = getTileColor(index);
-    return new ChartData(getVariable(result), (getRSquare(result) * 100), tileColor.color);
+    return new ChartData(result.getVariable(), (result.getRSquare() * 100), tileColor.color);
   }
 
   private Tile.TileColor getTileColor(double index) {
@@ -89,79 +84,90 @@ public class RegressionTile {
   private void createGaugeTiles(List<RegressionResult> topResults) {
     for (RegressionResult result : topResults) {
       Tile gaugeTile = createGaugeTile(result);
+      adjustTheme(gaugeTile, false);
       gaugeTileContainer.getChildren().add(gaugeTile);
     }
   }
 
   private Tile createGaugeTile(RegressionResult result) {
-    double rating = result.getLatestPrediction().getRating();
+    double percentageDifference = result.getLatestPrediction().getRating();
     String variableName = result.getVariable();
-
-    Color ratingColor = getRatingColor(rating);
+    Color ratingColor = getColorIndicator(percentageDifference);
 
     return TileBuilder.create()
         .skinType(SkinType.GAUGE2)
         .prefSize(250, 220)
         .title(variableName)
-        .text("of prediction")
-        .unit("%")
+        .unit("% of prediction")
+        .textVisible(true)
         .textSize(TextSize.BIGGER)
-        .maxValue(200)
+        .value(percentageDifference * 100)
         .minValue(0)
-        .value(rating * 100)
+        .maxValue(200)
+        .threshold(100)
         .barColor(ratingColor)
-        .backgroundColor(Color.TRANSPARENT)
-        .titleColor(Color.BLACK)
-        .valueColor(Color.BLACK)
-        .unitColor(Color.BLACK)
-        .descriptionColor(Color.BLACK)
-        .textColor(Color.BLACK)
-        .needleColor(Color.BLACK)
-        .gradientStops(
-            new Stop(0.0, Medium.RED),
-            new Stop(0.8, Medium.ORANGE_RED),
-            new Stop(1, Medium.ORANGE),
-            new Stop(1.05, Medium.YELLOW_ORANGE),
-            new Stop(1.10, Medium.YELLOW),
-            new Stop(1.15, Medium.GREEN_YELLOW),
-            new Stop(1.3, Medium.GREEN),
-            new Stop(1.5, Medium.BLUE_GREEN))
+        .thresholdVisible(true)
+        .thresholdColor(TileColor.RED.color)
+        .gradientStops(new Stop(0, Tile.BLUE),
+            new Stop(0.25, Tile.GREEN),
+            new Stop(0.5, Tile.YELLOW),
+            new Stop(0.75, Tile.ORANGE),
+            new Stop(1, Tile.RED))
         .strokeWithGradient(true)
         .animated(true)
         .build();
   }
 
-  private Color getRatingColor(double rating) {
-    if (rating < 0.90) {
-      return Color.DARKSEAGREEN;
-    } else if (rating < 0.95) {
-      return Color.GREEN;
-    } else if (rating < 0.975) {
-      return Color.LIGHTGREEN;
-    } else if (rating < 1.0) {
-      return Color.GREENYELLOW;
-    } else if (rating < 1.025) {
-      return Color.LIGHTYELLOW;
-    } else if (rating < 1.05) {
-      return Color.YELLOW;
-    } else if (rating < 1.075) {
-      return Color.GOLD;
-    } else if (rating < 1.1) {
-      return Color.ORANGE;
-    } else if (rating < 1.15) {
-      return Color.DARKORANGE;
-    } else if (rating < 1.2) {
-      return Color.RED;
+  private void adjustTheme(Tile tile, boolean darkTheme) {
+    if (darkTheme) {
+      tile.setBackgroundColor(Color.DARKGRAY);
+      tile.setTitleColor(Color.WHITE);
+      tile.setUnitColor(Color.WHITE);
+      tile.setValueColor(Color.WHITE);
+      tile.setTextColor(Color.WHITE);
+      tile.setDescriptionColor(Color.WHITE);
     } else {
-      return Color.DARKRED;
+      tile.setBackgroundColor(Color.TRANSPARENT);
+      tile.setTitleColor(Color.BLACK);
+      tile.setUnitColor(Color.BLACK);
+      tile.setValueColor(Color.BLACK);
+      tile.setTextColor(Color.BLACK);
+      tile.setDescriptionColor(Color.BLACK);
     }
   }
 
-  private double getRSquare(RegressionResult result) {
-    return result.getRSquare();
+  private Color getColorIndicator(double rating) {
+    List<ColorRange> colorRanges = new ArrayList<>();
+    colorRanges.add(new ColorRange(0.0, 0.90, Color.DARKSEAGREEN));
+    colorRanges.add(new ColorRange(0.90, 0.95, Color.GREEN));
+    colorRanges.add(new ColorRange(0.95, 0.975, Color.LIGHTGREEN));
+    colorRanges.add(new ColorRange(0.975, 1.0, Color.GREENYELLOW));
+    colorRanges.add(new ColorRange(1.0, 1.025, Color.LIGHTYELLOW));
+    colorRanges.add(new ColorRange(1.025, 1.05, Color.YELLOW));
+    colorRanges.add(new ColorRange(1.05, 1.075, Color.GOLD));
+    colorRanges.add(new ColorRange(1.075, 1.1, Color.ORANGE));
+    colorRanges.add(new ColorRange(1.1, 1.15, Color.DARKORANGE));
+    colorRanges.add(new ColorRange(1.15, 1.2, Color.RED));
+    colorRanges.add(new ColorRange(1.2, Double.MAX_VALUE, Color.DARKRED));
+
+    for (ColorRange range : colorRanges) {
+      if (rating < range.upperBound) {
+        return range.color;
+      }
+    }
+
+    return Color.DARKRED;
   }
 
-  private String getVariable(RegressionResult result) {
-    return result.getVariable();
+  private static class ColorRange {
+    double lowerBound;
+    double upperBound;
+    Color color;
+
+    ColorRange(double lowerBound, double upperBound, Color color) {
+      this.lowerBound = lowerBound;
+      this.upperBound = upperBound;
+      this.color = color;
+    }
   }
 }

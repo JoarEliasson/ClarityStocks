@@ -757,3 +757,4 @@ FodyWeavers.xsd
 ClarityStocksAPI/src/main/resources/database.properties
 *.properties
 clarity-stocks-gui/src/main/resources/SE/ClarityStocksGUI/view/lighttheme.jpg
+jre

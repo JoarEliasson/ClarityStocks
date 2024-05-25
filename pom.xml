@@ -16,10 +16,9 @@
     <module>clarity-stocks-gui</module>
     <module>clarity-stocks-analysis</module>
     <module>clarity-stocks-data</module>
-    <module>clarity-stocks-user</module>
-    <module>clarity-stocks-database</module>
     <module>clarity-stocks-common</module>
     <module>clarity-stocks-launcher</module>
+    <module>clarity-stocks-user</module>
   </modules>
 
   <properties>
