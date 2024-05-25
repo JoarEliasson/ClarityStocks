@@ -21,6 +21,16 @@
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
+      <artifactId>javafx-web</artifactId>
+      <version>21.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-media</artifactId>
+      <version>21.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>22.0.1</version>
       <scope>compile</scope>
@@ -128,7 +138,6 @@
       <artifactId>tilesfx</artifactId>
       <version>21.0.3</version>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -157,4 +166,18 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>javafx-repo-maven</id>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>oss.sonatype.org</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+    <repository>
+      <id>javafx-repo</id>
+      <url>https://maven.central.sonatype.com/</url>
+    </repository>
+  </repositories>
 </project>
