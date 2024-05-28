@@ -24,6 +24,7 @@ import model.stock.StockData;
  * <p>
  * Its parent class is the stock-view.
  * @author Douglas Almö Thorsell
+ * @author Joar Eliasson
  * @see GUIStockViewController
  */
 public class GUIStockGraphController {

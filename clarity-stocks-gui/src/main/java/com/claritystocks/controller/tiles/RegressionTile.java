@@ -2,6 +2,7 @@ package com.claritystocks.controller.tiles;
 
 import analysis.regression.RegressionAnalysis;
 import analysis.regression.RegressionResult;
+import com.claritystocks.controller.GUIStockViewController;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.Tile.SkinType;
 import eu.hansolo.tilesfx.Tile.TileColor;
@@ -17,6 +18,9 @@ import javafx.scene.paint.Stop;
 import javafx.scene.text.TextAlignment;
 import model.stock.StockData;
 
+/**
+ * @author Joar Eliasson
+ */
 public class RegressionTile {
 
   @FXML
@@ -27,6 +31,7 @@ public class RegressionTile {
   private HBox gaugeTileContainer;
 
   private RegressionAnalysis regressionAnalysis;
+  private GUIStockViewController controller;
 
   public void setStockData(StockData stockData) {
     this.regressionAnalysis = stockData.getRegressionAnalysis();
@@ -155,6 +160,14 @@ public class RegressionTile {
     }
 
     return Color.DARKRED;
+  }
+  @FXML
+  public void showExplanation(){
+    controller.showExplanationPage("regression");
+  }
+
+  public void setController(GUIStockViewController controller){
+    this.controller = controller;
   }
 
   private static class ColorRange {

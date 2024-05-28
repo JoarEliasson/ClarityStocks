@@ -1,6 +1,7 @@
 package com.claritystocks.controller.tiles;
 
 import com.claritystocks.controller.GUIMainController;
+import com.claritystocks.controller.GUIStockViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +10,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class handles the explanation tile which includes information about different analyses. This
+ * page can be accessed by pressing any of the question mark (?) buttons in the stock-view.
+ * <p>
+ * Apart from the other tile classes, this tile does not have the stock-view as their parent class,
+ * even though the explanation page can only be accessed from the stock-view. The reason for this is
+ * that it layers over the entire stock-view, for this reason it has Main-view as their parent.
+
+ * @author Douglas Almö Thorsell
+ * @see GUIStockViewController
+ */
 public class ExplanationTile {
 
   @FXML

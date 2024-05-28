@@ -110,6 +110,7 @@ public class GUIStockViewController {
   private void setUpControllers(){
     graphController.setController(this);
     infoTileController.setController(this);
+    regressionTileController.setController(this);
   }
 
   public void setController(GUIMainController controller) {
@@ -472,12 +473,21 @@ public class GUIStockViewController {
             + stockData.getAnalystPredictionEvaluation().getEvaluationMethodInfo();
         companyText = stockData.getAnalystPredictionEvaluation().getResultDescription();
         break;
+
       case "goldenCross":
         mainTitle   = stockData.getGoldenCrossAnalysis().getAnalysisTitle();
         generalText = stockData.getGoldenCrossAnalysis().getGeneralAnalysisInfo()
             + "\n\n"
             + stockData.getGoldenCrossAnalysis().getAnalysisMethodInfo();
         companyText = stockData.getGoldenCrossAnalysis().getResultDescription();
+        break;
+
+      case "regression":
+        mainTitle   = stockData.getRegressionAnalysis().getAnalysisTitle();
+        generalText = stockData.getRegressionAnalysis().getGeneralAnalysisInfo()
+            + "\n\n"
+            + stockData.getRegressionAnalysis().getAnalysisMethodInfo();
+        companyText = stockData.getRegressionAnalysis().getResultDescription();
         break;
 
       default:
