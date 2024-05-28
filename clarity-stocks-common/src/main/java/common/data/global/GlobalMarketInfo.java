@@ -1,8 +1,13 @@
 package common.data.global;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
-public class GlobalMarketInfo {
+public class GlobalMarketInfo implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   private DailyTopLists dailyTopLists;
   private List<MarketStatus> marketStatus;

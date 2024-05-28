@@ -1,8 +1,13 @@
 package common.data.global;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
-public class DailyTopLists {
+public class DailyTopLists implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   private String information;
   private String lastUpdated;

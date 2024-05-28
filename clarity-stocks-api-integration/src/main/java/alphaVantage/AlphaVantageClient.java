@@ -32,6 +32,7 @@ public class AlphaVantageClient {
     GlobalMarketInfo globalMarketInfo = new GlobalMarketInfo();
     globalMarketInfo.setDailyTopLists(getDailyTopLists());
     globalMarketInfo.setMarketStatus(getGlobalMarketStatus());
+    //LocalDataSaver.saveGlobalMarketInfo(globalMarketInfo);
     return globalMarketInfo;
   }
 

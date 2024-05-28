@@ -3,6 +3,8 @@ package common.evaluations;
 import common.data.fundamental.CashFlowReport;
 import common.interfaces.Evaluation;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +40,7 @@ public class DividendEvaluation implements Evaluation {
   private double averageDividendGrowth;
   private String description;
   private List<Long> lastFiveYearsDividends;
+  private List<HistoricalDividend> historicalDividends;
 
   /**
    * Constructs a new {@code DividendEvaluation} instance.
@@ -165,6 +168,16 @@ public class DividendEvaluation implements Evaluation {
         .limit(5)
         .map(CashFlowReport::getDividendPayout)
         .collect(Collectors.toList());
+    historicalDividends = new ArrayList<>();
+    for (int i = 0; i < lastFiveYearsDividends.size(); i++) {
+      historicalDividends.add(new HistoricalDividend(
+          cashFlowReports.get(i).getFiscalDateEnding(), lastFiveYearsDividends.get(i)));
+    }
+    // Sort the historical dividends by year so that the most recent year is last
+    historicalDividends.sort(Comparator.comparing(HistoricalDividend::getYear));
+    for (HistoricalDividend historicalDividend : historicalDividends) {
+      System.out.println(historicalDividend.getYear() + " " + historicalDividend.getDividend());
+    }
   }
 
   /**
@@ -242,6 +255,10 @@ public class DividendEvaluation implements Evaluation {
     return description;
   }
 
+  public List<HistoricalDividend> getHistoricalDividends() {
+    return historicalDividends;
+  }
+
   /**
    * Gets the month number from the month name.
    *
@@ -264,5 +281,24 @@ public class DividendEvaluation implements Evaluation {
       case "December" -> 12;
       default -> 0;
     };
+  }
+
+  public class HistoricalDividend {
+
+    private final String dividendYear;
+    private final long dividendAmount;
+
+    public HistoricalDividend(String year, long dividend) {
+      this.dividendYear = year;
+      this.dividendAmount = dividend;
+    }
+
+    public String getYear() {
+      return dividendYear;
+    }
+
+    public long getDividend() {
+      return dividendAmount;
+    }
   }
 }

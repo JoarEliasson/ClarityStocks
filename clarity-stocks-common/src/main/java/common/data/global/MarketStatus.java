@@ -1,6 +1,12 @@
 package common.data.global;
 
-public class MarketStatus {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class MarketStatus implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   private String marketType;
   private String region;

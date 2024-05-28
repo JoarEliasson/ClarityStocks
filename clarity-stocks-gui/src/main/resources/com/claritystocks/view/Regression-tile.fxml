@@ -12,16 +12,18 @@
   alignment="CENTER"
   fx:id="regressionTileBox">
   <StackPane>
-    <VBox>
+    <HBox>
       <VBox fx:id="radialTileContainer"
-        alignment="CENTER"
-        VBox.vgrow="NEVER">
+        alignment="TOP_CENTER"
+        VBox.vgrow="NEVER"
+        prefWidth="400">
       </VBox>
-      <HBox fx:id="gaugeTileContainer"
+      <VBox fx:id="gaugeTileContainer"
         alignment="CENTER"
-        HBox.hgrow="ALWAYS">
-      </HBox>
-    </VBox>
+        HBox.hgrow="ALWAYS"
+        prefWidth="300">
+      </VBox>
+    </HBox>
     <HBox alignment="TOP_RIGHT">
       <Button styleClass="explanationButton" onAction="#showExplanation">?</Button>
       <Region prefWidth="30"/>

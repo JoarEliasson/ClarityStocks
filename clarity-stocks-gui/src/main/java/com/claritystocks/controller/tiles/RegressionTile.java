@@ -3,6 +3,7 @@ package com.claritystocks.controller.tiles;
 import analysis.regression.RegressionAnalysis;
 import analysis.regression.RegressionResult;
 import com.claritystocks.controller.GUIStockViewController;
+import common.evaluations.DividendEvaluation;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.Tile.SkinType;
 import eu.hansolo.tilesfx.Tile.TileColor;
@@ -11,7 +12,6 @@ import eu.hansolo.tilesfx.chart.ChartData;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Stop;
@@ -28,13 +28,17 @@ public class RegressionTile {
   @FXML
   private VBox radialTileContainer;
   @FXML
-  private HBox gaugeTileContainer;
+  private VBox gaugeTileContainer;
 
   private RegressionAnalysis regressionAnalysis;
+
+  private DividendEvaluation dividendEvaluation;
+
   private GUIStockViewController controller;
 
   public void setStockData(StockData stockData) {
     this.regressionAnalysis = stockData.getRegressionAnalysis();
+    this.dividendEvaluation = stockData.getDividendEvaluation();
     initializeTiles();
   }
 
@@ -59,7 +63,6 @@ public class RegressionTile {
     Tile radialChartTile = TileBuilder.create()
         .skinType(SkinType.RADIAL_CHART)
         .title("Regression Analysis Top 3 R-Squared")
-        .text("Actual price vs. Predicted price " + date)
         .textAlignment(TextAlignment.CENTER)
         .chartData(createChartData(topResults.get(0), 0), createChartData(topResults.get(1), 1),
             createChartData(topResults.get(2), 2))
@@ -97,11 +100,13 @@ public class RegressionTile {
     double percentageDifference = result.getLatestPrediction().getRating();
     String variableName = result.getVariable();
     Color ratingColor = getColorIndicator(percentageDifference);
+    String description = "Price / Predicted ";
 
     return TileBuilder.create()
         .skinType(SkinType.GAUGE2)
-        .prefSize(250, 240)
+        .prefSize(200, 240)
         .title(variableName)
+        .text(description + result.getLatestPrediction().getPredictionDate())
         .unit("%")
         .textVisible(true)
         .value(percentageDifference * 100)
@@ -117,7 +122,7 @@ public class RegressionTile {
             new Stop(0.75, Tile.ORANGE),
             new Stop(1, Tile.RED))
         .strokeWithGradient(true)
-        .animated(true)
+        .animated(false)
         .build();
   }
 

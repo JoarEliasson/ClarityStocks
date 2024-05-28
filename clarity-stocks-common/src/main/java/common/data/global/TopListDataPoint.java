@@ -1,11 +1,17 @@
 package common.data.global;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * This class represents a data point in the top list of gainers, losers or most traded stocks.
  *
  * @author Joar Eliasson
  */
-public class TopListDataPoint {
+public class TopListDataPoint implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   private String symbol;
   private double currentPrice;
