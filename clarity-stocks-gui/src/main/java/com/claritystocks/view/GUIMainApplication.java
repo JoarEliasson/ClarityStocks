@@ -45,7 +45,6 @@ public class GUIMainApplication extends Application {
 
   private void setUpMainView() throws IOException{
     String css = ClarityResourceManager.getCssResource("/com/claritystocks/styles.css");
-    //String css = this.getClass().getResource("/com/claritystocks/styles.css").toExternalForm();
 
     FXMLLoader mainLoader = new FXMLLoader(GUIMainApplication.class.getResource("Main-view.fxml"));
     mainView = new Scene(mainLoader.load(), 1280, 720);
@@ -77,8 +76,12 @@ public class GUIMainApplication extends Application {
     stage.show();
   }
 
+  private static void forceAntiAliasing() {
+    System.setProperty("prism.lcdtext", "false");
+  }
 
   public static void main(String[] args) {
+    forceAntiAliasing();
     launch(args);
   }
 }
