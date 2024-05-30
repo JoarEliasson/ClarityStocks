@@ -12,6 +12,19 @@ import org.jooq.Result;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 
+/**
+ * <h1>TimeSeriesMonthlyDAO</h1>
+ * <p>
+ * This class is designed to handle operations for storing and retrieving monthly data points of
+ * stock prices through stored PostgreSQL procedures and functions using the jOOQ framework.
+ * </p>
+ * <ul>
+ * <li>Inserting monthly data points of a stock into the database.</li>
+ * <li>Retrieving monthly data points of a stock from the database.</li>
+ * <li>Fetching when the data was last updated</li>
+ * </ul>
+ * @author Kasper Schröder
+ */
 public class TimeSeriesMonthlyDAO {
   private final DSLContext connectionContext;
 

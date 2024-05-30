@@ -5,7 +5,7 @@ import java.util.List;
 import model.search.SearchList;
 
 /**
- * The class initializes the database by inserting market and stock data.
+ * <h1>DatabaseInitializer</h1
  * <p>
  * This class is designed to handle operations for initializing the database by inserting market
  * and stock data using the BasicDAO class.
@@ -14,7 +14,8 @@ import model.search.SearchList;
  *   <li>Inserting market data into the database.</li>
  *   <li>Inserting stock data into the database.</li>
  * </ul>
- * @author Kasper Schröder, Joar Eliasson
+ * @author Kasper Schröder
+ * @author Joar Eliasson
  */
 public class DatabaseInitializer {
   DBConnectionPool dbConnectionPool = new DBConnectionPool();

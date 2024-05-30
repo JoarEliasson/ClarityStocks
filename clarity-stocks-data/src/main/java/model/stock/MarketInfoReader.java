@@ -6,6 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h1>MarketInfoReader</h1>
+ * <p>
+ * The class provides methods for reading market data from a CSV file and creating Market objects.
+ * </p>
+ * @author Joar Eliasson
+ * @author Kasper Schröder
+ */
 public class MarketInfoReader {
 
   private static final String FILE_PATH = "clarity-stocks-data/src/main/resources/markets_v2.csv/";

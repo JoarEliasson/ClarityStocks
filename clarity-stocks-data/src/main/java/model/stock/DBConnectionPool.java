@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * The class provides a centralized connection pool management using HikariCP for efficient database
- * connections.
+ * <h1>DBConnectionPool</h1
  * <p>
  * The class initializes a HikariDataSource with configurations loaded from a
  * properties file. The connection pool settings include prepared statement caching and limits on

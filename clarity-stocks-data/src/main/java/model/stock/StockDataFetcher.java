@@ -12,8 +12,15 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- *
- * @author Joar Eliasson, Kasper Schröder
+ *<h1>StockDataFetcher</h1>
+ * <p>
+ * This class is responsible for fetching stock data from the Alpha Vantage API and the database.
+ * First checks whether there is data within the database and if it's recent enough to be relevant,
+ * if not it fetches the data from the API, stores it in the database and returns it as a StockData
+ * object.
+ * </p>
+ * @author Joar Eliasson
+ * @author Kasper Schröder
  */
 public class StockDataFetcher {
 

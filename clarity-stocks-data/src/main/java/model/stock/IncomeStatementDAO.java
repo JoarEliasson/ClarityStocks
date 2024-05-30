@@ -12,6 +12,19 @@ import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 import org.postgresql.util.PSQLException;
 
+/**
+ * <h1>IncomeStatementDAO</h1>
+ * <p>
+ * The class provides methods for inserting income statement data into the database and retrieving
+ * income statement data from the database.
+ * The class uses jOOQ to interact with the database.
+ * </p>
+ * <ul>
+ * <li>Inserting income statement data into the database.</li>
+ * <li>Retrieving income statement data from the database.</li>
+ * </ul>
+ * @author Kasper Schröder
+ */
 public class IncomeStatementDAO {
   private final DSLContext connectionContext;
 
