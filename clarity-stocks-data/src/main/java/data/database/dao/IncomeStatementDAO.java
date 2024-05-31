@@ -13,13 +13,14 @@ import org.jooq.impl.DSL;
 import org.postgresql.util.PSQLException;
 
 /**
- * The class manages the database interactions related to income statement data.
+ * IncomeStatementDAO
  * <p>
- * This class is designed to handle operations for storing and retrieving income statement data
- * through stored PostgreSQL procedures and functions using the jOOQ framework.
+ * The class provides methods for inserting income statement data into the database and retrieving
+ * income statement data from the database.
+ * <p>
+ * The class uses jOOQ to interact with the database.
  * </p>
  *
- * <p>The main functionalities include:</p>
  * <ul>
  *  <li>Inserting income statement data into the database.</li>
  *  <li>Retrieving income statement data from the database.</li>

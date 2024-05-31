@@ -22,6 +22,7 @@ import org.jooq.impl.DSL;
  * <ul>
  *  <li>Inserting daily data points of a stock into the database.</li>
  *  <li>Retrieving daily data points of a stock from the database.</li>
+ *  <li>Fetching when the data was last updated</li>
  * </ul>
  *
  * @author Kasper Schröder
