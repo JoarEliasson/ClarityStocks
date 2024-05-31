@@ -3,7 +3,8 @@ package com.claritystocks.controller.tiles;
 import analysis.regression.RegressionAnalysis;
 import analysis.regression.RegressionResult;
 import com.claritystocks.controller.GUIStockViewController;
-import common.evaluations.DividendEvaluation;
+import common.evaluations.general.DividendEvaluation;
+import data.stock.StockData;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.Tile.SkinType;
 import eu.hansolo.tilesfx.Tile.TileColor;
@@ -16,9 +17,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.TextAlignment;
-import model.stock.StockData;
 
 /**
+ * This class handles the regression tile which displays the regression analysis of the stock in the
+ * stock-view.
+ * <p>
+ * It's parent class is the {@code GUIStockViewController} which is the controller for the
+ * stock-view.
+ * </p>
+ *
+ * @see GUIStockViewController
+ * @see RegressionAnalysis
+ * @see RegressionResult
+ *
  * @author Joar Eliasson
  */
 public class RegressionTile {
@@ -163,9 +174,9 @@ public class RegressionTile {
         return range.color;
       }
     }
-
     return Color.DARKRED;
   }
+
   @FXML
   public void showExplanation(){
     controller.showExplanationPage("regression");

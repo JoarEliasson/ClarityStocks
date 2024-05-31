@@ -23,9 +23,17 @@ import user.model.UserProfileManager;
 /**
  * The GUIHomeController handles the home view. The class is a controller for the Home-view.fxml
  * file.
+ * <p>
+ * The class is responsible for handling the home view and the user information.
+ * </p>
  *
- * @author Douglas Almö Thorsell, Ibrahim Tafankaji
- * */
+ * @see UserProfile
+ * @see UserProfileManager
+ * @see GUIMainController
+ *
+ * @author Douglas Almö Thorsell
+ * @author Ibrahinm Tafankaji
+ */
 public class GUIHomeController {
 
   @FXML

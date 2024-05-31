@@ -1,4 +1,4 @@
-package model.stock;
+package data.database.dao;
 
 import common.data.series.DailyDataPoint;
 import common.data.series.TimeSeriesDaily;
@@ -17,11 +17,13 @@ import org.jooq.impl.DSL;
  * This class is designed to handle operations for storing and retrieving daily data points of
  * stock prices through stored PostgreSQL procedures and functions using the jOOQ framework.
  * </p>
+ *
  * <p>The main functionalities include:</p>
  * <ul>
  *  <li>Inserting daily data points of a stock into the database.</li>
  *  <li>Retrieving daily data points of a stock from the database.</li>
  * </ul>
+ *
  * @author Kasper Schröder
  */
 public class TimeSeriesDailyDAO {

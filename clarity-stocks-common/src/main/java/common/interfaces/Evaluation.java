@@ -1,8 +1,24 @@
 package common.interfaces;
 
+import common.evaluations.general.DividendEvaluation;
+import common.evaluations.rating.*;
+
 /**
- * Interface for evaluating stock parameters. The evaluation is based on the stock parameters and
- * returns a rating and a description of the evaluation.
+ * Interface for stock evaluations.
+ * <p>
+ * This interface contains methods for evaluating stock parameters and generating various types of
+ * descriptive text based on the evaluation results.
+ * </p>
+ *
+ * @see RatingEvaluation
+ * @see DividendEvaluation
+ * @see AnalystPredictionEvaluation
+ * @see BusinessPerformanceEvaluation
+ * @see CompanyGrowthEvaluation
+ * @see CompanySizeEvaluation
+ * @see HighAndLowEvaluation
+ * @see PERatioEvaluation
+ * @see PriceToPerformanceEvaluation
  *
  * @author Joar Eliasson
  */

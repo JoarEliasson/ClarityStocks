@@ -5,5 +5,6 @@ module clarity.stocks.api.integration {
   requires com.fasterxml.jackson.databind;
 
   exports alphaVantage;
+  exports alphaVantage.enums;
 
 }

@@ -1,5 +1,6 @@
 package alphaVantage;
 
+import alphaVantage.enums.Function;
 import common.data.fundamental.BalanceSheet;
 import common.data.fundamental.CashFlowReport;
 import common.data.fundamental.CompanyOverview;
@@ -17,6 +18,36 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * Class for fetching data from the Alpha Vantage API.
+ * <p>
+ * This class is used to fetch data from the Alpha Vantage API using the HTTP client.
+ * The class includes methods for fetching company overview, time series data, income statements,
+ * balance sheets, cash flow reports, earnings data, daily top lists, and global market status.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code apiKey} - The API key for the Alpha Vantage API.</li>
+ *   <li>{@code httpClient} - The HTTP client used for fetching data.</li>
+ *   <li>{@code parser} - The parser used for parsing the fetched data.</li>
+ * </ul>
+ *
+ * @see AlphaVantageParser
+ * @see GlobalMarketInfo
+ * @see CompanyOverview
+ * @see TimeSeriesDaily
+ * @see TimeSeriesMonthly
+ * @see IncomeStatement
+ * @see BalanceSheet
+ * @see CashFlowReport
+ * @see EarningsData
+ * @see DailyTopLists
+ * @see MarketStatus
+ * @see LocalDataSaver
+ * @see Function
+ *
+ * @author Joar Eliason
+ */
 public class AlphaVantageClient {
 
   private final String apiKey;
@@ -32,7 +63,7 @@ public class AlphaVantageClient {
     GlobalMarketInfo globalMarketInfo = new GlobalMarketInfo();
     globalMarketInfo.setDailyTopLists(getDailyTopLists());
     globalMarketInfo.setMarketStatus(getGlobalMarketStatus());
-    //LocalDataSaver.saveGlobalMarketInfo(globalMarketInfo);
+    LocalDataSaver.saveGlobalMarketInfo(globalMarketInfo);
     return globalMarketInfo;
   }
 

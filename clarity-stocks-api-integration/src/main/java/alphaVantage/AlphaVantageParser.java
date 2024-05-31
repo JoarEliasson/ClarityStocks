@@ -22,9 +22,44 @@ import common.data.global.MarketStatus;
 import common.data.global.TopListDataPoint;
 
 /**
- * Class for parsing JSON responses from Alpha Vantage API (company overview and series data).
+ * Class for parsing JSON data from the Alpha Vantage API.
+ * <p>
+ * This class is used to parse JSON data from the Alpha Vantage API into Java objects.
+ * The class includes methods for parsing company overview, time series data, income statements,
+ * balance sheets, cash flow reports, earnings data, daily top lists, and global market status.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code parseFullStockOverview} - Parses the full stock overview data.</li>
+ *   <li>{@code parseTimeSeriesDaily} - Parses the daily time series data.</li>
+ *   <li>{@code parseTimeSeriesMonthly} - Parses the monthly time series data.</li>
+ *   <li>{@code parseIncomeStatements} - Parses the annual income statements.</li>
+ *   <li>{@code parseQuarterlyIncomeStatements} - Parses the quarterly income statements.</li>
+ *   <li>{@code parseBalanceSheets} - Parses the annual balance sheets.</li>
+ *   <li>{@code parseQuarterlyBalanceSheets} - Parses the quarterly balance sheets.</li>
+ *   <li>{@code parseCashFlowReports} - Parses the annual cash flow reports.</li>
+ *   <li>{@code parseQuarterlyCashFlowReports} - Parses the quarterly cash flow reports.</li>
+ *   <li>{@code parseEarningsData} - Parses the earnings data.</li>
+ *   <li>{@code parseDailyTopLists} - Parses the daily top lists.</li>
+ *   <li>{@code parseGlobalMarketStatus} - Parses the global market status.</li>
+ * </ul>
+ *
+ * @see CompanyOverview
+ * @see TimeSeriesDaily
+ * @see TimeSeriesMonthly
+ * @see IncomeStatement
+ * @see BalanceSheet
+ * @see CashFlowReport
+ * @see EarningsData
+ * @see DailyTopLists
+ * @see MarketStatus
+ * @see TopListDataPoint
+ * @see DailyDataPoint
+ * @see AnnualEarnings
+ * @see QuarterlyEarnings
+ *
+ * @author Joar Eliason
  */
-
 public class AlphaVantageParser {
 
   public CompanyOverview parseFullStockOverview(String body) {
@@ -165,7 +200,6 @@ public class AlphaVantageParser {
     }
     return timeSeriesDaily;
   }
-
 
   private List<DailyDataPoint> parseDailyDataPoints(JsonNode timeSeries) {
     List<DailyDataPoint> timeSeriesData = new ArrayList<>();
@@ -426,7 +460,7 @@ public class AlphaVantageParser {
             "longTermDebt").asLong());
         balanceSheet.setCurrentLongTermDebt(balanceSheetNode.path(
             "currentLongTermDebt").asLong());
-        balanceSheet.setLongTermDebtNoncurrent(balanceSheetNode.path(
+        balanceSheet.setLongTermDebtNonCurrent(balanceSheetNode.path(
             "longTermDebtNoncurrent").asLong());
         balanceSheet.setShortLongTermDebtTotal(balanceSheetNode.path(
             "shortLongTermDebtTotal").asLong());
@@ -491,7 +525,7 @@ public class AlphaVantageParser {
             "fiscalDateEnding").asText());
         cashFlowReport.setReportedCurrency(cashFlowReportNode.path(
             "reportedCurrency").asText());
-        cashFlowReport.setOperatingCashflow(cashFlowReportNode.path(
+        cashFlowReport.setOperatingCashFlow(cashFlowReportNode.path(
             "operatingCashflow").asLong());
         cashFlowReport.setPaymentsForOperatingActivities(cashFlowReportNode.path(
             "paymentsForOperatingActivities").asLong());
@@ -511,9 +545,9 @@ public class AlphaVantageParser {
             "changeInInventory").asLong());
         cashFlowReport.setProfitLoss(cashFlowReportNode.path(
             "profitLoss").asLong());
-        cashFlowReport.setCashflowFromInvestment(cashFlowReportNode.path(
+        cashFlowReport.setCashFlowFromInvestment(cashFlowReportNode.path(
             "cashflowFromInvestment").asLong());
-        cashFlowReport.setCashflowFromFinancing(cashFlowReportNode.path(
+        cashFlowReport.setCashFlowFromFinancing(cashFlowReportNode.path(
             "cashflowFromFinancing").asLong());
         cashFlowReport.setProceedsFromRepaymentsOfShortTermDebt(cashFlowReportNode.path(
             "proceedsFromRepaymentsOfShortTermDebt").asLong());

@@ -1,8 +1,17 @@
-package model.stock;
+package data.stock;
+
+import data.enums.Companies;
+import data.search.SearchList;
 
 /**
- * This record contains basic stock information, such as symbol, name and exchange. It is used to
- * represent a different stock listings in search related operations.
+ * This record contains basic stock information, such as symbol, name and exchange.
+ * <p>
+ * It is used to represent a different stock listings in search related operations.
+ * </p>
+ *
+ * @see StockDataFetcher
+ * @see SearchList
+ * @see Companies
  *
  * @author Joar Eliasson
  */

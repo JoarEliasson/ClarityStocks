@@ -1,5 +1,28 @@
 package common.data.fundamental;
 
+/**
+ * Class for storing quarterly earnings data.
+ * <p>
+ * This class holds data for quarterly earnings, including the fiscal date ending, reported date,
+ * reported earnings per share (EPS), estimated EPS, surprise, and surprise percentage.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code symbol} - The stock symbol.</li>
+ *   <li>{@code fiscalDateEnding} - The fiscal date ending for the earnings data.</li>
+ *   <li>{@code reportedDate} - The date the earnings were reported.</li>
+ *   <li>{@code reportedEPS} - The reported earnings per share (EPS).</li>
+ *   <li>{@code estimatedEPS} - The estimated earnings per share (EPS).</li>
+ *   <li>{@code surprise} - The surprise in earnings.</li>
+ *   <li>{@code surprisePercentage} - The surprise in earnings as a percentage.</li>
+ * </ul>
+ *
+ * @see EarningsData
+ * @see AnnualEarnings
+ * @see QuarterlyEarnings
+ *
+ * @author Joar Eliason
+ */
 public class QuarterlyEarnings {
 
   private final String symbol;

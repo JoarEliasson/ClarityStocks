@@ -4,9 +4,24 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * This class represents a data point in the top list of gainers, losers or most traded stocks.
+ * Class for storing top list data points.
+ * <p>
+ * This class holds data for a single stock in a top list.
+ * </p>
  *
- * @author Joar Eliasson
+ * <ul>
+ *   <li>{@code symbol} - The stock symbol.</li>
+ *   <li>{@code currentPrice} - The current price of the stock.</li>
+ *   <li>{@code changeAmount} - The change in price of the stock.</li>
+ *   <li>{@code changePercentage} - The percentage change in price of the stock.</li>
+ *   <li>{@code tradingVolume} - The trading volume of the stock.</li>
+ * </ul>
+ *
+ * @see DailyTopLists
+ * @see GlobalMarketInfo
+ * @see MarketStatus
+ *
+ * @author Joar Eliason
  */
 public class TopListDataPoint implements Serializable {
 

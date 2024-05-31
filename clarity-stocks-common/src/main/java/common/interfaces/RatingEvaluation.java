@@ -1,10 +1,22 @@
 package common.interfaces;
 
+import common.evaluations.rating.*;
+
 /**
  * Interface for evaluating stock parameters with a rating system.
  * <p>
  * This interface extends {@code Evaluation} and includes methods for obtaining a rating and the
- * evaluated value.
+ * value of the variable that is being evaluated.
+ * </p>
+ *
+ * @see common.interfaces.Evaluation
+ * @see AnalystPredictionEvaluation
+ * @see BusinessPerformanceEvaluation
+ * @see CompanyGrowthEvaluation
+ * @see CompanySizeEvaluation
+ * @see HighAndLowEvaluation
+ * @see PERatioEvaluation
+ * @see PriceToPerformanceEvaluation
  *
  * @author Joar Eliasson
  */

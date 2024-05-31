@@ -4,6 +4,23 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Class for storing global market information.
+ * <p>
+ * This class holds data for the daily top lists and market status.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code dailyTopLists} - The daily top lists.</li>
+ *   <li>{@code marketStatus} - The market status.</li>
+ * </ul>
+ *
+ * @see DailyTopLists
+ * @see MarketStatus
+ * @see TopListDataPoint
+ *
+ * @author Joar Eliason
+ */
 public class GlobalMarketInfo implements Serializable {
 
   @Serial

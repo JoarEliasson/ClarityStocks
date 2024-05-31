@@ -1,5 +1,6 @@
 package common.evaluations.rating;
 
+import common.data.fundamental.CompanyOverview;
 import common.enums.Sectors;
 import common.interfaces.RatingEvaluation;
 
@@ -20,13 +21,15 @@ import common.interfaces.RatingEvaluation;
  *   <li>{@code description} - A detailed description of the evaluation.</li>
  * </ul>
  *
- * @see common.interfaces.RatingEvaluation
- * @see java.lang.String
- * @see java.lang.Math
+ * @see RatingEvaluation
+ * @see PERatioEvaluation
+ * @see Sectors
+ * @see CompanyOverview
  *
- * @author Olivia Svensson, Joar Eliasson
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
-public class PriceToPerformance implements RatingEvaluation {
+public class PriceToPerformanceEvaluation implements RatingEvaluation {
 
   private final PERatioEvaluation peEvaluation;
   private final String symbol;
@@ -42,7 +45,7 @@ public class PriceToPerformance implements RatingEvaluation {
    * @param peRatioEvaluation the P/E ratio evaluation of the company
    * @param sector the sector to which the company belongs
    */
-  public PriceToPerformance(PERatioEvaluation peRatioEvaluation, String sector) {
+  public PriceToPerformanceEvaluation(PERatioEvaluation peRatioEvaluation, String sector) {
     this.peEvaluation = peRatioEvaluation;
     this.symbol = peEvaluation.getSymbol();
     this.peRatio = Double.parseDouble(peEvaluation.getValue());

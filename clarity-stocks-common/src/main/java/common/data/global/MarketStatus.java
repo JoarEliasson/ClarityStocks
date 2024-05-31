@@ -3,6 +3,28 @@ package common.data.global;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class for storing market status data.
+ * <p>
+ * This class holds data for the market status, including the market type, region, primary exchanges,
+ * local opening time, local closing time, and current status.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code marketType} - The market type.</li>
+ *   <li>{@code region} - The region of the market.</li>
+ *   <li>{@code primaryExchanges} - The primary exchanges for the market.</li>
+ *   <li>{@code localOpeningTime} - The local opening time for the market.</li>
+ *   <li>{@code localClosingTime} - The local closing time for the market.</li>
+ *   <li>{@code currentStatus} - The current status of the market.</li>
+ * </ul>
+ *
+ * @see DailyTopLists
+ * @see GlobalMarketInfo
+ * @see TopListDataPoint
+ *
+ * @author Joar Eliason
+ */
 public class MarketStatus implements Serializable {
 
   @Serial

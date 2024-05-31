@@ -1,6 +1,8 @@
 module clarity.stocks.data {
-  exports model.stock;
-  exports model.search;
+  exports data.stock;
+  exports data.search;
+  exports data.database.dao;
+  exports data.database;
   requires clarity.stocks.analysis;
   requires clarity.stocks.common;
   requires clarity.stocks.api.integration;

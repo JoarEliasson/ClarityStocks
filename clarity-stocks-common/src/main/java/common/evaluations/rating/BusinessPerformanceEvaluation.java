@@ -1,14 +1,17 @@
 package common.evaluations.rating;
 
+import common.data.fundamental.CompanyOverview;
+import common.data.fundamental.IncomeStatement;
 import common.interfaces.RatingEvaluation;
 
 /**
- * Class for calculating the business performance of a company.
+ * Class for evaluating the business performance of a company.
  * <p>
  * The business performance evaluation is based on the company's EBITDA (Earnings Before Interest,
  * Taxes, Depreciation, and Amortization) and total revenue. The EBITDA margin is used as a measure
  * of the company's operating profitability as a percentage of its total revenue.
  * </p>
+ *
  * <p>
  * This class evaluates the EBITDA margin and returns a rating and a description of the evaluation.
  * </p>
@@ -22,12 +25,12 @@ import common.interfaces.RatingEvaluation;
  *   <li>{@code description} - A textual description of the company's performance.</li>
  * </ul>
  *
- * @see common.interfaces.RatingEvaluation
- * @see java.lang.String
- * @see java.lang.Math
+ * @see RatingEvaluation
+ * @see IncomeStatement
+ * @see CompanyOverview
  *
- * @author Olivia Svensson, Joar Eliasson
- *
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
 public class BusinessPerformanceEvaluation implements RatingEvaluation {
 

@@ -19,6 +19,8 @@ import java.util.List;
  * </ul>
  *
  * @see PricePrediction
+ * @see RegressionCalculator
+ * @see RegressionAnalysis
  *
  * @author Joar Eliasson
  */

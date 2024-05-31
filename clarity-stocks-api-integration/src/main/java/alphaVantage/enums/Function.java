@@ -1,11 +1,24 @@
-package alphaVantage;
+package alphaVantage.enums;
 
+import alphaVantage.AlphaVantageClient;
+import alphaVantage.AlphaVantageParser;
+
+/**
+ * Enum for different functions available in the Alpha Vantage API.
+ * <p>
+ * The enum contains the different functions available in the Alpha Vantage API, and methods for
+ * getting the URL for the different functions.
+ * </p>
+ *
+ * @see AlphaVantageClient
+ * @see AlphaVantageParser
+ *
+ * @author Joar Eliason
+ */
 public enum Function {
   TIME_SERIES_INTRADAY("TIME_SERIES_INTRADAY"),
   TIME_SERIES_DAILY("TIME_SERIES_DAILY"),
-  TIME_SERIES_DAILY_ADJUSTED("TIME_SERIES_DAILY_ADJUSTED"),
   TIME_SERIES_WEEKLY("TIME_SERIES_WEEKLY"),
-  TIME_SERIES_WEEKLY_ADJUSTED("TIME_SERIES_WEEKLY_ADJUSTED"),
   TIME_SERIES_MONTHLY("TIME_SERIES_MONTHLY"),
   TIME_SERIES_MONTHLY_ADJUSTED("TIME_SERIES_MONTHLY_ADJUSTED"),
   GLOBAL_QUOTE("GLOBAL_QUOTE"),
@@ -16,8 +29,6 @@ public enum Function {
   CASH_FLOW("CASH_FLOW"),
   EARNINGS("EARNINGS"),
   LISTING_STATUS("LISTING_STATUS"),
-  LISTING("LISTING"),
-  SECTOR("SECTOR"),
   TECHNICAL_INDICATORS("TECHNICAL_INDICATORS"),
   SECTOR_PERFORMANCE("SECTOR_PERFORMANCE"),
   TOP_GAINERS_LOSERS("TOP_GAINERS_LOSERS"),

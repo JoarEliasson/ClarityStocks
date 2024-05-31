@@ -1,10 +1,17 @@
 package analysis.interfaces;
 
+import analysis.graph.GoldenCrossAnalysis;
+import analysis.regression.RegressionAnalysis;
+
 /**
  * Interface for performing technical analysis on stock data.
  * <p>
  * This interface provides methods for analyzing stock data and obtaining detailed results of the
  * analysis.
+ * </p>
+ *
+ * @see GoldenCrossAnalysis
+ * @see RegressionAnalysis
  *
  * @author Joar Eliasson
  */

@@ -1,13 +1,16 @@
 package common.evaluations.rating;
 
+import common.data.fundamental.CompanyOverview;
+import common.data.series.TimeSeriesDaily;
 import common.interfaces.RatingEvaluation;
 
 /**
  * Class for evaluating the 52-week high and low of a stock.
- *
- * <p>The evaluation is based on the highest and lowest prices at which a stock has been traded
+ * <p>
+ * The evaluation is based on the highest and lowest prices at which a stock has been traded
  * over the previous 52 weeks. This information can be used to assess the stock's volatility
  * and potential investment opportunities.
+ * </p>
  *
  * <ul>
  *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
@@ -22,11 +25,12 @@ import common.interfaces.RatingEvaluation;
  *   <li>{@code description} - A detailed description of the evaluation.</li>
  * </ul>
  *
- * @see common.interfaces.RatingEvaluation
- * @see java.lang.String
- * @see java.lang.Math
+ * @see RatingEvaluation
+ * @see CompanyOverview
+ * @see TimeSeriesDaily
  *
- * @author Olivia Svensson, Joar Eliasson
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
 public class HighAndLowEvaluation implements RatingEvaluation {
 

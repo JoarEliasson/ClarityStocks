@@ -18,13 +18,20 @@ import user.model.UserProfileManager;
  * <p>
  * The GUI is designed to have a hierarchy between the classes with the Main-view at the top of the
  * hierarchy and then includes or views under it.
+ * </p>
+ *
  * <p>
  * The children for this view is the following, Home-view, Stock-view and Menu-bar.
+ * </p>
  *
- * @author Douglas Almö Thorsell, Ibrahim Tafankaji
  * @see GUIHomeController
  * @see GUIStockViewController
  * @see MenuBarController
+ * @see ExplanationTile
+ * @see UserProfile
+ *
+ * @author Douglas Almö Thorsell
+ * @author Ibrahim Tafankaji
  */
 public class GUIMainController {
 

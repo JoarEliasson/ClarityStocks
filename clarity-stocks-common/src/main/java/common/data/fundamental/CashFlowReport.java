@@ -1,11 +1,59 @@
 package common.data.fundamental;
 
+/**
+ * Class for storing cash flow reports.
+ * <p>
+ * This class holds data for a cash flow report, including the symbol of the company, the fiscal
+ * date ending of the report, the reported currency, and various cash flow values.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code symbol} - The symbol of the company.</li>
+ *   <li>{@code fiscalDateEnding} - The fiscal date ending of the report.</li>
+ *   <li>{@code reportedCurrency} - The currency in which the report is reported.</li>
+ *   <li>{@code operatingCashFlow} - The operating cash flow.</li>
+ *   <li>{@code paymentsForOperatingActivities} - The payments for operating activities.</li>
+ *   <li>{@code proceedsFromOperatingActivities} - The proceeds from operating activities.</li>
+ *   <li>{@code changeInOperatingLiabilities} - The change in operating liabilities.</li>
+ *   <li>{@code changeInOperatingAssets} - The change in operating assets.</li>
+ *   <li>{@code depreciationDepletionAndAmortization} - The depreciation, depletion, and
+ *   amortization.</li>
+ *   <li>{@code capitalExpenditures} - The capital expenditures.</li>
+ *   <li>{@code changeInReceivables} - The change in receivables.</li>
+ *   <li>{@code changeInInventory} - The change in inventory.</li>
+ *   <li>{@code profitLoss} - The profit or loss.</li>
+ *   <li>{@code cashFlowFromInvestment} - The cash flow from investment.</li>
+ *   <li>{@code cashFlowFromFinancing} - The cash flow from financing.</li>
+ *   <li>{@code proceedsFromRepaymentsOfShortTermDebt} - The proceeds from repayments of short-term
+ *   debt.</li>
+ *   <li>{@code paymentsForRepurchaseOfCommonStock} - The payments for repurchase of common
+ *   stock.</li>
+ *   <li>{@code paymentsForRepurchaseOfEquity} - The payments for repurchase of equity.</li>
+ *   <li>{@code paymentsForRepurchaseOfPreferredStock} - The payments for repurchase of preferred
+ *   stock.</li>
+ *   <li>{@code dividendPayout} - The dividend payout.</li>
+ *   <li>{@code dividendPayoutCommonStock} - The dividend payout for common stock.</li>
+ *   <li>{@code dividendPayoutPreferredStock} - The dividend payout for preferred stock.</li>
+ *   <li>{@code proceedsFromIssuanceOfCommonStock} - The proceeds from issuance of common
+ *   stock.</li>
+ *   <li>{@code proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet} - The proceeds from
+ *   issuance of long-term debt and capital securities net.</li>
+ *   <li>{@code proceedsFromIssuanceOfPreferredStock} - The proceeds from issuance of preferred
+ *   stock.</li>
+ *   <li>{@code proceedsFromRepurchaseOfEquity} - The proceeds from repurchase of equity.</li>
+ *   <li>{@code proceedsFromSaleOfTreasuryStock} - The proceeds from sale of treasury stock.</li>
+ *   <li>{@code changeInCashAndCashEquivalents} - The change in cash and cash equivalents.</li>
+ *   <li>{@code changeInExchangeRate} - The change in exchange rate.</li>
+ * </ul>
+ *
+ * @author Joar Eliason
+ */
 public class CashFlowReport {
 
   private final String symbol;
   private String fiscalDateEnding;
   private String reportedCurrency;
-  private long operatingCashflow;
+  private long operatingCashFlow;
   private long paymentsForOperatingActivities;
   private long proceedsFromOperatingActivities;
   private long changeInOperatingLiabilities;
@@ -15,8 +63,8 @@ public class CashFlowReport {
   private long changeInReceivables;
   private long changeInInventory;
   private long profitLoss;
-  private long cashflowFromInvestment;
-  private long cashflowFromFinancing;
+  private long cashFlowFromInvestment;
+  private long cashFlowFromFinancing;
   private long proceedsFromRepaymentsOfShortTermDebt;
   private long paymentsForRepurchaseOfCommonStock;
   private long paymentsForRepurchaseOfEquity;
@@ -57,12 +105,12 @@ public class CashFlowReport {
     this.reportedCurrency = reportedCurrency;
   }
 
-  public long getOperatingCashflow() {
-    return operatingCashflow;
+  public long getOperatingCashFlow() {
+    return operatingCashFlow;
   }
 
-  public void setOperatingCashflow(long operatingCashflow) {
-    this.operatingCashflow = operatingCashflow;
+  public void setOperatingCashFlow(long operatingCashFlow) {
+    this.operatingCashFlow = operatingCashFlow;
   }
 
   public long getPaymentsForOperatingActivities() {
@@ -137,20 +185,20 @@ public class CashFlowReport {
     this.profitLoss = profitLoss;
   }
 
-  public long getCashflowFromInvestment() {
-    return cashflowFromInvestment;
+  public long getCashFlowFromInvestment() {
+    return cashFlowFromInvestment;
   }
 
-  public void setCashflowFromInvestment(long cashflowFromInvestment) {
-    this.cashflowFromInvestment = cashflowFromInvestment;
+  public void setCashFlowFromInvestment(long cashFlowFromInvestment) {
+    this.cashFlowFromInvestment = cashFlowFromInvestment;
   }
 
-  public long getCashflowFromFinancing() {
-    return cashflowFromFinancing;
+  public long getCashFlowFromFinancing() {
+    return cashFlowFromFinancing;
   }
 
-  public void setCashflowFromFinancing(long cashflowFromFinancing) {
-    this.cashflowFromFinancing = cashflowFromFinancing;
+  public void setCashFlowFromFinancing(long cashFlowFromFinancing) {
+    this.cashFlowFromFinancing = cashFlowFromFinancing;
   }
 
   public long getProceedsFromRepaymentsOfShortTermDebt() {
@@ -278,12 +326,12 @@ public class CashFlowReport {
   public String toString() {
     return String.format(
         "[CashFlow (%s) fiscalDateEnding=%s]%n"
-            + "reportedCurrency=%s%n" + "operatingCashflow=%d%n"
+            + "reportedCurrency=%s%n" + "operatingCashFlow=%d%n"
             + "paymentsForOperatingActivities=%d%n" + "proceedsFromOperatingActivities=%d%n"
             + "changeInOperatingLiabilities=%d%n" + "changeInOperatingAssets=%d%n"
             + "depreciationDepletionAndAmortization=%d%n" + "capitalExpenditures=%d%n"
             + "changeInReceivables=%d%n" + "changeInInventory=%d%n" + "profitLoss=%d%n"
-            + "cashflowFromInvestment=%d%n" + "cashflowFromFinancing=%d%n"
+            + "cashFlowFromInvestment=%d%n" + "cashFlowFromFinancing=%d%n"
             + "proceedsFromRepaymentsOfShortTermDebt=%d%n"
             + "paymentsForRepurchaseOfCommonStock=%d%n" + "paymentsForRepurchaseOfEquity=%d%n"
             + "paymentsForRepurchaseOfPreferredStock=%d%n" + "dividendPayout=%d%n"
@@ -293,11 +341,11 @@ public class CashFlowReport {
             + "proceedsFromIssuanceOfPreferredStock=%d%n" + "proceedsFromRepurchaseOfEquity=%d%n"
             + "proceedsFromSaleOfTreasuryStock=%d%n" + "changeInCashAndCashEquivalents=%d%n"
             + "changeInExchangeRate=%d%n" + "netIncome=%d%n",
-        symbol, fiscalDateEnding, reportedCurrency, operatingCashflow,
+        symbol, fiscalDateEnding, reportedCurrency, operatingCashFlow,
         paymentsForOperatingActivities, proceedsFromOperatingActivities,
         changeInOperatingLiabilities, changeInOperatingAssets,
         depreciationDepletionAndAmortization, capitalExpenditures, changeInReceivables,
-        changeInInventory, profitLoss, cashflowFromInvestment, cashflowFromFinancing,
+        changeInInventory, profitLoss, cashFlowFromInvestment, cashFlowFromFinancing,
         proceedsFromRepaymentsOfShortTermDebt, paymentsForRepurchaseOfCommonStock,
         paymentsForRepurchaseOfEquity, paymentsForRepurchaseOfPreferredStock, dividendPayout,
         dividendPayoutCommonStock, dividendPayoutPreferredStock, proceedsFromIssuanceOfCommonStock,

@@ -17,9 +17,11 @@ import javafx.util.Duration;
  * This class handles the ratings tile which includes the price of the stock and different ratings
  * about the stock depending on different analysis that has been done.
  * <p>
- * It's parent class is the Stock-view.
- * @author Douglas Almö Thorsell
+ * It's parent class is the {@code GUIStockViewController}, the controller for the stock-view.
+ *
  * @see GUIStockViewController
+ *
+ * @author Douglas Almö Thorsell
  */
 public class RatingsTile {
 

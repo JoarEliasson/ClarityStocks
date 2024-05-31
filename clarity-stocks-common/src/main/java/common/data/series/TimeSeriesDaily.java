@@ -4,6 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for storing daily stock data points.
+ * <p>
+ * This class holds data for a single stock on a given day.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code symbol} - The symbol of the stock.</li>
+ *   <li>{@code date} - The date of the data point.</li>
+ *   <li>{@code close} - The closing price of the stock.</li>
+ * </ul>
+ *
+ * @see DailyDataPoint
+ *
+ * @author Joar Eliason
+ */
 public class TimeSeriesDaily {
 
   private final String symbol;

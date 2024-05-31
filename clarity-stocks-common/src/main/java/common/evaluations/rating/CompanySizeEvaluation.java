@@ -1,5 +1,7 @@
 package common.evaluations.rating;
 
+import common.data.fundamental.CompanyOverview;
+import common.data.fundamental.IncomeStatement;
 import common.interfaces.RatingEvaluation;
 
 /**
@@ -18,11 +20,12 @@ import common.interfaces.RatingEvaluation;
  *   <li>{@code description} - A detailed description of the evaluation.</li>
  * </ul>
  *
- * @see common.interfaces.RatingEvaluation
- * @see java.lang.String
- * @see java.lang.Math
+ * @see RatingEvaluation
+ * @see IncomeStatement
+ * @see CompanyOverview
  *
- * @author Olivia Svensson, Joar Eliasson
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
 public class CompanySizeEvaluation implements RatingEvaluation {
 

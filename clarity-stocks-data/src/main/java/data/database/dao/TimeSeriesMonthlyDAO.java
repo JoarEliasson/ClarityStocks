@@ -1,4 +1,4 @@
-package model.stock;
+package data.database.dao;
 
 import common.data.series.DailyDataPoint;
 import common.data.series.TimeSeriesMonthly;
@@ -12,6 +12,21 @@ import org.jooq.Result;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 
+/**
+ * The class manages the database interactions related to monthly financial time series data.
+ * <p>
+ * This class is designed to handle operations for storing and retrieving monthly data points of
+ * stock prices through stored PostgreSQL procedures and functions using the jOOQ framework.
+ * </p>
+ *
+ * <p>The main functionalities include:</p>
+ * <ul>
+ *  <li>Inserting monthly data points of a stock into the database.</li>
+ *  <li>Retrieving monthly data points of a stock from the database.</li>
+ * </ul>
+ *
+ * @author Kasper Schröder
+ */
 public class TimeSeriesMonthlyDAO {
   private final DSLContext connectionContext;
 

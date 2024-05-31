@@ -1,4 +1,4 @@
-package model.stock;
+package data.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -19,10 +19,12 @@ import java.util.Properties;
  * statement cache size. It supports retrieval of a DSLContext configured for PostgreSQL to
  * interact with the database through jOOQ.
  * </p>
+ *
  * <p>
  * Usage of this class allows for resource-efficient database operations due to the pooling and
  * reusing of connections, reducing the overhead of creating connections frequently.
  * </p>
+ *
  * @author Kasper Schröder
  */
 public class DBConnectionPool {

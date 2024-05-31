@@ -1,6 +1,7 @@
-package common.evaluations;
+package common.evaluations.general;
 
 import common.data.fundamental.CashFlowReport;
+import common.data.fundamental.CompanyOverview;
 import common.interfaces.Evaluation;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
  * This class calculates the dividend yield for the fiscal year and analyzes historical
  * dividends to provide a more detailed evaluation.
  * </p>
+ *
  * <ul>
  *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
  *   <li>{@code dividendPerShare} - The dividend paid per share.</li>
@@ -23,10 +25,13 @@ import java.util.stream.Collectors;
  *   <li>{@code cashFlowReports} - List of historical cash flow reports.</li>
  * </ul>
  *
- * @see common.interfaces.Evaluation
- * @see java.util.List
+ * @see Evaluation
+ * @see CashFlowReport
+ * @see HistoricalDividend
+ * @see CompanyOverview
  *
- * @author Olivia Svensson, Joar Eliasson
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
 public class DividendEvaluation implements Evaluation {
 
@@ -115,8 +120,8 @@ public class DividendEvaluation implements Evaluation {
     int count = 0;
 
     for (CashFlowReport report : cashFlowReports) {
-      if (report.getDividendPayout() > 0 && report.getOperatingCashflow() > 0) {
-        double yield = (double) report.getDividendPayout() / report.getOperatingCashflow() * 100;
+      if (report.getDividendPayout() > 0 && report.getOperatingCashFlow() > 0) {
+        double yield = (double) report.getDividendPayout() / report.getOperatingCashFlow() * 100;
         totalYield += yield;
         count++;
       }
@@ -283,6 +288,12 @@ public class DividendEvaluation implements Evaluation {
     };
   }
 
+  /**
+   * Class for storing historical dividend payouts.
+   * <p>
+   * This class stores the dividend payout for a specific year.
+   * </p>
+   */
   public class HistoricalDividend {
 
     private final String dividendYear;

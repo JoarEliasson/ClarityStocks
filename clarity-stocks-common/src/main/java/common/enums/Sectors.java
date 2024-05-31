@@ -2,12 +2,14 @@ package common.enums;
 
 /**
  * Enum with values of different P/E-ratios for different company sectors.
+ * <p>
  * These values are used for determining if the stocks P/E-value is considered high, low or average.
  * As P/E-ratios for different sectors vary to a great extent, it is necessary to compare the stocks
  * P/E-ratio to statistics on P/E-ratios for the sector of the stock.
+ * </p>
  *
  * @author Olivia Svensson
- * */
+ */
 public enum Sectors {
 
   ENERGY("energy", 11.15),
@@ -22,8 +24,8 @@ public enum Sectors {
   TELECOM("telecom", 29.3),
   UTILITIES("utilities", 71.4);
 
-  private String sector;
-  private double priceToEarnings;
+  private final String sector;
+  private final double priceToEarnings;
 
   Sectors(String sector, double priceToEarnings) {
     this.sector = sector;

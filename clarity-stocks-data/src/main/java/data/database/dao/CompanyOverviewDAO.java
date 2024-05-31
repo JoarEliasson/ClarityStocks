@@ -1,4 +1,4 @@
-package model.stock;
+package data.database.dao;
 
 import common.data.fundamental.CompanyOverview;
 import java.math.BigDecimal;
@@ -17,11 +17,13 @@ import org.postgresql.util.PSQLException;
  * This class uses the jOOQ library to create a connection context that ensures SQL operations are
  * safe and efficient.
  * </p>
+ *
  * <p>The main functionalities include:</p>
  * <ul>
  *  <li>Inserting fundamental data of a company into the database.</li>
  *  <li>Retrieving fundamental data of a company from the database.</li>
  * </ul>
+ *
  * @author Kasper Schröder
  */
 public class CompanyOverviewDAO {

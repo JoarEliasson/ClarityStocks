@@ -1,12 +1,15 @@
 package common.evaluations.rating;
 
+import common.data.fundamental.CompanyOverview;
+import common.data.fundamental.IncomeStatement;
 import common.interfaces.RatingEvaluation;
 
 /**
  * This class evaluates the company's growth based on the quarterly revenue growth year over year.
- *
- * <p>The evaluation is based on the increase in the company's sales from one quarter to the next,
+ * <p>
+ * The evaluation is based on the increase in the company's sales from one quarter to the next,
  * compared on a year-over-year basis.
+ * </p>
  *
  * <ul>
  *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
@@ -17,11 +20,12 @@ import common.interfaces.RatingEvaluation;
  *   <li>{@code description} - A detailed description of the evaluation.</li>
  * </ul>
  *
- * @see common.interfaces.RatingEvaluation
- * @see java.lang.String
- * @see java.lang.Math
+ * @see RatingEvaluation
+ * @see IncomeStatement
+ * @see CompanyOverview
  *
- * @author Olivia Svensson, Joar Eliasson
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
 public class CompanyGrowthEvaluation implements RatingEvaluation {
 

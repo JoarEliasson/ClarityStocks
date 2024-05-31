@@ -5,7 +5,8 @@ package common.data.fundamental;
  * retrieved via an API. This class encapsulates financial results such as revenue, costs, and
  * profits to analyze the company's financial health in a structured manner.
  *
- * <p>Key financial metrics stored in this class include:
+ * <p>
+ *   Key financial metrics stored in this class include:
  * <ul>
  *   <li>{@code symbol} - Unique identifier for the company's stock.</li>
  *   <li>{@code fiscalDateEnding} - Marks the end of the reported fiscal period.</li>
@@ -42,9 +43,7 @@ package common.data.fundamental;
  *   <li>{@code ebitda} - Earnings before interest, taxes, depreciation, and amortization.</li>
  *   <li>{@code netIncome} - Total net profit after all deductions.</li>
  * </ul>
- *
- * <p>This class provides constructors to initialize key components and methods to retrieve or
- * update the financial metrics accordingly.
+ * </p>
  *
  * @author Joar Eliasson
  */

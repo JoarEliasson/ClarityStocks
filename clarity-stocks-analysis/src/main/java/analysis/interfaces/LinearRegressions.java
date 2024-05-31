@@ -1,15 +1,21 @@
 package analysis.interfaces;
 
 import analysis.regression.PricePrediction;
+import analysis.regression.RegressionCalculator;
 import analysis.regression.RegressionResult;
 import common.enums.IncomeStatementVariable;
 
-
 /**
- * Interface which all the linear regression calculator classes implements. The interface contains
- * methods which can be applied generally for linear regressions to be made.
+ * Interface for performing linear regression analysis on stock data.
+ * <p>
+ * This interface provides methods for analyzing stock data and obtaining detailed results of the
+ * analysis.
+ * </p>
  *
- * @author Olivia Svensson, Joar Eliasson
+ * @see RegressionCalculator
+ *
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
 public interface LinearRegressions {
 

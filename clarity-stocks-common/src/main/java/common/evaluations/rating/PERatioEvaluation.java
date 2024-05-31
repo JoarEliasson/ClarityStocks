@@ -1,26 +1,32 @@
 package common.evaluations.rating;
 
+import common.data.fundamental.CompanyOverview;
 import common.interfaces.RatingEvaluation;
 
 /**
  * Class for evaluating the Price Earnings (P/E) ratio of a company.
- *
- * <p>The Price Earnings ratio is calculated by dividing the current stock price by the earnings per
+ * <p>
+ * The Price Earnings ratio is calculated by dividing the current stock price by the earnings per
  * share. This class evaluates the P/E ratio and returns a rating and a description of the
  * evaluation.
+ * </p>
  *
- * <p>As of December 2023, the average Price Earnings ratio for the S&P 500 was 24.79 and will serve
+ * <p>
+ * As of December 2023, the average Price Earnings ratio for the S&P 500 was 24.79 and will serve
  * as a reference point for the evaluation.
- *
- * <p>This class provides methods to evaluate, describe, and get details of the P/E ratio evaluation.
+ * </p>
  *
  * <ul>
  *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
  *   <li>{@code peRatio} - The Price Earnings ratio of the company's stock.</li>
- *   <li>{@code rating} - The calculated rating based on the P/E ratio comparison with the market average.</li>
+ *   <li>{@code rating} - The calculated rating based on the P/E ratio comparison with the market
+ *   average.</li>
  *   <li>{@code ratingDescription} - A textual description of the rating.</li>
  *   <li>{@code description} - A detailed description of the evaluation.</li>
  * </ul>
+ *
+ * @see RatingEvaluation
+ * @see CompanyOverview
  *
  * @author Joar Eliasson
  */

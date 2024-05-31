@@ -69,38 +69,29 @@
                 </VBox>
               </StackPane>
             </VBox>
-
             <VBox alignment="CENTER" spacing="10">
               <StackPane>
                 <Rectangle fill="#d9d9d9" height="475" width="425" fx:id="statBackground"
                   styleClass="backgroundPanelStockView"/>
                 <fx:include source="Ratings-tile.fxml" fx:id="ratingsTile"/>
               </StackPane>
-
             </VBox>
           </HBox>
           <VBox>
-
             <StackPane>
               <Rectangle fill="#d9d9d9" height="150" width="1125" fx:id="descBackground"
                 styleClass="backgroundPanelStockView"/>
               <fx:include source="Info-tile.fxml" fx:id="infoTile"/>
             </StackPane>
           </VBox>
-
-          <!-- regressionTile -->
           <HBox alignment="CENTER">
             <StackPane>
               <Rectangle fill="#d9d9d9" height="600" width="800" fx:id="regressionTileBackground"
                 styleClass="backgroundPanelStockView"/>
               <fx:include source="Regression-tile.fxml" fx:id="regressionTile"/>
             </StackPane>
-
-
           </HBox>
-
         </VBox>
-
       </center>
     </BorderPane>
   </ScrollPane>

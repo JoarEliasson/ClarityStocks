@@ -1,5 +1,19 @@
 package analysis.regression;
 
+import analysis.interfaces.LinearRegressions;
+
+/**
+ * Class for storing the result of price predictions made during linear regression analysis.
+ * <p>
+ * The class contains information about the variable name, the date of the prediction, the current
+ * price, the predicted price, the rating of the prediction and a description of the prediction.
+ * </p>
+ *
+ * @see LinearRegressions
+ * @see RegressionResult
+ *
+ * @author Joar Eliason
+ */
 public class PricePrediction {
 
   private final String variableName;

@@ -23,9 +23,10 @@ import org.jfree.data.xy.XYSeriesCollection;
  *   <li>{@code priceData} - Array of historical stock prices.</li>
  * </ul>
  *
- * @see analysis.interfaces.LinearRegressions
- * @see common.data.fundamental.IncomeStatement
- * @see common.enums.IncomeStatementVariable
+ * @see LinearRegressions
+ * @see IncomeStatement
+ * @see IncomeStatementVariable
+ *
  * @author Joar Eliasson
  * @author Olivia Svensson
  */

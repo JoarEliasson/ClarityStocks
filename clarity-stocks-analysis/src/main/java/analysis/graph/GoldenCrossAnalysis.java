@@ -4,11 +4,12 @@ import analysis.interfaces.TechnicalAnalysis;
 import java.util.List;
 
 /**
- * Class for evaluating the Golden Cross in stock trading.
+ * Class for analyzing Golden Cross events on a stock graph.
  * <p>
- * The evaluation is based on the moving averages of 50 and 200 days.
+ * The analysis is based on the 50-day and 200-day moving averages of the price of a stock.
  * A Golden Cross is when the 50-day moving average crosses above the 200-day moving average.
  * </p>
+ *
  * <p>
  * This class also includes potential Golden Cross events that have occurred on the graph.
  * </p>
@@ -22,11 +23,10 @@ import java.util.List;
  *   <li>{@code goldenCrossEvents} - List of dates where Golden Cross events occurred.</li>
  * </ul>
  *
- * @see common.interfaces.RatingEvaluation
+ * @see TechnicalAnalysis
  *
  * @author Joar Eliason
  * @author Olivia Svensson
- *
  */
 public class GoldenCrossAnalysis implements TechnicalAnalysis {
 

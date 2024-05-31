@@ -2,6 +2,28 @@ package common.data.series;
 
 import java.util.Locale;
 
+/**
+ * Class for storing daily stock data points.
+ * <p>
+ * This class holds data for a single stock on a given day.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code date} - The date of the data point.</li>
+ *   <li>{@code open} - The opening price of the stock.</li>
+ *   <li>{@code high} - The highest price of the stock during the day.</li>
+ *   <li>{@code low} - The lowest price of the stock during the day.</li>
+ *   <li>{@code close} - The closing price of the stock.</li>
+ *   <li>{@code adjustedClose} - The adjusted closing price of the stock.</li>
+ *   <li>{@code average} - The average price of the stock during the day.</li>
+ *   <li>{@code volume} - The trading volume of the stock.</li>
+ * </ul>
+ *
+ * @see TimeSeriesDaily
+ * @see TimeSeriesMonthly
+ *
+ * @author Joar Eliason
+ */
 public class DailyDataPoint {
 
   private final String date;

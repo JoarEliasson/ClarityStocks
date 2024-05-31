@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.stock.StockDataFetcher;
+import data.stock.StockDataFetcher;
 
 /**
  * Controller class for the top lists view.
@@ -22,6 +22,9 @@ import model.stock.StockDataFetcher;
  * This class is responsible for handling the top lists view and updating the top gainers, top losers
  * and most traded stocks.
  * </p>
+ *
+ * @see TopListDataPoint
+ * @see GlobalMarketInfo
  *
  * @author Douglas Almö Thorsell
  * @author Ibrahim Tafankaji

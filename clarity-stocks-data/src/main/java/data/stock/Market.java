@@ -1,7 +1,49 @@
-package model.stock;
+package data.stock;
 
+import data.enums.Markets;
 import java.util.Objects;
 
+/**
+ * Market class represents a stock market.
+ * <p>
+ * Each market has an identifier, name, market type, region, city, timezone, UTC offset, local
+ * open time, and local close time.
+ * </p>
+ *
+ * <p>For example, the New York Stock Exchange (NYSE) has the following attributes:</p>
+ * <ul>
+ *   <li>Identifier: NYSE
+ *   <li>Name: New York Stock Exchange
+ *   <li>Market Type: Stock Exchange
+ *   <li>Region: North America
+ *   <li>City: New York
+ *   <li>Timezone: Eastern Time
+ *   <li>UTC Offset: -5
+ *   <li>Local Open Time: 9:30 AM
+ *   <li>Local Close Time: 4:00 PM
+ * </ul>
+ *
+ * <p>
+ * Another example is the National Association of Securities Dealers Automated Quotations (NASDAQ)
+ * with the following attributes:</p>
+ * <ul>
+ *   <li>Identifier: NASDAQ
+ *   <li>Name: National Association of Securities Dealers Automated Quotations
+ *   <li>Market Type: Stock Exchange
+ *   <li>Region: North America
+ *   <li>City: New York
+ *   <li>Timezone: Eastern Time
+ *   <li>UTC Offset: -5
+ *   <li>Local Open Time: 9:30 AM
+ *   <li>Local Close Time: 4:00 PM
+ * </ul>
+ *
+ * <p>
+ * The CET offset can also be retrieved for each market.
+ * </p>
+ *
+ * @author Joar Eliason
+ */
 public class Market {
   
   private final String identifier;
@@ -31,6 +73,10 @@ public class Market {
     this.utcOffset = utcOffset;
     this.localOpenTime = localOpenTime;
     this.localCloseTime = localCloseTime;
+  }
+
+  public int getCETOffset() {
+    return Markets.valueOf(identifier).getUTCOffset() - 1;
   }
 
   public String getIdentifier() {

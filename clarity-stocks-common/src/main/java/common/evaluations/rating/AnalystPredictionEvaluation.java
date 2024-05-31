@@ -1,16 +1,19 @@
 package common.evaluations.rating;
 
+import common.data.fundamental.CompanyOverview;
 import common.interfaces.RatingEvaluation;
 
 /**
  * Class for evaluating the analyst prediction of a stock.
- *
  * <p>
  * The evaluation is based on the comparison of the current price and the target price provided by
  * analysts, as well as the analysts' ratings.
+ * </p>
+ *
  * <p>
  * This class evaluates the analysts' predictions and returns a rating and a description of the
  * evaluation.
+ * </p>
  *
  * <ul>
  *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
@@ -25,11 +28,11 @@ import common.interfaces.RatingEvaluation;
  *   <li>{@code ratingDescription} - A textual description of the rating.</li>
  * </ul>
  *
- * @see common.interfaces.RatingEvaluation
- * @see java.lang.String
- * @see java.lang.Math
+ * @see RatingEvaluation
+ * @see CompanyOverview
  *
- * @author Olivia Svensson, Joar Eliasson
+ * @author Joar Eliason
+ * @author Olivia Svensson
  */
 public class AnalystPredictionEvaluation implements RatingEvaluation {
 

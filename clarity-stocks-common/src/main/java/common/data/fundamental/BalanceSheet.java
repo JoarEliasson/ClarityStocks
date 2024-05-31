@@ -1,5 +1,62 @@
 package common.data.fundamental;
 
+/**
+ * Class for storing balance sheet data.
+ * <p>
+ * This class is used to store balance sheet data for a company.
+ * The class includes the symbol of the company, the fiscal date ending, the reported currency, and
+ * various balance sheet data points.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code symbol} - The unique identifier for the company's stock.</li>
+ *   <li>{@code fiscalDateEnding} - The fiscal date ending for the balance sheet data.</li>
+ *   <li>{@code reportedCurrency} - The reported currency for the balance sheet data.</li>
+ *   <li>{@code totalAssets} - The total assets of the company.</li>
+ *   <li>{@code totalCurrentAssets} - The total current assets of the company.</li>
+ *   <li>{@code cashAndCashEquivalentsAtCarryingValue} - The cash and cash equivalents at carrying
+ *   value of the company.</li>
+ *   <li>{@code cashAndShortTermInvestments} - The cash and short-term investments of the
+ *   company.</li>
+ *   <li>{@code inventory} - The inventory of the company.</li>
+ *   <li>{@code currentNetReceivables} - The current net receivables of the company.</li>
+ *   <li>{@code totalNonCurrentAssets} - The total non-current assets of the company.</li>
+ *   <li>{@code propertyPlantEquipment} - The property, plant, and equipment of the company.</li>
+ *   <li>{@code accumulatedDepreciationAmortizationPPE} - The accumulated depreciation and
+ *   amortization of the company.</li>
+ *   <li>{@code intangibleAssets} - The intangible assets of the company.</li>
+ *   <li>{@code intangibleAssetsExcludingGoodwill} - The intangible assets excluding goodwill of the
+ *   company.</li>
+ *   <li>{@code goodwill} - The goodwill of the company.</li>
+ *   <li>{@code investments} - The investments of the company.</li>
+ *   <li>{@code longTermInvestments} - The long-term investments of the company.</li>
+ *   <li>{@code shortTermInvestments} - The short-term investments of the company.</li>
+ *   <li>{@code otherCurrentAssets} - The other current assets of the company.</li>
+ *   <li>{@code otherNonCurrentAssets} - The other non-current assets of the company.</li>
+ *   <li>{@code totalLiabilities} - The total liabilities of the company.</li>
+ *   <li>{@code totalCurrentLiabilities} - The total current liabilities of the company.</li>
+ *   <li>{@code currentAccountsPayable} - The current accounts payable of the company.</li>
+ *   <li>{@code deferredRevenue} - The deferred revenue of the company.</li>
+ *   <li>{@code currentDebt} - The current debt of the company.</li>
+ *   <li>{@code shortTermDebt} - The short-term debt of the company.</li>
+ *   <li>{@code totalNonCurrentLiabilities} - The total non-current liabilities of the company.</li>
+ *   <li>{@code capitalLeaseObligations} - The capital lease obligations of the company.</li>
+ *   <li>{@code longTermDebt} - The long-term debt of the company.</li>
+ *   <li>{@code currentLongTermDebt} - The current long-term debt of the company.</li>
+ *   <li>{@code longTermDebtNonCurrent} - The non-current long-term debt of the company.</li>
+ *   <li>{@code shortLongTermDebtTotal} - The total short long-term debt of the company.</li>
+ *   <li>{@code otherCurrentLiabilities} - The other current liabilities of the company.</li>
+ *   <li>{@code otherNonCurrentLiabilities} - The other non-current liabilities of the company.</li>
+ *   <li>{@code totalShareholderEquity} - The total shareholder equity of the company.</li>
+ *   <li>{@code treasuryStock} - The treasury stock of the company.</li>
+ *   <li>{@code retainedEarnings} - The retained earnings of the company.</li>
+ *   <li>{@code commonStock} - The common stock of the company.</li>
+ *   <li>{@code commonStockSharesOutstanding} - The common stock shares outstanding of the
+ *   company.</li>
+ * </ul>
+ *
+ * @author Joar Eliason
+ */
 public class BalanceSheet {
 
   private String symbol;
@@ -32,7 +89,7 @@ public class BalanceSheet {
   private long capitalLeaseObligations;
   private long longTermDebt;
   private long currentLongTermDebt;
-  private long longTermDebtNoncurrent;
+  private long longTermDebtNonCurrent;
   private long shortLongTermDebtTotal;
   private long otherCurrentLiabilities;
   private long otherNonCurrentLiabilities;
@@ -287,12 +344,12 @@ public class BalanceSheet {
     this.currentLongTermDebt = currentLongTermDebt;
   }
 
-  public long getLongTermDebtNoncurrent() {
-    return longTermDebtNoncurrent;
+  public long getLongTermDebtNonCurrent() {
+    return longTermDebtNonCurrent;
   }
 
-  public void setLongTermDebtNoncurrent(long longTermDebtNoncurrent) {
-    this.longTermDebtNoncurrent = longTermDebtNoncurrent;
+  public void setLongTermDebtNonCurrent(long longTermDebtNonCurrent) {
+    this.longTermDebtNonCurrent = longTermDebtNonCurrent;
   }
 
   public long getShortLongTermDebtTotal() {
@@ -373,7 +430,7 @@ public class BalanceSheet {
             + "totalCurrentLiabilities=%d%n" + "currentAccountsPayable=%d%n"
             + "deferredRevenue=%d%n" + "currentDebt=%d%n" + "shortTermDebt=%d%n"
             + "totalNonCurrentLiabilities=%d%n" + "capitalLeaseObligations=%d%n"
-            + "longTermDebt=%d%n" + "currentLongTermDebt=%d%n" + "longTermDebtNoncurrent=%d%n"
+            + "longTermDebt=%d%n" + "currentLongTermDebt=%d%n" + "longTermDebtNon-current=%d%n"
             + "shortLongTermDebtTotal=%d%n" + "otherCurrentLiabilities=%d%n"
             + "otherNonCurrentLiabilities=%d%n" + "totalShareholderEquity=%d%n"
             + "treasuryStock=%d%n" + "retainedEarnings=%d%n" + "commonStock=%d%n"
@@ -385,7 +442,7 @@ public class BalanceSheet {
         goodwill, investments, longTermInvestments, shortTermInvestments, otherCurrentAssets,
         otherNonCurrentAssets, totalLiabilities, totalCurrentLiabilities, currentAccountsPayable,
         deferredRevenue, currentDebt, shortTermDebt, totalNonCurrentLiabilities,
-        capitalLeaseObligations, longTermDebt, currentLongTermDebt, longTermDebtNoncurrent,
+        capitalLeaseObligations, longTermDebt, currentLongTermDebt, longTermDebtNonCurrent,
         shortLongTermDebtTotal, otherCurrentLiabilities, otherNonCurrentLiabilities,
         totalShareholderEquity, treasuryStock, retainedEarnings, commonStock,
         commonStockSharesOutstanding

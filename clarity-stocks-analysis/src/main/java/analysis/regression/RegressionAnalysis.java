@@ -25,12 +25,12 @@ import java.util.List;
  *   <li>{@code result} - String summarizing the highest r-square values from the analysis.</li>
  * </ul>
  *
- * @see analysis.interfaces.TechnicalAnalysis
- * @see common.data.fundamental.IncomeStatement
- * @see common.data.series.DailyDataPoint
- * @see common.enums.IncomeStatementVariable
- * @see analysis.regression.RegressionCalculator
- * @see analysis.regression.RegressionResult
+ * @see TechnicalAnalysis
+ * @see IncomeStatement
+ * @see DailyDataPoint
+ * @see IncomeStatementVariable
+ * @see RegressionCalculator
+ * @see RegressionResult
  *
  * @author by Joar Eliasson
  * @author by Olivia Svensson

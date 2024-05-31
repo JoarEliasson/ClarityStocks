@@ -3,6 +3,23 @@ package common.data.series;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for storing monthly stock data points.
+ * <p>
+ * This class holds data for a single stock on a given month.
+ * </p>
+ *
+ * <ul>
+ *   <li>{@code information} - Information retrieved from metadata.</li>
+ *   <li>{@code symbol} - The symbol of the stock.</li>
+ *   <li>{@code lastRefreshed} - The date of the last data refresh.</li>
+ *   <li>{@code monthlyData} - A list of {@code DailyDataPoint} objects representing the monthly data.
+ * </ul>
+ *
+ * @see DailyDataPoint
+ *
+ * @author Joar Eliason
+ */
 public class TimeSeriesMonthly {
 
   private String information;

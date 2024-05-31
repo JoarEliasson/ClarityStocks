@@ -1,4 +1,4 @@
-package model.stock;
+package data.database.dao;
 
 import java.sql.Time;
 import java.util.List;
@@ -14,11 +14,13 @@ import org.jooq.impl.DSL;
  * This class is designed to handle operations for storing basic financial data
  * such as stock and market information through PostgreSQL queries using the jOOQ framework.
  * </p>
+ *
  * <p>The main functionalities include:</p>
  * <ul>
  *  <li>Inserting stock data into the database.</li>
  *  <li>Inserting market data into the database.</li>
  * </ul>
+ *
  * @author Kasper Schröder
  */
 public class BasicDAO {

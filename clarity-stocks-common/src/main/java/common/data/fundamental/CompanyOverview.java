@@ -9,6 +9,9 @@ package common.data.fundamental;
  * available information that can be retrieved from the API response, including market
  * capitalization, earnings metrics, dividend data, and stock performance statistics over different
  * periods.
+ * </p>
+ *
+ * @author Joar Eliason
  */
 public class CompanyOverview {
 

@@ -6,19 +6,20 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
-import model.search.SearchList;
-import model.stock.StockInfo;
+import data.search.SearchList;
+import data.stock.StockInfo;
 import org.controlsfx.control.SearchableComboBox;
 
 /**
  * This controller handles the menu bar in the GUI. It is the controller to the Menu-bar.fxml file.
  * <p>
- * It also handles the search function and the search bar that is contained in the menu bar.
- * <p>
- * The class have one parent-class which is the Main-view.
+ * It also handles the search function and the search bar that is contained in the menu bar. The
+ * parent class is the {@code GUIMainController} which is the main controller for the GUI.
+ * </p>
+ *
+ * @see GUIMainController
  *
  * @author Douglas Almö Thorsell
- * @see GUIMainController
  */
 public class MenuBarController {
 
