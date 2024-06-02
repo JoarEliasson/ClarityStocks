@@ -25,3 +25,6 @@ Clarity Stocks offers a clear and minimalistic interface that simplifies the pro
 ### API Usage
 - **API Key**: The included API key is a free version with limited API calls per hour.
 - **Ownership**: The key is intentionally included for testing purposes.
+
+### GitHub
+- **URL**: https://github.com/JoarEliasson/ClarityStocks
