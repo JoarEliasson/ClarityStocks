@@ -23,8 +23,17 @@ Clarity Stocks offers a clear and minimalistic interface that simplifies the pro
 5. **Analyzing stock performance**: Utilize the various analysis options available to gain deeper insights into stock performance and company metrics (currently GoldenCross by pressing the button above the graph + evaluations).
 
 ### API Usage
+
 - **API Key**: The included API key is a free version with limited API calls per hour.
 - **Ownership**: The key is intentionally included for testing purposes.
 
-### GitHub
+### GitHub Repository
+
 - **URL**: https://github.com/JoarEliasson/ClarityStocks
+
+### Database Instructions
+
+1. **Creating the Database**: Set up a postgreSQL database server.
+2. **Setting up the tables**: Use the SQL script from tables.sql in the clarity-stocks-data module under resources to create the necessary tables.
+3. **Configuring the Database**: Update the database connection details in the application.properties file located in the clarity-stocks-data module under resources. (For the url, make sure to write the jDBC url to your database).
+4. **Adding market and stock data**: Run the DataInitializer class in the clarity-stocks-data module to populate the database with market and stock data.

@@ -11,11 +11,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import user.model.UserProfile;
 import user.model.UserProfileManager;
+
 /**
  * Controller for managing the favorite stocks list.
+ * <p>
  * Handles the loading, adding, and removing of favorite stocks.
+ * </p>
+ *
+ * <p>
  * Also manages interactions with the favorite stocks list view.
- * @author: Ibrahim Tafankaji
+ * </p>
+ *
+ * @author Ibrahim Tafankaji
+ * @see UserProfile
+ * @see UserProfileManager
+ * @see GUIMainController
  */
 public class FavoriteListController {
     @FXML public Rectangle favorite;

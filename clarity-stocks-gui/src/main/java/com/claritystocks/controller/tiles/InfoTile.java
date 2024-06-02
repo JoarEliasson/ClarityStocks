@@ -1,5 +1,6 @@
 package com.claritystocks.controller.tiles;
 
+import com.claritystocks.controller.GUIMainController;
 import com.claritystocks.controller.GUIStockViewController;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
@@ -13,9 +14,15 @@ import user.model.UserProfileManager;
  * This class handles the info tile which displays general information about the stock in the
  * stock-view.
  * <p>
- * It's parent class is the Main-view.
- * @author Douglas Almö Thorsell, Ibrahinm Tafankaji
- * @see GUIStockViewController
+ * It's parent class is the {@code GUIMainController} which is the controller for the main view.
+ * </p>
+ *
+ * @see UserProfile
+ * @see UserProfileManager
+ * @see GUIMainController
+ *
+ * @author Douglas Almö Thorsell
+ * @author Ibrahinm Tafankaji
  */
 public class InfoTile {
   @FXML
@@ -46,10 +53,9 @@ public class InfoTile {
   @FXML
   public void favoritePressed(){
     stockIsFavorite = !stockIsFavorite;
-    favoriteIcon.setImage(favoriteImages.get(stockIsFavorite ? 1 : 0));  //Update the image
+    favoriteIcon.setImage(favoriteImages.get(stockIsFavorite ? 1 : 0));
     controller.stockFavoritePressed(stockIsFavorite);
   }
-
 
   public void updateFavoriteStatus(String stockSymbol) {
     userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
@@ -74,7 +80,6 @@ public class InfoTile {
     }
   }
 
-
   public void setCompanyName(String text) {
     nameLabel.setText(text);
   }
@@ -82,6 +87,7 @@ public class InfoTile {
   public void setSector(String text) {
     sectorLabel.setText(text);
   }
+
   public void setExchange(String text){
     exchangeLabel.setText(text);
   }
@@ -94,4 +100,3 @@ public class InfoTile {
     this.controller = controller;
   }
 }
-

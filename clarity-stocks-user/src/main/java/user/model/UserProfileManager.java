@@ -7,13 +7,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * handles the saving and loading of user information from a local source (e.g. a .dat or .csv file).
- * This class may depend on methods defined in the UserProfile
+ * Manages the user profile information, including saving and loading the user profile.
+ * <p>
+ * The class uses the Gson library to serialize and deserialize the user profile information.
+ * </p>
+ *
+ * @see UserProfile
+ *
  * @author Ibrahim Tafankaji
- * */
+ */
 public class UserProfileManager {
 
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+  private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 
     /**

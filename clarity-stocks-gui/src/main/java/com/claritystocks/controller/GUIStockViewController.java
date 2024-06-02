@@ -1,11 +1,14 @@
 package com.claritystocks.controller;
 
-import com.claritystocks.model.Effects;
 import com.claritystocks.controller.graph.GUIStockGraphController;
 import com.claritystocks.controller.tiles.InfoTile;
 import com.claritystocks.controller.tiles.RatingsTile;
 import com.claritystocks.controller.tiles.RegressionTile;
+import com.claritystocks.model.Effects;
 import common.data.series.DailyDataPoint;
+import data.stock.StockData;
+import data.stock.StockDataFetcher;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -29,27 +32,27 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import model.stock.StockData;
-import model.stock.StockDataFetcher;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 /**
- * {@code GUIStockViewController}
- * <p>
  * This class is the controller for the stock-view. It's the controller for the Stock-view.fxml file.
  * <p>
  * The stock-view is split up between different tiles. Where each tile shows different information
  * about the stock. The GUIStockViewController class handles the loading of data to the different
  * tiles that exist inside the stock-view.
+ * </p>
+ *
  * <p>
  * The class has the Main-view as the parent and the children are the following, Info-Tile,
  * Ratings-tile and Stock-lineGraph.
+ * </p>
  *
- * @author Douglas Almö Thorsell
  * @see GUIMainController
  * @see InfoTile
  * @see RatingsTile
  * @see GUIStockGraphController
+ *
+ * @author Douglas Almö Thorsell
  */
 public class GUIStockViewController {
 
@@ -179,6 +182,7 @@ public class GUIStockViewController {
     ButtonType button = new ButtonType("Ok", ButtonData.OK_DONE);
     errorDialog.getDialogPane().getButtonTypes().add(button);
   }
+
   private void setupAnalysisSelector(){
     selectedAnalysis = new HashMap<>();
     analysisSelector.setPromptText("Analysis");

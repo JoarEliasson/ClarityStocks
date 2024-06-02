@@ -16,16 +16,23 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Tooltip;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import model.stock.StockData;
+import data.stock.StockData;
 
 /**
- * This class handles the line graph which is displayed in the stock-view. It also handles the
- * different analysis that can be displayed on the graph.
+ * This class handles the line graph which is displayed in the stock-view.
  * <p>
- * Its parent class is the stock-view.
+ * It also handles the different analysis that can be displayed on the graph.
+ * </p>
+ *
+ * <p>
+ * Its parent class is the {@code GUIStockViewController} which is the controller for the
+ * stock-view.
+ * </p>
+ *
+ * @see GUIStockViewController
+ *
  * @author Douglas Almö Thorsell
  * @author Joar Eliasson
- * @see GUIStockViewController
  */
 public class GUIStockGraphController {
 
@@ -38,10 +45,8 @@ public class GUIStockGraphController {
   private StockData stockData;
   private GUIStockViewController controller;
   private static GUIStockGraphController stockLineGraphController;
-  //private AlphaVantageStock stock;
   private XYChart.Series<String, Number> shortTermSeries;
   private XYChart.Series<String, Number> longTermSeries;
-  private XYChart.Series<String, Number> rawSeries;
   private boolean goldenCrossActive = false;
 
   public void initialize() {
@@ -91,10 +96,10 @@ public class GUIStockGraphController {
 
     List<DailyDataPoint> longTermMovingAverage = stockData.getTimeSeriesDaily().calculateTrailingMovingAverage(data, 200);
 
-    rawSeries = new XYChart.Series<>();
-    rawSeries.setName("Stock Prices");
+    XYChart.Series<String, Number> baseTimeSeries = new XYChart.Series<>();
+    baseTimeSeries.setName("Stock Prices");
     for (DailyDataPoint dataPoint : data) {
-      rawSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), getClose(dataPoint, adjusted)));
+      baseTimeSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), getClose(dataPoint, adjusted)));
     }
 
     shortTermSeries = new XYChart.Series<>();
@@ -108,7 +113,7 @@ public class GUIStockGraphController {
       longTermSeries.getData().add(new XYChart.Data<>(dataPoint.getDate(), getClose(dataPoint, adjusted)));
     }
 
-    chart.getData().add(rawSeries);
+    chart.getData().add(baseTimeSeries);
     getCrossPoints();
     styleChart();
   }

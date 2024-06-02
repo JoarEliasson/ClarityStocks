@@ -17,9 +17,13 @@ import user.model.UserProfile;
 import user.model.UserProfileManager;
 
 /**
- * This is the main application for the GUI. This class starts the program and loads in the
- * necessary files for the program to run.
- * @author Douglas Almö Thorsell, Ibrahim Tafankaji
+ * This is the main application for the GUI.
+ * <p>
+ * This class starts the program and loads in the necessary files for the program to run.
+ * </p>
+ *
+ * @author Douglas Almö Thorsell
+ * @author Ibrahim Tafankaji
  */
 public class GUIMainApplication extends Application {
 
@@ -52,7 +56,6 @@ public class GUIMainApplication extends Application {
     mainController = mainLoader.getController();
     mainController.setApplication(this);
 
-
     FXMLLoader favoriteLoader = new FXMLLoader(
         GUIMainApplication.class.getResource("Favourites-list-view.fxml"));
     Parent favoriteRoot = favoriteLoader.load();
@@ -60,7 +63,7 @@ public class GUIMainApplication extends Application {
     mainController.setFavoriteListController(favoriteListController);
   }
 
-  private void setUpMaterialsFX(){
+  private void setUpMaterialsFX() {
     UserAgentBuilder.builder()
         .themes(JavaFXThemes.MODENA)
         .themes(MaterialFXStylesheets.forAssemble(true))
@@ -70,7 +73,7 @@ public class GUIMainApplication extends Application {
         .setGlobal();
   }
 
-  private void setScene(){
+  private void setScene() {
     stage.setTitle("Clarity Stocks");
     stage.setScene(mainView);
     stage.show();

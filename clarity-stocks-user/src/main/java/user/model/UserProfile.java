@@ -1,15 +1,18 @@
 package user.model;
 
 import java.util.HashSet;
+
 /**
- * Represents a user's profile, including their username and list of favorite stocks.
+ * Represents the profile of the user, including their username and list of favorite stocks.
+ * <p>
  * Provides methods to manage the favorite stocks and access the user's details.
+ * </p>
+ *
+ * @see UserProfileManager
+ *
  * @author Ibrahim Tafankaji
  */
-
 public class UserProfile {
-    private String userName;
-    private HashSet<String> favoriteStocks;
 
     /**
      * Creates a new UserProfile with a default username.
