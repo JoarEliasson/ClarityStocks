@@ -35,7 +35,7 @@ public class GUIMainApplication extends Application {
   public void start(Stage newStage) throws IOException {
     this.stage = newStage;
     stage.getIcons().add(new Image(
-        getClass().getResource("/com/claritystocks/view/images/claritystocksIcon.png").toExternalForm()));
+        getClass().getResource("/com/claritystocks/view/images/cs_icon.png").toExternalForm()));
 
     UserProfile userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
     if (userProfile == null || userProfile.getUserName() == null || userProfile.getUserName().isEmpty()) {

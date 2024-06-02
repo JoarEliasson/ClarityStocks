@@ -1,4 +1,4 @@
-package model.stock;
+package data.stock;
 
 import alphaVantage.AlphaVantageClient;
 import common.data.fundamental.CompanyOverview;
@@ -6,6 +6,11 @@ import common.data.fundamental.IncomeStatement;
 import common.data.global.GlobalMarketInfo;
 import common.data.series.TimeSeriesDaily;
 import common.data.series.TimeSeriesMonthly;
+import data.database.DBConnectionPool;
+import data.database.dao.CompanyOverviewDAO;
+import data.database.dao.IncomeStatementDAO;
+import data.database.dao.TimeSeriesDailyDAO;
+import data.database.dao.TimeSeriesMonthlyDAO;
 import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.List;
