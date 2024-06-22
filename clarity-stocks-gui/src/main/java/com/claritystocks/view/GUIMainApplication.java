@@ -1,6 +1,5 @@
 package com.claritystocks.view;
 
-import com.claritystocks.controller.FavoriteListController;
 import com.claritystocks.controller.GUIMainController;
 import com.claritystocks.model.ClarityResourceManager;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
@@ -9,12 +8,9 @@ import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import user.model.UserProfile;
-import user.model.UserProfileManager;
 
 /**
  * This is the main application for the GUI.
@@ -36,15 +32,9 @@ public class GUIMainApplication extends Application {
     this.stage = newStage;
     stage.getIcons().add(new Image(
         getClass().getResource("/com/claritystocks/view/images/cs_icon.png").toExternalForm()));
-
-    UserProfile userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
-    if (userProfile == null || userProfile.getUserName() == null || userProfile.getUserName().isEmpty()) {
-      new UserInterfaceApp().start(newStage);
-    } else {
-      setUpMainView();
-      setUpMaterialsFX();
-      setScene();
-    }
+    setUpMainView();
+    setUpMaterialsFX();
+    setScene();
   }
 
   private void setUpMainView() throws IOException{
@@ -55,12 +45,6 @@ public class GUIMainApplication extends Application {
     mainView.getStylesheets().add(css);
     mainController = mainLoader.getController();
     mainController.setApplication(this);
-
-    FXMLLoader favoriteLoader = new FXMLLoader(
-        GUIMainApplication.class.getResource("Favourites-list-view.fxml"));
-    Parent favoriteRoot = favoriteLoader.load();
-    FavoriteListController favoriteListController = favoriteLoader.getController();
-    mainController.setFavoriteListController(favoriteListController);
   }
 
   private void setUpMaterialsFX() {

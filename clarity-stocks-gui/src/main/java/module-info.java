@@ -16,7 +16,6 @@ module clarity.stocks.gui {
   requires clarity.stocks.common;
   requires eu.hansolo.medusa;
   requires eu.hansolo.tilesfx;
-  requires clarity.stocks.user;
 
   opens com.claritystocks.view to javafx.fxml;
 

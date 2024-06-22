@@ -18,7 +18,6 @@
     <module>clarity-stocks-data</module>
     <module>clarity-stocks-common</module>
     <module>clarity-stocks-launcher</module>
-    <module>clarity-stocks-user</module>
   </modules>
 
   <properties>

@@ -8,7 +8,6 @@ import com.claritystocks.model.Effects;
 import common.data.series.DailyDataPoint;
 import data.stock.StockData;
 import data.stock.StockDataFetcher;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -275,7 +274,6 @@ public class GUIStockViewController {
                 resetAnalysisSelector();
                 setInfoTile();
                 setRatingsTile();
-                infoTileController.updateFavoriteStatus(stockData.getCompanyOverview().getSymbol());
                 regressionTileController.setStockData(stockData);
                 progress.setVisible(false);
               }catch (NoSuchElementException e){
@@ -372,10 +370,6 @@ public class GUIStockViewController {
       }
     }
     return false;
-  }
-
-  public void stockFavoritePressed(boolean stockIsFavorite){
-    controller.stockFavoritePressed(stockIsFavorite, stockData.getCompanyOverview().getSymbol());
   }
 
   private void setStockPrice(String stockHistory){

@@ -10,8 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import user.model.UserProfile;
-import user.model.UserProfileManager;
 
 /**
  * UserInterfaceApp is the entry point for setting name of the user.
@@ -78,13 +76,6 @@ public class UserInterfaceApp extends Application {
                 alert.showAndWait();
                 return;
             }
-            UserProfile userProfile = UserProfileManager.loadUserInformation("clarity-stocks-user/userInfo.json");
-            if (userProfile == null) {
-                userProfile = new UserProfile();
-            }
-            userProfile.setUserName(userName);
-            UserProfileManager.saveUserInformation(userProfile, "clarity-stocks-user/userInfo.json");
-
             Alert welcomeAlert = new Alert(Alert.AlertType.INFORMATION);
             welcomeAlert.setTitle("Clarity Stocks");
             welcomeAlert.setHeaderText(null);

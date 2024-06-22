@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,14 +11,6 @@
 <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.claritystocks.controller.GUIHomeController">
   <Label fx:id="messageLabel" styleClass="message-label" />
   <StackPane VBox.vgrow="ALWAYS">
-    <HBox prefHeight="100.0" prefWidth="200.0">
-      <Text text="Welcome ">
-            <HBox.margin>
-               <Insets left="20.0" />
-            </HBox.margin>
-      </Text>
-      <Text fx:id="usernameText" styleClass="profile-text" text="User1234" />
-    </HBox>
     <StackPane fx:id="overlayPane" alignment="TOP_CENTER">
       <VBox alignment="TOP_CENTER" spacing="20">
         <Text fx:id="welcomeToText" styleClass="welcome-text" text="Welcome to" />
@@ -28,32 +18,12 @@
       </VBox>
     </StackPane>
     <BorderPane fx:id="layout">
-
        <center>
-         <HBox alignment="CENTER">
-           <HBox alignment="BASELINE_LEFT" minHeight="400.0" minWidth="540.0" prefHeight="455.0"
-             prefWidth="540.0" spacing="50" style="-fx-padding: 20;">
-             <fx:include source="Favourites-list-view.fxml"/>
-           </HBox>
            <Region minWidth="200"/>
            <HBox alignment="BASELINE_RIGHT" prefHeight="540.0" prefWidth="510.0" style="-fx-padding: 10;">
              <fx:include source="Top-list-view.fxml"/>
            </HBox>
-         </HBox>
        </center>
-
-      <bottom>
-        <HBox alignment="CENTER" minHeight="0.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;">
-          <children>
-            <Button alignment="CENTER" onAction="#handleUserInfo" text="Change name">
-              <HBox.margin>
-                <Insets bottom="25.0" left="1075.0" />
-              </HBox.margin>
-            </Button>
-          </children>
-        </HBox>
-      </bottom>
-
     </BorderPane>
   </StackPane>
    <HBox alignment="CENTER" minHeight="50.0" minWidth="1100.0" prefHeight="50.0" prefWidth="1100.0" spacing="50" style="-fx-padding: 20;" />
